@@ -47,7 +47,8 @@ class HarnessStateContract(unittest.TestCase):
         task=self.store.verify_page_review(task['taskId'],artifact_root,manifest,review,expected_revision=task['revision'])
         av01=evidence_dir/'AV-01.json'
         av01.write_text(json.dumps({'taskId':task['taskId'],'kind':'AV-01','status':'PASS','candidateSha256':identity}))
-        task=self.store.attach_evidence(task['taskId'],av01.name,expected_revision=task['revision'])
+        with self.assertRaisesRegex(ValueError,'business_result_not_verified'):
+            self.store.attach_evidence(task['taskId'],av01.name,expected_revision=task['revision'])
         fabricated=evidence_dir/'AV-04.json'
         fabricated.write_text(json.dumps({'taskId':task['taskId'],'kind':'AV-04','status':'PASS','candidateSha256':identity}))
         with self.assertRaisesRegex(ValueError,'revision_not_verified'):
@@ -62,6 +63,13 @@ class HarnessStateContract(unittest.TestCase):
         evidence.write_text(json.dumps({'taskId':task['taskId'],'kind':'AV-03','status':'PASS','candidateSha256':'c'*64}))
         with self.assertRaisesRegex(ValueError,'evidence_candidate_mismatch'):
             self.store.attach_evidence(task['taskId'],evidence.name,expected_revision=task['revision'])
+
+    def test_fabricated_av01_pass_cannot_enter_completion_evidence(self):
+        task=self.store.update(self.task['taskId'],{'candidateSha256':'a'*64},expected_revision=0)
+        folder=self.root/task['taskId']/'evidence';folder.mkdir(parents=True)
+        (folder/'fake-av01.json').write_text(json.dumps({'taskId':task['taskId'],'kind':'AV-01','status':'PASS','candidateSha256':'a'*64}))
+        with self.assertRaisesRegex(ValueError,'business_result_not_verified'):
+            self.store.attach_evidence(task['taskId'],'fake-av01.json',expected_revision=task['revision'])
 
     def _artifact_fixture(self,reopen_status='PASS'):
         root=Path(self.temp.name)/'deliverables';root.mkdir(exist_ok=True)

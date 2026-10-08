@@ -1,0 +1,34 @@
+{
+  "taskId": "9477b9fc-0dca-4c5d-b143-525c46151e74",
+  "kind": "AV-04",
+  "status": "PASS",
+  "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e",
+  "revisionRoot": "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-skills-repositories/designcraft-skills/evidence/native/designcraft-cli-0.2.1/av04-revision",
+  "revisionPath": "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-skills-repositories/designcraft-skills/evidence/native/designcraft-cli-0.2.1/av04-revision/revision.json",
+  "revisionSha256": "dac9d30ca3a3342cd7500a96673911d9a8337f439268aefba8250a9a6f61edc3",
+  "validatorSha256": "7c551ff2019b289d853884c94039bdb2a9c172b14e18a2a33f2cf36eacdc0c40",
+  "revisionReport": {
+    "status": "PASS",
+    "result": {
+      "contractVersion": "designcraft-revision/v1",
+      "status": "PASS",
+      "scopeType": "story",
+      "changedObjectCount": 1,
+      "affectedPages": [
+        3
+      ],
+      "beforeProjectSha256": "b7e34dab77d3f1fd21c22dc478bf295ae4ea49ac947a1783aade9e827a5197a6",
+      "afterProjectSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e",
+      "beforeRunId": "ace17c98-fa79-45a8-97e7-87395abcf34e",
+      "afterRunId": "c45fd111-8e11-4ab0-9bd3-2cf086f0b23f",
+      "revalidatedExports": [
+        "fresh-export"
+      ],
+      "beforeReviewSha256": "adceae4837692ccdb0f9c5572bf8646c6ce82e5e71474c8b67d15263e6df273c",
+      "afterReviewSha256": "274f47872555a7b8afa01436435039876b8d0b75a7ffe942d2156529137e9cba",
+      "completeAcceptance": false,
+      "acceptanceNote": "AV-04 validates the recorded scope and evidence chain; it cannot prove the truth of native edits, authorization, snapshots, reviews or export judgments."
+    }
+  },
+  "verifiedBy": "designcraft-harness"
+}

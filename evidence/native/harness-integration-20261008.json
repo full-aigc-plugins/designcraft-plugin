@@ -37,5 +37,7 @@
     "Automated AV-03 is candidate-bound but does not prove review-judgment truth or human approval.",
     "Codex model routing remains FAIL; this does not establish task 3.1b/3.4 or full task 4.4 acceptance.",
     "AV-01 receipt has NOT_CLASSIFIED inspection/save steps while preflight and export are PASS."
-  ]
+  ],
+  "supersededBy": "evidence/native/av01-verified-integration-20261008/report.json",
+  "acceptanceCorrection": "Historical AV-01 was manually attached and does not satisfy business-evidence/v1; use the new public-validator run."
 }

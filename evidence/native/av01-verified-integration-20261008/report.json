@@ -1,0 +1,506 @@
+{
+  "schemaVersion": 1,
+  "runId": "6dfea24e-4a95-4bc2-96ba-d8944ad22cd3",
+  "observedAt": "2026-10-08T15:00:50.037555+00:00",
+  "status": "PASS",
+  "scope": "Revalidation of saved native evidence through public Harness CLI; no native dispatch",
+  "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e",
+  "candidateSourceSha256": "2a2282f9458306968308c3004fad9c52052c4a266b9f076063bc0af149117f33",
+  "harnessSha256": "924980be1c235255bd9b6323d03a2848b5298e54c5882f681c4e0f6b07f9eb9b",
+  "harnessFinalState": "COMPLETED",
+  "verifiedEvidenceKinds": [
+    "AV-02",
+    "AV-01",
+    "AV-03",
+    "AV-04"
+  ],
+  "commands": [
+    {
+      "arguments": [
+        "new",
+        "--goal",
+        "验证已保存修订候选的 AV-01 至 AV-04",
+        "--scope",
+        "仅验证现有证据，不执行原生写入"
+      ],
+      "exitCode": 0,
+      "result": {
+        "taskId": "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "status": "PREPARED",
+        "scope": "仅验证现有证据，不执行原生写入",
+        "actions": [
+          "designcraft-use"
+        ],
+        "evidence": [],
+        "artifacts": [],
+        "skipped": [],
+        "risks": [],
+        "next_action": "confirm_inputs_and_prepare",
+        "revision": 0,
+        "runId": null,
+        "nativeStatus": "NOT_RUN",
+        "nativeReceiptRef": null,
+        "checkpointRefs": [],
+        "reconciledRunId": null,
+        "recoveryAction": null,
+        "recoveryEvidence": [],
+        "recoveryPlanSha256": null,
+        "recoveryPlanRef": null,
+        "revisionScope": null,
+        "affectedPages": []
+      }
+    },
+    {
+      "arguments": [
+        "update",
+        "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "--expected-revision",
+        "0",
+        "--json",
+        "{\"candidateSha256\": \"9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e\"}"
+      ],
+      "exitCode": 0,
+      "result": {
+        "taskId": "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "status": "PREPARED",
+        "scope": "仅验证现有证据，不执行原生写入",
+        "actions": [
+          "designcraft-use"
+        ],
+        "evidence": [],
+        "artifacts": [],
+        "skipped": [],
+        "risks": [],
+        "next_action": "confirm_inputs_and_prepare",
+        "revision": 1,
+        "runId": null,
+        "nativeStatus": "NOT_RUN",
+        "nativeReceiptRef": null,
+        "checkpointRefs": [],
+        "reconciledRunId": null,
+        "recoveryAction": null,
+        "recoveryEvidence": [],
+        "recoveryPlanSha256": null,
+        "recoveryPlanRef": null,
+        "revisionScope": null,
+        "affectedPages": []
+      }
+    },
+    {
+      "arguments": [
+        "transition",
+        "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "EXECUTING",
+        "--expected-revision",
+        "1"
+      ],
+      "exitCode": 0,
+      "result": {
+        "taskId": "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "status": "EXECUTING",
+        "scope": "仅验证现有证据，不执行原生写入",
+        "actions": [
+          "designcraft-use"
+        ],
+        "evidence": [],
+        "artifacts": [],
+        "skipped": [],
+        "risks": [],
+        "next_action": "confirm_inputs_and_prepare",
+        "revision": 2,
+        "runId": null,
+        "nativeStatus": "NOT_RUN",
+        "nativeReceiptRef": null,
+        "checkpointRefs": [],
+        "reconciledRunId": null,
+        "recoveryAction": null,
+        "recoveryEvidence": [],
+        "recoveryPlanSha256": null,
+        "recoveryPlanRef": null,
+        "revisionScope": null,
+        "affectedPages": []
+      }
+    },
+    {
+      "arguments": [
+        "transition",
+        "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "VERIFYING",
+        "--expected-revision",
+        "2"
+      ],
+      "exitCode": 0,
+      "result": {
+        "taskId": "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "status": "VERIFYING",
+        "scope": "仅验证现有证据，不执行原生写入",
+        "actions": [
+          "designcraft-use"
+        ],
+        "evidence": [],
+        "artifacts": [],
+        "skipped": [],
+        "risks": [],
+        "next_action": "confirm_inputs_and_prepare",
+        "revision": 3,
+        "runId": null,
+        "nativeStatus": "NOT_RUN",
+        "nativeReceiptRef": null,
+        "checkpointRefs": [],
+        "reconciledRunId": null,
+        "recoveryAction": null,
+        "recoveryEvidence": [],
+        "recoveryPlanSha256": null,
+        "recoveryPlanRef": null,
+        "revisionScope": null,
+        "affectedPages": []
+      }
+    },
+    {
+      "arguments": [
+        "verify-artifacts",
+        "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "--expected-revision",
+        "3",
+        "--root",
+        "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-skills-repositories/designcraft-skills/evidence/native/designcraft-cli-0.2.1/av04-revision/after",
+        "--manifest",
+        "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-skills-repositories/designcraft-skills/evidence/native/designcraft-cli-0.2.1/av04-revision/after/artifact-manifest.json"
+      ],
+      "exitCode": 0,
+      "result": {
+        "taskId": "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "status": "VERIFYING",
+        "scope": "仅验证现有证据，不执行原生写入",
+        "actions": [
+          "designcraft-use"
+        ],
+        "evidence": [
+          {
+            "kind": "AV-02",
+            "file": "AV-02-be8aff8307723477a401824ab36d3e34a7e36362c5f6aa5da40224429270991e.json",
+            "sha256": "a606e079a5d715b29995f21700cfe1c612dc77383f261650533e55a96f5f4ebd",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          }
+        ],
+        "artifacts": [],
+        "skipped": [],
+        "risks": [],
+        "next_action": "confirm_inputs_and_prepare",
+        "revision": 4,
+        "runId": null,
+        "nativeStatus": "NOT_RUN",
+        "nativeReceiptRef": null,
+        "checkpointRefs": [],
+        "reconciledRunId": null,
+        "recoveryAction": null,
+        "recoveryEvidence": [],
+        "recoveryPlanSha256": null,
+        "recoveryPlanRef": null,
+        "revisionScope": null,
+        "affectedPages": []
+      }
+    },
+    {
+      "arguments": [
+        "verify-business",
+        "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "--expected-revision",
+        "4",
+        "--root",
+        "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-skills-repositories/designcraft-skills/evidence/native/designcraft-cli-0.2.1/av04-revision/after",
+        "--artifact-manifest",
+        "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-skills-repositories/designcraft-skills/evidence/native/designcraft-cli-0.2.1/av04-revision/after/artifact-manifest.json",
+        "--receipt",
+        "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-skills-repositories/designcraft-skills/evidence/native/designcraft-cli-0.2.1/av04-revision/fresh-reopen-receipt.json"
+      ],
+      "exitCode": 0,
+      "result": {
+        "taskId": "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "status": "VERIFYING",
+        "scope": "仅验证现有证据，不执行原生写入",
+        "actions": [
+          "designcraft-use"
+        ],
+        "evidence": [
+          {
+            "kind": "AV-02",
+            "file": "AV-02-be8aff8307723477a401824ab36d3e34a7e36362c5f6aa5da40224429270991e.json",
+            "sha256": "a606e079a5d715b29995f21700cfe1c612dc77383f261650533e55a96f5f4ebd",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          },
+          {
+            "kind": "AV-01",
+            "file": "AV-01-d634407488db1275a8cbd7a73a6acb572d2538902a72b44a377882580b0488e6.json",
+            "sha256": "d634407488db1275a8cbd7a73a6acb572d2538902a72b44a377882580b0488e6",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          }
+        ],
+        "artifacts": [],
+        "skipped": [],
+        "risks": [],
+        "next_action": "confirm_inputs_and_prepare",
+        "revision": 5,
+        "runId": null,
+        "nativeStatus": "NOT_RUN",
+        "nativeReceiptRef": null,
+        "checkpointRefs": [],
+        "reconciledRunId": null,
+        "recoveryAction": null,
+        "recoveryEvidence": [],
+        "recoveryPlanSha256": null,
+        "recoveryPlanRef": null,
+        "revisionScope": null,
+        "affectedPages": []
+      }
+    },
+    {
+      "arguments": [
+        "verify-review",
+        "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "--expected-revision",
+        "5",
+        "--root",
+        "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-skills-repositories/designcraft-skills/evidence/native/designcraft-cli-0.2.1/av04-revision/after",
+        "--artifact-manifest",
+        "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-skills-repositories/designcraft-skills/evidence/native/designcraft-cli-0.2.1/av04-revision/after/artifact-manifest.json",
+        "--review",
+        "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-skills-repositories/designcraft-skills/evidence/native/designcraft-cli-0.2.1/av04-revision/after/page-review.json"
+      ],
+      "exitCode": 0,
+      "result": {
+        "taskId": "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "status": "VERIFYING",
+        "scope": "仅验证现有证据，不执行原生写入",
+        "actions": [
+          "designcraft-use"
+        ],
+        "evidence": [
+          {
+            "kind": "AV-02",
+            "file": "AV-02-be8aff8307723477a401824ab36d3e34a7e36362c5f6aa5da40224429270991e.json",
+            "sha256": "a606e079a5d715b29995f21700cfe1c612dc77383f261650533e55a96f5f4ebd",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          },
+          {
+            "kind": "AV-01",
+            "file": "AV-01-d634407488db1275a8cbd7a73a6acb572d2538902a72b44a377882580b0488e6.json",
+            "sha256": "d634407488db1275a8cbd7a73a6acb572d2538902a72b44a377882580b0488e6",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          },
+          {
+            "kind": "AV-03",
+            "file": "AV-03-459de74fe821bced7d2cbddf5ce51b140e80fd7819306f8bb72d2c9f2c2a05a0.json",
+            "sha256": "e08e91a44714627bc45753793a6deb70b99a8881bef80737383401f55c20e9a6",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          }
+        ],
+        "artifacts": [],
+        "skipped": [],
+        "risks": [],
+        "next_action": "confirm_inputs_and_prepare",
+        "revision": 6,
+        "runId": null,
+        "nativeStatus": "NOT_RUN",
+        "nativeReceiptRef": null,
+        "checkpointRefs": [],
+        "reconciledRunId": null,
+        "recoveryAction": null,
+        "recoveryEvidence": [],
+        "recoveryPlanSha256": null,
+        "recoveryPlanRef": null,
+        "revisionScope": null,
+        "affectedPages": []
+      }
+    },
+    {
+      "arguments": [
+        "verify-revision",
+        "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "--expected-revision",
+        "6",
+        "--root",
+        "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-skills-repositories/designcraft-skills/evidence/native/designcraft-cli-0.2.1/av04-revision",
+        "--revision",
+        "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-skills-repositories/designcraft-skills/evidence/native/designcraft-cli-0.2.1/av04-revision/revision.json"
+      ],
+      "exitCode": 0,
+      "result": {
+        "taskId": "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "status": "VERIFYING",
+        "scope": "仅验证现有证据，不执行原生写入",
+        "actions": [
+          "designcraft-use"
+        ],
+        "evidence": [
+          {
+            "kind": "AV-02",
+            "file": "AV-02-be8aff8307723477a401824ab36d3e34a7e36362c5f6aa5da40224429270991e.json",
+            "sha256": "a606e079a5d715b29995f21700cfe1c612dc77383f261650533e55a96f5f4ebd",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          },
+          {
+            "kind": "AV-01",
+            "file": "AV-01-d634407488db1275a8cbd7a73a6acb572d2538902a72b44a377882580b0488e6.json",
+            "sha256": "d634407488db1275a8cbd7a73a6acb572d2538902a72b44a377882580b0488e6",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          },
+          {
+            "kind": "AV-03",
+            "file": "AV-03-459de74fe821bced7d2cbddf5ce51b140e80fd7819306f8bb72d2c9f2c2a05a0.json",
+            "sha256": "e08e91a44714627bc45753793a6deb70b99a8881bef80737383401f55c20e9a6",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          },
+          {
+            "kind": "AV-04",
+            "file": "AV-04-748a4f43a21e93985c7623320adbfb15b9f23eb7a64945fd5574f37d2103fe40.json",
+            "sha256": "3eee0283f7b2b726525c7693c23137f128993c5a9605da6255f3b70d60ef7be1",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          }
+        ],
+        "artifacts": [],
+        "skipped": [],
+        "risks": [],
+        "next_action": "confirm_inputs_and_prepare",
+        "revision": 7,
+        "runId": null,
+        "nativeStatus": "NOT_RUN",
+        "nativeReceiptRef": null,
+        "checkpointRefs": [],
+        "reconciledRunId": null,
+        "recoveryAction": null,
+        "recoveryEvidence": [],
+        "recoveryPlanSha256": null,
+        "recoveryPlanRef": null,
+        "revisionScope": null,
+        "affectedPages": []
+      }
+    },
+    {
+      "arguments": [
+        "transition",
+        "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "REVIEW_REQUIRED",
+        "--expected-revision",
+        "7"
+      ],
+      "exitCode": 0,
+      "result": {
+        "taskId": "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "status": "REVIEW_REQUIRED",
+        "scope": "仅验证现有证据，不执行原生写入",
+        "actions": [
+          "designcraft-use"
+        ],
+        "evidence": [
+          {
+            "kind": "AV-02",
+            "file": "AV-02-be8aff8307723477a401824ab36d3e34a7e36362c5f6aa5da40224429270991e.json",
+            "sha256": "a606e079a5d715b29995f21700cfe1c612dc77383f261650533e55a96f5f4ebd",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          },
+          {
+            "kind": "AV-01",
+            "file": "AV-01-d634407488db1275a8cbd7a73a6acb572d2538902a72b44a377882580b0488e6.json",
+            "sha256": "d634407488db1275a8cbd7a73a6acb572d2538902a72b44a377882580b0488e6",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          },
+          {
+            "kind": "AV-03",
+            "file": "AV-03-459de74fe821bced7d2cbddf5ce51b140e80fd7819306f8bb72d2c9f2c2a05a0.json",
+            "sha256": "e08e91a44714627bc45753793a6deb70b99a8881bef80737383401f55c20e9a6",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          },
+          {
+            "kind": "AV-04",
+            "file": "AV-04-748a4f43a21e93985c7623320adbfb15b9f23eb7a64945fd5574f37d2103fe40.json",
+            "sha256": "3eee0283f7b2b726525c7693c23137f128993c5a9605da6255f3b70d60ef7be1",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          }
+        ],
+        "artifacts": [],
+        "skipped": [],
+        "risks": [],
+        "next_action": "confirm_inputs_and_prepare",
+        "revision": 8,
+        "runId": null,
+        "nativeStatus": "NOT_RUN",
+        "nativeReceiptRef": null,
+        "checkpointRefs": [],
+        "reconciledRunId": null,
+        "recoveryAction": null,
+        "recoveryEvidence": [],
+        "recoveryPlanSha256": null,
+        "recoveryPlanRef": null,
+        "revisionScope": null,
+        "affectedPages": []
+      }
+    },
+    {
+      "arguments": [
+        "transition",
+        "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "COMPLETED",
+        "--expected-revision",
+        "8"
+      ],
+      "exitCode": 0,
+      "result": {
+        "taskId": "9477b9fc-0dca-4c5d-b143-525c46151e74",
+        "status": "COMPLETED",
+        "scope": "仅验证现有证据，不执行原生写入",
+        "actions": [
+          "designcraft-use"
+        ],
+        "evidence": [
+          {
+            "kind": "AV-02",
+            "file": "AV-02-be8aff8307723477a401824ab36d3e34a7e36362c5f6aa5da40224429270991e.json",
+            "sha256": "a606e079a5d715b29995f21700cfe1c612dc77383f261650533e55a96f5f4ebd",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          },
+          {
+            "kind": "AV-01",
+            "file": "AV-01-d634407488db1275a8cbd7a73a6acb572d2538902a72b44a377882580b0488e6.json",
+            "sha256": "d634407488db1275a8cbd7a73a6acb572d2538902a72b44a377882580b0488e6",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          },
+          {
+            "kind": "AV-03",
+            "file": "AV-03-459de74fe821bced7d2cbddf5ce51b140e80fd7819306f8bb72d2c9f2c2a05a0.json",
+            "sha256": "e08e91a44714627bc45753793a6deb70b99a8881bef80737383401f55c20e9a6",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          },
+          {
+            "kind": "AV-04",
+            "file": "AV-04-748a4f43a21e93985c7623320adbfb15b9f23eb7a64945fd5574f37d2103fe40.json",
+            "sha256": "3eee0283f7b2b726525c7693c23137f128993c5a9605da6255f3b70d60ef7be1",
+            "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+          }
+        ],
+        "artifacts": [],
+        "skipped": [],
+        "risks": [],
+        "next_action": "confirm_inputs_and_prepare",
+        "revision": 9,
+        "runId": null,
+        "nativeStatus": "NOT_RUN",
+        "nativeReceiptRef": null,
+        "checkpointRefs": [],
+        "reconciledRunId": null,
+        "recoveryAction": null,
+        "recoveryEvidence": [],
+        "recoveryPlanSha256": null,
+        "recoveryPlanRef": null,
+        "revisionScope": null,
+        "affectedPages": []
+      }
+    }
+  ],
+  "completeAcceptance": false,
+  "limitations": [
+    "Saved historical native receipts, not new native execution.",
+    "Automated review is not human approval.",
+    "No host, full creative, format-application or formal release acceptance."
+  ]
+}

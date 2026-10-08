@@ -9,21 +9,7 @@
     "packageValidation": "python3 -I -B scripts/validate_package.py"
   },
   "ci": {
-    "status": "PASS",
-    "provider": "GitHub Actions",
-    "runUrl": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37794988545",
-    "testedCommit": "3070cd138aa5c8c22b41772f4865dc0c1299aab7",
-    "runner": "ubuntu-latest",
-    "pythonVersions": [
-      "3.11",
-      "3.12",
-      "3.13"
-    ],
-    "checks": [
-      "unit-tests",
-      "package-validation",
-      "whitespace"
-    ]
+    "status": "NOT_RUN"
   },
   "nativeRuntime": {
     "cliVersion": "0.2.1",
@@ -33,11 +19,9 @@
   },
   "host": {
     "name": "Codex",
-    "discovery": "PASS",
-    "modelDispatch": "FAIL",
-    "testedPlatforms": [
-      "Codex CLI 0.147.0 on macOS 27 arm64"
-    ]
+    "discovery": "NOT_RUN",
+    "modelDispatch": "NOT_RUN",
+    "testedPlatforms": []
   },
   "creativeAcceptance": "NOT_RUN",
   "release": "UNPUBLISHED",

@@ -48,6 +48,10 @@ Harness SHALL 仅在任务要求的 AV-01～AV-04 证据齐备且无未解决阻
 - **WHEN** 原生零退出而工程重开或页级审阅未完成
 - **THEN** 任务保持待验证/待审阅，列出缺口，不标记 COMPLETED。
 
+#### Scenario: AV-01 手写通过声明
+- **WHEN** 调用方只提交 AV-01 PASS JSON，或其原始业务结果、工程摘要、新会话 runId 与当前 AV-02 不匹配
+- **THEN** Harness 拒绝登记；只有通过技能源公开 `designcraft-business-evidence/v1` 校验器并在 freshness 时重新核验的证据可进入完成门禁。
+
 #### Scenario: AV-02 产物未由新会话重开
 - **WHEN** 技能源清单只验证了产物文件身份，重开状态为 `NOT_RUN`，或工程摘要与当前候选不同
 - **THEN** Harness 拒绝登记 AV-02 PASS 证据，任务不能完成。

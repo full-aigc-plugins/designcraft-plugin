@@ -1,6 +1,6 @@
 # 交付证据接入
 
-本参考说明 Harness 如何消费技能源 AV-02/AV-03 契约。校验器只证明输入记录与摘要绑定，不代替原生打开或视觉判断。
+本参考说明 Harness 如何消费技能源 AV-01 至 AV-04 契约。校验器只证明输入记录与摘要绑定，不代替原生打开或视觉判断。
 
 ## AV-02 产物和重开
 
@@ -8,11 +8,26 @@
 
 ```bash
 python3 -I -B "$HARNESS_SKILL_DIR/scripts/harness.py" verify-artifacts \
+  "$TASK_ID" --expected-revision "$REVISION" \
   --root "$DELIVERABLE_DIR" \
   --manifest "$DELIVERABLE_DIR/artifact-manifest.json"
 ```
 
 清单须绑定当前候选 SHA、固定契约版本、预期路径/格式/字节数/摘要以及 `reopenEvidence: PASS`。只有文件身份一致、重开为 `NOT_RUN` 时拒绝登记。不能通过手工创建 `status: PASS` 文件代替校验。
+
+## AV-01 原始业务回执
+
+先登记当前 AV-02，再运行：
+
+```bash
+python3 -I -B "$HARNESS_SKILL_DIR/scripts/harness.py" verify-business \
+  "$TASK_ID" --expected-revision "$REVISION" \
+  --root "$DELIVERABLE_DIR" \
+  --artifact-manifest "$DELIVERABLE_DIR/artifact-manifest.json" \
+  --receipt "$REOPEN_RECEIPT"
+```
+
+Harness 调用源端公开 `designcraft-business-evidence/v1`，重算原始 stdout，核对预检/PDF、工程身份、重开 runId、运行时锁和当前 AV-02。手写 PASS、警告/错误/未知字段、旧分类或候选错绑均不能登记。每次完成门禁重新验证回执、清单、工程和校验资源；其中任何变化都会使 AV-01 失效。此合同不验证回执签名、原生执行真实性或视觉质量，PDF 字节数/页数也不能独立证明原生输出内容身份。
 
 ## AV-03 页级审阅
 

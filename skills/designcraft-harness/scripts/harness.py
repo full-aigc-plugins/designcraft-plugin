@@ -21,6 +21,7 @@ EXTERNAL_COMMANDS=PACKAGE_ROOT/'skills/designcraft-use/scripts/commands.py'
 ARTIFACT_VALIDATOR=PACKAGE_ROOT/'skills/designcraft-cli-export/scripts/artifact_manifest.py'
 PAGE_REVIEW_VALIDATOR=PACKAGE_ROOT/'skills/designcraft-cli-export/scripts/page_review.py'
 REVISION_VALIDATOR=PACKAGE_ROOT/'skills/designcraft-cli-export/scripts/revision_evidence.py'
+BUSINESS_VALIDATOR=PACKAGE_ROOT/'skills/designcraft-cli-export/scripts/business_evidence.py'
 TRANSITIONS={
  'PREPARED':{'EXECUTING','FAILED'},
  'EXECUTING':{'VERIFYING','RECONCILING','FAILED'},
@@ -34,7 +35,7 @@ TASK_FIELDS={'runId','nativeStatus','nativeReceiptRef','candidateSha256','artifa
 PROTECTED_RECOVERY_FIELDS={'recoveryPlan','recoveryPlanSha256','recoveryProof'}
 SUPPORTED_SOURCE_VERSIONS={'0.1.0-dev.1'}
 SUPPORTED_NATIVE_RECEIPT_SCHEMA=2
-SUPPORTED_ARTIFACT_CONTRACTS={'designcraft-artifact-manifest/v1','designcraft-page-review/v1','designcraft-revision/v1'}
+SUPPORTED_ARTIFACT_CONTRACTS={'designcraft-business-evidence/v1','designcraft-artifact-manifest/v1','designcraft-page-review/v1','designcraft-revision/v1'}
 
 def _freshness_report():
     """读取证据清单的逐层新鲜度结果；失败时返回空状态而不放行能力。"""
@@ -101,7 +102,7 @@ def readiness_report(runtime_home=None,capability_evidence=None,required_command
     except (OSError,ValueError,TypeError,json.JSONDecodeError) as error:
         components['runtime']={'status':'UNAVAILABLE','expectedVersion':version,'runtimePath':str(runtime_path) if runtime_path else None,'reason':str(error)}
     receipt_entry=PACKAGE_ROOT/'skills/designcraft-use/scripts/commands.py'
-    components['sharedContract']={'status':'READY' if source.get('sourceVersion') in SUPPORTED_SOURCE_VERSIONS and receipt_entry.is_file() and all((PACKAGE_ROOT/'skills/designcraft-cli-export/scripts'/name).is_file() for name in ('artifact_manifest.py','page_review.py','revision_evidence.py')) else 'UNAVAILABLE','sourceVersion':source.get('sourceVersion'),'receiptSchemaVersion':SUPPORTED_NATIVE_RECEIPT_SCHEMA,'artifactContracts':sorted(SUPPORTED_ARTIFACT_CONTRACTS)}
+    components['sharedContract']={'status':'READY' if source.get('sourceVersion') in SUPPORTED_SOURCE_VERSIONS and receipt_entry.is_file() and all((PACKAGE_ROOT/'skills/designcraft-cli-export/scripts'/name).is_file() for name in ('business_evidence.py','artifact_manifest.py','page_review.py','revision_evidence.py')) else 'UNAVAILABLE','sourceVersion':source.get('sourceVersion'),'receiptSchemaVersion':SUPPORTED_NATIVE_RECEIPT_SCHEMA,'artifactContracts':sorted(SUPPORTED_ARTIFACT_CONTRACTS)}
     matrix={}
     try:
         matrix=json.loads((PACKAGE_ROOT/'support-matrix.json').read_text(encoding='utf-8'))
@@ -273,7 +274,7 @@ class TaskStore:
             try:payload=json.loads(path.read_text(encoding='utf-8'))
             except (OSError,json.JSONDecodeError):continue
             digest=hashlib.sha256(path.read_bytes()).hexdigest()
-            validator_valid=(entry.get('kind')!='AV-02' or self._valid_artifact_evidence(payload,data)) and (entry.get('kind')!='AV-03' or self._valid_page_review_evidence(payload,data)) and (entry.get('kind')!='AV-04' or self._valid_revision_evidence(payload,data))
+            validator_valid=(entry.get('kind')!='AV-01' or self._valid_business_evidence(payload,data)) and (entry.get('kind')!='AV-02' or self._valid_artifact_evidence(payload,data)) and (entry.get('kind')!='AV-03' or self._valid_page_review_evidence(payload,data)) and (entry.get('kind')!='AV-04' or self._valid_revision_evidence(payload,data))
             if digest==entry.get('sha256') and payload.get('taskId')==data['taskId'] and payload.get('status')=='PASS' and payload.get('candidateSha256')==data.get('candidateSha256') and payload.get('kind')==entry.get('kind') and validator_valid:
                 found.add(entry['kind'])
         return found
@@ -493,6 +494,65 @@ class TaskStore:
                 if temporary is not None and temporary.exists():temporary.unlink()
         return self.attach_evidence(identifier,filename,expected_revision)
 
+    @staticmethod
+    def _business_resources():
+        resources={}
+        for name in ('business_evidence.py','artifact_manifest.py','command_gateway.py','runtime.lock.json'):
+            path=BUSINESS_VALIDATOR.parent/name
+            if path.is_symlink() or not path.is_file():raise ValueError('business_validator_resource_invalid')
+            resources[name]=hashlib.sha256(path.read_bytes()).hexdigest()
+        return resources
+
+    @staticmethod
+    def _run_business_validator(root,manifest,receipt):
+        if BUSINESS_VALIDATOR.is_symlink() or not BUSINESS_VALIDATOR.is_file():raise ValueError('business_validator_missing_or_unsafe')
+        root=Path(root).expanduser().absolute();manifest=Path(manifest).expanduser().absolute();receipt=Path(receipt).expanduser().absolute()
+        result=subprocess.run([sys.executable,'-I','-B',str(BUSINESS_VALIDATOR),'--root',str(root),'--artifact-manifest',str(manifest),'--receipt',str(receipt)],capture_output=True,text=True,timeout=900)
+        try:report=json.loads(result.stdout)
+        except json.JSONDecodeError as error:raise ValueError('business_validator_output_invalid') from error
+        if result.returncode!=0 or not isinstance(report,dict) or report.get('status')!='PASS':raise ValueError('business_result_not_verified')
+        return report,root,manifest,receipt
+
+    def _valid_business_evidence(self,payload,data):
+        try:
+            report,root,manifest,receipt=self._run_business_validator(payload['artifactRoot'],payload['manifestPath'],payload['receiptPath'])
+            result=report.get('result');manifest_sha=hashlib.sha256(manifest.read_bytes()).hexdigest()
+            return (payload.get('verifiedBy')=='designcraft-harness'
+                and payload.get('manifestSha256')==manifest_sha and manifest_sha in self._artifact_manifest_hashes(data)
+                and payload.get('receiptSha256')==hashlib.sha256(receipt.read_bytes()).hexdigest()
+                and payload.get('validatorResources')==self._business_resources()
+                and payload.get('businessReport')==report and isinstance(result,dict)
+                and result.get('contractVersion')=='designcraft-business-evidence/v1' and result.get('status')=='PASS'
+                and result.get('projectSha256')==data.get('candidateSha256') and result.get('completeAcceptance') is False)
+        except (OSError,ValueError,KeyError,TypeError,subprocess.SubprocessError):return False
+
+    def verify_business(self,identifier,root,manifest,receipt,expected_revision):
+        """调用技能源公开 AV-01 校验器，将当前重开工程的业务证据登记到任务。"""
+        identifier=task_id(identifier);task=self.get(identifier);self._check_revision(task,expected_revision)
+        if task['state'] not in ('VERIFYING','REVIEW_REQUIRED'):raise ValueError('business_verification_state_required')
+        if not task.get('candidateSha256'):raise ValueError('candidate_identity_required')
+        report,root,manifest,receipt=self._run_business_validator(root,manifest,receipt)
+        result=report.get('result')
+        manifest_sha=hashlib.sha256(manifest.read_bytes()).hexdigest()
+        if manifest_sha not in self._artifact_manifest_hashes(task):raise ValueError('artifact_reopen_not_verified')
+        if not isinstance(result,dict) or result.get('projectSha256')!=task['candidateSha256'] or result.get('contractVersion')!='designcraft-business-evidence/v1' or result.get('completeAcceptance') is not False:raise ValueError('business_candidate_mismatch')
+        payload={'taskId':identifier,'kind':'AV-01','status':'PASS','candidateSha256':task['candidateSha256'],
+            'artifactRoot':str(root),'manifestPath':str(manifest),'manifestSha256':manifest_sha,
+            'receiptPath':str(receipt),'receiptSha256':hashlib.sha256(receipt.read_bytes()).hexdigest(),
+            'validatorResources':self._business_resources(),'businessReport':report,'verifiedBy':'designcraft-harness'}
+        encoded=(json.dumps(payload,ensure_ascii=False,indent=2)+'\n').encode()
+        filename='AV-01-'+hashlib.sha256(encoded).hexdigest()+'.json'
+        folder=self._dir(identifier)/'evidence';folder.mkdir(parents=True,exist_ok=True)
+        if folder.is_symlink():raise ValueError('evidence_path_invalid')
+        target=folder/filename;temporary=None
+        try:
+            with tempfile.NamedTemporaryFile(mode='wb',dir=folder,prefix='.business-evidence-',delete=False) as stream:
+                temporary=Path(stream.name);stream.write(encoded);stream.flush();os.fsync(stream.fileno())
+            os.replace(temporary,target)
+        finally:
+            if temporary is not None and temporary.exists():temporary.unlink()
+        return self.attach_evidence(identifier,filename,expected_revision)
+
     def attach_evidence(self,identifier,file_name,expected_revision):
         """登记任务目录中的 PASS 证据，并绑定当前候选摘要。"""
         identifier=task_id(identifier)
@@ -509,6 +569,7 @@ class TaskStore:
             if not isinstance(payload,dict) or payload.get('taskId')!=identifier or payload.get('candidateSha256')!=data['candidateSha256']:raise ValueError('evidence_candidate_mismatch')
             kind=payload.get('kind')
             if kind not in data['requiredEvidence'] or payload.get('status')!='PASS':raise ValueError('evidence_not_accepted')
+            if kind=='AV-01' and not self._valid_business_evidence(payload,data):raise ValueError('business_result_not_verified')
             if kind=='AV-02' and not self._valid_artifact_evidence(payload,data):raise ValueError('artifact_reopen_not_verified')
             if kind=='AV-03' and not self._valid_page_review_evidence(payload,data):raise ValueError('page_review_not_verified')
             if kind=='AV-04' and not self._valid_revision_evidence(payload,data):raise ValueError('revision_not_verified')
@@ -922,6 +983,7 @@ def main():
     for option in ('recovery-report','reopen-receipt','reopen-plan','original-plan','saved-project'):
         prepare_recovery.add_argument('--'+option,dest=option.replace('-','_'),required=True)
     artifacts=commands.add_parser('verify-artifacts');artifacts.add_argument('task_id');artifacts.add_argument('--expected-revision',type=int,required=True);artifacts.add_argument('--root',required=True);artifacts.add_argument('--manifest',required=True)
+    business=commands.add_parser('verify-business');business.add_argument('task_id');business.add_argument('--expected-revision',type=int,required=True);business.add_argument('--root',required=True);business.add_argument('--artifact-manifest',required=True);business.add_argument('--receipt',required=True)
     review=commands.add_parser('verify-review');review.add_argument('task_id');review.add_argument('--expected-revision',type=int,required=True);review.add_argument('--root',required=True);review.add_argument('--artifact-manifest',required=True);review.add_argument('--review',required=True)
     revision=commands.add_parser('verify-revision');revision.add_argument('task_id');revision.add_argument('--expected-revision',type=int,required=True);revision.add_argument('--root',required=True);revision.add_argument('--revision',required=True)
     readiness=commands.add_parser('readiness');readiness.add_argument('--runtime-home');readiness.add_argument('--capability-evidence');readiness.add_argument('--command-id',action='append',default=[])
@@ -939,6 +1001,7 @@ def main():
             response=render_status(task);response.update({'recoveryPlan':task['recoveryPlan'],'recoveryPlanSha256':task['recoveryPlanSha256'],'recoveryProof':task['recoveryProof']})
             print(json.dumps(response,ensure_ascii=False,indent=2));return 0
         elif args.command=='verify-artifacts':task=store.verify_artifact_manifest(args.task_id,args.root,args.manifest,args.expected_revision)
+        elif args.command=='verify-business':task=store.verify_business(args.task_id,args.root,args.artifact_manifest,args.receipt,args.expected_revision)
         elif args.command=='verify-review':task=store.verify_page_review(args.task_id,args.root,args.artifact_manifest,args.review,args.expected_revision)
         elif args.command=='verify-revision':task=store.verify_revision(args.task_id,args.root,args.revision,args.expected_revision)
         elif args.command=='readiness':

@@ -1,0 +1,25 @@
+{
+  "taskId": "9477b9fc-0dca-4c5d-b143-525c46151e74",
+  "kind": "AV-02",
+  "status": "PASS",
+  "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e",
+  "artifactRoot": "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-skills-repositories/designcraft-skills/evidence/native/designcraft-cli-0.2.1/av04-revision/after",
+  "manifestPath": "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-skills-repositories/designcraft-skills/evidence/native/designcraft-cli-0.2.1/av04-revision/after/artifact-manifest.json",
+  "manifestSha256": "be8aff8307723477a401824ab36d3e34a7e36362c5f6aa5da40224429270991e",
+  "validatorSha256": "1f96eef6927d1aa34c8c5f8ce513ed6f207cec60c13affdd693484d3df1dbb6e",
+  "artifactReport": {
+    "status": "PASS",
+    "result": {
+      "contractVersion": "designcraft-artifact-manifest/v1",
+      "status": "PASS",
+      "artifactIdentity": "PASS",
+      "projectArtifactId": "edited-project",
+      "projectSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e",
+      "artifactCount": 2,
+      "reopenEvidence": "PASS",
+      "completeAcceptance": false,
+      "acceptanceNote": "AV-02 identity validation does not establish AV-01/03/04 or truth of native reopen evidence."
+    }
+  },
+  "verifiedBy": "designcraft-harness"
+}

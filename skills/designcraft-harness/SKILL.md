@@ -151,7 +151,7 @@ Harness 只接受其支持的版本化运行回执；缺失或不兼容时将结
 
 完成状态要求任务具有当前候选摘要、没有未解决阻塞项，并绑定 AV-01 至 AV-04 的 PASS 证据。证据文件须在任务的 `evidence/` 目录内，JSON 至少包含 `taskId`、`kind`、`status: PASS`、`candidateSha256`；通过 `attach-evidence` 登记时按内容摘要保存。修改候选后，旧候选证据不再满足完成门禁。
 
-AV-02/AV-03 不能手工提交 `status: PASS` JSON。AV-02 必须验证当前候选文件身份和工程新会话重开；AV-03 必须基于该 AV-02 证据并校验当前逐页预览摘要及审阅记录。具体命令、字段和失败条件见本技能 [交付证据参考](references/acceptance-evidence.md)。
+AV-01/AV-02/AV-03/AV-04 不能手工提交 `status: PASS` JSON。AV-02 必须验证当前候选文件身份和工程新会话重开；AV-03 必须基于该 AV-02 证据并校验当前逐页预览摘要及审阅记录。具体命令、字段和失败条件见本技能 [交付证据参考](references/acceptance-evidence.md)。
 
 AV-03 使用同一交付目录和产物清单，并提供页级预览与审阅记录：
 

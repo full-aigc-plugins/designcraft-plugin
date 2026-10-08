@@ -132,3 +132,5 @@ CLI 参数按 argv 传递，不执行 shell。原生命令可能具有文件写�
 原生零退出却改动登记输入会标记INPUT_CHANGED_REVIEW_REQUIRED并返回失败；这是事后检测，不会回滚已经发生的写入。需要修改原图或源工程时应先另存可编辑副本，再明确登记需保持的原始输入。
 
 格式可验证属性和损失边界见本技能 [格式检查参考](references/format-checks.md)。
+
+原始业务回执通过 `scripts/business_evidence.py` 重算并绑定 AV-02；使用方法、支持的预检/PDF 子集及证据边界见 [AV-01 业务证据](references/business-evidence.md)。手写 PASS 不能代替原始结果校验。

@@ -1,0 +1,131 @@
+{
+  "reason": "Harness behavior and source snapshot changed; historical host/CI observations do not establish current acceptance.",
+  "records": [
+    {
+      "id": "host",
+      "layer": "host",
+      "status": "PASS",
+      "runId": "589b73f6-3304-4d56-83ec-5735b952c3fe",
+      "observedAt": "2026-10-08T14:31:50+00:00",
+      "environment": {
+        "os": "Darwin",
+        "machine": "arm64",
+        "python": "3.13.5"
+      },
+      "bindings": {
+        "pluginVersion": "0.1.0-dev.1",
+        "pluginTreeSha256": "d4ac5737f1dc85c30b1fe928e447e4297b7f607dd117a0eadf5618dc7b0e4fc9",
+        "sourceLockSha256": "5d1603c259e9c43f376e845cb5945aae667022dffdcc082345e68b5cf0ed8bc4",
+        "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+        "nativeVersions": [
+          "0.2.1"
+        ],
+        "expectedNativeBinarySha256": [
+          "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+        ]
+      },
+      "inputs": [
+        {
+          "path": "candidate-source.json",
+          "sha256": "5d1603c259e9c43f376e845cb5945aae667022dffdcc082345e68b5cf0ed8bc4"
+        },
+        {
+          "path": "plugin.json",
+          "sha256": "3ee67bebff8aee1f49dc12213a9a9b685e4c7688528d2da5f5a493a05eca6390"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "evidence/host/codex-cli-routing-20261008.json",
+          "sha256": "528c08efbfe0909f4ac46b80f1b3c04587ed0ecf18866db206dd8322b17b68c7"
+        }
+      ],
+      "environmentSource": "artifact",
+      "environmentArtifactPath": "evidence/host/codex-cli-routing-20261008.json"
+    },
+    {
+      "id": "model-dispatch",
+      "layer": "model-dispatch",
+      "status": "FAIL",
+      "runId": "dca15904-f03e-4c3c-8375-01413a2daef2",
+      "observedAt": "2026-10-08T14:31:50+00:00",
+      "environment": {
+        "os": "Darwin",
+        "machine": "arm64",
+        "python": "3.13.5"
+      },
+      "bindings": {
+        "pluginVersion": "0.1.0-dev.1",
+        "pluginTreeSha256": "d4ac5737f1dc85c30b1fe928e447e4297b7f607dd117a0eadf5618dc7b0e4fc9",
+        "sourceLockSha256": "5d1603c259e9c43f376e845cb5945aae667022dffdcc082345e68b5cf0ed8bc4",
+        "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+        "nativeVersions": [
+          "0.2.1"
+        ],
+        "expectedNativeBinarySha256": [
+          "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+        ]
+      },
+      "inputs": [
+        {
+          "path": "skills/designcraft-cli-document/SKILL.md",
+          "sha256": "d402f0faf5601b1dd2f2f4a3f8bec98e4ba119771b3742693950c28a5b0df31c"
+        },
+        {
+          "path": "skills/designcraft-use/SKILL.md",
+          "sha256": "a392162200d23092ffa59a33916a2a81326cdfcaf6bb41e5c75cf737b1b9d094"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "evidence/host/codex-cli-routing-20261008.json",
+          "sha256": "528c08efbfe0909f4ac46b80f1b3c04587ed0ecf18866db206dd8322b17b68c7"
+        }
+      ],
+      "environmentSource": "artifact",
+      "environmentArtifactPath": "evidence/host/codex-cli-routing-20261008.json"
+    },
+    {
+      "id": "ci",
+      "layer": "ci",
+      "status": "PASS",
+      "runId": "b226792b-55d1-4333-8e80-b0673070ee26",
+      "observedAt": "2026-10-08T14:45:57Z",
+      "environment": {
+        "provider": "github-actions",
+        "runner": "ubuntu-latest",
+        "pythonVersions": [
+          "3.11",
+          "3.12",
+          "3.13"
+        ]
+      },
+      "bindings": {
+        "pluginVersion": "0.1.0-dev.1",
+        "pluginTreeSha256": "d4ac5737f1dc85c30b1fe928e447e4297b7f607dd117a0eadf5618dc7b0e4fc9",
+        "sourceLockSha256": "5d1603c259e9c43f376e845cb5945aae667022dffdcc082345e68b5cf0ed8bc4",
+        "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+        "nativeVersions": [
+          "0.2.1"
+        ],
+        "expectedNativeBinarySha256": [
+          "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+        ]
+      },
+      "inputs": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "sha256": "a65edd52ccd88171f731aa4c172d0c220fe63d0a9be2d712124bcf7cf96f1749"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "evidence/ci/current-github-actions.json",
+          "sha256": "c321d5d3da442b4084e8d342eed475af0faf37625957ef2d777811813da535f6"
+        }
+      ],
+      "environmentSource": "artifact",
+      "environmentArtifactPath": "evidence/ci/current-github-actions.json"
+    }
+  ]
+}
