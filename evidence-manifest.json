@@ -34,14 +34,51 @@
     {
       "id": "ci",
       "layer": "ci",
-      "status": "NOT_RUN"
+      "status": "PASS",
+      "runId": "f9ea9258-4c1f-4149-b282-273e556f5b36",
+      "observedAt": "2026-10-08T15:03:38Z",
+      "environment": {
+        "provider": "github-actions",
+        "runner": "ubuntu-latest",
+        "pythonVersions": [
+          "3.11",
+          "3.12",
+          "3.13"
+        ]
+      },
+      "bindings": {
+        "pluginVersion": "0.1.0-dev.1",
+        "pluginTreeSha256": "67a1dba4b9a75a527626e549a915ff2af1f002908ecc4958e46e500a8a962df1",
+        "sourceLockSha256": "2a2282f9458306968308c3004fad9c52052c4a266b9f076063bc0af149117f33",
+        "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+        "nativeVersions": [
+          "0.2.1"
+        ],
+        "expectedNativeBinarySha256": [
+          "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+        ]
+      },
+      "inputs": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "sha256": "a65edd52ccd88171f731aa4c172d0c220fe63d0a9be2d712124bcf7cf96f1749"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "evidence/ci/current-github-actions.json",
+          "sha256": "c5f3cc25eca04f34dc8c1e505463e787acc4780f6a7f2e095957a7cc35182eba"
+        }
+      ],
+      "environmentSource": "artifact",
+      "environmentArtifactPath": "evidence/ci/current-github-actions.json"
     },
     {
       "id": "offline-tests",
       "layer": "offline-tests",
       "status": "PASS",
-      "runId": "97316032-7a4e-45cd-af2b-196141e927e8",
-      "observedAt": "2026-10-08T15:01:20.817527+00:00",
+      "runId": "8159a97c-9c9e-4203-9752-1f95b828d176",
+      "observedAt": "2026-10-08T15:04:07.183031+00:00",
       "environment": {
         "os": "Darwin",
         "machine": "arm64",
@@ -49,7 +86,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "2a1305f3a370270ae45a603a3ba62715025a34327e63ea99e4dd4b5370ddbc47",
+        "pluginTreeSha256": "67a1dba4b9a75a527626e549a915ff2af1f002908ecc4958e46e500a8a962df1",
         "sourceLockSha256": "2a2282f9458306968308c3004fad9c52052c4a266b9f076063bc0af149117f33",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -92,7 +129,7 @@
       "artifacts": [
         {
           "path": "evidence/current-offline-validation.json",
-          "sha256": "000b3d1921aafc01693816f7aadf5ce4482f5810c9d3ee903d68b6e21799893b"
+          "sha256": "2979a424155d035ec7312a0cd211803054226da3bed846dfd2c8cd10f9cd2727"
         }
       ]
     },
@@ -100,8 +137,8 @@
       "id": "package-validation",
       "layer": "package-validation",
       "status": "PASS",
-      "runId": "97316032-7a4e-45cd-af2b-196141e927e8",
-      "observedAt": "2026-10-08T15:01:20.817527+00:00",
+      "runId": "8159a97c-9c9e-4203-9752-1f95b828d176",
+      "observedAt": "2026-10-08T15:04:07.183031+00:00",
       "environment": {
         "os": "Darwin",
         "machine": "arm64",
@@ -109,7 +146,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "2a1305f3a370270ae45a603a3ba62715025a34327e63ea99e4dd4b5370ddbc47",
+        "pluginTreeSha256": "67a1dba4b9a75a527626e549a915ff2af1f002908ecc4958e46e500a8a962df1",
         "sourceLockSha256": "2a2282f9458306968308c3004fad9c52052c4a266b9f076063bc0af149117f33",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -134,13 +171,13 @@
         },
         {
           "path": "support-matrix.json",
-          "sha256": "027f42034f1a1cd20a8cec811739cbf68ffb4f7555336da5ca0759d1e9011564"
+          "sha256": "315d4ed4a594f01c12a7cdc15b205325d3232724f1f4545da12696534025b585"
         }
       ],
       "artifacts": [
         {
           "path": "evidence/current-offline-validation.json",
-          "sha256": "000b3d1921aafc01693816f7aadf5ce4482f5810c9d3ee903d68b6e21799893b"
+          "sha256": "2979a424155d035ec7312a0cd211803054226da3bed846dfd2c8cd10f9cd2727"
         }
       ]
     }
