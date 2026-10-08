@@ -1,0 +1,239 @@
+{
+  "contractVersion": "designcraft-checkpoint-recovery/v1",
+  "status": "RECOVERY_READY",
+  "resumeAllowed": true,
+  "automaticExecution": false,
+  "automaticReplay": false,
+  "completeAcceptance": false,
+  "originalRunId": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4",
+  "failedStepIndex": 2,
+  "savedProjectPath": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-gmq6a8rn/native-workspace/checkpoint.designcraft",
+  "savedProjectSha256": "5cc4447778a82c92e2ff56f8e60659b626f79fa5e62320f284e424a8f8cfe615",
+  "reopenRunId": "12bdb2b6-0ef7-43d4-900f-91c8647cf6b0",
+  "discoveredObjects": [
+    {
+      "id": 20,
+      "kind": "<image>",
+      "name": ""
+    },
+    {
+      "id": 21,
+      "kind": "<text frame>",
+      "name": "",
+      "story": 22
+    },
+    {
+      "id": 23,
+      "kind": "<text frame>",
+      "name": "",
+      "story": 24
+    },
+    {
+      "id": 25,
+      "kind": "<text frame>",
+      "name": "",
+      "story": 26
+    },
+    {
+      "id": 27,
+      "kind": "<text frame>",
+      "name": "",
+      "story": 28
+    },
+    {
+      "id": 29,
+      "kind": "<text frame>",
+      "name": "",
+      "story": 30
+    },
+    {
+      "id": 31,
+      "kind": "<text frame>",
+      "name": "",
+      "story": 32
+    },
+    {
+      "id": 34,
+      "kind": "<image>",
+      "name": ""
+    },
+    {
+      "id": 35,
+      "kind": "<text frame>",
+      "name": "",
+      "story": 36
+    },
+    {
+      "id": 37,
+      "kind": "<text frame>",
+      "name": "",
+      "story": 38
+    },
+    {
+      "id": 39,
+      "kind": "<text frame>",
+      "name": "",
+      "story": 38
+    },
+    {
+      "id": 41,
+      "kind": "<text frame>",
+      "name": "",
+      "story": 42
+    },
+    {
+      "id": 43,
+      "kind": "<rectangle>",
+      "name": ""
+    },
+    {
+      "id": 44,
+      "kind": "<rectangle>",
+      "name": ""
+    },
+    {
+      "id": 45,
+      "kind": "<text frame>",
+      "name": "",
+      "story": 46
+    },
+    {
+      "id": 47,
+      "kind": "<text frame>",
+      "name": "",
+      "story": 48
+    },
+    {
+      "id": 49,
+      "kind": "<ellipse>",
+      "name": ""
+    },
+    {
+      "id": 50,
+      "kind": "<text frame>",
+      "name": "",
+      "story": 51
+    },
+    {
+      "id": 52,
+      "kind": "<ellipse>",
+      "name": ""
+    },
+    {
+      "id": 53,
+      "kind": "<text frame>",
+      "name": "",
+      "story": 54
+    },
+    {
+      "id": 55,
+      "kind": "<ellipse>",
+      "name": ""
+    },
+    {
+      "id": 56,
+      "kind": "<text frame>",
+      "name": "",
+      "story": 57
+    },
+    {
+      "id": 58,
+      "kind": "<ellipse>",
+      "name": ""
+    },
+    {
+      "id": 59,
+      "kind": "<text frame>",
+      "name": "",
+      "story": 60
+    },
+    {
+      "id": 61,
+      "kind": "<text frame>",
+      "name": "",
+      "story": 62
+    },
+    {
+      "id": 14,
+      "kind": "story"
+    },
+    {
+      "id": 16,
+      "kind": "story"
+    },
+    {
+      "id": 22,
+      "kind": "story"
+    },
+    {
+      "id": 24,
+      "kind": "story"
+    },
+    {
+      "id": 26,
+      "kind": "story"
+    },
+    {
+      "id": 28,
+      "kind": "story"
+    },
+    {
+      "id": 30,
+      "kind": "story"
+    },
+    {
+      "id": 32,
+      "kind": "story"
+    },
+    {
+      "id": 36,
+      "kind": "story"
+    },
+    {
+      "id": 38,
+      "kind": "story"
+    },
+    {
+      "id": 42,
+      "kind": "story"
+    },
+    {
+      "id": 46,
+      "kind": "story"
+    },
+    {
+      "id": 48,
+      "kind": "story"
+    },
+    {
+      "id": 51,
+      "kind": "story"
+    },
+    {
+      "id": 54,
+      "kind": "story"
+    },
+    {
+      "id": 57,
+      "kind": "story"
+    },
+    {
+      "id": 60,
+      "kind": "story"
+    },
+    {
+      "id": 62,
+      "kind": "story"
+    }
+  ],
+  "remainingPlan": {
+    "domain": "designcraft",
+    "steps": [
+      {
+        "command": "document.inspect",
+        "params": {}
+      }
+    ]
+  },
+  "nextAction": "review remainingPlan and explicitly submit it as a new run"
+}

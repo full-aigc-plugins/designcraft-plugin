@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 2,
+  "runId": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4",
+  "domain": "designcraft",
+  "status": "FAILED_OR_PARTIAL",
+  "startedAt": "2026-10-08T16:54:20.846702+00:00",
+  "argv": [
+    "/opt/anaconda3/bin/python3",
+    "-I",
+    "-B",
+    "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-gmq6a8rn/home/plugins/cache/designcraft-bundled-acceptance/designcraft/0.1.0-dev.1/skills/designcraft-use/scripts/cli.py",
+    "--result-file",
+    "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-gmq6a8rn/native-workspace/failed-run/native-result.json",
+    "--",
+    "script",
+    "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-gmq6a8rn/native-workspace/failed-run/native-plan.json"
+  ],
+  "catalogSha256": "bf780a8b8a356f6af52e1bdda9319aad2d804b4915148cccf3b1f9c5d3c01700",
+  "planSha256": "f80df4e8dcf945bc41f425ecbdc30f621baccb2295918ace666d03bb52573ec5",
+  "nativePlanPath": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-gmq6a8rn/native-workspace/failed-run/native-plan.json",
+  "nativePlanSha256": "64860336db49f06341f1d377b14a94cbfcde4267bf54431f6fccbfcb4bbb6128",
+  "savedProjectCheckpoint": {
+    "status": "SAVED_REOPEN_REQUIRED",
+    "stepRef": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4:step:1",
+    "path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-gmq6a8rn/native-workspace/checkpoint.designcraft",
+    "bytes": 831606,
+    "sha256": "5cc4447778a82c92e2ff56f8e60659b626f79fa5e62320f284e424a8f8cfe615",
+    "resultSha256": "9f803a81941e88c0af43f53545d1f200badd1adb198476565146ff4266e49aad"
+  },
+  "automaticReplay": false,
+  "completeAcceptance": false,
+  "inputSha256": {},
+  "runtimeLockSha256": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8",
+  "runtimeIdentity": {
+    "verificationStatus": "LOCKED_EXPECTATION",
+    "name": "designcraft-cli",
+    "version": "0.2.1",
+    "platform": "darwin-arm64",
+    "runtimeHome": "/Users/wandl/.local/share/craft-runtimes",
+    "expectedBinarySha256": "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8",
+    "archiveSha256": "e11386860ee88da34a59c79dfedeba2a00166c368d7e99650d97a8db89702aaf",
+    "lockSha256": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8"
+  },
+  "skillResourceSha256": {
+    "cli.py": "09c39a397e2e409edf9a84edc8fa24023f736f794a5f0e21bb79390842141044",
+    "bootstrap.py": "27e87459d328ef8fd4894e1e96d9b14ddd0c83ddc98a010d19155d560d47302a",
+    "runtime.lock.json": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8",
+    "command_gateway.py": "cc003905fcc082cae36f4ffb90b5e995fce2b210cb523763711a58dd0e2c1afa",
+    "commands.py": "1c68012b9c9ca0b023a7cbfc05376d9a66059457311734036a8fe7ff13d432b7"
+  },
+  "directoryBaseline": {
+    "path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-gmq6a8rn/native-workspace/failed-run",
+    "state": "ABSENT",
+    "sha256": null
+  },
+  "outputDirectoryBefore": "ABSENT",
+  "stepResultGranularity": "single-native-session",
+  "stepReferences": [
+    {
+      "stepRef": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4:step:0",
+      "index": 0,
+      "command": "file.newSample",
+      "paramsSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "stepRef": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4:step:1",
+      "index": 1,
+      "command": "file.saveAs",
+      "paramsSha256": "24880c322e72f037c340634d8c106e719687bb67e54459c5c31959489b2884fd"
+    },
+    {
+      "stepRef": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4:step:2",
+      "index": 2,
+      "command": "file.open",
+      "paramsSha256": "4aca9f467a8c9bbcc649a6528a8e1635df8e9ded4c90a015aa1f1a4b0d832f92"
+    },
+    {
+      "stepRef": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4:step:3",
+      "index": 3,
+      "command": "document.inspect",
+      "paramsSha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    }
+  ],
+  "stepResults": [
+    {
+      "stepRef": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4:step:0",
+      "index": 0,
+      "command": "file.newSample",
+      "status": "STEP_COMPLETED_REVIEW_REQUIRED",
+      "granularity": "native-step-result",
+      "resultSha256": "29219e41f7d3be520df73c53a60c5b096e3984e06f48d6048c5cd44077c27380"
+    },
+    {
+      "stepRef": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4:step:1",
+      "index": 1,
+      "command": "file.saveAs",
+      "status": "STEP_COMPLETED_REVIEW_REQUIRED",
+      "granularity": "native-step-result",
+      "resultSha256": "9f803a81941e88c0af43f53545d1f200badd1adb198476565146ff4266e49aad"
+    },
+    {
+      "stepRef": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4:step:2",
+      "index": 2,
+      "command": "file.open",
+      "status": "STEP_FAILED_OR_PARTIAL",
+      "granularity": "native-step-result",
+      "failureReason": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-gmq6a8rn/native-workspace/intentionally-missing.designcraft: No such file or directory (os error 2)"
+    },
+    {
+      "stepRef": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4:step:3",
+      "index": 3,
+      "command": "document.inspect",
+      "status": "NOT_STARTED",
+      "granularity": "single-native-session"
+    }
+  ],
+  "workingCopyPath": null,
+  "workingCopyBeforeSha256": null,
+  "reason": "native_nonzero_exit",
+  "exitCode": 1,
+  "started": true,
+  "terminationVerified": true,
+  "descendantsTerminationVerified": false,
+  "nativeResultSchemaVersion": 1,
+  "finishedAt": "2026-10-08T16:54:20.998396+00:00",
+  "stdout": "{\n  \"completed\": 2,\n  \"error\": \"/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-gmq6a8rn/native-workspace/intentionally-missing.designcraft: No such file or directory (os error 2)\",\n  \"failedCommand\": \"file.open\",\n  \"failedIndex\": 2,\n  \"results\": [\n    {\n      \"index\": 1\n    },\n    {\n      \"bytes\": 831606,\n      \"path\": \"/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-gmq6a8rn/native-workspace/checkpoint.designcraft\"\n    }\n  ]\n}\n",
+  "stderr": "designcraft-cli: step 2 (file.open) failed: /var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-gmq6a8rn/native-workspace/intentionally-missing.designcraft: No such file or directory (os error 2)\n",
+  "businessAssessment": {
+    "contractVersion": "designcraft-business-assessment/v1",
+    "status": "UNKNOWN",
+    "steps": [
+      {
+        "stepRef": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4:step:0",
+        "index": 0,
+        "command": "file.newSample",
+        "status": "UNKNOWN",
+        "reason": "native_batch_result_unknown"
+      },
+      {
+        "stepRef": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4:step:1",
+        "index": 1,
+        "command": "file.saveAs",
+        "status": "UNKNOWN",
+        "reason": "native_batch_result_unknown"
+      },
+      {
+        "stepRef": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4:step:2",
+        "index": 2,
+        "command": "file.open",
+        "status": "UNKNOWN",
+        "reason": "native_batch_result_unknown"
+      },
+      {
+        "stepRef": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4:step:3",
+        "index": 3,
+        "command": "document.inspect",
+        "status": "UNKNOWN",
+        "reason": "native_batch_result_unknown"
+      }
+    ]
+  },
+  "inputAfterSha256": {},
+  "skillResourceAfterSha256": {
+    "cli.py": "09c39a397e2e409edf9a84edc8fa24023f736f794a5f0e21bb79390842141044",
+    "bootstrap.py": "27e87459d328ef8fd4894e1e96d9b14ddd0c83ddc98a010d19155d560d47302a",
+    "runtime.lock.json": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8",
+    "command_gateway.py": "cc003905fcc082cae36f4ffb90b5e995fce2b210cb523763711a58dd0e2c1afa",
+    "commands.py": "1c68012b9c9ca0b023a7cbfc05376d9a66059457311734036a8fe7ff13d432b7"
+  }
+}

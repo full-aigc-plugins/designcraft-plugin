@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "taskId": "337385e7-c334-4cf4-8e9c-79ba86503df6",
+  "state": "RECONCILING",
+  "revision": 5,
+  "goal": "真实失败后独立重开与只读恢复核对验收；保留原 taskId/runId，不执行恢复",
+  "authorizationScope": "只在 /var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-gmq6a8rn/native-workspace 下创建本次新的测试任务、计划、工程和回执。故意打开不存在的 intentionally-missing.designcraft；第三步失败为授权验收输入，不重试、不跳过。保留现场且不得自动恢复。既有运行时 /Users/wandl/.local/share/craft-runtimes 仅供使用；禁止安装、升级、下载、改全局配置或缓存、读取凭据、Git 操作、覆盖既有文件。仅允许独立重开 checkpoint.designcraft 并 document.inspect、源 recover 与 Harness 只读 reconcile；禁止 prepare-recovery、风险确认代签、执行剩余步骤、标记 COMPLETED。",
+  "skillRoute": "designcraft-use",
+  "runId": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4",
+  "nativeStatus": "FAILED_OR_PARTIAL",
+  "nativeReceiptRef": "runs/69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4.json",
+  "candidateSha256": null,
+  "reconciledRunId": null,
+  "recoveryAction": null,
+  "recoveryEvidence": [],
+  "recoveryPlan": null,
+  "recoveryPlanSha256": null,
+  "recoveryProof": null,
+  "revisionScope": null,
+  "revisionPageRefs": [],
+  "createdAt": "2026-10-08T16:53:58.872697+00:00",
+  "updatedAt": "2026-10-08T16:57:12.062519+00:00",
+  "requiredEvidence": [
+    "AV-01",
+    "AV-02",
+    "AV-03",
+    "AV-04"
+  ],
+  "evidenceRefs": [],
+  "artifactRefs": [],
+  "checkpointRefs": [
+    "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-gmq6a8rn/native-workspace/checkpoint.designcraft"
+  ],
+  "blockers": [],
+  "nextAction": "continue_task"
+}

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "scope": "REAL_HOST_FAILURE_SAVED_CHECKPOINT_FRESH_REOPEN_AND_RESTART_RECONCILE",
+  "testedPluginCommit": "68fe7723560e55edd8024d9234fb1c99405ef3fb",
+  "taskId": "337385e7-c334-4cf4-8e9c-79ba86503df6",
+  "originalRunId": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4",
+  "reopenRunId": "12bdb2b6-0ef7-43d4-900f-91c8647cf6b0",
+  "taskRevision": 5,
+  "taskState": "RECONCILING",
+  "taskFieldsChangedAtRestart": [
+    "checkpointRefs",
+    "revision",
+    "updatedAt"
+  ],
+  "checkpointSha256": "5cc4447778a82c92e2ff56f8e60659b626f79fa5e62320f284e424a8f8cfe615",
+  "planVerified": true,
+  "remainingPlan": {
+    "domain": "designcraft",
+    "steps": [
+      {
+        "command": "document.inspect",
+        "params": {}
+      }
+    ]
+  },
+  "remainingPlanSha256": "eeeadb4dd2bfc1f6b7b455f107711a77ff2589ce844fab83ca59c23148061606",
+  "resumeAllowed": false,
+  "risks": [
+    "process_descendants_termination_unverified"
+  ],
+  "onlyOneTask": true,
+  "failedStepNotReplayed": true,
+  "remainingSuffixExecuted": false,
+  "humanRiskAndPlanConfirmation": "PENDING",
+  "completeAcceptance": false
+}

@@ -1,0 +1,62 @@
+{
+  "taskId": "337385e7-c334-4cf4-8e9c-79ba86503df6",
+  "state": "RECONCILING",
+  "status": "FAILED_OR_PARTIAL",
+  "nativeStatus": "FAILED_OR_PARTIAL",
+  "runId": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4",
+  "receiptIdentity": "MATCHED",
+  "receiptSha256": "8713647b81bf28ffa06f62f4f015e8ee41e8428c51b314c6a5db12dee04ba507",
+  "revision": 4,
+  "checkpointRefs": [],
+  "stepResults": [
+    {
+      "stepRef": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4:step:0",
+      "index": 0,
+      "command": "file.newSample",
+      "status": "STEP_COMPLETED_REVIEW_REQUIRED",
+      "granularity": "native-step-result",
+      "resultSha256": "29219e41f7d3be520df73c53a60c5b096e3984e06f48d6048c5cd44077c27380"
+    },
+    {
+      "stepRef": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4:step:1",
+      "index": 1,
+      "command": "file.saveAs",
+      "status": "STEP_COMPLETED_REVIEW_REQUIRED",
+      "granularity": "native-step-result",
+      "resultSha256": "9f803a81941e88c0af43f53545d1f200badd1adb198476565146ff4266e49aad"
+    },
+    {
+      "stepRef": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4:step:2",
+      "index": 2,
+      "command": "file.open",
+      "status": "STEP_FAILED_OR_PARTIAL",
+      "granularity": "native-step-result",
+      "failureReason": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-gmq6a8rn/native-workspace/intentionally-missing.designcraft: No such file or directory (os error 2)"
+    },
+    {
+      "stepRef": "69ac5d9f-0eb3-4f3b-88e9-d5587cfe3ba4:step:3",
+      "index": 3,
+      "command": "document.inspect",
+      "status": "NOT_STARTED",
+      "granularity": "single-native-session"
+    }
+  ],
+  "stepResultGranularity": "single-native-session",
+  "stepResultsVerified": false,
+  "planVerified": false,
+  "recoveryContract": null,
+  "reconciledRunId": null,
+  "recoveryEvidence": null,
+  "remainingPlan": null,
+  "remainingPlanSha256": null,
+  "discoveredObjects": [],
+  "risks": [],
+  "blockers": [
+    "persistent_project_checkpoint_missing"
+  ],
+  "resumeAllowed": false,
+  "automaticExecution": false,
+  "automaticReplay": false,
+  "completeAcceptance": false,
+  "nextAction": "inspect_saved_project_and_source_checkpoints"
+}
