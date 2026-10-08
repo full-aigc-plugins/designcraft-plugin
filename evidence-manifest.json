@@ -270,6 +270,66 @@
           "sha256": "62db79c99f60162a9e2f15e7fd3924f2dcda8bdec5d04919b2661ddb75dcf827"
         }
       ]
+    },
+    {
+      "id": "native-capabilities",
+      "layer": "native-capabilities",
+      "status": "PASS",
+      "runId": "171ed04f-7ed0-4339-84d5-9f26c03a1ec7",
+      "observedAt": "2026-10-08T16:13:09.734359+00:00",
+      "environment": {
+        "os": "Darwin",
+        "machine": "arm64",
+        "python": "3.13.5"
+      },
+      "bindings": {
+        "pluginVersion": "0.1.0-dev.1",
+        "pluginTreeSha256": "938ed992ede6688214f6d9637ba4978d2acc9a2c85803f0f07b66434965458aa",
+        "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
+        "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+        "nativeVersions": [
+          "0.2.1"
+        ],
+        "expectedNativeBinarySha256": [
+          "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+        ]
+      },
+      "inputs": [
+        {
+          "path": "skills/designcraft-cli/scripts/bootstrap.py",
+          "sha256": "27e87459d328ef8fd4894e1e96d9b14ddd0c83ddc98a010d19155d560d47302a"
+        },
+        {
+          "path": "skills/designcraft-cli/scripts/cli.py",
+          "sha256": "09c39a397e2e409edf9a84edc8fa24023f736f794a5f0e21bb79390842141044"
+        },
+        {
+          "path": "skills/designcraft-cli/scripts/command_gateway.py",
+          "sha256": "cc003905fcc082cae36f4ffb90b5e995fce2b210cb523763711a58dd0e2c1afa"
+        },
+        {
+          "path": "skills/designcraft-cli/scripts/commands.py",
+          "sha256": "1c68012b9c9ca0b023a7cbfc05376d9a66059457311734036a8fe7ff13d432b7"
+        },
+        {
+          "path": "skills/designcraft-cli/scripts/runtime.lock.json",
+          "sha256": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "evidence/native-capabilities.json",
+          "sha256": "7c120d03fc1b76ca3a835e1711987def85772f8e185c42b0bc85ba2187232b67"
+        },
+        {
+          "path": "evidence/native/qualification-20261009/qualification/receipt.json",
+          "sha256": "53927535347d6db5ee8e62c6dff0339d8e09c3cbc10f27c7641f65f85503a8ea"
+        },
+        {
+          "path": "evidence/native/qualification-20261009/qualify-plan.json",
+          "sha256": "d416ec3c88baaceb389625d815af915c65a770cc0d74793dda38f1acc6164530"
+        }
+      ]
     }
   ]
 }

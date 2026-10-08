@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "runId": "02a751cb-7bd7-479e-907c-bf54320cc397",
+  "observedAt": "2026-10-08T16:15:19.514775+00:00",
+  "status": "PARTIAL",
+  "completeAcceptance": false,
+  "testedPluginCommit": "16a4028fc730a8ea5037e91ba57c265bb013643e",
+  "scope": "Real local Harness CLI -> vendored source public entry -> locked native CLI; not model-issued host dispatch",
+  "taskId": "6f3befb5-8c11-4acc-806a-fef45acb568f",
+  "taskState": "EXECUTING",
+  "nativeStatus": "NATIVE_EXIT_ZERO_REVIEW_REQUIRED",
+  "revision": 3,
+  "runtime": {
+    "verificationStatus": "LOCKED_EXPECTATION",
+    "name": "designcraft-cli",
+    "version": "0.2.1",
+    "platform": "darwin-arm64",
+    "runtimeHome": "/Users/wandl/.local/share/craft-runtimes",
+    "expectedBinarySha256": "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8",
+    "archiveSha256": "e11386860ee88da34a59c79dfedeba2a00166c368d7e99650d97a8db89702aaf",
+    "lockSha256": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8"
+  },
+  "commands": [
+    "file.newSample",
+    "document.inspect",
+    "preflight.run",
+    "file.saveAs",
+    "file.exportPdf"
+  ],
+  "results": {
+    "completed": 5,
+    "preflight": {
+      "errors": 0,
+      "issues": [],
+      "warnings": 0
+    },
+    "pdf": {
+      "bytes": 552570,
+      "pages": 4,
+      "path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-native-host-20261009-xxjn6a48/harness-artifacts/magazine.pdf",
+      "warnings": []
+    }
+  },
+  "candidateArtifacts": {
+    "magazine.designcraft": {
+      "sha256": "059aa1b3a0fdfcdcee7ab94cc6af210d1c9211568e1a26cd784d3ef034d615e4",
+      "bytes": 831608
+    },
+    "magazine.pdf": {
+      "sha256": "74e11b35afe418f3ea9b7b99fd8133600e159f30cfafd5c8f5c7612678bc2105",
+      "bytes": 552570
+    }
+  },
+  "receiptSha256": "43a812638296a10c0a4b6e2adb2ceb2a89b2baaaf28f91e0e77c70aee3593983",
+  "sourceResourceSha256": {
+    "cli.py": "09c39a397e2e409edf9a84edc8fa24023f736f794a5f0e21bb79390842141044",
+    "bootstrap.py": "27e87459d328ef8fd4894e1e96d9b14ddd0c83ddc98a010d19155d560d47302a",
+    "runtime.lock.json": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8",
+    "command_gateway.py": "cc003905fcc082cae36f4ffb90b5e995fce2b210cb523763711a58dd0e2c1afa",
+    "commands.py": "1c68012b9c9ca0b023a7cbfc05376d9a66059457311734036a8fe7ff13d432b7"
+  },
+  "cliObservation": {
+    "documentedTaskFirstOrdering": "REJECTED_BEFORE_DISPATCH",
+    "workingOrdering": "native --expected-revision REV --runtime-home PATH --capability-evidence PATH TASK_ID -- run PLAN --output OUTPUT",
+    "details": "argparse REMAINDER consumed Harness flags placed after task_id. First invocation exited 2 before changing state or invoking native; corrected flags-before-task invocation used the same task revision and executed once.",
+    "needsFix": true
+  },
+  "remaining": [
+    "Fix or document native CLI argument ordering with regression coverage",
+    "model-issued native dispatch in real Codex host",
+    "fresh native reopen and page previews",
+    "authorized local revision and export recheck",
+    "missing-runtime and restart recovery scenarios",
+    "human creative signoff"
+  ]
+}
