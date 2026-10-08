@@ -59,6 +59,13 @@ class EvidenceFreshness(unittest.TestCase):
             result=MODULE.evaluate_manifest(root,manifest,environment={'os':'Windows','python':'3.14.3'})
             self.assertEqual(result['offline'],'STALE')
 
+    def test_desktop_metadata_does_not_change_portable_package_identity(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);self.fixture(root);manifest=self.manifest(root)
+            (root/'skills/demo/.DS_Store').write_bytes(b'local desktop metadata')
+            result=MODULE.evaluate_manifest(root,manifest,environment={'os':'macOS','python':'3.14.3'})
+            self.assertEqual(result['offline'],'PASS')
+
     def test_layer_statuses_must_match_project_and_support_matrix(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp);self.fixture(root)

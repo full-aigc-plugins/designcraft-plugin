@@ -20,7 +20,7 @@ def _files(root):
     result=[]
     for path in sorted(Path(root).rglob('*')):
         relative=path.relative_to(root)
-        if any(part in EXCLUDED for part in relative.parts) or path.suffix in ('.pyc','.pyo'):
+        if any(part in EXCLUDED for part in relative.parts) or path.name=='.DS_Store' or path.suffix in ('.pyc','.pyo'):
             continue
         if path.is_symlink():
             raise ValueError('evidence_tree_symlink:'+relative.as_posix())

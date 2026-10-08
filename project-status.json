@@ -7,7 +7,7 @@
   "specification": "OPEN_SPEC_CHANGE_IMPLEMENTATION_IN_PROGRESS",
   "offlineTests": "PASS",
   "packageValidation": "PASS",
-  "ci": "PASS",
+  "ci": "NOT_RUN",
   "ciEvidence": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37791827319",
   "ciTestedCommit": "cb2db983cafce9ce3ccc31b2f4626352272c12c6",
   "nativeInstallation": "NOT_RUN",
