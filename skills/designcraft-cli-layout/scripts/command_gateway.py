@@ -258,6 +258,115 @@ def observe_step_results(references,native_status,started,stdout=''):
     return [{'stepRef':item['stepRef'],'index':item['index'],'command':item['command'],'status':status,'granularity':'single-native-session'} for item in references]
 
 
+def saved_project_checkpoint(steps,references,native_status,started,stdout):
+    """仅记录原生回执确认已完成的 file.saveAs 产物；它仍需新会话重开验证。"""
+    if not started or native_status not in {'NATIVE_EXIT_ZERO_REVIEW_REQUIRED','FAILED_OR_PARTIAL'}:return None
+    try:
+        batch=strict_json(stdout)
+        if not isinstance(batch,dict) or not isinstance(batch.get('completed'),int) or isinstance(batch.get('completed'),bool) or batch['completed']<0 or not isinstance(batch.get('results'),list):return None
+        if native_status=='FAILED_OR_PARTIAL':
+            failed_index=batch.get('failedIndex');failed_command=batch.get('failedCommand');error=batch.get('error')
+            if set(batch)!={'completed','error','failedCommand','failedIndex','results'} or type(failed_index) is not int or failed_index!=batch['completed'] or failed_index>=len(steps) or failed_command!=steps[failed_index].get('command') or not isinstance(error,str) or not error or len(batch['results'])!=batch['completed']:return None
+        elif batch['completed']!=len(steps) or len(batch['results'])!=batch['completed']:
+            return None
+        candidates=[]
+        for index in range(min(batch['completed'],len(steps))):
+            step=steps[index];result=batch['results'][index]
+            if step.get('command')!='file.saveAs' or not isinstance(result,dict):continue
+            raw_path=result.get('path');reported_bytes=result.get('bytes')
+            if not isinstance(raw_path,str) or not raw_path or type(reported_bytes) is not int or reported_bytes<0:continue
+            path=Path(raw_path).expanduser().absolute()
+            if path.is_symlink() or not path.is_file() or path.stat().st_size!=reported_bytes:continue
+            candidates.append({'status':'SAVED_REOPEN_REQUIRED','stepRef':references[index]['stepRef'],'path':str(path),'bytes':reported_bytes,'sha256':file_sha(path),'resultSha256':hashlib.sha256(json.dumps(result,sort_keys=True,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()})
+        return candidates[-1] if candidates else None
+    except (OSError,ValueError,TypeError,KeyError):return None
+
+
+def _recovery_rejected(reason,discovered_objects=None):
+    return {'status':'RECOVERY_REJECTED','resumeAllowed':False,'automaticExecution':False,'automaticReplay':False,'completeAcceptance':False,'reason':reason,'discoveredObjects':discovered_objects or []}
+
+
+def _contains_cross_session_reference(value):
+    if isinstance(value,str):return re.search(r'\bstep:\d+\b',value) is not None
+    if isinstance(value,dict):return any(_contains_cross_session_reference(item) for item in value.values())
+    if isinstance(value,list):return any(_contains_cross_session_reference(item) for item in value)
+    return False
+
+
+def build_recovery_plan(original,checkpoint,steps,checkpoint_steps=None):
+    """核对真实保存工程的新会话重开结果，只输出未启动后缀，不执行恢复写入。"""
+    if not isinstance(original,dict) or original.get('schemaVersion')!=2 or original.get('domain')!='designcraft':return _recovery_rejected('original_receipt_identity_missing_or_unsupported')
+    if not isinstance(checkpoint,dict) or checkpoint.get('schemaVersion')!=2 or checkpoint.get('domain')!='designcraft':return _recovery_rejected('reopen_receipt_identity_missing_or_unsupported')
+    if original.get('status')!='FAILED_OR_PARTIAL' or original.get('terminationVerified') is not True:return _recovery_rejected('original_process_not_verified_terminal_failure')
+    saved=original.get('savedProjectCheckpoint')
+    if not isinstance(saved,dict) or saved.get('status')!='SAVED_REOPEN_REQUIRED':return _recovery_rejected('saved_project_checkpoint_missing')
+    raw_path=saved.get('path');expected_sha=saved.get('sha256');expected_bytes=saved.get('bytes')
+    if not isinstance(raw_path,str) or not Path(raw_path).is_absolute() or not isinstance(expected_sha,str) or not re.fullmatch('[0-9a-f]{64}',expected_sha) or type(expected_bytes) is not int:return _recovery_rejected('saved_project_checkpoint_identity_invalid')
+    project=Path(raw_path)
+    if project.is_symlink() or not project.is_file():return _recovery_rejected('saved_project_checkpoint_missing_or_unsafe')
+    try:
+        if project.stat().st_size!=expected_bytes or file_sha(project)!=expected_sha:return _recovery_rejected('saved_project_checkpoint_digest_mismatch')
+    except OSError:return _recovery_rejected('saved_project_checkpoint_unreadable')
+    original_results=original.get('stepResults')
+    try:original_batch=strict_json(original.get('stdout',''))
+    except (ValueError,TypeError):return _recovery_rejected('original_native_result_unavailable')
+    if not isinstance(original_results,list) or not isinstance(original_batch,dict) or type(original_batch.get('completed')) is not int or original_batch.get('failedIndex')!=original_batch.get('completed') or not isinstance(original_batch.get('results'),list) or len(original_batch['results'])!=original_batch['completed']:return _recovery_rejected('original_native_step_result_unverifiable')
+    save_index=next((index for index,item in enumerate(original_results) if isinstance(item,dict) and item.get('stepRef')==saved.get('stepRef')),None)
+    if save_index is None or save_index>=original_batch['completed'] or save_index>=len(steps) or steps[save_index].get('command')!='file.saveAs':return _recovery_rejected('saved_project_step_identity_mismatch')
+    save_result=original_batch['results'][save_index]
+    if not isinstance(save_result,dict):return _recovery_rejected('saved_project_native_result_mismatch')
+    save_result_sha=hashlib.sha256(json.dumps(save_result,sort_keys=True,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+    try:reported_path=Path(save_result.get('path','')).expanduser().absolute()
+    except (TypeError,OSError):return _recovery_rejected('saved_project_native_result_mismatch')
+    if str(reported_path)!=str(project.absolute()) or save_result.get('bytes')!=expected_bytes or saved.get('resultSha256')!=save_result_sha:return _recovery_rejected('saved_project_native_result_mismatch')
+    project_path=str(project.absolute())
+    if checkpoint.get('status')!='NATIVE_EXIT_ZERO_REVIEW_REQUIRED' or checkpoint.get('exitCode')!=0 or checkpoint.get('terminationVerified') is not True:return _recovery_rejected('reopen_process_not_verified_success')
+    before=checkpoint.get('inputSha256');after=checkpoint.get('inputAfterSha256')
+    if not isinstance(before,dict) or not isinstance(after,dict) or before.get(project_path)!=expected_sha or after.get(project_path)!=expected_sha:return _recovery_rejected('reopened_project_input_digest_mismatch')
+    refs=checkpoint.get('stepReferences')
+    if not isinstance(refs,list) or [item.get('command') for item in refs if isinstance(item,dict)]!=['file.open','document.inspect']:return _recovery_rejected('reopen_plan_not_read_only_identity_check')
+    if not isinstance(checkpoint_steps,list) or len(checkpoint_steps)!=2 or checkpoint_steps[0].get('command')!='file.open' or checkpoint_steps[0].get('params')!={'path':project_path} or checkpoint_steps[1]!={'command':'document.inspect','params':{}}:return _recovery_rejected('reopen_plan_project_path_mismatch')
+    try:batch=strict_json(checkpoint.get('stdout',''))
+    except (ValueError,TypeError):return _recovery_rejected('reopen_output_invalid')
+    if not isinstance(batch,dict) or type(batch.get('completed')) is not int or batch.get('completed')!=2 or not isinstance(batch.get('results'),list) or len(batch['results'])!=2:return _recovery_rejected('reopen_output_incomplete')
+    inspection=batch['results'][1]
+    if not isinstance(batch['results'][0],dict) or batch['results'][0].get('index')!=1:return _recovery_rejected('reopened_project_identity_mismatch')
+    if not isinstance(inspection,dict) or inspection.get('path')!=project_path or inspection.get('dirty') is not False or type(inspection.get('pageCount')) is not int or inspection['pageCount']<1 or not isinstance(inspection.get('spreads'),list):return _recovery_rejected('reopened_document_inspection_incomplete')
+    discovered=[];seen=set()
+    for spread in inspection['spreads']:
+        if not isinstance(spread,dict) or not isinstance(spread.get('items'),list):return _recovery_rejected('reopened_object_inventory_invalid')
+        for item in spread['items']:
+            if not isinstance(item,dict) or type(item.get('id')) is not int:continue
+            identity={'id':item['id'],'kind':item.get('kind','unknown')}
+            for key in ('name','story'):
+                if isinstance(item.get(key),(str,int)):identity[key]=item[key]
+            encoded=json.dumps(identity,sort_keys=True,ensure_ascii=False)
+            if encoded not in seen:seen.add(encoded);discovered.append(identity)
+    stories=inspection.get('stories',[])
+    if not isinstance(stories,list):return _recovery_rejected('reopened_story_inventory_invalid',discovered)
+    for story in stories:
+        if not isinstance(story,dict) or type(story.get('id')) is not int:continue
+        identity={'id':story['id'],'kind':'story'}
+        if isinstance(story.get('name'),str):identity['name']=story['name']
+        encoded=json.dumps(identity,sort_keys=True,ensure_ascii=False)
+        if encoded not in seen:seen.add(encoded);discovered.append(identity)
+    results=original.get('stepResults')
+    if not isinstance(results,list) or len(results)!=len(steps) or not results:return _recovery_rejected('original_step_identity_missing',discovered)
+    failed=[index for index,item in enumerate(results) if isinstance(item,dict) and item.get('status')=='STEP_FAILED_OR_PARTIAL']
+    if len(failed)!=1:return _recovery_rejected('original_failed_step_not_unambiguous',discovered)
+    failed_index=failed[0]
+    failed_result=results[failed_index]
+    if original_batch.get('failedIndex')!=failed_index or original_batch.get('failedCommand')!=failed_result.get('command') or original_batch.get('error')!=failed_result.get('failureReason') or original_batch['completed']!=failed_index:return _recovery_rejected('original_failure_identity_mismatch',discovered)
+    failed_result=results[failed_index]
+    if original_batch.get('failedIndex')!=failed_index or original_batch.get('failedCommand')!=failed_result.get('command') or original_batch.get('error')!=failed_result.get('failureReason') or original_batch['completed']!=failed_index:return _recovery_rejected('original_failure_identity_mismatch',discovered)
+    if any(not isinstance(item,dict) or item.get('index')!=index for index,item in enumerate(results)):return _recovery_rejected('original_step_order_mismatch',discovered)
+    if any(item.get('status')!='STEP_COMPLETED_REVIEW_REQUIRED' for item in results[:failed_index]) or any(item.get('status')!='NOT_STARTED' for item in results[failed_index+1:]):return _recovery_rejected('original_step_observation_not_recoverable',discovered)
+    remaining=steps[failed_index+1:]
+    if not remaining:return {'status':'CHECKPOINT_VERIFIED_NO_REMAINING_STEPS','resumeAllowed':False,'automaticExecution':False,'automaticReplay':False,'completeAcceptance':False,'failedStepIndex':failed_index,'savedProjectSha256':expected_sha,'discoveredObjects':discovered,'remainingPlan':{'domain':'designcraft','steps':[]}}
+    if any(_contains_cross_session_reference(step) for step in remaining):return {'status':'MANUAL_OBJECT_REBINDING_REQUIRED','resumeAllowed':False,'automaticExecution':False,'automaticReplay':False,'completeAcceptance':False,'reason':'remaining_steps_reference_prior_session_objects','failedStepIndex':failed_index,'savedProjectSha256':expected_sha,'discoveredObjects':discovered,'remainingSteps':remaining}
+    return {'status':'RECOVERY_READY','resumeAllowed':True,'automaticExecution':False,'automaticReplay':False,'completeAcceptance':False,'failedStepIndex':failed_index,'savedProjectPath':project_path,'savedProjectSha256':expected_sha,'reopenRunId':checkpoint.get('runId'),'discoveredObjects':discovered,'remainingPlan':{'domain':'designcraft','steps':remaining},'nextAction':'review remainingPlan and explicitly submit it as a new run'}
+
+
 def _business_step(reference,status,reason,**details):
     return {'stepRef':reference['stepRef'],'index':reference['index'],'command':reference['command'],'status':status,'reason':reason,**details}
 
@@ -487,6 +596,10 @@ def inspect_receipt(path,domain):
                     if index>failed_index and result.get('status')!='NOT_STARTED':raise ValueError('receipt_step_result_evidence_invalid')
                 if sum(result.get('status')=='STEP_FAILED_OR_PARTIAL' for result in results)!=1:raise ValueError('receipt_step_result_evidence_invalid')
             if 'businessAssessment' in value:validate_business_assessment(value['businessAssessment'],references)
+        saved=value.get('savedProjectCheckpoint')
+        if saved is not None:
+            if not isinstance(saved,dict) or set(saved)!={'status','stepRef','path','bytes','sha256','resultSha256'} or saved.get('status')!='SAVED_REOPEN_REQUIRED' or not isinstance(saved.get('stepRef'),str) or not isinstance(saved.get('path'),str) or not Path(saved['path']).is_absolute() or type(saved.get('bytes')) is not int or saved['bytes']<0 or not re.fullmatch('[0-9a-f]{64}',str(saved.get('sha256'))) or not re.fullmatch('[0-9a-f]{64}',str(saved.get('resultSha256'))):raise ValueError('receipt_saved_checkpoint_invalid')
+            if not isinstance(value.get('stepReferences'),list) or saved['stepRef'] not in {item.get('stepRef') for item in value['stepReferences'] if isinstance(item,dict)}:raise ValueError('receipt_saved_checkpoint_identity_mismatch')
         runtime=value.get('runtimeIdentity')
         if runtime is not None:
             if not isinstance(runtime,dict) or runtime.get('verificationStatus')!='LOCKED_EXPECTATION' or not isinstance(runtime.get('name'),str) or not isinstance(runtime.get('version'),str) or not isinstance(runtime.get('platform'),str) or not isinstance(runtime.get('runtimeHome'),str) or not re.fullmatch('[0-9a-f]{64}',str(runtime.get('lockSha256'))):raise ValueError('receipt_runtime_identity_invalid')
@@ -509,8 +622,9 @@ def output_text(value):
 
 def main(domain,script_dir):
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action',choices=('list','describe','check','run','receipt'))
+    parser.add_argument('action',choices=('list','describe','check','run','receipt','recover'))
     parser.add_argument('argument',nargs='?')
+    parser.add_argument('--checkpoint-receipt',type=Path,help='已在新原生会话重开并检查保存工程的回执')
     parser.add_argument('--catalog',type=Path,help='显式离线原生JSON目录；不能用于执行')
     parser.add_argument('--runtime-home',type=Path)
     parser.add_argument('--archive',type=Path)
@@ -525,6 +639,28 @@ def main(domain,script_dir):
         if args.action=='receipt':
             if args.argument is None:raise ValueError('receipt_path_required')
             print(json.dumps(inspect_receipt(args.argument,domain),ensure_ascii=False,indent=2));return 0
+        if args.action=='recover':
+            if domain!='designcraft' or args.argument is None or args.checkpoint_receipt is None:raise ValueError('recovery_requires_designcraft_original_and_checkpoint_receipts')
+            original=inspect_receipt(args.argument,domain);checkpoint=inspect_receipt(args.checkpoint_receipt,domain)
+            resources=capture_resources(script_dir)
+            if original.get('skillResourceSha256')!=resources or checkpoint.get('skillResourceSha256')!=resources:raise ValueError('recovery_skill_resources_changed')
+            if original.get('runtimeLockSha256')!=checkpoint.get('runtimeLockSha256') or original.get('runtimeIdentity')!=checkpoint.get('runtimeIdentity'):raise ValueError('recovery_runtime_identity_mismatch')
+            native_plan=original.get('nativePlanPath');native_hash=original.get('nativePlanSha256')
+            if not isinstance(native_plan,str) or not isinstance(native_hash,str) or not re.fullmatch('[0-9a-f]{64}',native_hash):raise ValueError('recovery_original_plan_identity_missing')
+            native_path=Path(native_plan)
+            if native_path.is_symlink() or not native_path.is_file() or file_sha(native_path)!=native_hash:raise ValueError('recovery_original_plan_changed')
+            steps=[strict_json(line) for line in native_path.read_text(encoding='utf-8').splitlines() if line.strip()]
+            references=original.get('stepReferences')
+            if not isinstance(references,list) or len(steps)!=len(references) or any(not isinstance(step,dict) or step.get('command')!=references[index].get('command') for index,step in enumerate(steps)):raise ValueError('recovery_original_step_identity_mismatch')
+            checkpoint_plan=checkpoint.get('nativePlanPath');checkpoint_hash=checkpoint.get('nativePlanSha256')
+            if not isinstance(checkpoint_plan,str) or not isinstance(checkpoint_hash,str) or not re.fullmatch('[0-9a-f]{64}',checkpoint_hash):raise ValueError('recovery_reopen_plan_identity_missing')
+            checkpoint_path=Path(checkpoint_plan)
+            if checkpoint_path.is_symlink() or not checkpoint_path.is_file() or file_sha(checkpoint_path)!=checkpoint_hash:raise ValueError('recovery_reopen_plan_changed')
+            checkpoint_steps=[strict_json(line) for line in checkpoint_path.read_text(encoding='utf-8').splitlines() if line.strip()]
+            checkpoint_refs=checkpoint.get('stepReferences')
+            if not isinstance(checkpoint_refs,list) or len(checkpoint_steps)!=len(checkpoint_refs) or any(not isinstance(step,dict) or step.get('command')!=checkpoint_refs[index].get('command') for index,step in enumerate(checkpoint_steps)):raise ValueError('recovery_reopen_step_identity_mismatch')
+            reply=build_recovery_plan(original,checkpoint,steps,checkpoint_steps)
+            print(json.dumps(reply,ensure_ascii=False,indent=2));return 0 if reply.get('resumeAllowed') else 1
         plan=None
         # 在安装前检查计划的 JSON、领域与结构；实际目录存在后再检查命令。
         if args.action in ('check','run'):
@@ -576,13 +712,14 @@ def main(domain,script_dir):
                 machine_result=args.output/'native-result.json'
                 run_id=str(uuid.uuid4());runtime_identity=expected_runtime_identity(script_dir,args.runtime_home)
                 references=step_references(run_id,plan['steps'])
-                receipt={'schemaVersion':2,'runId':run_id,'domain':domain,'status':'STARTED','startedAt':datetime.now(timezone.utc).isoformat(),'argv':prefix+['--result-file',str(machine_result),'--',*argv],'catalogSha256':hashlib.sha256(json.dumps(raw,sort_keys=True,ensure_ascii=False).encode()).hexdigest(),'planSha256':hashlib.sha256(json.dumps(plan,sort_keys=True,ensure_ascii=False).encode()).hexdigest(),'nativePlanSha256':file_sha(script),'automaticReplay':False,'completeAcceptance':False,'inputSha256':input_sha,'runtimeLockSha256':resources['runtime.lock.json'],'runtimeIdentity':runtime_identity,'skillResourceSha256':resources,'directoryBaseline':{'path':str(args.output),'state':'ABSENT','sha256':None},'outputDirectoryBefore':'ABSENT','stepResultGranularity':'single-native-session','stepReferences':references,'stepResults':[dict(item,status='SUBMITTED') for item in references],'workingCopyPath':str(working_source) if working_source is not None else None,'workingCopyBeforeSha256':working_copy_before}
+                receipt={'schemaVersion':2,'runId':run_id,'domain':domain,'status':'STARTED','startedAt':datetime.now(timezone.utc).isoformat(),'argv':prefix+['--result-file',str(machine_result),'--',*argv],'catalogSha256':hashlib.sha256(json.dumps(raw,sort_keys=True,ensure_ascii=False).encode()).hexdigest(),'planSha256':hashlib.sha256(json.dumps(plan,sort_keys=True,ensure_ascii=False).encode()).hexdigest(),'nativePlanPath':str(script),'nativePlanSha256':file_sha(script),'savedProjectCheckpoint':None,'automaticReplay':False,'completeAcceptance':False,'inputSha256':input_sha,'runtimeLockSha256':resources['runtime.lock.json'],'runtimeIdentity':runtime_identity,'skillResourceSha256':resources,'directoryBaseline':{'path':str(args.output),'state':'ABSENT','sha256':None},'outputDirectoryBefore':'ABSENT','stepResultGranularity':'single-native-session','stepReferences':references,'stepResults':[dict(item,status='SUBMITTED') for item in references],'workingCopyPath':str(working_source) if working_source is not None else None,'workingCopyBeforeSha256':working_copy_before}
                 target=args.output/'receipt.json';write_receipt(target,receipt)
                 try:
                     result=subprocess.run(receipt['argv'],capture_output=True,text=True,timeout=900)
                     native_result=read_native_result(machine_result,result.returncode)
                     receipt.update(status=native_result['status'],reason=native_result.get('reason'),exitCode=native_result.get('exitCode'),started=native_result.get('started'),terminationVerified=native_result.get('terminationVerified'),descendantsTerminationVerified=native_result.get('descendantsTerminationVerified'),nativeResultSchemaVersion=native_result.get('schemaVersion'),finishedAt=native_result.get('finishedAt',datetime.now(timezone.utc).isoformat()),stdout=result.stdout,stderr=result.stderr)
                     receipt['stepResults']=observe_step_results(references,native_result['status'],native_result.get('started') is True,result.stdout)
+                    receipt['savedProjectCheckpoint']=saved_project_checkpoint(plan['steps'],references,native_result['status'],native_result.get('started') is True,result.stdout)
                     receipt['businessAssessment']=assess_business_results(receipt['stdout'],references,domain)
                 except (OSError,subprocess.SubprocessError,KeyboardInterrupt) as error:
                     receipt.update(status='UNKNOWN',reason='gateway_interrupted_or_timed_out',terminationVerified=False,descendantsTerminationVerified=False,finishedAt=datetime.now(timezone.utc).isoformat(),error=str(error),stdout=output_text(getattr(error,'stdout',None)),stderr=output_text(getattr(error,'stderr',None)))

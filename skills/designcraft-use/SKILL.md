@@ -105,9 +105,11 @@ CLI 参数按 argv 传递，不执行 shell。原生命令可能具有文件写�
 显式 `--catalog <原生JSON目录文件>` 支持离线查询与检查，执行禁止使用离线目录。
 计划格式为 `{"domain":"designcraft","steps":[{"command":"实际命令ID","params":{}}]}`。
 `check <计划JSON>` 检查结构、命令存在及原生 schema 的受支持约束；纯文本参数只展示原文，参数类型和状态前置条件由原生程序判断，不能将检查通过当成执行通过。
-`run <计划JSON> --output <新目录>` 重新读取真实目录，在一个原生会话中执行整个计划，保留执行回执；零退出状态仍标记 REVIEW_REQUIRED。 `receipt <旧回执路径>` 仅离线读取历史回执；不升级旧身份、不恢复运行，也不触发安装或重放。
+`run <计划JSON> --output <新目录>` 重新读取真实目录，在一个原生会话中执行整个计划，保留执行回执；零退出状态仍标记 REVIEW_REQUIRED。`receipt <旧回执路径>` 仅离线读取历史回执；`recover <原回执路径> --checkpoint-receipt <重开回执>` 只核对保存工程并输出安全恢复计划，不安装、不自动执行，也不重放原计划。
 原生源工程用 DesignCraft `--source`，照片库用 LightCraft `--library` 与重复 `--import`，PDF 文件根用 PrintCraft `--root`。
 超时或中断保留 UNKNOWN 回执，不自动重放可能已写入的命令。
+
+对包含已完成 `file.saveAs` 的部分失败回执，先用一个新计划执行 `file.open` 与 `document.inspect`，并用 `--input` 登记保存工程；之后 `commands.py recover <原回执> --checkpoint-receipt <重开回执>` 只核对身份并生成未启动后缀。只有返回 `RECOVERY_READY` 才可人工审阅后显式提交为新计划；已完成前缀和可能有副作用的失败步永不重放。旧对象的 `step:N` 跨会话引用会被拒绝自动恢复，必须先按新 inspection 的对象身份人工重绑。检查点缺失、摘要漂移、未知状态或回执缺字段时只返回诊断。
 
 ## 场景示例
 

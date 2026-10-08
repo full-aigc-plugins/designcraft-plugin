@@ -16,6 +16,7 @@
 - 超时或中断时保留可取得的 stdout/stderr 和 `UNKNOWN` 状态；先读既有回执与产物，不自动重放写入。
 - 若零退出后发现登记原件变化，回执进入 `INPUT_CHANGED_REVIEW_REQUIRED` 并返回失败。事后发现不会撤销已经发生的写入。
 - 多步计划若只取得批次级原生结果，每步只能显示批次级待审阅或 `UNKNOWN`。固定 CLI 若返回身份一致的 `completed`/`failedIndex`/`failedCommand`/`results`，可绑定已完成前缀、标记一个可能已产生副作用的失败步和未启动后缀；失败步不可自动重放。结构不符时仍按全量 `UNKNOWN` 处理。
+- 已完成 `file.saveAs` 的回执仅记录 `SAVED_REOPEN_REQUIRED`，不等于已验证检查点。先在新原生会话运行仅含 `file.open`、`document.inspect` 的只读计划，并登记保存工程为输入；随后 `recover` 比较原回执、保存步骤结果、工程字节摘要、CLI/技能资源和重开检查。成功时只输出原计划中 `NOT_STARTED` 的后缀，不自动执行；原计划失败步与已完成步骤均排除。若后缀引用旧会话 `step:N` 对象，必须人工用新 inspection 结果重绑后再建立新计划；不能重绑或任一身份/摘要不符时仅给诊断。
 
 ## 证据边界
 
