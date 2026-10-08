@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "runId": "b835ec76-9359-46b4-a517-62518eec4528",
+  "observedAt": "2026-10-08",
+  "task": "plugin Harness validation of fixed source candidate AV-01 through AV-04",
+  "pluginVersion": "0.1.0-dev.1",
+  "pluginHead": "42112d635b97519b08e980c794532f9eb9d45b1b",
+  "sourceHead": "31e20d13901c3d606e7be5031a0c86950047b474",
+  "sourceNativeRuntime": {
+    "version": "0.2.1",
+    "binarySha256": "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8",
+    "catalogSha256": "bf780a8b8a356f6af52e1bdda9319aad2d804b4915148cccf3b1f9c5d3c01700"
+  },
+  "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e",
+  "harnessTaskId": "36b0e8c0-ed46-4df8-a268-09e6096dfb5c",
+  "harnessFinalState": "COMPLETED",
+  "verifiedEvidenceKinds": [
+    "AV-01",
+    "AV-02",
+    "AV-03",
+    "AV-04"
+  ],
+  "nativeStatus": "NATIVE_EXIT_ZERO_REVIEW_REQUIRED",
+  "validators": {
+    "AV-01": {
+      "status": "PASS",
+      "contractVersion": "designcraft-business-assessment/v1",
+      "receiptSha256": "b9efd7f451e568f7db3d691c632fd8ca6361b5c73c43bc8a2378656ead3bd9eb"
+    },
+    "AV-02": "PASS",
+    "AV-03": "PASS",
+    "AV-04": "PASS"
+  },
+  "limitations": [
+    "Harness exercised only verification and evidence registration; it did not invoke a native write/export.",
+    "Source gateway status remains NATIVE_EXIT_ZERO_REVIEW_REQUIRED.",
+    "Automated AV-03 is candidate-bound but does not prove review-judgment truth or human approval.",
+    "Codex model routing remains FAIL; this does not establish task 3.1b/3.4 or full task 4.4 acceptance.",
+    "AV-01 receipt has NOT_CLASSIFIED inspection/save steps while preflight and export are PASS."
+  ]
+}
