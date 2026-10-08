@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "projectSha256": "b7e34dab77d3f1fd21c22dc478bf295ae4ea49ac947a1783aade9e827a5197a6",
+  "objects": [
+    {
+      "id": "frame:21",
+      "page": 1,
+      "contentSha256": "fc6996ed2853a6930b4a2dcae051f3784d1b378e1dcb98657921314cad15d1c9",
+      "storyId": "22"
+    },
+    {
+      "id": "frame:23",
+      "page": 1,
+      "contentSha256": "457a75ed00efaeeb4186697ae196bb53bce8036e596775a86dacf0c6bbae8b19",
+      "storyId": "24"
+    },
+    {
+      "id": "frame:25",
+      "page": 1,
+      "contentSha256": "23d5508b4c170e0b811b90b662f74f14bef18d3e1e50f14ba1bc17c7aee99ed6",
+      "storyId": "26"
+    },
+    {
+      "id": "frame:27",
+      "page": 2,
+      "contentSha256": "c495c97dc64248d268c6dfd535585d2afd7766a2abd47c91778566cc4e2cea72",
+      "storyId": "28"
+    },
+    {
+      "id": "frame:29",
+      "page": 2,
+      "contentSha256": "8f002dd4a03e0f3fbf80be9babb54eb4bdc5ca705594ba3d256c7407e3fd3f14",
+      "storyId": "30"
+    },
+    {
+      "id": "frame:31",
+      "page": 2,
+      "contentSha256": "46ffbe2fee7d222a0fd7fcfe7b202499b4e500db8ca2c98c43e86a5d40886a57",
+      "storyId": "32"
+    },
+    {
+      "id": "frame:35",
+      "page": 2,
+      "contentSha256": "8f6af0eb3d44dc9da78d5c291bb0ed088a0261f482cbcfaa086fc86af3bb7e83",
+      "storyId": "36"
+    },
+    {
+      "id": "frame:37",
+      "page": 2,
+      "contentSha256": "1971d96d769b6a4459fcba13a98f8a79e07099d63374c1f7589a704603f965ee",
+      "storyId": "38"
+    },
+    {
+      "id": "frame:39",
+      "page": 3,
+      "contentSha256": "ec1c3074013914a1efef3918ffa0a1b9f7e0ec9f8891c4accee1b575b52290c0",
+      "storyId": "38"
+    },
+    {
+      "id": "frame:41",
+      "page": 3,
+      "contentSha256": "2f4d9985c3aafe5d9b2de58408f98b44264abccee92fce2bc8e6ea0ef037aa76",
+      "storyId": "42"
+    },
+    {
+      "id": "frame:45",
+      "page": 4,
+      "contentSha256": "49b72eee60852e9d7959c4e4f080c145b64d4fcd18bff67dd2e8c23763bf1b1d",
+      "storyId": "46"
+    },
+    {
+      "id": "frame:47",
+      "page": 4,
+      "contentSha256": "2c6bbcde20e958a73675eaeb9ceae9426ea7c53dad881cdd701baccafd951755",
+      "storyId": "48"
+    },
+    {
+      "id": "frame:50",
+      "page": 4,
+      "contentSha256": "773feee43d96ea5a9ffafe25a573a697262d4ff244ba262e3bb68e504616fa08",
+      "storyId": "51"
+    },
+    {
+      "id": "frame:53",
+      "page": 4,
+      "contentSha256": "39c8b0af7550744d4bac48fc22afef5f2c621c1223594e56c406e1ab1af94869",
+      "storyId": "54"
+    },
+    {
+      "id": "frame:56",
+      "page": 4,
+      "contentSha256": "d46cb78a3779c903d88e85b59b414e0f95e5d930a299731a3ab861318bf440e8",
+      "storyId": "57"
+    },
+    {
+      "id": "frame:59",
+      "page": 4,
+      "contentSha256": "2a410e1fd041f21bbe4790c05b490e858eefc70a149b3978370655dfaef60b6d",
+      "storyId": "60"
+    },
+    {
+      "id": "frame:61",
+      "page": 4,
+      "contentSha256": "c84e332c3f717d97014582e339f53fd4681ddd284be4d3a01d112afff48a6b04",
+      "storyId": "62"
+    },
+    {
+      "id": "frame:64",
+      "page": 3,
+      "contentSha256": "a8aba4e3e102cc9b2058c62fb10c66ea5d74a1c5ed87ae161c1c0be893db7b1e",
+      "storyId": "65"
+    },
+    {
+      "id": "object:20",
+      "page": 1,
+      "contentSha256": "a850268386aae452229e2ae0ab3cfc95996ae8a81bf715d22e128cb83a72c2db",
+      "storyId": null
+    },
+    {
+      "id": "object:34",
+      "page": 2,
+      "contentSha256": "11314afec2ac0608a88579789014be9ec95e613009d73dd1064955d3fd3fc2d9",
+      "storyId": null
+    },
+    {
+      "id": "object:43",
+      "page": 3,
+      "contentSha256": "e5cab47992ea5e75abba7ac718d805be3d4239ea1090a0bdf94c99a28829faff",
+      "storyId": null
+    },
+    {
+      "id": "object:44",
+      "page": 4,
+      "contentSha256": "ec5236cc7715e1bb3a234f42da85e62e74468a648e8d02fa3344bd837bd60ac6",
+      "storyId": null
+    },
+    {
+      "id": "object:49",
+      "page": 4,
+      "contentSha256": "9c36953d47a71e75394c2017fcf23eeaf7396b691cefbef1ff9db2c48abd70dc",
+      "storyId": null
+    },
+    {
+      "id": "object:52",
+      "page": 4,
+      "contentSha256": "89b9e30ee822ae11dd52a6d5c05886a332da3f0fe470a65c87cd25c9dc0be744",
+      "storyId": null
+    },
+    {
+      "id": "object:55",
+      "page": 4,
+      "contentSha256": "22ba6dccf621919146ef4f208f91b8fdb60b1d138bdf0f79f0b1125d95193761",
+      "storyId": null
+    },
+    {
+      "id": "object:58",
+      "page": 4,
+      "contentSha256": "12b53dde7706e854ef972c1a5127585cedaef649f7edf59d5a0a13d236ac88e5",
+      "storyId": null
+    }
+  ]
+}

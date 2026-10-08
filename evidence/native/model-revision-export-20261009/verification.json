@@ -1,0 +1,132 @@
+{
+  "taskId": "ee080135-babb-401d-9830-36b37a7f6b9b",
+  "taskStatus": "EXECUTING",
+  "taskRevision": 3,
+  "skills": [
+    "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/home/plugins/cache/designcraft-bundled-acceptance/designcraft/0.1.0-dev.1/skills/designcraft-harness/SKILL.md",
+    "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/home/plugins/cache/designcraft-bundled-acceptance/designcraft/0.1.0-dev.1/skills/designcraft-use/SKILL.md"
+  ],
+  "readiness": "READY",
+  "editRunId": "d996c10a-b54d-439b-8825-cb4b2c79eb82",
+  "reopenRunId": "f96a4f10-7011-409a-92b3-6e546dd49671",
+  "nativeStatus": {
+    "edit": "NATIVE_EXIT_ZERO_REVIEW_REQUIRED",
+    "reopen": "NATIVE_EXIT_ZERO_REVIEW_REQUIRED"
+  },
+  "pageCount": {
+    "edit": 4,
+    "reopen": 4,
+    "pdfNativeExport": 4
+  },
+  "preflight": {
+    "minPpi": 150,
+    "edit": {
+      "errors": 0,
+      "issues": [],
+      "warnings": 0
+    },
+    "reopen": {
+      "errors": 0,
+      "issues": [],
+      "warnings": 0
+    }
+  },
+  "exportWarnings": [],
+  "scope": {
+    "pagePosition": 3,
+    "pageId": 7,
+    "frameId": 64,
+    "storyId": 65,
+    "before": {
+      "id": 65,
+      "text": "A Better Grid",
+      "paras": [
+        {
+          "style": "Revision Headline"
+        }
+      ],
+      "chars": [
+        {
+          "len": 13,
+          "style": "[None]"
+        }
+      ],
+      "frames": [
+        64
+      ],
+      "rev": 3
+    },
+    "after": {
+      "id": 65,
+      "text": "A Considered Grid",
+      "paras": [
+        {
+          "style": "Revision Headline"
+        }
+      ],
+      "chars": [
+        {
+          "len": 17,
+          "style": "[None]"
+        }
+      ],
+      "frames": [
+        64
+      ],
+      "rev": 4
+    },
+    "changedStoryIds": [
+      "65"
+    ],
+    "changedDocumentKeys": [
+      "stories"
+    ]
+  },
+  "checks": {
+    "sourceUnchanged": true,
+    "onlyStory65Changed": true,
+    "spreadsIdentical": true,
+    "allOtherDocumentFieldsIdentical": true,
+    "originalTitleCorrect": true,
+    "savedTitleCorrect": true,
+    "reopenedTitleCorrect": true,
+    "savedProjectUnchangedByReopen": true,
+    "distinctRunIds": true,
+    "taskPreservesEditRunId": true,
+    "editCompletedSevenSteps": true,
+    "reopenCompletedFourSteps": true,
+    "pdfSignature": true
+  },
+  "files": {
+    "original": {
+      "path": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/home/plugins/cache/designcraft-bundled-acceptance/designcraft/0.1.0-dev.1/evidence/native/revision-qualification-20261009/original.designcraft",
+      "bytes": 831867,
+      "sha256": "b7e34dab77d3f1fd21c22dc478bf295ae4ea49ac947a1783aade9e827a5197a6"
+    },
+    "savedProject": {
+      "path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/native-workspace/revised.designcraft",
+      "bytes": 831873,
+      "sha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+    },
+    "pdf": {
+      "path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/native-workspace/revised.pdf",
+      "bytes": 552605,
+      "sha256": "0d58c2d81af2cbb4a2b36778ebab48e017b9e491de401948c4a779c29c9a3666"
+    },
+    "editReceipt": {
+      "path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/native-workspace/edit-run/receipt.json",
+      "bytes": 35833,
+      "sha256": "6f6481542c84216e6627d6cf0e1a5efac4205b4bc92e46f6ee10a6c5350baaec"
+    },
+    "reopenReceipt": {
+      "path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/native-workspace/reopen-run/receipt.json",
+      "bytes": 32096,
+      "sha256": "b8bd26d6e8cfe371968eb0ac7c919a6215d84406fd48edb38e7e49936ca29bea"
+    }
+  },
+  "sourceBeforeSha256": "b7e34dab77d3f1fd21c22dc478bf295ae4ea49ac947a1783aade9e827a5197a6",
+  "completeAcceptance": false,
+  "fullPageReview": "NOT_RUN",
+  "humanSignoff": "NOT_RUN",
+  "avEvidenceRegistered": []
+}

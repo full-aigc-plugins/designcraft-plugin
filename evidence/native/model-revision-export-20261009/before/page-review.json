@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "designcraft-page-review/v1",
+  "runId": "ace17c98-fa79-45a8-97e7-87395abcf34e",
+  "projectSha256": "b7e34dab77d3f1fd21c22dc478bf295ae4ea49ac947a1783aade9e827a5197a6",
+  "artifactManifestSha256": "b375cc0682cf75081e79517d6f9d7d7408944144cf60064dc8bcd3f28cbe190f",
+  "rubricVersion": "designcraft-layout-rubric/v1",
+  "basis": {
+    "type": "task-spec",
+    "path": "task-spec.md",
+    "sha256": "13752c37c454444290bdb35f0552b33da35c9b5c51ff97ab59007768924523fe"
+  },
+  "reviewer": {
+    "kind": "automated",
+    "identity": "Codex visual inspection",
+    "model": "GPT-6 multimodal visual review"
+  },
+  "reviewedAt": "2026-10-08T11:55:49.983425+00:00",
+  "pages": [
+    {
+      "page": 1,
+      "previewPath": "previews/page-1.png",
+      "previewSha256": "2aa97c060c694ed63645de39d4a9099a539e2117962d913c1ff24e559174a1a1",
+      "checks": [
+        {
+          "criterion": "hierarchy",
+          "status": "PASS",
+          "note": "Strong cover-title hierarchy over layered artwork."
+        },
+        {
+          "criterion": "whitespace",
+          "status": "PASS",
+          "note": "Title and subtitle have clear surrounding space."
+        },
+        {
+          "criterion": "alignment",
+          "status": "PASS",
+          "note": "Header and title align to a consistent left edge."
+        },
+        {
+          "criterion": "readability",
+          "status": "PASS",
+          "note": "Large white title remains legible over dark contrast."
+        },
+        {
+          "criterion": "cropping",
+          "status": "PASS",
+          "note": "All cover copy is visible in the rendered page."
+        },
+        {
+          "criterion": "crossPageConsistency",
+          "status": "PASS",
+          "note": "Palette and running header establish the issue style."
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "previewPath": "previews/page-2.png",
+      "previewSha256": "1ba8c0cda5dadd3a7cbb1d3fbddb4feddc7ba5caa4b10b31949de52da3d88092",
+      "checks": [
+        {
+          "criterion": "hierarchy",
+          "status": "PASS",
+          "note": "Feature title leads the deck, image and article."
+        },
+        {
+          "criterion": "whitespace",
+          "status": "PASS",
+          "note": "Image and text sections are separated by clear gaps."
+        },
+        {
+          "criterion": "alignment",
+          "status": "PASS",
+          "note": "Header, image and two-column text share the page grid."
+        },
+        {
+          "criterion": "readability",
+          "status": "PASS",
+          "note": "Small caption remains readable at the rendered scale."
+        },
+        {
+          "criterion": "cropping",
+          "status": "PASS",
+          "note": "Image and body copy stay within their frames."
+        },
+        {
+          "criterion": "crossPageConsistency",
+          "status": "PASS",
+          "note": "Typography and purple-orange palette continue the cover identity."
+        }
+      ]
+    },
+    {
+      "page": 3,
+      "previewPath": "previews/page-3.png",
+      "previewSha256": "b88fd603b70c5559adba7db4280dbf6b92d2b683294e182ce67b64a659e36b77",
+      "checks": [
+        {
+          "criterion": "hierarchy",
+          "status": "PASS",
+          "note": "Inserted title is distinct from the three-column body."
+        },
+        {
+          "criterion": "whitespace",
+          "status": "PASS",
+          "note": "Pull quote provides a clear pause in a dense page."
+        },
+        {
+          "criterion": "alignment",
+          "status": "PASS",
+          "note": "Columns, quote and footer align to the established grid."
+        },
+        {
+          "criterion": "readability",
+          "status": "PASS",
+          "note": "Body text is readable; page is dense but not colliding."
+        },
+        {
+          "criterion": "cropping",
+          "status": "PASS",
+          "note": "No visible clipping or overlap in columns or title."
+        },
+        {
+          "criterion": "crossPageConsistency",
+          "status": "PASS",
+          "note": "Running footer and palette match the surrounding pages."
+        }
+      ]
+    },
+    {
+      "page": 4,
+      "previewPath": "previews/page-4.png",
+      "previewSha256": "c50666299622b8ef9fc8c8e3eb6b3823036b214be3d55b9be4024a95618c8557",
+      "checks": [
+        {
+          "criterion": "hierarchy",
+          "status": "PASS",
+          "note": "Large title and swatches establish a clear entry point."
+        },
+        {
+          "criterion": "whitespace",
+          "status": "PASS",
+          "note": "Open purple field is intentional and balanced by lower content."
+        },
+        {
+          "criterion": "alignment",
+          "status": "PASS",
+          "note": "Swatches and table align into a regular horizontal rhythm."
+        },
+        {
+          "criterion": "readability",
+          "status": "PASS",
+          "note": "Labels and table content are legible."
+        },
+        {
+          "criterion": "cropping",
+          "status": "PASS",
+          "note": "Title, swatches, text and table remain within page bounds."
+        },
+        {
+          "criterion": "crossPageConsistency",
+          "status": "PASS",
+          "note": "Color palette, type and footer align with preceding pages."
+        }
+      ]
+    }
+  ],
+  "conclusions": {
+    "structure": {
+      "status": "PASS",
+      "note": "Four page renders correspond to the 4-page native reopen/export; the modified title appears on page 3."
+    },
+    "visual": {
+      "status": "PASS",
+      "note": "All four rendered pages were visually inspected. Hierarchy, spacing and legibility are coherent; page 3 remains dense but its columns and inserted title do not overlap."
+    },
+    "output": {
+      "status": "PASS",
+      "note": "Fresh native PDF export reports 4 pages, 552600 bytes and no export warnings; native preflight reports 0 errors and 0 warnings. This is not external PDF/X certification."
+    },
+    "editability": {
+      "status": "PASS",
+      "note": "The saved .designcraft project reopened in a new native CLI session with matching SHA-256 and the edited title visible in document inspection."
+    }
+  }
+}

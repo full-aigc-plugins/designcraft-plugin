@@ -1,0 +1,18 @@
+{
+  "scope": "reuse unchanged saved baseline, not a new model run",
+  "sourceDirectory": "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-skills-repositories/designcraft-skills/evidence/native/designcraft-cli-0.2.1/av04-revision/before",
+  "projectSha256": "b7e34dab77d3f1fd21c22dc478bf295ae4ea49ac947a1783aade9e827a5197a6",
+  "files": {
+    "artifact-manifest.json": "b375cc0682cf75081e79517d6f9d7d7408944144cf60064dc8bcd3f28cbe190f",
+    "final.pdf": "bc1f80d28c5c60dd915d23a3460fc6956f8780dea3d970455260789a08c38a23",
+    "magazine.designcraft": "b7e34dab77d3f1fd21c22dc478bf295ae4ea49ac947a1783aade9e827a5197a6",
+    "page-review.json": "adceae4837692ccdb0f9c5572bf8646c6ce82e5e71474c8b67d15263e6df273c",
+    "previews/page-1.png": "2aa97c060c694ed63645de39d4a9099a539e2117962d913c1ff24e559174a1a1",
+    "previews/page-2.png": "1ba8c0cda5dadd3a7cbb1d3fbddb4feddc7ba5caa4b10b31949de52da3d88092",
+    "previews/page-3.png": "b88fd603b70c5559adba7db4280dbf6b92d2b683294e182ce67b64a659e36b77",
+    "previews/page-4.png": "c50666299622b8ef9fc8c8e3eb6b3823036b214be3d55b9be4024a95618c8557",
+    "revision-snapshot.json": "674758894c993076a82c1d0f22db4e65da28be8d9bc32092dabbb22edd4480c7",
+    "task-spec.md": "13752c37c454444290bdb35f0552b33da35c9b5c51ff97ab59007768924523fe"
+  },
+  "completeAcceptance": false
+}
