@@ -10,7 +10,7 @@
 
 执行前确认安装授权、输入保全范围、输出路径和任务授权；执行入口会记录计划、目录、输入、技能资源和运行时摘要。执行后保留 stdout/stderr、退出信息、终止状态和步骤级观察粒度。
 
-如果原生端只返回整体结果，每步标记 `BATCH_EXIT_ZERO_REVIEW_REQUIRED` 或 `UNKNOWN`，不推断单步成功/失败。超时或终止不明时禁止自动重放。旧回执缺少身份只能只读展示缺口，不能升级为恢复许可。
+如果原生端只返回整体结果，每步标记 `BATCH_EXIT_ZERO_REVIEW_REQUIRED` 或 `UNKNOWN`，不推断单步成功/失败。固定 CLI 若返回含 `completed`、`failedIndex`、`failedCommand` 和已完成 `results` 的一致部分批次，则已完成前缀分别绑定结果 SHA，失败步标记 `STEP_FAILED_OR_PARTIAL`，后缀标记 `NOT_STARTED`；失败步仍可能产生副作用，不得自动重试。部分结果形状错配时退回全量 `UNKNOWN`。超时或终止不明时禁止自动重放。旧回执缺少身份只能只读展示缺口，不能升级为恢复许可。
 
 结果身份和哈希可以发现部分漂移，但不会沙箱化参数内的路径、子进程或其他副作用。`--source`/`--input` 登记的文件和目录会在执行前后比较；目录中新建文件可触发 `INPUT_CHANGED_REVIEW_REQUIRED`，这是执行后检测，不会阻止写入。原生命令参数中的路径不会自动登记，也不限制在 `--output` 内；未登记路径上的副作用不会出现在输入摘要中。固定 CLI 0.2.1 的实测回执与摘要位于 `evidence/native/designcraft-cli-0.2.1/path-side-effects/`。工程保存重开和内容验收需通过独立产物契约完成。
 

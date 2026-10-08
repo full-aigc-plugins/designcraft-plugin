@@ -231,8 +231,27 @@ def step_references(run_id,steps):
     return references
 
 
-def observe_step_results(references,native_status,started):
-    """只映射可由批次级回执证明的状态，不推断单步成功或失败。"""
+def observe_step_results(references,native_status,started,stdout=''):
+    """优先映射固定原生批次给出的完整前缀；失败步仍保持可能已产生副作用。"""
+    if started and native_status=='FAILED_OR_PARTIAL':
+        try:
+            batch=strict_json(stdout)
+            if not isinstance(batch,dict) or set(batch)!={'completed','error','failedCommand','failedIndex','results'}:raise ValueError('native_batch_result_schema_unknown')
+            completed=batch['completed'];failed_index=batch['failedIndex'];failed_command=batch['failedCommand'];results=batch['results'];reason=batch['error']
+            if type(completed) is not int or type(failed_index) is not int or completed<0 or completed!=failed_index or failed_index>=len(references) or not isinstance(failed_command,str) or failed_command!=references[failed_index]['command'] or not isinstance(reason,str) or not reason or not isinstance(results,list) or len(results)!=completed:raise ValueError('native_batch_result_identity_mismatch')
+            observed=[]
+            for index,reference in enumerate(references):
+                base={'stepRef':reference['stepRef'],'index':index,'command':reference['command']}
+                if index<completed:
+                    encoded=json.dumps(results[index],sort_keys=True,ensure_ascii=False,separators=(',',':')).encode('utf-8')
+                    observed.append({**base,'status':'STEP_COMPLETED_REVIEW_REQUIRED','granularity':'native-step-result','resultSha256':hashlib.sha256(encoded).hexdigest()})
+                elif index==failed_index:
+                    observed.append({**base,'status':'STEP_FAILED_OR_PARTIAL','granularity':'native-step-result','failureReason':reason})
+                else:
+                    observed.append({**base,'status':'NOT_STARTED','granularity':'single-native-session'})
+            return observed
+        except (ValueError,TypeError,KeyError):
+            pass
     if not started or native_status=='NOT_STARTED':status='NOT_STARTED'
     elif native_status=='NATIVE_EXIT_ZERO_REVIEW_REQUIRED':status='BATCH_EXIT_ZERO_REVIEW_REQUIRED'
     else:status='UNKNOWN'
@@ -443,7 +462,30 @@ def inspect_receipt(path,domain):
             if value.get('stepResultGranularity')!='single-native-session' or not isinstance(references,list) or not isinstance(results,list) or len(references)!=len(results):raise ValueError('receipt_step_identity_mismatch')
             for index,(reference,result) in enumerate(zip(references,results)):
                 if not isinstance(reference,dict) or not isinstance(result,dict) or type(reference.get('index')) is not int or reference.get('index')!=index or reference.get('stepRef')!=f"{value['runId']}:step:{index}" or not isinstance(reference.get('command'),str) or not reference['command'] or not isinstance(reference.get('paramsSha256'),str) or not re.fullmatch('[0-9a-f]{64}',reference['paramsSha256']):raise ValueError('receipt_step_identity_mismatch')
-                if result.get('stepRef')!=reference['stepRef'] or result.get('index')!=index or result.get('command')!=reference['command'] or result.get('granularity')!='single-native-session' or result.get('status') not in {'SUBMITTED','NOT_STARTED','BATCH_EXIT_ZERO_REVIEW_REQUIRED','UNKNOWN'}:raise ValueError('receipt_step_identity_mismatch')
+                status=result.get('status')
+                if result.get('stepRef')!=reference['stepRef'] or result.get('index')!=index or result.get('command')!=reference['command'] or status not in {'SUBMITTED','NOT_STARTED','BATCH_EXIT_ZERO_REVIEW_REQUIRED','UNKNOWN','STEP_COMPLETED_REVIEW_REQUIRED','STEP_FAILED_OR_PARTIAL'}:raise ValueError('receipt_step_identity_mismatch')
+                if status in {'STEP_COMPLETED_REVIEW_REQUIRED','STEP_FAILED_OR_PARTIAL'}:
+                    if result.get('granularity')!='native-step-result':raise ValueError('receipt_step_identity_mismatch')
+                    if status=='STEP_COMPLETED_REVIEW_REQUIRED' and (not isinstance(result.get('resultSha256'),str) or not re.fullmatch('[0-9a-f]{64}',result['resultSha256'])):raise ValueError('receipt_step_identity_mismatch')
+                    if status=='STEP_FAILED_OR_PARTIAL' and (not isinstance(result.get('failureReason'),str) or not result['failureReason']):raise ValueError('receipt_step_identity_mismatch')
+                elif result.get('granularity')!='single-native-session':raise ValueError('receipt_step_identity_mismatch')
+            partial=[item for item in results if item.get('status') in {'STEP_COMPLETED_REVIEW_REQUIRED','STEP_FAILED_OR_PARTIAL'}]
+            if partial:
+                batch=strict_json(output_text(value.get('stdout')))
+                if not isinstance(batch,dict) or set(batch)!={'completed','error','failedCommand','failedIndex','results'}:raise ValueError('receipt_step_result_evidence_invalid')
+                completed=batch['completed'];failed_index=batch['failedIndex'];native_results=batch['results']
+                if type(completed) is not int or type(failed_index) is not int or completed!=failed_index or completed<0 or failed_index>=len(results) or not isinstance(native_results,list) or len(native_results)!=completed or batch.get('failedCommand')!=results[failed_index].get('command') or not isinstance(batch.get('error'),str) or not batch['error']:raise ValueError('receipt_step_result_evidence_invalid')
+                for index,result in enumerate(results):
+                    if result.get('status')=='STEP_COMPLETED_REVIEW_REQUIRED':
+                        if index>=completed:raise ValueError('receipt_step_result_evidence_invalid')
+                        encoded=json.dumps(native_results[index],sort_keys=True,ensure_ascii=False,separators=(',',':')).encode('utf-8')
+                        if result.get('resultSha256')!=hashlib.sha256(encoded).hexdigest():raise ValueError('receipt_step_result_evidence_invalid')
+                    elif result.get('status')=='STEP_FAILED_OR_PARTIAL':
+                        if index!=failed_index or result.get('failureReason')!=batch.get('error') or result.get('command')!=batch.get('failedCommand'):raise ValueError('receipt_step_result_evidence_invalid')
+                    elif completed<len(results) and index>failed_index and result.get('status')!='NOT_STARTED':raise ValueError('receipt_step_result_evidence_invalid')
+                    if index<completed and result.get('status')!='STEP_COMPLETED_REVIEW_REQUIRED':raise ValueError('receipt_step_result_evidence_invalid')
+                    if index>failed_index and result.get('status')!='NOT_STARTED':raise ValueError('receipt_step_result_evidence_invalid')
+                if sum(result.get('status')=='STEP_FAILED_OR_PARTIAL' for result in results)!=1:raise ValueError('receipt_step_result_evidence_invalid')
             if 'businessAssessment' in value:validate_business_assessment(value['businessAssessment'],references)
         runtime=value.get('runtimeIdentity')
         if runtime is not None:
@@ -540,7 +582,7 @@ def main(domain,script_dir):
                     result=subprocess.run(receipt['argv'],capture_output=True,text=True,timeout=900)
                     native_result=read_native_result(machine_result,result.returncode)
                     receipt.update(status=native_result['status'],reason=native_result.get('reason'),exitCode=native_result.get('exitCode'),started=native_result.get('started'),terminationVerified=native_result.get('terminationVerified'),descendantsTerminationVerified=native_result.get('descendantsTerminationVerified'),nativeResultSchemaVersion=native_result.get('schemaVersion'),finishedAt=native_result.get('finishedAt',datetime.now(timezone.utc).isoformat()),stdout=result.stdout,stderr=result.stderr)
-                    receipt['stepResults']=observe_step_results(references,native_result['status'],native_result.get('started') is True)
+                    receipt['stepResults']=observe_step_results(references,native_result['status'],native_result.get('started') is True,result.stdout)
                     receipt['businessAssessment']=assess_business_results(receipt['stdout'],references,domain)
                 except (OSError,subprocess.SubprocessError,KeyboardInterrupt) as error:
                     receipt.update(status='UNKNOWN',reason='gateway_interrupted_or_timed_out',terminationVerified=False,descendantsTerminationVerified=False,finishedAt=datetime.now(timezone.utc).isoformat(),error=str(error),stdout=output_text(getattr(error,'stdout',None)),stderr=output_text(getattr(error,'stderr',None)))
