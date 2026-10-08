@@ -369,6 +369,156 @@ class HarnessStateContract(unittest.TestCase):
         self.assertIn('source_checkpoint_contract_unavailable',result['blockers'])
         self.assertEqual(before,after)
 
+    def _checkpoint_recovery_fixture(self):
+        import uuid
+        folder=Path(self.temp.name)/'recovery-bundle';folder.mkdir()
+        saved=folder/'saved.designcraft';saved.write_bytes(b'verified saved project')
+        saved_sha=hashlib.sha256(saved.read_bytes()).hexdigest();saved_path=str(saved.resolve())
+        original_id='11111111-1111-4111-8111-111111111111';reopen_id='22222222-2222-4222-8222-222222222222'
+        original_plan={'domain':'designcraft','steps':[
+            {'command':'file.open','params':{'path':'/tmp/source.designcraft'}},
+            {'command':'file.saveAs','params':{'path':saved_path}},
+            {'command':'file.exportText','params':{'path':str(folder/'text.txt')}},
+            {'command':'document.inspect','params':{}},
+        ]}
+        reopen_plan={'domain':'designcraft','steps':[{'command':'file.open','params':{'path':saved_path}},{'command':'document.inspect','params':{}}]}
+        def step_refs(run_id,plan):
+            return [{'stepRef':f'{run_id}:step:{i}','index':i,'command':step['command'],'paramsSha256':hashlib.sha256(json.dumps(step['params'],sort_keys=True,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()} for i,step in enumerate(plan['steps'])]
+        original_refs=step_refs(original_id,original_plan);reopen_refs=step_refs(reopen_id,reopen_plan)
+        save_result={'path':saved_path,'bytes':len(saved.read_bytes())};result_sha=hashlib.sha256(json.dumps(save_result,sort_keys=True,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+        native_identity={'version':'0.2.1','expectedBinarySha256':'a'*64}
+        original={'schemaVersion':2,'runId':original_id,'domain':'designcraft','status':'FAILED_OR_PARTIAL','exitCode':1,'terminationVerified':True,'descendantsTerminationVerified':True,'runtimeLockSha256':'b'*64,'runtimeIdentity':native_identity,'skillResourceSha256':{'commands.py':'c'*64},'skillResourceAfterSha256':{'commands.py':'c'*64},'planSha256':hashlib.sha256(json.dumps(original_plan,sort_keys=True,ensure_ascii=False).encode()).hexdigest(),'savedProjectCheckpoint':{'status':'SAVED_REOPEN_REQUIRED','stepRef':original_refs[1]['stepRef'],'path':saved_path,'bytes':len(saved.read_bytes()),'sha256':saved_sha,'resultSha256':result_sha},'stepReferences':original_refs,'stepResults':[
+            {'stepRef':original_refs[0]['stepRef'],'index':0,'command':'file.open','status':'STEP_COMPLETED_REVIEW_REQUIRED'},
+            {'stepRef':original_refs[1]['stepRef'],'index':1,'command':'file.saveAs','status':'STEP_COMPLETED_REVIEW_REQUIRED'},
+            {'stepRef':original_refs[2]['stepRef'],'index':2,'command':'file.exportText','status':'STEP_FAILED_OR_PARTIAL'},
+            {'stepRef':original_refs[3]['stepRef'],'index':3,'command':'document.inspect','status':'NOT_STARTED'},
+        ],'stdout':json.dumps({'completed':2,'failedIndex':2,'failedCommand':'file.exportText','error':'selection required','results':[{'index':1},save_result]})}
+        inspection={'path':saved_path,'dirty':False,'pageCount':1,'spreads':[{'items':[{'id':91,'kind':'text frame','name':'title','story':92}]}],'stories':[{'id':92,'name':'main'}]}
+        reopen={'schemaVersion':2,'runId':reopen_id,'domain':'designcraft','status':'NATIVE_EXIT_ZERO_REVIEW_REQUIRED','exitCode':0,'terminationVerified':True,'descendantsTerminationVerified':True,'runtimeLockSha256':'b'*64,'runtimeIdentity':native_identity,'skillResourceSha256':{'commands.py':'c'*64},'skillResourceAfterSha256':{'commands.py':'c'*64},'planSha256':hashlib.sha256(json.dumps(reopen_plan,sort_keys=True,ensure_ascii=False).encode()).hexdigest(),'stepReferences':reopen_refs,'stepResults':[{'stepRef':reopen_refs[0]['stepRef'],'index':0,'command':'file.open','status':'BATCH_EXIT_ZERO_REVIEW_REQUIRED'},{'stepRef':reopen_refs[1]['stepRef'],'index':1,'command':'document.inspect','status':'BATCH_EXIT_ZERO_REVIEW_REQUIRED'}],'inputSha256':{saved_path:saved_sha},'inputAfterSha256':{saved_path:saved_sha},'stdout':json.dumps({'completed':2,'results':[{'index':1},inspection]})}
+        remaining={'domain':'designcraft','steps':[original_plan['steps'][3]]}
+        report={'contractVersion':'designcraft-checkpoint-recovery/v1','status':'RECOVERY_READY','resumeAllowed':True,'automaticExecution':False,'automaticReplay':False,'completeAcceptance':False,'originalRunId':original_id,'reopenRunId':reopen_id,'failedStepIndex':2,'savedProjectPath':saved_path,'savedProjectSha256':saved_sha,'discoveredObjects':[{'id':91,'kind':'text frame','name':'title','story':92},{'id':92,'kind':'story','name':'main'}],'remainingPlan':remaining}
+        paths={}
+        for name,value in (('original-plan.json',original_plan),('reopen-plan.json',reopen_plan),('original-receipt.json',original),('reopen-receipt.json',reopen),('recovery.json',report)):
+            path=folder/name;path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n');paths[name]=path
+        task=self.store.transition(self.task['taskId'],'EXECUTING',expected_revision=0)
+        runs=self.root/task['taskId']/'runs';runs.mkdir(parents=True)
+        receipt_ref='runs/original.json';(self.root/task['taskId']/receipt_ref).write_text(json.dumps({'taskId':task['taskId'],'payload':original,'processExitCode':1}))
+        task=self.store.update(task['taskId'],{'runId':original_id,'nativeStatus':'FAILED_OR_PARTIAL','nativeReceiptRef':receipt_ref,'checkpointRefs':[str(saved)]},expected_revision=task['revision'])
+        task=self.store.transition(task['taskId'],'RECONCILING',expected_revision=task['revision'])
+        return task,paths,saved,report,original_plan
+
+    def test_reconcile_verifies_versioned_source_checkpoint_bundle_without_mutating_task(self):
+        task,paths,saved,report,_=self._checkpoint_recovery_fixture()
+        before=(self.root/task['taskId']/'task.json').read_bytes()
+        result=self.store.reconcile(task['taskId'],recovery_report_path=paths['recovery.json'],reopen_receipt_path=paths['reopen-receipt.json'],reopen_plan_path=paths['reopen-plan.json'],original_plan_path=paths['original-plan.json'],saved_project_path=saved)
+        self.assertEqual(result['status'],'RECOVERY_READY',result)
+        self.assertEqual(result['recoveryContract'],'designcraft-checkpoint-recovery/v1')
+        self.assertEqual(result['remainingPlan'],report['remainingPlan'])
+        self.assertEqual(result['reconciledRunId'],report['reopenRunId'])
+        self.assertTrue(result['resumeAllowed'])
+        self.assertFalse(result['automaticExecution'])
+        self.assertFalse(result['automaticReplay'])
+        self.assertEqual(before,(self.root/task['taskId']/'task.json').read_bytes())
+
+    def test_reconcile_mismatched_saved_checkpoint_stays_read_only_and_blocked(self):
+        task,paths,saved,report,_=self._checkpoint_recovery_fixture()
+        report['savedProjectSha256']='0'*64;paths['recovery.json'].write_text(json.dumps(report))
+        before=(self.root/task['taskId']/'task.json').read_bytes()
+        result=self.store.reconcile(task['taskId'],recovery_report_path=paths['recovery.json'],reopen_receipt_path=paths['reopen-receipt.json'],reopen_plan_path=paths['reopen-plan.json'],original_plan_path=paths['original-plan.json'],saved_project_path=saved)
+        self.assertFalse(result['resumeAllowed'])
+        self.assertIn('source_recovery_checkpoint_mismatch',result['blockers'])
+        self.assertEqual(before,(self.root/task['taskId']/'task.json').read_bytes())
+
+    def test_prepare_recovery_requires_confirmed_plan_hash_and_reuses_existing_task(self):
+        task,paths,project,report,_=self._checkpoint_recovery_fixture()
+        plan_sha=self.harness.TaskStore._canonical_sha256(report['remainingPlan'])
+        before=self.store.get(task['taskId'])
+        with self.assertRaisesRegex(ValueError,'recovery_plan_confirmation_mismatch'):
+            self.store.prepare_recovery(task['taskId'],task['revision'],'0'*64,recovery_report_path=paths['recovery.json'],reopen_receipt_path=paths['reopen-receipt.json'],reopen_plan_path=paths['reopen-plan.json'],original_plan_path=paths['original-plan.json'],saved_project_path=project)
+        self.assertEqual(self.store.get(task['taskId'])['revision'],before['revision'])
+        prepared=self.store.prepare_recovery(task['taskId'],task['revision'],plan_sha,recovery_report_path=paths['recovery.json'],reopen_receipt_path=paths['reopen-receipt.json'],reopen_plan_path=paths['reopen-plan.json'],original_plan_path=paths['original-plan.json'],saved_project_path=project)
+        self.assertEqual(prepared['taskId'],task['taskId'])
+        self.assertEqual((prepared['state'],prepared['nativeStatus'],prepared['runId']),('PREPARED','NOT_RUN',None))
+        self.assertEqual(prepared['recoveryPlan'],report['remainingPlan'])
+        self.assertEqual(prepared['recoveryPlanSha256'],plan_sha)
+        self.assertEqual(prepared['recoveryProof']['originalRunId'],task['runId'])
+        self.assertEqual(prepared['recoveryAction'],'manual_review_confirmed')
+        self.assertEqual(sum(path.is_dir() and path.name==task['taskId'] for path in self.root.iterdir()),1)
+
+    def test_recovery_with_unverified_descendants_requires_explicit_risk_acknowledgement(self):
+        task,paths,project,report,_=self._checkpoint_recovery_fixture()
+        wrapper_path=self.root/task['taskId']/task['nativeReceiptRef'];wrapper=json.loads(wrapper_path.read_text());wrapper['payload']['descendantsTerminationVerified']=False;wrapper_path.write_text(json.dumps(wrapper))
+        reopen=json.loads(paths['reopen-receipt.json'].read_text());reopen['descendantsTerminationVerified']=False;paths['reopen-receipt.json'].write_text(json.dumps(reopen))
+        diagnostic=self.store.reconcile(task['taskId'],recovery_report_path=paths['recovery.json'],reopen_receipt_path=paths['reopen-receipt.json'],reopen_plan_path=paths['reopen-plan.json'],original_plan_path=paths['original-plan.json'],saved_project_path=project)
+        self.assertTrue(diagnostic['planVerified'])
+        self.assertFalse(diagnostic['resumeAllowed'])
+        self.assertEqual(diagnostic['risks'],['process_descendants_termination_unverified'])
+        plan_sha=self.harness.TaskStore._canonical_sha256(report['remainingPlan'])
+        with self.assertRaisesRegex(ValueError,'recovery_risk_acknowledgement_required'):
+            self.store.prepare_recovery(task['taskId'],task['revision'],plan_sha,recovery_report_path=paths['recovery.json'],reopen_receipt_path=paths['reopen-receipt.json'],reopen_plan_path=paths['reopen-plan.json'],original_plan_path=paths['original-plan.json'],saved_project_path=project)
+        prepared=self.store.prepare_recovery(task['taskId'],task['revision'],plan_sha,acknowledged_risks=diagnostic['risks'],recovery_report_path=paths['recovery.json'],reopen_receipt_path=paths['reopen-receipt.json'],reopen_plan_path=paths['reopen-plan.json'],original_plan_path=paths['original-plan.json'],saved_project_path=project)
+        self.assertEqual(prepared['recoveryProof']['acknowledgedRisks'],diagnostic['risks'])
+
+    def test_recovered_dispatch_rejects_any_plan_other_than_verified_not_started_suffix(self):
+        task,paths,project,report,_=self._checkpoint_recovery_fixture()
+        plan_sha=self.harness.TaskStore._canonical_sha256(report['remainingPlan'])
+        task=self.store.prepare_recovery(task['taskId'],task['revision'],plan_sha,recovery_report_path=paths['recovery.json'],reopen_receipt_path=paths['reopen-receipt.json'],reopen_plan_path=paths['reopen-plan.json'],original_plan_path=paths['original-plan.json'],saved_project_path=project)
+        task=self.store.transition(task['taskId'],'EXECUTING',expected_revision=task['revision'])
+        marker=Path(self.temp.name)/'native-called';self.harness.EXTERNAL_COMMANDS=Path(self.temp.name)/'commands.py';self.harness.EXTERNAL_COMMANDS.write_text(f"from pathlib import Path\nPath({str(marker)!r}).write_text('called')\n")
+        alternate=Path(self.temp.name)/'alternate-plan.json';alternate.write_text(json.dumps({'domain':'designcraft','steps':[{'command':'file.exportText','params':{'path':'out.txt'}}]}))
+        with patch.object(self.harness,'readiness_report',return_value={'status':'READY'}):
+            with self.assertRaisesRegex(ValueError,'recovery_remaining_plan_mismatch'):
+                self.store.dispatch_native(task['taskId'],['run',str(alternate)],expected_revision=task['revision'])
+        self.assertFalse(marker.exists())
+        self.assertEqual(self.store.get(task['taskId'])['state'],'EXECUTING')
+
+    def test_recovered_dispatch_rejects_tampered_persisted_plan_before_native_call(self):
+        task,paths,project,report,_=self._checkpoint_recovery_fixture()
+        plan_sha=self.harness.TaskStore._canonical_sha256(report['remainingPlan'])
+        task=self.store.prepare_recovery(task['taskId'],task['revision'],plan_sha,recovery_report_path=paths['recovery.json'],reopen_receipt_path=paths['reopen-receipt.json'],reopen_plan_path=paths['reopen-plan.json'],original_plan_path=paths['original-plan.json'],saved_project_path=project)
+        plan_ref=task['recoveryProof']['remainingPlanRef']
+        (self.root/task['taskId']/plan_ref).write_text('{"tampered":true}')
+        run_plan=Path(self.temp.name)/'confirmed-plan.json';run_plan.write_text(json.dumps(report['remainingPlan']))
+        marker=Path(self.temp.name)/'native-called'
+        self.harness.EXTERNAL_COMMANDS=Path(self.temp.name)/'commands.py';self.harness.EXTERNAL_COMMANDS.write_text(f"from pathlib import Path\nPath({str(marker)!r}).write_text('called')\n")
+        task=self.store.transition(task['taskId'],'EXECUTING',expected_revision=task['revision'])
+        with patch.object(self.harness,'readiness_report',return_value={'status':'READY'}):
+            with self.assertRaisesRegex(ValueError,'recovery_proof_evidence_changed'):
+                self.store.dispatch_native(task['taskId'],['run',str(run_plan)],expected_revision=task['revision'])
+        self.assertFalse(marker.exists())
+
+    def test_recovered_dispatch_rejects_changed_saved_project_before_native_call(self):
+        task,paths,project,report,_=self._checkpoint_recovery_fixture()
+        plan_sha=self.harness.TaskStore._canonical_sha256(report['remainingPlan'])
+        task=self.store.prepare_recovery(task['taskId'],task['revision'],plan_sha,recovery_report_path=paths['recovery.json'],reopen_receipt_path=paths['reopen-receipt.json'],reopen_plan_path=paths['reopen-plan.json'],original_plan_path=paths['original-plan.json'],saved_project_path=project)
+        project.write_bytes(b'changed after manual review')
+        run_plan=Path(self.temp.name)/'confirmed-plan.json';run_plan.write_text(json.dumps(report['remainingPlan']))
+        marker=Path(self.temp.name)/'native-called'
+        self.harness.EXTERNAL_COMMANDS=Path(self.temp.name)/'commands.py';self.harness.EXTERNAL_COMMANDS.write_text(f"from pathlib import Path\nPath({str(marker)!r}).write_text('called')\n")
+        task=self.store.transition(task['taskId'],'EXECUTING',expected_revision=task['revision'])
+        with patch.object(self.harness,'readiness_report',return_value={'status':'READY'}):
+            with self.assertRaisesRegex(ValueError,'recovery_checkpoint_changed_after_review'):
+                self.store.dispatch_native(task['taskId'],['run',str(run_plan)],expected_revision=task['revision'])
+        self.assertFalse(marker.exists())
+
+    def test_recovered_dispatch_consumes_the_verified_plan_before_single_explicit_run(self):
+        task,paths,project,report,_=self._checkpoint_recovery_fixture()
+        plan_sha=self.harness.TaskStore._canonical_sha256(report['remainingPlan'])
+        task=self.store.prepare_recovery(task['taskId'],task['revision'],plan_sha,recovery_report_path=paths['recovery.json'],reopen_receipt_path=paths['reopen-receipt.json'],reopen_plan_path=paths['reopen-plan.json'],original_plan_path=paths['original-plan.json'],saved_project_path=project)
+        plan_path=Path(self.temp.name)/'confirmed-plan.json';plan_path.write_text(json.dumps(report['remainingPlan']))
+        run_id='33333333-3333-4333-8333-333333333333';marker=Path(self.temp.name)/'dispatch-count'
+        receipt={'schemaVersion':2,'status':'NATIVE_EXIT_ZERO_REVIEW_REQUIRED','runId':run_id,'exitCode':0}
+        self.harness.EXTERNAL_COMMANDS=Path(self.temp.name)/'commands.py';self.harness.EXTERNAL_COMMANDS.write_text(f"from pathlib import Path\nPath({str(marker)!r}).write_text('called')\nimport json\nprint(json.dumps({json.dumps(receipt)}))\n")
+        task=self.store.transition(task['taskId'],'EXECUTING',expected_revision=task['revision'])
+        with patch.object(self.harness,'readiness_report',return_value={'status':'READY'}):
+            task=self.store.dispatch_native(task['taskId'],['run',str(plan_path)],expected_revision=task['revision'])
+        self.assertEqual(task['nativeStatus'],'NATIVE_EXIT_ZERO_REVIEW_REQUIRED')
+        self.assertIsNone(task['recoveryPlan'])
+        self.assertEqual(task['recoveryProof']['consumedPlanSha256'],plan_sha)
+        self.assertEqual(marker.read_text(),'called')
+        with self.assertRaisesRegex(ValueError,'native_dispatch_already_started_or_requires_reconciliation'):
+            self.store.dispatch_native(task['taskId'],['run',str(plan_path)],expected_revision=task['revision'])
+
     def test_reconciliation_reports_receipt_run_id_mismatch_without_mutating_task(self):
         task=self._unknown_reconciling_task()
         path=self.root/task['taskId']/task['nativeReceiptRef']

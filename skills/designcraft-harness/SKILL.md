@@ -35,7 +35,9 @@ Harness 管理任务身份、用户给出的修改范围、技能路由、技能
 
 ### Step 4：处理 UNKNOWN 和恢复
 
-进入 RECONCILING 并核对已保存工程、回执和检查点。当前没有可验证持久工程检查点时 `resumeAllowed` 必须保持 false。
+进入 RECONCILING 后，默认只读核对 task/runId 与原回执。若技能源提供 `designcraft-checkpoint-recovery/v1`，可额外提供原计划、保存工程、重开计划/回执和恢复报告；Harness 独立核验原运行身份、步骤前缀/失败步/未启动后缀、工程 SHA、重开会话与 inspection。任一文件、摘要或步骤不匹配时只报告阻塞并保留原状态。
+
+恢复分两步：先 `reconcile` 查看验证后的 `remainingPlan` 和摘要；人工审阅计划后，使用 `prepare-recovery` 提交同一摘要。它复用原 taskId，把精确后缀保存在用户任务目录并迁移到 PREPARED，不创建第二个任务。若任一原生回执未确认子进程后代已终止，`reconcile` 会显示 `process_descendants_termination_unverified` 风险；仅当实际输出列出此风险时，才通过单独的 `--acknowledge-risk` 明确确认。之后 `native run` 只能提交该后缀一次；调用前会重验持久化证据、计划和保存工程摘要；失败、中断或 UNKNOWN 均不允许重放。计划及来源回执只证明合同内部一致，不证明文件报告的签名真实性，也不构成新的写入授权。
 
 ### Step 5：验证候选并报告
 
@@ -88,13 +90,43 @@ python3 -I -B "$HARNESS_SKILL_DIR/scripts/harness.py" show "$TASK_ID"
 
 ## 状态推进
 
-允许的路径是准备、执行、未知核对、验证、待审阅、局部修订或完成。UNKNOWN 必须先进入 `RECONCILING`；用 `reconcile` 只读核对保存回执和 runId。当前技能源尚未提供可验证的持久工程检查点契约，因此核对结果会保持 `resumeAllowed: false`，不能回到 `PREPARED` 或 `EXECUTING`，也不能凭人工文字解除阻塞。
+允许的路径是准备、执行、未知核对、验证、待审阅、局部修订或完成。UNKNOWN/FAILED_OR_PARTIAL 必须先进入 `RECONCILING`。无恢复合同或任何身份/摘要错配时，`reconcile` 保持只读且 `resumeAllowed: false`。只有验证技能源公开合同并人工确认精确计划 SHA 后，`prepare-recovery` 才能将原任务恢复为 PREPARED；自由文本不能解除阻塞。
 
 ```bash
 python3 -I -B "$HARNESS_SKILL_DIR/scripts/harness.py" transition \
   "$TASK_ID" EXECUTING --expected-revision 0
 
 python3 -I -B "$HARNESS_SKILL_DIR/scripts/harness.py" reconcile "$TASK_ID"
+```
+
+具备检查点恢复材料时，先只读核验（路径指向同一次源端观察的文件）：
+
+```bash
+python3 -I -B "$HARNESS_SKILL_DIR/scripts/harness.py" reconcile "$TASK_ID" \
+  --recovery-report "$RECOVERY_REPORT" \
+  --reopen-receipt "$REOPEN_RECEIPT" \
+  --reopen-plan "$REOPEN_PLAN" \
+  --original-plan "$ORIGINAL_PLAN" \
+  --saved-project "$SAVED_PROJECT"
+```
+
+核对输出 `resumeAllowed: true` 后，人工检查 `remainingPlan`，再用其 `remainingPlanSha256` 和当前 task revision 显式准备恢复。若输出列出 `process_descendants_termination_unverified`，还需明确确认这项风险；不要对未列出的风险传入确认参数。返回的 `recoveryPlanRef` 指向持久化在 task 目录中的同一计划；后续 `native run` 若计划、保存工程或证据文件摘要发生变化，会在调用源技能前拒绝。
+
+```bash
+python3 -I -B "$HARNESS_SKILL_DIR/scripts/harness.py" prepare-recovery "$TASK_ID" \
+  --expected-revision "$REVISION" \
+  --confirm-plan-sha256 "$REMAINING_PLAN_SHA256" \
+  --recovery-report "$RECOVERY_REPORT" \
+  --reopen-receipt "$REOPEN_RECEIPT" \
+  --reopen-plan "$REOPEN_PLAN" \
+  --original-plan "$ORIGINAL_PLAN" \
+  --saved-project "$SAVED_PROJECT"
+```
+
+若且仅若 `reconcile` 的 `risks` 包含该风险，在上面的命令中添加：
+
+```bash
+--acknowledge-risk process_descendants_termination_unverified
 ```
 
 在执行态，通过 Harness 的 `native` 子命令调用技能源公开入口。原生 `run` 可能安装固定运行时并修改工程；调用前必须确认用户授权范围覆盖实际输入、输出和副作用：

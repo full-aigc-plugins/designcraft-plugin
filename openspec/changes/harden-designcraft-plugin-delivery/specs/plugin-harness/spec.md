@@ -24,6 +24,14 @@ Harness SHALL 持久记录任务目标、授权范围、技能路由、runId、�
 - **WHEN** 任务状态无法解析或检查点身份不匹配
 - **THEN** 保留损坏文件并报告核对步骤，不删除状态后重跑。
 
+#### Scenario: 技能源检查点恢复合同匹配
+- **WHEN** `reconcile` 收到同一原 run 的技能源 `designcraft-checkpoint-recovery/v1` 报告、原/重开计划与回执及保存工程，且所有步骤、runId、运行时、工程 SHA 和新会话 inspection 相符
+- **THEN** 只读返回已核验的 `remainingPlan`、计划 SHA 和对象清单；人工确认同一计划 SHA 后，`prepare-recovery` 在原 taskId 上持久化精确未启动后缀并迁移到 `PREPARED`，不得新建重复任务或自动执行。
+
+#### Scenario: 恢复计划摘要或执行进程身份有风险
+- **WHEN** 保存工程摘要、来源回执或剩余计划不匹配，或进程后代终止未确认
+- **THEN** 错配时保持 `RECONCILING` 且只读；未确认的进程后代显示为风险，并要求单独显式确认该风险后才允许准备剩余计划。
+
 #### Scenario: 来源检查点契约缺失
 - **WHEN** Harness 能读取任务回执，但技能源尚无可验证的持久工程检查点契约
 - **THEN** `reconcile` 只读报告 runId、回执身份和缺少的检查点；状态保持 `RECONCILING`，`resumeAllowed` 为 false。

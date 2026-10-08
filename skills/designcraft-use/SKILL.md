@@ -109,7 +109,7 @@ CLI 参数按 argv 传递，不执行 shell。原生命令可能具有文件写�
 原生源工程用 DesignCraft `--source`，照片库用 LightCraft `--library` 与重复 `--import`，PDF 文件根用 PrintCraft `--root`。
 超时或中断保留 UNKNOWN 回执，不自动重放可能已写入的命令。
 
-对包含已完成 `file.saveAs` 的部分失败回执，先用一个新计划执行 `file.open` 与 `document.inspect`，并用 `--input` 登记保存工程；之后 `commands.py recover <原回执> --checkpoint-receipt <重开回执>` 只核对身份并生成未启动后缀。只有返回 `RECOVERY_READY` 才可人工审阅后显式提交为新计划；已完成前缀和可能有副作用的失败步永不重放。旧对象的 `step:N` 跨会话引用会被拒绝自动恢复，必须先按新 inspection 的对象身份人工重绑。检查点缺失、摘要漂移、未知状态或回执缺字段时只返回诊断。
+对包含已完成 `file.saveAs` 的部分失败回执，先用一个新计划执行 `file.open` 与 `document.inspect`，并用 `--input` 登记保存工程；之后 `commands.py recover <原回执> --checkpoint-receipt <重开回执>` 只核对身份并生成未启动后缀。机器结果按 `designcraft-checkpoint-recovery/v1` 输出 `originalRunId`、`reopenRunId`、保存工程 SHA 和剩余计划，供插件 Harness 交叉核验。只有返回 `RECOVERY_READY` 才可人工审阅后显式提交为新计划；已完成前缀和可能有副作用的失败步永不重放。旧对象的 `step:N` 跨会话引用会被拒绝自动恢复，必须先按新 inspection 的对象身份人工重绑。检查点缺失、摘要漂移、未知状态或回执缺字段时只返回诊断。
 
 ## 场景示例
 
