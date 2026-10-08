@@ -19,6 +19,7 @@ PACKAGE_ROOT=Path(__file__).resolve().parents[3]
 EXTERNAL_COMMANDS=PACKAGE_ROOT/'skills/designcraft-use/scripts/commands.py'
 ARTIFACT_VALIDATOR=PACKAGE_ROOT/'skills/designcraft-cli-export/scripts/artifact_manifest.py'
 PAGE_REVIEW_VALIDATOR=PACKAGE_ROOT/'skills/designcraft-cli-export/scripts/page_review.py'
+REVISION_VALIDATOR=PACKAGE_ROOT/'skills/designcraft-cli-export/scripts/revision_evidence.py'
 TRANSITIONS={
  'PREPARED':{'EXECUTING','FAILED'},
  'EXECUTING':{'VERIFYING','RECONCILING','FAILED'},
@@ -31,7 +32,7 @@ TRANSITIONS={
 TASK_FIELDS={'runId','nativeStatus','nativeReceiptRef','candidateSha256','artifactRefs','checkpointRefs','blockers','nextAction','reconciledRunId','recoveryAction','recoveryEvidence','revisionScope','revisionPageRefs'}
 SUPPORTED_SOURCE_VERSIONS={'0.1.0-dev.1'}
 SUPPORTED_NATIVE_RECEIPT_SCHEMA=2
-SUPPORTED_ARTIFACT_CONTRACTS={'designcraft-artifact-manifest/v1','designcraft-page-review/v1'}
+SUPPORTED_ARTIFACT_CONTRACTS={'designcraft-artifact-manifest/v1','designcraft-page-review/v1','designcraft-revision/v1'}
 
 def _freshness_report():
     """读取证据清单的逐层新鲜度结果；失败时返回空状态而不放行能力。"""
@@ -98,7 +99,7 @@ def readiness_report(runtime_home=None,capability_evidence=None,required_command
     except (OSError,ValueError,TypeError,json.JSONDecodeError) as error:
         components['runtime']={'status':'UNAVAILABLE','expectedVersion':version,'runtimePath':str(runtime_path) if runtime_path else None,'reason':str(error)}
     receipt_entry=PACKAGE_ROOT/'skills/designcraft-use/scripts/commands.py'
-    components['sharedContract']={'status':'READY' if source.get('sourceVersion') in SUPPORTED_SOURCE_VERSIONS and receipt_entry.is_file() and all((PACKAGE_ROOT/'skills/designcraft-cli-export/scripts'/name).is_file() for name in ('artifact_manifest.py','page_review.py')) else 'UNAVAILABLE','sourceVersion':source.get('sourceVersion'),'receiptSchemaVersion':SUPPORTED_NATIVE_RECEIPT_SCHEMA,'artifactContracts':sorted(SUPPORTED_ARTIFACT_CONTRACTS)}
+    components['sharedContract']={'status':'READY' if source.get('sourceVersion') in SUPPORTED_SOURCE_VERSIONS and receipt_entry.is_file() and all((PACKAGE_ROOT/'skills/designcraft-cli-export/scripts'/name).is_file() for name in ('artifact_manifest.py','page_review.py','revision_evidence.py')) else 'UNAVAILABLE','sourceVersion':source.get('sourceVersion'),'receiptSchemaVersion':SUPPORTED_NATIVE_RECEIPT_SCHEMA,'artifactContracts':sorted(SUPPORTED_ARTIFACT_CONTRACTS)}
     matrix={}
     try:
         matrix=json.loads((PACKAGE_ROOT/'support-matrix.json').read_text(encoding='utf-8'))
@@ -263,7 +264,7 @@ class TaskStore:
             try:payload=json.loads(path.read_text(encoding='utf-8'))
             except (OSError,json.JSONDecodeError):continue
             digest=hashlib.sha256(path.read_bytes()).hexdigest()
-            validator_valid=(entry.get('kind')!='AV-02' or self._valid_artifact_evidence(payload,data)) and (entry.get('kind')!='AV-03' or self._valid_page_review_evidence(payload,data))
+            validator_valid=(entry.get('kind')!='AV-02' or self._valid_artifact_evidence(payload,data)) and (entry.get('kind')!='AV-03' or self._valid_page_review_evidence(payload,data)) and (entry.get('kind')!='AV-04' or self._valid_revision_evidence(payload,data))
             if digest==entry.get('sha256') and payload.get('taskId')==data['taskId'] and payload.get('status')=='PASS' and payload.get('candidateSha256')==data.get('candidateSha256') and payload.get('kind')==entry.get('kind') and validator_valid:
                 found.add(entry['kind'])
         return found
@@ -309,6 +310,69 @@ class TaskStore:
         except json.JSONDecodeError as error:raise ValueError('page_review_validator_output_invalid') from error
         if result.returncode!=0 or not isinstance(report,dict):raise ValueError('page_review_invalid')
         return report,root,manifest,review
+
+    @staticmethod
+    def _run_revision_validator(root,revision):
+        if not REVISION_VALIDATOR.is_file() or REVISION_VALIDATOR.is_symlink():raise ValueError('revision_validator_missing_or_unsafe')
+        root=Path(root).expanduser().absolute();revision=Path(revision).expanduser().absolute()
+        if root.is_symlink() or not root.is_dir() or revision.is_symlink() or not revision.is_file() or not revision.is_relative_to(root):raise ValueError('revision_path_invalid')
+        result=subprocess.run([sys.executable,'-I','-B',str(REVISION_VALIDATOR),'--root',str(root),'--revision',str(revision)],capture_output=True,text=True,timeout=900)
+        try:report=json.loads(result.stdout)
+        except json.JSONDecodeError as error:raise ValueError('revision_validator_output_invalid') from error
+        if not isinstance(report,dict):raise ValueError('revision_validator_output_invalid')
+        if result.returncode!=0:raise ValueError(report.get('error','revision_invalid'))
+        return report,root,revision
+
+    def _valid_revision_evidence(self,payload,data):
+        try:
+            root=payload['revisionRoot'];revision=payload['revisionPath']
+            report,root_path,revision_path=self._run_revision_validator(root,revision)
+            result=report.get('result')
+            return (
+                payload.get('verifiedBy')=='designcraft-harness'
+                and payload.get('revisionSha256')==hashlib.sha256(revision_path.read_bytes()).hexdigest()
+                and payload.get('validatorSha256')==hashlib.sha256(REVISION_VALIDATOR.read_bytes()).hexdigest()
+                and payload.get('revisionReport')==report
+                and report.get('status')=='PASS'
+                and isinstance(result,dict)
+                and result.get('contractVersion')=='designcraft-revision/v1'
+                and result.get('status')=='PASS'
+                and result.get('afterProjectSha256')==data.get('candidateSha256')
+                and result.get('completeAcceptance') is False
+            )
+        except (OSError,KeyError,TypeError,ValueError,subprocess.SubprocessError,json.JSONDecodeError):
+            return False
+
+    def verify_revision(self,identifier,root,revision,expected_revision):
+        """经技能源 AV-04 校验器核对范围、影响页和修订后导出的证据。"""
+        identifier=task_id(identifier);task=self.get(identifier);self._check_revision(task,expected_revision)
+        if task['state'] not in ('VERIFYING','REVIEW_REQUIRED'):raise ValueError('revision_verification_state_required')
+        if not task.get('candidateSha256'):raise ValueError('candidate_identity_required')
+        current=self._fresh_evidence(task)
+        if 'AV-02' not in current:raise ValueError('artifact_reopen_not_verified')
+        if 'AV-03' not in current:raise ValueError('page_review_not_verified')
+        report,root_path,revision_path=self._run_revision_validator(root,revision)
+        result=report.get('result') if isinstance(report,dict) else None
+        if report.get('status')!='PASS' or not isinstance(result,dict) or result.get('contractVersion')!='designcraft-revision/v1' or result.get('completeAcceptance') is not False:raise ValueError('revision_not_pass')
+        if result.get('afterProjectSha256')!=task['candidateSha256']:raise ValueError('revision_candidate_mismatch')
+        payload={'taskId':identifier,'kind':'AV-04','status':'PASS','candidateSha256':task['candidateSha256'],
+            'revisionRoot':str(root_path),'revisionPath':str(revision_path),'revisionSha256':hashlib.sha256(revision_path.read_bytes()).hexdigest(),
+            'validatorSha256':hashlib.sha256(REVISION_VALIDATOR.read_bytes()).hexdigest(),'revisionReport':report,'verifiedBy':'designcraft-harness'}
+        folder=self._dir(identifier)/'evidence';folder.mkdir(parents=True,exist_ok=True)
+        if folder.is_symlink():raise ValueError('evidence_path_invalid')
+        filename='AV-04-'+hashlib.sha256((payload['revisionSha256']+payload['candidateSha256']).encode()).hexdigest()+'.json';target=folder/filename
+        encoded=(json.dumps(payload,ensure_ascii=False,indent=2)+'\n').encode()
+        if target.exists():
+            if target.is_symlink() or target.read_bytes()!=encoded:raise ValueError('evidence_file_conflict')
+        else:
+            temporary=None
+            try:
+                with tempfile.NamedTemporaryFile(mode='wb',dir=folder,prefix='.revision-evidence-',delete=False) as stream:
+                    temporary=Path(stream.name);stream.write(encoded);stream.flush();os.fsync(stream.fileno())
+                os.replace(temporary,target)
+            finally:
+                if temporary is not None and temporary.exists():temporary.unlink()
+        return self.attach_evidence(identifier,filename,expected_revision)
 
     def _artifact_manifest_hashes(self,data):
         """返回仍有效的 AV-02 清单摘要，供 AV-03 绑定同一份重开证据。"""
@@ -438,6 +502,7 @@ class TaskStore:
             if kind not in data['requiredEvidence'] or payload.get('status')!='PASS':raise ValueError('evidence_not_accepted')
             if kind=='AV-02' and not self._valid_artifact_evidence(payload,data):raise ValueError('artifact_reopen_not_verified')
             if kind=='AV-03' and not self._valid_page_review_evidence(payload,data):raise ValueError('page_review_not_verified')
+            if kind=='AV-04' and not self._valid_revision_evidence(payload,data):raise ValueError('revision_not_verified')
             reference={'kind':kind,'file':file_name,'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'candidateSha256':data['candidateSha256']}
             data['evidenceRefs']=[item for item in data['evidenceRefs'] if item.get('kind')!=kind]+[reference]
             data['revision']+=1;data['updatedAt']=now();self._save(identifier,data);return data
@@ -578,6 +643,7 @@ def main():
     reconcile=commands.add_parser('reconcile');reconcile.add_argument('task_id')
     artifacts=commands.add_parser('verify-artifacts');artifacts.add_argument('task_id');artifacts.add_argument('--expected-revision',type=int,required=True);artifacts.add_argument('--root',required=True);artifacts.add_argument('--manifest',required=True)
     review=commands.add_parser('verify-review');review.add_argument('task_id');review.add_argument('--expected-revision',type=int,required=True);review.add_argument('--root',required=True);review.add_argument('--artifact-manifest',required=True);review.add_argument('--review',required=True)
+    revision=commands.add_parser('verify-revision');revision.add_argument('task_id');revision.add_argument('--expected-revision',type=int,required=True);revision.add_argument('--root',required=True);revision.add_argument('--revision',required=True)
     readiness=commands.add_parser('readiness');readiness.add_argument('--runtime-home');readiness.add_argument('--capability-evidence');readiness.add_argument('--command-id',action='append',default=[])
     args=parser.parse_args();store=TaskStore(args.task_home)
     try:
@@ -590,13 +656,14 @@ def main():
             print(json.dumps(store.reconcile(args.task_id),ensure_ascii=False,indent=2));return 0
         elif args.command=='verify-artifacts':task=store.verify_artifact_manifest(args.task_id,args.root,args.manifest,args.expected_revision)
         elif args.command=='verify-review':task=store.verify_page_review(args.task_id,args.root,args.artifact_manifest,args.review,args.expected_revision)
+        elif args.command=='verify-revision':task=store.verify_revision(args.task_id,args.root,args.revision,args.expected_revision)
         elif args.command=='readiness':
             print(json.dumps(readiness_report(args.runtime_home,args.capability_evidence,args.command_id),ensure_ascii=False,indent=2));return 0
         else:
             native_args=args.arguments[1:] if args.arguments[:1]==['--'] else args.arguments
             task=store.dispatch_native(args.task_id,native_args,args.expected_revision,args.capability_evidence,args.runtime_home)
         print(json.dumps(render_status(task),ensure_ascii=False,indent=2));return 0
-    except (ValueError,OSError,json.JSONDecodeError) as error:
+    except (ValueError,OSError,json.JSONDecodeError,subprocess.SubprocessError) as error:
         print(json.dumps({'error':str(error)},ensure_ascii=False));return 1
 
 if __name__=='__main__':raise SystemExit(main())

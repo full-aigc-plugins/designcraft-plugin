@@ -103,6 +103,8 @@ CLI 参数按 argv 传递，不执行 shell。原生命令可能具有文件写�
 
 逐页预览审阅记录和固定 rubric 见 `references/page-review.md`。仅在 AV-02 的工程重开通过后，使用 `scripts/page_review.py` 校验逐页预览摘要、审阅来源和独立结论；校验器绑定记录，不代替人或视觉模型实际审阅页面。
 
+页/对象/Story 局部修订、受影响页面闭包和修订后导出身份重验见 `references/revision-evidence.md`；`scripts/revision_evidence.py` 校验两轮 AV-02/AV-03 证据、规范化对象快照和授权声明的一致性。它不执行原生编辑，也不证明这些声明真实发生；真实 CLI 目录与创作验收仍需单独完成。
+
 ## 命令目录、参数与单会话计划
 
 `scripts/commands.py list` 从实际固定CLI读取完整原生目录，`describe <命令ID>` 返回参数与分类。

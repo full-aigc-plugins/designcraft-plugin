@@ -33,7 +33,7 @@ class HarnessStateContract(unittest.TestCase):
             self.store.transition(task['taskId'],'EXECUTING',expected_revision=2)
         self.assertEqual(self.store.get(task['taskId'])['state'],'RECONCILING')
 
-    def test_completed_requires_current_hash_bound_acceptance_evidence(self):
+    def test_completion_rejects_fabricated_av04_and_requires_current_hash_bound_evidence(self):
         artifact_root,manifest,identity=self._artifact_fixture('PASS')
         task=self.task
         task=self.store.update(task['taskId'],{'candidateSha256':identity},expected_revision=0)
@@ -42,19 +42,18 @@ class HarnessStateContract(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'required_acceptance_evidence_missing'):
             self.store.transition(task['taskId'],'COMPLETED',expected_revision=task['revision'])
         evidence_dir=self.root/task['taskId']/'evidence';evidence_dir.mkdir(parents=True)
-        for kind in self.harness.REQUIRED_EVIDENCE:
-            if kind=='AV-02':
-                task=self.store.verify_artifact_manifest(task['taskId'],artifact_root,manifest,expected_revision=task['revision'])
-                continue
-            if kind=='AV-03':
-                review=self._page_review_fixture(artifact_root,manifest)
-                task=self.store.verify_page_review(task['taskId'],artifact_root,manifest,review,expected_revision=task['revision'])
-                continue
-            evidence=evidence_dir/(kind+'.json')
-            evidence.write_text(json.dumps({'taskId':task['taskId'],'kind':kind,'status':'PASS','candidateSha256':identity}))
-            task=self.store.attach_evidence(task['taskId'],evidence.name,expected_revision=task['revision'])
-        task=self.store.transition(task['taskId'],'COMPLETED',expected_revision=task['revision'])
-        self.assertEqual(task['state'],'COMPLETED')
+        task=self.store.verify_artifact_manifest(task['taskId'],artifact_root,manifest,expected_revision=task['revision'])
+        review=self._page_review_fixture(artifact_root,manifest)
+        task=self.store.verify_page_review(task['taskId'],artifact_root,manifest,review,expected_revision=task['revision'])
+        av01=evidence_dir/'AV-01.json'
+        av01.write_text(json.dumps({'taskId':task['taskId'],'kind':'AV-01','status':'PASS','candidateSha256':identity}))
+        task=self.store.attach_evidence(task['taskId'],av01.name,expected_revision=task['revision'])
+        fabricated=evidence_dir/'AV-04.json'
+        fabricated.write_text(json.dumps({'taskId':task['taskId'],'kind':'AV-04','status':'PASS','candidateSha256':identity}))
+        with self.assertRaisesRegex(ValueError,'revision_not_verified'):
+            self.store.attach_evidence(task['taskId'],fabricated.name,expected_revision=task['revision'])
+        with self.assertRaisesRegex(ValueError,'required_acceptance_evidence_missing'):
+            self.store.transition(task['taskId'],'COMPLETED',expected_revision=task['revision'])
 
     def test_stale_or_unbound_evidence_is_rejected(self):
         task=self.store.update(self.task['taskId'],{'candidateSha256':'b'*64},expected_revision=0)

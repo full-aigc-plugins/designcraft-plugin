@@ -125,6 +125,17 @@ python3 -I -B "$HARNESS_SKILL_DIR/scripts/harness.py" verify-review \
 
 Harness 会调用技能源公开页审阅校验器，核对 AV-02 清单摘要、当前候选工程 SHA、rubric、每页预览摘要和审阅来源；之后 freshness 检查会重新运行校验器。预览、清单或审阅内容变化都会使 AV-03 证据失效。校验器只证明记录与当前输入绑定，不证明人工或自动视觉判断本身正确。
 
+AV-04 在修订后的 AV-02/AV-03 通过后核对两轮工程身份、规范化对象快照、用户授权范围、Story 影响页闭包及全部修订后导出。使用 `verify-revision` 登记：
+
+```bash
+python3 -I -B "$HARNESS_SKILL_DIR/scripts/harness.py" verify-revision \
+  "$TASK_ID" --expected-revision "$REVISION" \
+  --root "$REVISION_EVIDENCE_DIR" \
+  --revision "$REVISION_EVIDENCE_DIR/revision.json"
+```
+
+技能源 `revision_evidence.py` 会重新核验前后 AV-02 清单和 AV-03 审阅，并绑定修订记录摘要与当前任务候选。修改修订记录、快照、清单、预览或审阅会使 AV-04 失效。它只验证证据链的一致性，不证明用户授权、原生修改或视觉/导出判断真实发生；原生修订仍须单独验收。
+
 Harness 检查状态迁移、文件摘要和候选身份，不替代技能源的原生工程重开、视觉审阅或导出检查。仅在对应实际证据完成后登记 PASS。修订须明确范围，完成一次后等待用户新的指令，不自动开启下一轮。
 
 从 `REVISION_REQUIRED` 恢复时，`revisionScope` 必须是原授权范围内的明确变更描述，`revisionPageRefs` 必须列出受影响页面标识。Harness 以原授权文本包含规范化修订描述作为保守的离线范围检查；无法匹配时保留 `REVISION_REQUIRED`，不得自行扩大授权。范围内修订迁移只到 `PREPARED`，状态输出将给出 `affectedPages` 和 `execute_scoped_revision`，不会自动执行或启动全稿新一轮。例如用户授权“Only change page 3 title and recheck that page”时，修订描述“Change page 3 title”、页面 `page-3` 可以复用该授权；“Rewrite all pages”会被拒绝。
