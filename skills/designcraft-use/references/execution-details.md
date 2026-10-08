@@ -26,4 +26,3 @@ python3 -I -B "$SKILL_DIR/scripts/cli.py" -- --version
 `--archive` 指向已有固定 ZIP，仍校验归档与二进制摘要。
 安装失败返回 dependencySetup，不自动重试编辑或渲染；校验失败保留已有目录。
 当前锁仅固定原生 CLI，发布快照与宿主自动发现仍须另行验证。
-

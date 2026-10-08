@@ -9,4 +9,3 @@
 `run <计划JSON> --output <新目录>` 重新读取真实目录，在一个原生会话中执行整个计划，保留执行回执；零退出状态仍标记 REVIEW_REQUIRED。
 原生源工程用 DesignCraft `--source`，照片库用 LightCraft `--library` 与重复 `--import`，PDF 文件根用 PrintCraft `--root`。
 超时或中断保留 UNKNOWN 回执，不自动重放可能已写入的命令。
-

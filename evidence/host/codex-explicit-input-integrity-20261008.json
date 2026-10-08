@@ -90,80 +90,80 @@
   "after": [
     {
       "name": "designcraft:designcraft-cli",
-      "installedPath": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-explicit-host-nbetdceg/home/plugins/cache/designcraft-explicit-local/designcraft/0.1.0-dev.1/skills/designcraft-cli/SKILL.md",
+      "installedPath": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-explicit-host-rujwco70/home/plugins/cache/designcraft-explicit-local/designcraft/0.1.0-dev.1/skills/designcraft-cli/SKILL.md",
+      "rolloutPath": "sessions/2026/10/08/rollout-2026-10-08T23-42-33-01a11c2e-38b0-74a0-8c58-34bb81f06301.jsonl",
       "installedSkillSha256": "4a1f793e9258e84f1e152911205e40fe87dba6290e851470afa9db16c7e7e0fa",
       "installedBytes": 6069,
       "loadedBodySha256": "4a1f793e9258e84f1e152911205e40fe87dba6290e851470afa9db16c7e7e0fa",
       "loadedBodyBytes": 6069,
       "matchesFullFile": true,
-      "matchesPrefix": true,
-      "rolloutPath": "sessions/2026/10/08/rollout-2026-10-08T23-39-48-01a11c2b-b4a5-71f1-b2ca-26c641f3b157.jsonl"
+      "matchesPrefix": true
     },
     {
       "name": "designcraft:designcraft-cli-document",
-      "installedPath": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-explicit-host-nbetdceg/home/plugins/cache/designcraft-explicit-local/designcraft/0.1.0-dev.1/skills/designcraft-cli-document/SKILL.md",
+      "installedPath": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-explicit-host-rujwco70/home/plugins/cache/designcraft-explicit-local/designcraft/0.1.0-dev.1/skills/designcraft-cli-document/SKILL.md",
+      "rolloutPath": "sessions/2026/10/08/rollout-2026-10-08T23-42-35-01a11c2e-3ebc-7102-b795-1c4dd6088570.jsonl",
       "installedSkillSha256": "f0ca1cec3d63c1831fbf4720c54f0c331e319409815c66c76533aae4bbf2c60b",
       "installedBytes": 6904,
       "loadedBodySha256": "f0ca1cec3d63c1831fbf4720c54f0c331e319409815c66c76533aae4bbf2c60b",
       "loadedBodyBytes": 6904,
       "matchesFullFile": true,
-      "matchesPrefix": true,
-      "rolloutPath": "sessions/2026/10/08/rollout-2026-10-08T23-39-49-01a11c2b-b8a9-79d0-bb92-dfdb3030262c.jsonl"
+      "matchesPrefix": true
     },
     {
       "name": "designcraft:designcraft-cli-export",
-      "installedPath": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-explicit-host-nbetdceg/home/plugins/cache/designcraft-explicit-local/designcraft/0.1.0-dev.1/skills/designcraft-cli-export/SKILL.md",
+      "installedPath": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-explicit-host-rujwco70/home/plugins/cache/designcraft-explicit-local/designcraft/0.1.0-dev.1/skills/designcraft-cli-export/SKILL.md",
+      "rolloutPath": "sessions/2026/10/08/rollout-2026-10-08T23-42-36-01a11c2e-4357-73b3-b060-74150b211bbb.jsonl",
       "installedSkillSha256": "6f155556be342b298c94cc32130c024e4aa7684376d2203f3f2f7dbec1fc2470",
       "installedBytes": 7316,
       "loadedBodySha256": "6f155556be342b298c94cc32130c024e4aa7684376d2203f3f2f7dbec1fc2470",
       "loadedBodyBytes": 7316,
       "matchesFullFile": true,
-      "matchesPrefix": true,
-      "rolloutPath": "sessions/2026/10/08/rollout-2026-10-08T23-39-51-01a11c2b-bd7e-73d3-9679-22a6acc9df5d.jsonl"
+      "matchesPrefix": true
     },
     {
       "name": "designcraft:designcraft-cli-layout",
-      "installedPath": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-explicit-host-nbetdceg/home/plugins/cache/designcraft-explicit-local/designcraft/0.1.0-dev.1/skills/designcraft-cli-layout/SKILL.md",
+      "installedPath": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-explicit-host-rujwco70/home/plugins/cache/designcraft-explicit-local/designcraft/0.1.0-dev.1/skills/designcraft-cli-layout/SKILL.md",
+      "rolloutPath": "sessions/2026/10/08/rollout-2026-10-08T23-42-37-01a11c2e-47f9-7d62-b8de-3be9f29d473c.jsonl",
       "installedSkillSha256": "6173c87fbf4d5a611e7b8e78960d2a9350bd0abdeb2b11572a4c3bc6063a86c5",
       "installedBytes": 6500,
       "loadedBodySha256": "6173c87fbf4d5a611e7b8e78960d2a9350bd0abdeb2b11572a4c3bc6063a86c5",
       "loadedBodyBytes": 6500,
       "matchesFullFile": true,
-      "matchesPrefix": true,
-      "rolloutPath": "sessions/2026/10/08/rollout-2026-10-08T23-39-52-01a11c2b-c222-7ac1-aba5-732d75adb9da.jsonl"
+      "matchesPrefix": true
     },
     {
       "name": "designcraft:designcraft-cli-setup",
-      "installedPath": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-explicit-host-nbetdceg/home/plugins/cache/designcraft-explicit-local/designcraft/0.1.0-dev.1/skills/designcraft-cli-setup/SKILL.md",
+      "installedPath": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-explicit-host-rujwco70/home/plugins/cache/designcraft-explicit-local/designcraft/0.1.0-dev.1/skills/designcraft-cli-setup/SKILL.md",
+      "rolloutPath": "sessions/2026/10/08/rollout-2026-10-08T23-42-39-01a11c2e-4ea4-7b11-96b8-5eb72c4ae125.jsonl",
       "installedSkillSha256": "7d472b768a5c214574fdff8073690583ceb51c46d06b4b67b25a9ac875d4b115",
       "installedBytes": 6113,
       "loadedBodySha256": "7d472b768a5c214574fdff8073690583ceb51c46d06b4b67b25a9ac875d4b115",
       "loadedBodyBytes": 6113,
       "matchesFullFile": true,
-      "matchesPrefix": true,
-      "rolloutPath": "sessions/2026/10/08/rollout-2026-10-08T23-39-53-01a11c2b-c8f5-7a72-930c-030885707840.jsonl"
+      "matchesPrefix": true
     },
     {
       "name": "designcraft:designcraft-harness",
-      "installedPath": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-explicit-host-nbetdceg/home/plugins/cache/designcraft-explicit-local/designcraft/0.1.0-dev.1/skills/designcraft-harness/SKILL.md",
+      "installedPath": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-explicit-host-rujwco70/home/plugins/cache/designcraft-explicit-local/designcraft/0.1.0-dev.1/skills/designcraft-harness/SKILL.md",
+      "rolloutPath": "sessions/2026/10/08/rollout-2026-10-08T23-42-41-01a11c2e-57ca-7593-bb9d-9733070fbdc0.jsonl",
       "installedSkillSha256": "ec6bea8438227523b1d2232b51eca7da46e1c36b5a4de71c478590082fcf6372",
       "installedBytes": 5084,
       "loadedBodySha256": "ec6bea8438227523b1d2232b51eca7da46e1c36b5a4de71c478590082fcf6372",
       "loadedBodyBytes": 5084,
       "matchesFullFile": true,
-      "matchesPrefix": true,
-      "rolloutPath": "sessions/2026/10/08/rollout-2026-10-08T23-39-55-01a11c2b-cd69-7213-8a7e-0eec967cc516.jsonl"
+      "matchesPrefix": true
     },
     {
       "name": "designcraft:designcraft-use",
-      "installedPath": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-explicit-host-nbetdceg/home/plugins/cache/designcraft-explicit-local/designcraft/0.1.0-dev.1/skills/designcraft-use/SKILL.md",
+      "installedPath": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-explicit-host-rujwco70/home/plugins/cache/designcraft-explicit-local/designcraft/0.1.0-dev.1/skills/designcraft-use/SKILL.md",
+      "rolloutPath": "sessions/2026/10/08/rollout-2026-10-08T23-42-43-01a11c2e-5eef-7471-a146-c721c781fa51.jsonl",
       "installedSkillSha256": "ae3a9aedd3037f43234a0b218dfc35df9a96e29b0e20dd78b9ea35d7ca52f138",
       "installedBytes": 7088,
       "loadedBodySha256": "ae3a9aedd3037f43234a0b218dfc35df9a96e29b0e20dd78b9ea35d7ca52f138",
       "loadedBodyBytes": 7088,
       "matchesFullFile": true,
-      "matchesPrefix": true,
-      "rolloutPath": "sessions/2026/10/08/rollout-2026-10-08T23-39-56-01a11c2b-d3dd-7510-88f5-5f3cbd7f77c2.jsonl"
+      "matchesPrefix": true
     }
   ],
   "protocolSequence": [
@@ -213,7 +213,7 @@
     "designcraft-harness/examples/stale-evidence.md": "adfc99684096ec155208a8b25b912ff6b904469e0c1291fe2c6e62842a9df58a",
     "designcraft-harness/examples/scoped-revision.md": "5f4b09c451a08d402eebb25295f83683235f767cf46a0a843f7bb7c9e6bf6d12",
     "designcraft-harness/scripts/harness.py": "1b4e31d1622a38c52c25207c309684f684822d45db76f3a8b0a340b3d4d975b6",
-    "designcraft-use/references/execution-details.md": "fd55f80d545d8c9aef57b678bad81e3516ece9e699e81b50972fbb5d6e0f2d24",
+    "designcraft-use/references/execution-details.md": "cdd12b4d15b53311c64752c57551e7d52d9ff4247267125b2ae54ff24f090f8f",
     "designcraft-use/references/execution-and-receipts.md": "2f88eab2df276b621981b94194a7abb87dd5c279febabf9067efe31ae97e3261",
     "designcraft-use/agents/openai.yaml": "8619a54e8c098122a7f3881394f84ca89b684366e848233a29ad18b6ec363935",
     "designcraft-use/examples/workflow-cases.md": "664dcb0a7f357b0a7cbbf667700eedf82f367ae5dcec4dcc05c6e2d4cade427b",
@@ -258,7 +258,7 @@
     "designcraft-cli/scripts/runtime.lock.json": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8",
     "designcraft-cli/scripts/cli.py": "09c39a397e2e409edf9a84edc8fa24023f736f794a5f0e21bb79390842141044",
     "designcraft-cli/scripts/commands.py": "1c68012b9c9ca0b023a7cbfc05376d9a66059457311734036a8fe7ff13d432b7",
-    "designcraft-cli-layout/references/execution-details.md": "ada488e077178ba4fe60355b68c647b43caab959c5f540268539ad82429d50be",
+    "designcraft-cli-layout/references/execution-details.md": "ca78a03155e164d6147e447e39e6a123e7d2e4ea1844182f5b895f136816d23a",
     "designcraft-cli-layout/references/layout-review.md": "21ed709fa6ca8e0713abdee3481312387b8aae2cadb1ae2c820b4e8ac43a34ab",
     "designcraft-cli-layout/agents/openai.yaml": "a1499d95abd8447558c535fe5554adcc3c9b988a0a39264a6283d430effe1e94",
     "designcraft-cli-layout/examples/workflow-cases.md": "7761f8fd0037597a1f1128abafbf6bc360565dc670ec1f18003a16e20598f6e7",
@@ -270,7 +270,7 @@
     "designcraft-cli-layout/scripts/runtime.lock.json": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8",
     "designcraft-cli-layout/scripts/cli.py": "09c39a397e2e409edf9a84edc8fa24023f736f794a5f0e21bb79390842141044",
     "designcraft-cli-layout/scripts/commands.py": "1c68012b9c9ca0b023a7cbfc05376d9a66059457311734036a8fe7ff13d432b7",
-    "designcraft-cli-document/references/execution-details.md": "ada488e077178ba4fe60355b68c647b43caab959c5f540268539ad82429d50be",
+    "designcraft-cli-document/references/execution-details.md": "ca78a03155e164d6147e447e39e6a123e7d2e4ea1844182f5b895f136816d23a",
     "designcraft-cli-document/references/project-lifecycle.md": "48f279c72365b3f2787531d1720776e7641fd9f012b7102391792cfdd2b21140",
     "designcraft-cli-document/agents/openai.yaml": "a1499d95abd8447558c535fe5554adcc3c9b988a0a39264a6283d430effe1e94",
     "designcraft-cli-document/examples/workflow-cases.md": "1951623e8ce6f5ed38279fafaefd40d9cc2978957c3ea242a4d3d976b8741d8d",

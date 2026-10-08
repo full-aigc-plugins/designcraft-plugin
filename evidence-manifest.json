@@ -72,8 +72,8 @@
       "id": "offline-tests",
       "layer": "offline-tests",
       "status": "PASS",
-      "runId": "70f980f4-a0ef-4e69-9ffb-b0bf7ad9a0c3",
-      "observedAt": "2026-10-08T15:41:29.272833+00:00",
+      "runId": "10f8bcd2-57fb-4dad-8694-644672a28c57",
+      "observedAt": "2026-10-08T15:42:44.080576+00:00",
       "environment": {
         "os": "Darwin",
         "machine": "arm64",
@@ -81,8 +81,8 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "9a12f718de05e008a8355cdc83e82e50853d646054bb40b97290727a62ee1047",
-        "sourceLockSha256": "eaea3805d1300158cd7ac19ecd83d0c4570608325556e4d69f9d9e897e7a7d08",
+        "pluginTreeSha256": "b3087431063021170c4c470bd5f4b23a35e5ddc9b8ffbc13e23e4bf9dc4e709b",
+        "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
           "0.2.1"
@@ -128,7 +128,7 @@
       "artifacts": [
         {
           "path": "evidence/current-offline-validation.json",
-          "sha256": "d74aee70854b780a0e299881364f4add181bd2652b38fbf34f5bf56a1d498932"
+          "sha256": "a0840c7cfe0a105e241ba4e3f904aadc2430aa1b3eda6d5f96b9eea90cec9cac"
         }
       ]
     },
@@ -136,8 +136,8 @@
       "id": "package-validation",
       "layer": "package-validation",
       "status": "PASS",
-      "runId": "70f980f4-a0ef-4e69-9ffb-b0bf7ad9a0c3",
-      "observedAt": "2026-10-08T15:41:29.272833+00:00",
+      "runId": "10f8bcd2-57fb-4dad-8694-644672a28c57",
+      "observedAt": "2026-10-08T15:42:44.080576+00:00",
       "environment": {
         "os": "Darwin",
         "machine": "arm64",
@@ -145,8 +145,8 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "9a12f718de05e008a8355cdc83e82e50853d646054bb40b97290727a62ee1047",
-        "sourceLockSha256": "eaea3805d1300158cd7ac19ecd83d0c4570608325556e4d69f9d9e897e7a7d08",
+        "pluginTreeSha256": "b3087431063021170c4c470bd5f4b23a35e5ddc9b8ffbc13e23e4bf9dc4e709b",
+        "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
           "0.2.1"
@@ -158,7 +158,7 @@
       "inputs": [
         {
           "path": "candidate-source.json",
-          "sha256": "eaea3805d1300158cd7ac19ecd83d0c4570608325556e4d69f9d9e897e7a7d08"
+          "sha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9"
         },
         {
           "path": "plugin.json",
@@ -176,7 +176,7 @@
       "artifacts": [
         {
           "path": "evidence/current-offline-validation.json",
-          "sha256": "d74aee70854b780a0e299881364f4add181bd2652b38fbf34f5bf56a1d498932"
+          "sha256": "a0840c7cfe0a105e241ba4e3f904aadc2430aa1b3eda6d5f96b9eea90cec9cac"
         }
       ]
     },
@@ -184,8 +184,8 @@
       "id": "shared-contract-handoff",
       "layer": "compatibility",
       "status": "PASS",
-      "runId": "909b4971-39da-4239-be2d-f13b798a7756",
-      "observedAt": "2026-10-08T15:42:01.353727+00:00",
+      "runId": "9dc9d7cc-83c4-469a-81c4-76245c3f5b82",
+      "observedAt": "2026-10-08T15:43:11.817721+00:00",
       "environment": {
         "os": "Darwin",
         "machine": "arm64",
@@ -193,8 +193,8 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "9a12f718de05e008a8355cdc83e82e50853d646054bb40b97290727a62ee1047",
-        "sourceLockSha256": "eaea3805d1300158cd7ac19ecd83d0c4570608325556e4d69f9d9e897e7a7d08",
+        "pluginTreeSha256": "b3087431063021170c4c470bd5f4b23a35e5ddc9b8ffbc13e23e4bf9dc4e709b",
+        "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
           "0.2.1"
@@ -207,7 +207,7 @@
       "artifacts": [
         {
           "path": "evidence/source-handoff-20261008.json",
-          "sha256": "8e149a740dcf6e365118bffacc1645f57831b0223bfe57df6db56b26e64a9608"
+          "sha256": "476858cd4e2b3068042567c6028291e8ed490d69db10334dc0c229ca56b1bc52"
         }
       ]
     }
