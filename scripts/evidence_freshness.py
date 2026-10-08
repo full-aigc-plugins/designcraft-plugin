@@ -66,6 +66,22 @@ def _file_records(root, paths):
     if len({item['path'] for item in records})!=len(records):raise ValueError('evidence_path_duplicate')
     return records
 
+def _environment_is_current(root,record,environment):
+    source=record.get('environmentSource','local')
+    if source=='local':return record.get('environment')==environment
+    if source!='artifact':return False
+    raw=record.get('environmentArtifactPath')
+    if not isinstance(raw,str):return False
+    try:
+        relative=PurePosixPath(raw)
+        if relative.is_absolute() or '..' in relative.parts or not relative.parts:return False
+        if raw not in {item.get('path') for item in record.get('artifacts',[]) if isinstance(item,dict)}:return False
+        artifact=Path(root).joinpath(*relative.parts)
+        report=json.loads(artifact.read_text(encoding='utf-8'))
+        return isinstance(report,dict) and report.get('executionEnvironment')==record.get('environment')
+    except (OSError,ValueError,TypeError):
+        return False
+
 def create_record(root,record_id,layer,status,run_id,observed_at,input_paths,artifact_paths,environment=None):
     if status not in ('PASS','FAIL'):raise ValueError('evidence_record_status_invalid')
     try:uuid.UUID(run_id)
@@ -96,7 +112,7 @@ def evaluate_manifest(root,manifest,environment=None):
         try:
             uuid.UUID(record.get('runId',''))
             datetime.fromisoformat(record.get('observedAt','').replace('Z','+00:00'))
-            stale=(record.get('bindings')!=current_bindings(root) or record.get('environment')!=environment or record.get('inputs')!=_file_records(root,[item['path'] for item in record.get('inputs',[])]) or record.get('artifacts')!=_file_records(root,[item['path'] for item in record.get('artifacts',[])]))
+            stale=(record.get('bindings')!=current_bindings(root) or not _environment_is_current(root,record,environment) or record.get('inputs')!=_file_records(root,[item['path'] for item in record.get('inputs',[])]) or record.get('artifacts')!=_file_records(root,[item['path'] for item in record.get('artifacts',[])]))
         except (ValueError,TypeError,KeyError,OSError):
             stale=True
         result[record['id']]='STALE' if stale else record['status']

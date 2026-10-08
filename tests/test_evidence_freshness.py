@@ -17,6 +17,8 @@ class EvidenceFreshness(unittest.TestCase):
         (root/'scripts').mkdir()
         (root/'tests').mkdir()
         (root/'evidence').mkdir()
+        (root/'.github/workflows').mkdir(parents=True)
+        (root/'.github/workflows/ci.yml').write_text('matrix: [3.11, 3.12, 3.13]')
         (root/'plugin.json').write_text(json.dumps({'version':'0.1.0'}))
         (root/'project-status.json').write_text(json.dumps({'offlineTests':'PASS','packageValidation':'PASS','ci':'NOT_RUN','nativeInstallation':'NOT_RUN','targetPlatformAcceptance':'NOT_RUN','hostDiscovery':'NOT_RUN','modelDispatch':'NOT_RUN','creativeAcceptance':'NOT_RUN','published':False}))
         (root/'support-matrix.json').write_text(json.dumps({'offline':{'status':'PASS'},'ci':{'status':'NOT_RUN'},'nativeRuntime':{'status':'NOT_RUN'},'host':{'discovery':'NOT_RUN','modelDispatch':'NOT_RUN'},'creativeAcceptance':'NOT_RUN','release':'UNPUBLISHED'}))
@@ -64,5 +66,28 @@ class EvidenceFreshness(unittest.TestCase):
             self.assertEqual(MODULE.status_mismatches(root,statuses),[])
             status_path=root/'project-status.json';project=json.loads(status_path.read_text());project['hostDiscovery']='PASS';status_path.write_text(json.dumps(project))
             self.assertIn('host.project-status.json',MODULE.status_mismatches(root,statuses))
+
+    def test_external_ci_environment_is_verified_from_bound_report(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);self.fixture(root)
+            execution_environment={'provider':'github-actions','runner':'ubuntu-latest','pythonVersions':['3.11','3.12','3.13']}
+            (root/'evidence/report.json').write_text(json.dumps({'status':'success','executionEnvironment':execution_environment}))
+            record=MODULE.create_record(root,'ci','ci','PASS',str(uuid.uuid4()),'2026-10-08T00:00:00Z',['.github/workflows/ci.yml'],['evidence/report.json'],execution_environment)
+            record['environmentSource']='artifact'
+            record['environmentArtifactPath']='evidence/report.json'
+            result=MODULE.evaluate_manifest(root,{'schemaVersion':1,'records':[record]})
+            self.assertEqual(result,{'ci':'PASS'})
+
+    def test_external_environment_must_match_a_hashed_manifest_artifact(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);self.fixture(root)
+            execution_environment={'provider':'github-actions','runner':'ubuntu-latest','pythonVersions':['3.11','3.12','3.13']}
+            (root/'evidence/report.json').write_text(json.dumps({'status':'success','executionEnvironment':execution_environment}))
+            record=MODULE.create_record(root,'ci','ci','PASS',str(uuid.uuid4()),'2026-10-08T00:00:00Z',['.github/workflows/ci.yml'],['evidence/report.json'],execution_environment)
+            record['environmentSource']='artifact'
+            record['environmentArtifactPath']='evidence/report.json'
+            record['artifacts']=[]
+            result=MODULE.evaluate_manifest(root,{'schemaVersion':1,'records':[record]})
+            self.assertEqual(result,{'ci':'STALE'})
 
 if __name__=='__main__':unittest.main()
