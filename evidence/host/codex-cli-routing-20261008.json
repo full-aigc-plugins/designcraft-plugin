@@ -5,6 +5,11 @@
   "testedPlatforms": [
     "Codex CLI 0.147.0 on macOS 27 arm64"
   ],
+  "executionEnvironment": {
+    "os": "Darwin",
+    "machine": "arm64",
+    "python": "3.13.5"
+  },
   "pluginMarketplace": "designcraft-host-acceptance",
   "pluginSourceRef": "cb2db983cafce9ce3ccc31b2f4626352272c12c6",
   "pluginVersion": "0.1.0-dev.1",
