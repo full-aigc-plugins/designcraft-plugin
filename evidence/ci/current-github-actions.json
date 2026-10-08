@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "provider": "github-actions",
-  "runId": 37782637953,
+  "runId": 37785343732,
   "workflow": "DesignCraft plugin CI",
-  "url": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37782637953",
+  "url": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37785343732",
   "conclusion": "success",
-  "testedCommitSha": "b2d175379daa7dc5a19cf8bc942279b953a1542e",
-  "createdAt": "2026-10-08T13:13:13Z",
-  "completedAt": "2026-10-08T13:13:30Z",
+  "testedCommitSha": "db2da707dc72d0efce410d3ce966b3262a3dd95c",
+  "createdAt": "2026-10-08T13:33:58Z",
+  "completedAt": "2026-10-08T13:34:18Z",
   "executionEnvironment": {
     "provider": "github-actions",
     "runner": "ubuntu-latest",
@@ -22,54 +22,27 @@
       "name": "Python 3.12",
       "conclusion": "success",
       "steps": [
-        {
-          "name": "Run unit tests",
-          "conclusion": "success"
-        },
-        {
-          "name": "Validate plugin package",
-          "conclusion": "success"
-        },
-        {
-          "name": "Check whitespace",
-          "conclusion": "success"
-        }
+        {"name": "Run unit tests", "conclusion": "success"},
+        {"name": "Validate plugin package", "conclusion": "success"},
+        {"name": "Check whitespace", "conclusion": "success"}
       ]
     },
     {
       "name": "Python 3.13",
       "conclusion": "success",
       "steps": [
-        {
-          "name": "Run unit tests",
-          "conclusion": "success"
-        },
-        {
-          "name": "Validate plugin package",
-          "conclusion": "success"
-        },
-        {
-          "name": "Check whitespace",
-          "conclusion": "success"
-        }
+        {"name": "Run unit tests", "conclusion": "success"},
+        {"name": "Validate plugin package", "conclusion": "success"},
+        {"name": "Check whitespace", "conclusion": "success"}
       ]
     },
     {
       "name": "Python 3.11",
       "conclusion": "success",
       "steps": [
-        {
-          "name": "Run unit tests",
-          "conclusion": "success"
-        },
-        {
-          "name": "Validate plugin package",
-          "conclusion": "success"
-        },
-        {
-          "name": "Check whitespace",
-          "conclusion": "success"
-        }
+        {"name": "Run unit tests", "conclusion": "success"},
+        {"name": "Validate plugin package", "conclusion": "success"},
+        {"name": "Check whitespace", "conclusion": "success"}
       ]
     }
   ]
