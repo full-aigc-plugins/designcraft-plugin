@@ -81,8 +81,8 @@
       "id": "offline-tests",
       "layer": "offline-tests",
       "status": "PASS",
-      "runId": "de5bab52-041e-4401-82e2-6a9313e28fba",
-      "observedAt": "2026-10-08T14:16:45.925506+00:00",
+      "runId": "8edcb2bc-45e7-4c8c-97e5-987b6f97df7e",
+      "observedAt": "2026-10-08T14:21:18.149028+00:00",
       "environment": {
         "os": "Darwin",
         "machine": "arm64",
@@ -90,8 +90,8 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "65d588796960b699e5770a221f388da1493ebe431b5a886420fa18ecf189531e",
-        "sourceLockSha256": "2d53aeff4865d90dc7e3132df8d51c4327672257e99a873307f042a2de50f802",
+        "pluginTreeSha256": "c75e919b9264bf9fbd8c996ddd31619ef5ad9152e317dd901c1589373d5c8534",
+        "sourceLockSha256": "5d1603c259e9c43f376e845cb5945aae667022dffdcc082345e68b5cf0ed8bc4",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
           "0.2.1"
@@ -129,7 +129,7 @@
       "artifacts": [
         {
           "path": "evidence/current-offline-validation.json",
-          "sha256": "446c344dd2805414e929ce2660c6b5c2586591df33590c13a2bf9c228fce388a"
+          "sha256": "3aa4d41e695b171e564b3d6f13d00023a56556bfd3594b178e73b06129420ace"
         }
       ]
     },
@@ -137,8 +137,8 @@
       "id": "package-validation",
       "layer": "package-validation",
       "status": "PASS",
-      "runId": "de5bab52-041e-4401-82e2-6a9313e28fba",
-      "observedAt": "2026-10-08T14:16:45.925506+00:00",
+      "runId": "8edcb2bc-45e7-4c8c-97e5-987b6f97df7e",
+      "observedAt": "2026-10-08T14:21:18.149028+00:00",
       "environment": {
         "os": "Darwin",
         "machine": "arm64",
@@ -146,8 +146,8 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "65d588796960b699e5770a221f388da1493ebe431b5a886420fa18ecf189531e",
-        "sourceLockSha256": "2d53aeff4865d90dc7e3132df8d51c4327672257e99a873307f042a2de50f802",
+        "pluginTreeSha256": "c75e919b9264bf9fbd8c996ddd31619ef5ad9152e317dd901c1589373d5c8534",
+        "sourceLockSha256": "5d1603c259e9c43f376e845cb5945aae667022dffdcc082345e68b5cf0ed8bc4",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
           "0.2.1"
@@ -159,7 +159,7 @@
       "inputs": [
         {
           "path": "candidate-source.json",
-          "sha256": "2d53aeff4865d90dc7e3132df8d51c4327672257e99a873307f042a2de50f802"
+          "sha256": "5d1603c259e9c43f376e845cb5945aae667022dffdcc082345e68b5cf0ed8bc4"
         },
         {
           "path": "plugin.json",
@@ -177,7 +177,7 @@
       "artifacts": [
         {
           "path": "evidence/current-offline-validation.json",
-          "sha256": "446c344dd2805414e929ce2660c6b5c2586591df33590c13a2bf9c228fce388a"
+          "sha256": "3aa4d41e695b171e564b3d6f13d00023a56556bfd3594b178e73b06129420ace"
         }
       ]
     }

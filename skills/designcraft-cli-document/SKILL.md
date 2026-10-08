@@ -1,6 +1,6 @@
 ---
 name: designcraft-cli-document
-description: 用户只要求对一个已存在的 DesignCraft 工程执行单项打开、保存、另存或重开核验时使用。从内容、大纲或素材制作新文档/成品（包括新建空白文档）使用 designcraft-use。
+description: 用户明确只要对一个已保存的 DesignCraft 工程执行单个文件生命周期命令时使用：打开、保存、另存或重开核验。
 license: Apache-2.0
 ---
 
