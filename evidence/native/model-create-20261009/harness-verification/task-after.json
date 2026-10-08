@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "taskId": "7afe6dad-a4fd-46c4-9003-3bb53308228f",
+  "state": "REVIEW_REQUIRED",
+  "revision": 8,
+  "goal": "OpenSpec 4.4 插件原生创建验收：创建新的四页 CLI sample，保存并导出，在独立原生会话重开检查再导出。",
+  "authorizationScope": "仅在 /var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/creation-workspace 写本次计划、唯一任务与产物；新建四页 CLI sample，无源工程，不编辑用户原件，不做局部修订。固定运行时 /Users/wandl/.local/share/craft-runtimes；不安装、下载、升级，不改缓存或全局配置，不读凭据，不做 Git。输出 sample.designcraft、sample.pdf、fresh.pdf、create-run、reopen-run 和 verification.json；失败保留现场，不重试；不标 COMPLETED 或 AV PASS。",
+  "skillRoute": "designcraft-use",
+  "runId": "21f161fb-e208-4912-8713-e6a02fe99429",
+  "nativeStatus": "NATIVE_EXIT_ZERO_REVIEW_REQUIRED",
+  "nativeReceiptRef": "runs/21f161fb-e208-4912-8713-e6a02fe99429.json",
+  "candidateSha256": "857e2b0983e57f0cdcafba6f81c6e1e6433360d959f8bb9fa75dfaa1f8e60b63",
+  "reconciledRunId": null,
+  "recoveryAction": null,
+  "recoveryEvidence": [],
+  "recoveryPlan": null,
+  "recoveryPlanSha256": null,
+  "recoveryProof": null,
+  "revisionScope": null,
+  "revisionPageRefs": [],
+  "createdAt": "2026-10-08T17:21:59.847062+00:00",
+  "updatedAt": "2026-10-08T17:25:47.179619+00:00",
+  "requiredEvidence": [
+    "AV-01",
+    "AV-02",
+    "AV-03",
+    "AV-04"
+  ],
+  "evidenceRefs": [
+    {
+      "kind": "AV-02",
+      "file": "AV-02-806436f3c888e3074017b691745522054821e3dfc41c6780adc833eb80043878.json",
+      "sha256": "d14674d4c305de871ecf39f008f2dcb08e60a252d5a2e28e33ada7aae7095875",
+      "candidateSha256": "857e2b0983e57f0cdcafba6f81c6e1e6433360d959f8bb9fa75dfaa1f8e60b63"
+    },
+    {
+      "kind": "AV-01",
+      "file": "AV-01-266171d64627cdbaa720c672d406feb781f5b6fd012ca64e70f4149371c6f580.json",
+      "sha256": "266171d64627cdbaa720c672d406feb781f5b6fd012ca64e70f4149371c6f580",
+      "candidateSha256": "857e2b0983e57f0cdcafba6f81c6e1e6433360d959f8bb9fa75dfaa1f8e60b63"
+    },
+    {
+      "kind": "AV-03",
+      "file": "AV-03-f925ca935d0efa0571df007d0c09427acf6515ef23bc145ae8f953aa853b0652.json",
+      "sha256": "d01dd4e62164997b5857fd93500608293b2577b90ef2d4d169b95b433f08510a",
+      "candidateSha256": "857e2b0983e57f0cdcafba6f81c6e1e6433360d959f8bb9fa75dfaa1f8e60b63"
+    }
+  ],
+  "artifactRefs": [
+    "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-plugins-repositories/designcraft-plugin/evidence/native/model-create-20261009/sample.designcraft",
+    "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-plugins-repositories/designcraft-plugin/evidence/native/model-create-20261009/fresh.pdf"
+  ],
+  "checkpointRefs": [],
+  "blockers": [],
+  "nextAction": "Human review pending. Standalone create task has no revision; default requiredEvidence still includes AV-04, not fabricated or attached from another candidate."
+}

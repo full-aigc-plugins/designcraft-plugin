@@ -1,0 +1,196 @@
+{
+  "recordType": "OpenSpec 4.4 native creation factual verification",
+  "skillPath": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/home/plugins/cache/designcraft-bundled-acceptance/designcraft/0.1.0-dev.1/skills/designcraft-harness/SKILL.md",
+  "sourcePublicEntry": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/home/plugins/cache/designcraft-bundled-acceptance/designcraft/0.1.0-dev.1/skills/designcraft-use/scripts/commands.py",
+  "taskId": "7afe6dad-a4fd-46c4-9003-3bb53308228f",
+  "taskStatus": "EXECUTING",
+  "taskRevision": 3,
+  "createRunId": "21f161fb-e208-4912-8713-e6a02fe99429",
+  "reopenRunId": "8ab2c2cc-6076-46cf-ac49-533531693a3a",
+  "runStatus": {
+    "create": "NATIVE_EXIT_ZERO_REVIEW_REQUIRED",
+    "reopen": "NATIVE_EXIT_ZERO_REVIEW_REQUIRED"
+  },
+  "readiness": "READY",
+  "checks": {
+    "projectFourPages": true,
+    "pdfsFourPages": true,
+    "story30TitleMatches": true,
+    "projectShaUnchanged": true,
+    "preflightsClean": true,
+    "pdfExportWarningsEmpty": true,
+    "taskUnchangedByReopen": true,
+    "separateNativeRuns": true,
+    "bothPlansExecutedFiveSteps": true
+  },
+  "project": {
+    "path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/creation-workspace/sample.designcraft",
+    "pageCount": 4,
+    "inspectionPageCounts": [
+      4,
+      4
+    ],
+    "sha256BeforeReopen": "857e2b0983e57f0cdcafba6f81c6e1e6433360d959f8bb9fa75dfaa1f8e60b63",
+    "sha256AfterReopen": "857e2b0983e57f0cdcafba6f81c6e1e6433360d959f8bb9fa75dfaa1f8e60b63"
+  },
+  "story30": {
+    "savedProjectText": "Notes on the Grid",
+    "independentSessionText": "Notes on the Grid"
+  },
+  "pdfPageCounts": {
+    "sample.pdf": 4,
+    "fresh.pdf": 4
+  },
+  "preflight": {
+    "create": {
+      "errors": 0,
+      "issues": [],
+      "warnings": 0
+    },
+    "reopen": {
+      "errors": 0,
+      "issues": [],
+      "warnings": 0
+    }
+  },
+  "pdfExports": {
+    "create": {
+      "bytes": 552570,
+      "pages": 4,
+      "path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/creation-workspace/sample.pdf",
+      "warnings": []
+    },
+    "reopen": {
+      "bytes": 552570,
+      "pages": 4,
+      "path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/creation-workspace/fresh.pdf",
+      "warnings": []
+    }
+  },
+  "completeAcceptance": false,
+  "avEvidenceRegistered": false,
+  "visualReview": "NOT_RUN; reserved for outer reviewer",
+  "inventory": [
+    {
+      "path": "before-reopen.json",
+      "bytes": 236,
+      "sha256": "d31b38e862e16a76c8a98dca9bbc8b1c748d8a68f910c714cc0f43f5fc35a4a6"
+    },
+    {
+      "path": "create-plan.json",
+      "bytes": 721,
+      "sha256": "181d5f799d87b3182a1f1d4deab93601e6c74bbd592979e0f5e875da2aaf44c9"
+    },
+    {
+      "path": "create-run/native-plan.json",
+      "bytes": 503,
+      "sha256": "65426cf1c33f74a8609408a1053b801cbffa831aee003b60fd213e1b502e2089"
+    },
+    {
+      "path": "create-run/native-result.json",
+      "bytes": 313,
+      "sha256": "6b31854b4006a4f0d3f687750f1853aa2e8618bf7b0abfc96f1c3d4919679fa8"
+    },
+    {
+      "path": "create-run/receipt.json",
+      "bytes": 32011,
+      "sha256": "329f8d7f1b886b8d93339826f8f07ea3ab129a0a007fad5c46ab54325a410a16"
+    },
+    {
+      "path": "fresh.pdf",
+      "bytes": 552570,
+      "sha256": "27282d21855678c4390b46bb0bf4ca321b66b667ce5d35c271f2ebb6805845ec"
+    },
+    {
+      "path": "native-catalog.json",
+      "bytes": 290561,
+      "sha256": "820d439187755412446fe135b89d318fce73b31c0fa12c09da9978aa11c1e739"
+    },
+    {
+      "path": "readiness.json",
+      "bytes": 2506,
+      "sha256": "66b58615bce72b0bbe0a72fa44db4fc3bf5c031ca17edb33d5b584560d601199"
+    },
+    {
+      "path": "reopen-command-output.json",
+      "bytes": 32098,
+      "sha256": "390bb9a9d445ea9bddc2d5aae5b7acdb22fa9bfdd69f4eb3cb97cd3be71b52b0"
+    },
+    {
+      "path": "reopen-plan.json",
+      "bytes": 740,
+      "sha256": "9ca3f81875327e02d4f99c261fbe76b4a938e952cc9626b8cc43874f610d1f61"
+    },
+    {
+      "path": "reopen-run/native-plan.json",
+      "bytes": 506,
+      "sha256": "de54c6bb38c06ba22290198481412f609ef14acf35290e7066d08611137dc50b"
+    },
+    {
+      "path": "reopen-run/native-result.json",
+      "bytes": 313,
+      "sha256": "058b01857f4720007684d2e2dcf6b812e09d2b5dd04d69096694c9fda1f099a9"
+    },
+    {
+      "path": "reopen-run/receipt.json",
+      "bytes": 32098,
+      "sha256": "390bb9a9d445ea9bddc2d5aae5b7acdb22fa9bfdd69f4eb3cb97cd3be71b52b0"
+    },
+    {
+      "path": "review-previews/page-1.png",
+      "bytes": 241555,
+      "sha256": "aa2c21b74998547dc1014acc83da9fe3c72a466119bb2b422d99f4f3b59683c6"
+    },
+    {
+      "path": "review-previews/page-2.png",
+      "bytes": 213079,
+      "sha256": "c9083d9ce7983723cfd0f639fdd0377270f6c50d6bd5d803fd875f472fb8256b"
+    },
+    {
+      "path": "review-previews/page-3.png",
+      "bytes": 269057,
+      "sha256": "8da13902ca6b325fed24071cfff8567312391ef99642addf2fd560d0e451176e"
+    },
+    {
+      "path": "review-previews/page-4.png",
+      "bytes": 74460,
+      "sha256": "37dbcb6a95df9f56a034874507af0e906a606b00d8abb9d1e799949687b8338f"
+    },
+    {
+      "path": "sample.designcraft",
+      "bytes": 831607,
+      "sha256": "857e2b0983e57f0cdcafba6f81c6e1e6433360d959f8bb9fa75dfaa1f8e60b63"
+    },
+    {
+      "path": "sample.pdf",
+      "bytes": 552570,
+      "sha256": "7901a46ccac9a6e7cfaf8a77a9db04ec84335508c3e4dce99576b283aba5b4ca"
+    },
+    {
+      "path": "task-before-reopen.json",
+      "bytes": 1928,
+      "sha256": "b5e59bbc775f2da199d6d82896be0692c008add5c4ef68251c212b8e0d587a76"
+    },
+    {
+      "path": "tasks/.locks/7afe6dad-a4fd-46c4-9003-3bb53308228f.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tasks/7afe6dad-a4fd-46c4-9003-3bb53308228f/runs/21f161fb-e208-4912-8713-e6a02fe99429.json",
+      "bytes": 68966,
+      "sha256": "f146bc2cd8e4bf201db9571c388647365e308e6761d83b9ba5eed06995f37fa5"
+    },
+    {
+      "path": "tasks/7afe6dad-a4fd-46c4-9003-3bb53308228f/task.json",
+      "bytes": 1600,
+      "sha256": "030c0b6f84ce235585049f359d9419ce9bb2886c9e095adea537fa9ca48c30a5"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 6523,
+      "sha256": null
+    }
+  ],
+  "inventoryNote": "All output files listed; verification.json has byte size only to avoid self-referential digest."
+}

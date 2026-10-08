@@ -1,0 +1,32 @@
+{
+  "domain": "designcraft",
+  "steps": [
+    {
+      "command": "file.newSample",
+      "params": {}
+    },
+    {
+      "command": "document.inspect",
+      "params": {}
+    },
+    {
+      "command": "preflight.run",
+      "params": {
+        "minPpi": 150
+      }
+    },
+    {
+      "command": "file.saveAs",
+      "params": {
+        "path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/creation-workspace/sample.designcraft"
+      }
+    },
+    {
+      "command": "file.exportPdf",
+      "params": {
+        "path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/creation-workspace/sample.pdf",
+        "standard": "none"
+      }
+    }
+  ]
+}

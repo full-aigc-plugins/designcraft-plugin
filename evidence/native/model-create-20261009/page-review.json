@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "designcraft-page-review/v1",
+  "runId": "21f161fb-e208-4912-8713-e6a02fe99429",
+  "projectSha256": "857e2b0983e57f0cdcafba6f81c6e1e6433360d959f8bb9fa75dfaa1f8e60b63",
+  "artifactManifestSha256": "806436f3c888e3074017b691745522054821e3dfc41c6780adc833eb80043878",
+  "rubricVersion": "designcraft-layout-rubric/v1",
+  "basis": {
+    "type": "task-spec",
+    "path": "review-task.md",
+    "sha256": "6417d2fb94791001bf56a9bba8f558bc76cb7617bc7d07b322255fd030c72f03"
+  },
+  "reviewer": {
+    "kind": "automated",
+    "identity": "Codex actual four-page pixel review",
+    "model": "GPT-6"
+  },
+  "reviewedAt": "2026-10-08T17:25:11.242402+00:00",
+  "pages": [
+    {
+      "page": 1,
+      "previewPath": "previews/page-1.png",
+      "previewSha256": "aa2c21b74998547dc1014acc83da9fe3c72a466119bb2b422d99f4f3b59683c6",
+      "checks": [
+        {
+          "criterion": "hierarchy",
+          "status": "PASS",
+          "note": "封面大标题、刊期和副标题层级清楚，标题未与刊期重叠。"
+        },
+        {
+          "criterion": "whitespace",
+          "status": "PASS",
+          "note": "刊期到主视觉保留较大留白，副标题与下边界有间距。"
+        },
+        {
+          "criterion": "alignment",
+          "status": "PASS",
+          "note": "刊期、标题、副标题共享左边缘；背景满版。"
+        },
+        {
+          "criterion": "readability",
+          "status": "PASS",
+          "note": "白色标题在深色山形区域可辨认，副标题完整。"
+        },
+        {
+          "criterion": "cropping",
+          "status": "PASS",
+          "note": "太阳及山形满版裁切为背景构图，标题文字未被裁掉。"
+        },
+        {
+          "criterion": "crossPageConsistency",
+          "status": "PASS",
+          "note": "紫色、橙色与内页图像和封底色块一致。"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "previewPath": "previews/page-2.png",
+      "previewSha256": "c9083d9ce7983723cfd0f639fdd0377270f6c50d6bd5d803fd875f472fb8256b",
+      "checks": [
+        {
+          "criterion": "hierarchy",
+          "status": "PASS",
+          "note": "橙色栏目、紫色标题、灰色导语、图片、正文层级可辨。"
+        },
+        {
+          "criterion": "whitespace",
+          "status": "PASS",
+          "note": "标题与导语、导语与图片之间保留间距，正文至页脚未重叠。"
+        },
+        {
+          "criterion": "alignment",
+          "status": "PASS",
+          "note": "标题、导语与图片共享左侧基线，双栏正文分栏明确。"
+        },
+        {
+          "criterion": "readability",
+          "status": "PASS",
+          "note": "双栏正文可读；图注较小但在本次150%预览中完整可辨。"
+        },
+        {
+          "criterion": "cropping",
+          "status": "PASS",
+          "note": "插图上下边界完整，图注与正文无遮挡。"
+        },
+        {
+          "criterion": "crossPageConsistency",
+          "status": "PASS",
+          "note": "沿用封面山形、紫橙配色和内页页脚规则。"
+        }
+      ]
+    },
+    {
+      "page": 3,
+      "previewPath": "previews/page-3.png",
+      "previewSha256": "8da13902ca6b325fed24071cfff8567312391ef99642addf2fd560d0e451176e",
+      "checks": [
+        {
+          "criterion": "hierarchy",
+          "status": "PASS",
+          "note": "专题正文延续第二页，浅底紫色引文形成明确视觉重点；本次新建样例无额外页首标题。"
+        },
+        {
+          "criterion": "whitespace",
+          "status": "PASS",
+          "note": "三栏正文上方保持页边距；栏目间、引文上下及页脚区域留有间隔。"
+        },
+        {
+          "criterion": "alignment",
+          "status": "PASS",
+          "note": "三栏正文边界明确，引文跨右两栏；脚注与页脚分离。"
+        },
+        {
+          "criterion": "readability",
+          "status": "PASS",
+          "note": "三栏正文、引文与脚注可辨；样例多处重复段落未改写，不作编辑出版签核。"
+        },
+        {
+          "criterion": "cropping",
+          "status": "PASS",
+          "note": "正文、引文与脚注完整呈现，未见被页边界裁切；保持原样例的行尾断词。"
+        },
+        {
+          "criterion": "crossPageConsistency",
+          "status": "PASS",
+          "note": "紫色引文、暖色底和页底渐变与全稿配色一致。"
+        }
+      ]
+    },
+    {
+      "page": 4,
+      "previewPath": "previews/page-4.png",
+      "previewSha256": "37dbcb6a95df9f56a034874507af0e906a606b00d8abb9d1e799949687b8338f",
+      "checks": [
+        {
+          "criterion": "hierarchy",
+          "status": "PASS",
+          "note": "预告栏目、封底标题、四色圆形、色值表层级分明。"
+        },
+        {
+          "criterion": "whitespace",
+          "status": "PASS",
+          "note": "大标题区域留白充足；色块、正文、表格及页脚相互分离。"
+        },
+        {
+          "criterion": "alignment",
+          "status": "PASS",
+          "note": "四个圆形水平排列；正文与表格底部区域分栏。"
+        },
+        {
+          "criterion": "readability",
+          "status": "PASS",
+          "note": "白色大标题与紫底对比充分，表格行列文字可辨。"
+        },
+        {
+          "criterion": "cropping",
+          "status": "PASS",
+          "note": "四色圆形、表格边框及页脚完整，无文字被页面边界裁掉。"
+        },
+        {
+          "criterion": "crossPageConsistency",
+          "status": "PASS",
+          "note": "紫橙暖纸色与前页一致，页脚延续第二页样式。"
+        }
+      ]
+    }
+  ],
+  "conclusions": {
+    "structure": {
+      "status": "PASS",
+      "note": "真实保存工程和PDF均四页，612x792pt；原生回执、ZIP及PDF读取互相核对。"
+    },
+    "visual": {
+      "status": "PASS",
+      "note": "已逐页查看本次新建后重新导出的四页实际预览，未见遮挡或裁切；自动审阅不替代人工创作签核。"
+    },
+    "output": {
+      "status": "PASS",
+      "note": "实际普通PDF四页可读取并渲染，关键标题可见；未认证PDF/X或交换格式。"
+    },
+    "editability": {
+      "status": "PASS",
+      "note": "原生工程已独立新会话重开，文字Story仍存在；不推定交换格式可编辑。"
+    }
+  }
+}
