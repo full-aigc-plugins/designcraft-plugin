@@ -1,6 +1,6 @@
 ---
 name: designcraft-cli-document
-description: 需要新建、保存或重新打开 DesignCraft 排版工程时使用；首次使用从固定摘要制品安装原生 CLI，保留源素材与可编辑工程。
+description: 用户已确定内容和版式方案，只要求单独新建空白工程、打开、保存、另存或重开核验时使用；从大纲或素材制作成品时走 designcraft-use。首次使用从固定摘要制品安装原生 CLI，保留源素材与可编辑工程。
 license: Apache-2.0
 ---
 
@@ -10,11 +10,11 @@ license: Apache-2.0
 
 ## 路由范围
 
-处理用户明确提出的 DesignCraft 工程新建、打开、另存、保存或重新打开核验。完整出版目标交给 `designcraft-use`（Install: `npx skills add full-aigc-skills/designcraft-skills --skill designcraft-use`），版面对象调整交给 `designcraft-cli-layout`（Install: `npx skills add full-aigc-skills/designcraft-skills --skill designcraft-cli-layout`），已有工程导出交给 `designcraft-cli-export`（Install: `npx skills add full-aigc-skills/designcraft-skills --skill designcraft-cli-export`）。新建或保存会写入指定位置；开始前确认源工程、工作副本、输出路径和覆盖授权。遇到失败或 UNKNOWN 时检查现有工程与回执，不重做可能已完成的创建或保存。以目标文件存在、工程能重新打开且页面和链接素材符合约定为验收。
+仅处理用户明确只要求一个已确定方案上的工程生命周期操作：新建空白工程、打开、另存、保存或重新打开核验。若用户从大纲、文字或素材开始制作一份或多页成品，即使尚缺输入、只说“创建可编辑文档”或目标需要页面规划，交给 `designcraft-use`（Install: `npx skills add full-aigc-skills/designcraft-skills --skill designcraft-use`），不得仅因出现“新建”或“可编辑”触发本技能。版面对象调整交给 `designcraft-cli-layout`（Install: `npx skills add full-aigc-skills/designcraft-skills --skill designcraft-cli-layout`），已有工程导出交给 `designcraft-cli-export`（Install: `npx skills add full-aigc-skills/designcraft-skills --skill designcraft-cli-export`）。新建或保存会写入指定位置；开始前确认源工程、工作副本、输出路径和覆盖授权。遇到失败或 UNKNOWN 时检查现有工程与回执，不重做可能已完成的创建或保存。以目标文件存在、工程能重新打开且页面和链接素材符合约定为验收。
 
 ## When to Use
 
-当用户单独要求新建、打开、另存、保存或重开检查一个 DesignCraft 工程时使用。只改对象或导出文件时转交对应技能，不把工程生命周期请求扩成整稿编排。
+当用户单独要求对一个已经确定方案的工程执行空白工程创建、打开、另存、保存或重开检查时使用。若还要从大纲、内容或素材规划页面与成品，交给 `designcraft-use`；只改对象或导出文件时转交对应技能。
 
 ## 不适用范围与安全边界
 
