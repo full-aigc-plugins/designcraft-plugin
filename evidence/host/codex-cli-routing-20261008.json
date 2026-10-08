@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-08T14:22:17Z",
+  "host": "Codex CLI 0.147.0",
+  "testedPlatforms": [
+    "Codex CLI 0.147.0 on macOS 27 arm64"
+  ],
+  "pluginMarketplace": "designcraft-host-acceptance",
+  "pluginSourceRef": "cb2db983cafce9ce3ccc31b2f4626352272c12c6",
+  "pluginVersion": "0.1.0-dev.1",
+  "installedPath": "/Users/wandl/.codex/plugins/cache/designcraft-host-acceptance/designcraft/0.1.0-dev.1",
+  "installedSnapshotMatchesPushedCandidate": true,
+  "probePrompt": "我有粗略想法但没有大纲，想做两页可编辑的排版文档。先问我最关键的三个信息，不要执行任何工具或创建文件。最后写明你选用的 DesignCraft 技能名和绝对 SKILL.md 路径。",
+  "probeResult": "FAIL",
+  "expectedSkill": "designcraft-use",
+  "responseClaimedSkill": "designcraft:designcraft-cli-document",
+  "responseClaimedPath": "/Users/wandl/.codex/plugins/cache/designcraft-host-acceptance/designcraft/0.1.0-dev.1/skills/designcraft-cli-document/SKILL.md",
+  "toolsInvoked": false,
+  "filesCreatedByProbe": false,
+  "limitations": [
+    "This probe verifies the model-reported skill selection; it did not invoke the native CLI.",
+    "Codex startup also emitted unrelated plugin-manifest and MCP initialization warnings."
+  ]
+}

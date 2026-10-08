@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "provider": "github-actions",
-  "runId": 37789183623,
+  "runId": 37791827319,
   "workflow": "DesignCraft plugin CI",
-  "url": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37789183623",
+  "url": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37791827319",
   "conclusion": "success",
-  "testedCommitSha": "dc1fbe7d7c1bc62278a934bfda979a6011edbf06",
-  "createdAt": "2026-10-08T14:02:19Z",
-  "completedAt": "2026-10-08T14:02:42Z",
+  "testedCommitSha": "cb2db983cafce9ce3ccc31b2f4626352272c12c6",
+  "createdAt": "2026-10-08T14:21:47Z",
+  "completedAt": "2026-10-08T14:22:10Z",
   "executionEnvironment": {
     "provider": "github-actions",
     "runner": "ubuntu-latest",
@@ -18,24 +18,6 @@
     ]
   },
   "jobs": [
-    {
-      "name": "Python 3.13",
-      "conclusion": "success",
-      "steps": [
-        {
-          "name": "Run unit tests",
-          "conclusion": "success"
-        },
-        {
-          "name": "Validate plugin package",
-          "conclusion": "success"
-        },
-        {
-          "name": "Check whitespace",
-          "conclusion": "success"
-        }
-      ]
-    },
     {
       "name": "Python 3.11",
       "conclusion": "success",
@@ -56,6 +38,24 @@
     },
     {
       "name": "Python 3.12",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run unit tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Validate plugin package",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check whitespace",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "Python 3.13",
       "conclusion": "success",
       "steps": [
         {

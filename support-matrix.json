@@ -11,8 +11,8 @@
   "ci": {
     "status": "PASS",
     "provider": "GitHub Actions",
-    "runUrl": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37789183623",
-    "testedCommit": "dc1fbe7d7c1bc62278a934bfda979a6011edbf06",
+    "runUrl": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37791827319",
+    "testedCommit": "cb2db983cafce9ce3ccc31b2f4626352272c12c6",
     "runner": "ubuntu-latest",
     "pythonVersions": [
       "3.11",
@@ -33,9 +33,11 @@
   },
   "host": {
     "name": "Codex",
-    "discovery": "NOT_RUN",
-    "modelDispatch": "NOT_RUN",
-    "testedPlatforms": []
+    "discovery": "PASS",
+    "modelDispatch": "FAIL",
+    "testedPlatforms": [
+      "Codex CLI 0.147.0 on macOS 27 arm64"
+    ]
   },
   "creativeAcceptance": "NOT_RUN",
   "release": "UNPUBLISHED",
