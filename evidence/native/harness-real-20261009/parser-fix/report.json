@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "runId": "ff36a74d-066d-4be9-9ebb-0a36f476d2de",
+  "observedAt": "2026-10-08T16:27:15.374493+00:00",
+  "testedPluginCommit": "f320d0d3a50d3fc4075473e1113eeee4c106229c",
+  "harnessSha256": "b737ffa213bc136452d37ddbcd69846557468fa5aacadb449bbe8ade2ba2120a",
+  "scope": "Actual local Harness CLI using documented task-first explicit-boundary order",
+  "orderingStatus": "PASS",
+  "completeAcceptance": false,
+  "taskId": "29eecf50-1e9e-4025-9fd4-7ac63ba049ed",
+  "state": "EXECUTING",
+  "revision": 3,
+  "nativeStatus": "NATIVE_EXIT_ZERO_REVIEW_REQUIRED",
+  "nativeReceiptSha256": "0d45471c5dbcef5715e2124e23c7f1ebf8a06e4d68d0b56a6d10c2a5aefc49a1",
+  "preflight": {
+    "errors": 0,
+    "issues": [],
+    "warnings": 0
+  },
+  "pdfPageCount": 4,
+  "artifacts": {
+    "magazine.designcraft": {
+      "sha256": "923b30cfabb14035f58c138fee1c5734ef1bbc6eb495ed3d3ca731c434512320",
+      "bytes": 831608
+    },
+    "magazine.pdf": {
+      "sha256": "627db32801cbd46b3467a1a3a767402a49cdfbb5d041efef7521b8935a539b3c",
+      "bytes": 552570
+    }
+  },
+  "limitations": [
+    "This verifies actual local Harness invocation, not model-issued native dispatch.",
+    "Artifact reopen, page review, authorized revision, recovery and creative signoff remain separate gates."
+  ]
+}

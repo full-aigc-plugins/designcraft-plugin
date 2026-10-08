@@ -3,8 +3,8 @@
   "contractVersion": "designcraft-plugin-handoff/v1",
   "status": "PASS",
   "scope": "OFFLINE_SHARED_CONTRACT_COMPATIBILITY",
-  "runId": "91b22980-eddf-4c0e-a610-b448156a4229",
-  "observedAt": "2026-10-08T16:19:58.779259+00:00",
+  "runId": "aeda26a1-40cf-4422-9ebc-7025c03d8872",
+  "observedAt": "2026-10-08T16:27:15.963128+00:00",
   "sourceProject": "designcraft-skills",
   "sourceVersion": "0.1.0-dev.1",
   "pluginProject": "designcraft-plugin",
@@ -137,13 +137,13 @@
   },
   "checks": {
     "designcraft-skills": {
-      "runId": "9a39f184-4f41-45f6-8d48-66c3cb554bfc",
-      "reportSha256": "46bcc15809e33ba83cdb477935b300be175ae03dfdfebaa61c7e4b5674ba506d",
+      "runId": "15fff314-296b-4f65-b319-e105be6e5d3c",
+      "reportSha256": "02d633f286ca7816d30e127b63b2ab92a38bdf0caab6a99f959cd87169806b13",
       "testsPassed": 104,
       "bindings": {
         "packageVersion": "0.1.0-dev.1",
         "nativeVersion": "0.2.1",
-        "packageTreeSha256": "1f338462ff3fd09ed59de96f3fe3e75f585bfdc86e266320981480650f8ea9ef",
+        "packageTreeSha256": "8ef7a83e452afd7d3060acefdab45d72f61d7b3b8c11231b5790d33afcc152a7",
         "skillSuiteSha256": "322fcf3293cf09ca778bb05a833e8b6987a875999e4d649c359ffed6c5a5fafe",
         "commandCoverageSha256": "d8262425ea416afb8e4a305ce7aeb66213566c7b3e77ad93a6a9de360a2b07a3",
         "researchInventorySha256": "91815ca5eb391eb4ab19ad0d0d90eb4c90a06f71d1a44c2c6aef64e7da74fcaa",
@@ -159,12 +159,12 @@
       }
     },
     "designcraft-plugin": {
-      "runId": "c732c34c-73a9-4c37-9e25-e2eca0f2457a",
-      "reportSha256": "7e7455435cf2270f0e88766405b6b26cbdab66e1ea7df8c13b66d5cbb012abfc",
+      "runId": "cb2feb60-aaad-4092-9955-8bfea6d95777",
+      "reportSha256": "3fc09aa4312bd70ab7dcc2cc8e0a29dc874d54828cb6ec29417ed1fa859c7fdd",
       "testsPassed": 102,
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "58fc47bfc8e3e3f9aab6ddd88a182c69e553407a1caf75b1dc82531f9247df45",
+        "pluginTreeSha256": "4fb71c89536b41576fc3046f3e8ba4adc77e107ee8db21f0873e3b54999d3355",
         "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [

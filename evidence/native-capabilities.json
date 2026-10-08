@@ -51,11 +51,21 @@
       },
       "evidenceReceipt": "evidence/native/qualification-20261009/qualification/receipt.json",
       "resultIndex": 4
+    },
+    {
+      "id": "file.open",
+      "validationStatus": "NATIVE_TESTED",
+      "parameterScope": {
+        "path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-native-host-20261009-xxjn6a48/harness-artifacts/magazine.designcraft"
+      },
+      "evidenceReceipt": "evidence/native/qualification-20261009/reopen-qualification/receipt.json",
+      "validationRunId": "46d27fae-2111-4059-899c-95c526e51528",
+      "resultIndex": 0
     }
   ],
   "completeAcceptance": false,
   "limitations": [
-    "Only the recorded sample creation, inspection, clean preflight, saveAs and four-page PDF export parameters were observed.",
+    "Only recorded sample creation, inspection, clean preflight, saveAs, four-page PDF export and fresh file.open parameters were observed.",
     "NATIVE_TESTED does not prove all parameter combinations, creative quality, host dispatch or reopen."
   ]
 }

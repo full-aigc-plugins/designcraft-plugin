@@ -2,7 +2,7 @@
 
 离线检查已在 macOS arm64 / Python 3.13.5 通过；GitHub Actions 在 Ubuntu runner 上的 Python 3.11、3.12、3.13 矩阵也通过单测、包校验和空白检查，当前候选 CI 链接以 support-matrix.json 为准。这两类证据只覆盖离线软件检查。
 
-插件端固定 CLI 0.2.1 原生执行仍未验收。现有 ChatGPT.app 内置 Codex CLI 0.162.0-alpha.2 通过实际固定提交安装与七项技能发现，默认入口为 use；默认 gpt-6-astra 的九项只读模型路由通过。报告见 evidence/host/bundled-codex-discovery-20261008.json 与 bundled-codex-model-routing-20261008.json。使用现有内置程序，没有安装或升级全局 CLI。重启后的原生任务恢复、真实工程与导出质量和正式发行仍为 `NOT_RUN`/`UNPUBLISHED`。CI 通过不代表原生、宿主或创作验收。未实测的操作系统、宿主、模型和 Python 组合不列为支持。其他宿主、其他操作系统、自动多轮修改及 ArtCraft 集成明确留给后续变更。
+本地 Harness 已真实调用固定 CLI 0.2.1 创建/保存四页工程并导出 PDF，证据见 evidence/native/harness-real-20261009/report.json；这不代表模型宿主原生调用或完整创作验收。现有 ChatGPT.app 内置 Codex CLI 0.162.0-alpha.2 通过实际固定提交安装与七项技能发现，默认入口为 use；默认 gpt-6-astra 的九项只读模型路由通过。报告见 evidence/host/bundled-codex-discovery-20261009.json 与 bundled-codex-model-routing-20261009.json。使用现有内置程序，没有安装或升级全局 CLI。重启后的原生任务恢复、真实工程与导出质量和正式发行仍为 `NOT_RUN`/`UNPUBLISHED`。CI 通过不代表原生、宿主或创作验收。未实测的操作系统、宿主、模型和 Python 组合不列为支持。其他宿主、其他操作系统、自动多轮修改及 ArtCraft 集成明确留给后续变更。
 
 联网下载并安装原生 CLI 会在选定 runtime-home 写入固定制品，必须先取得覆盖该安装的明确授权；离线查询与检查不安装 CLI。安装授权不自动授权工程读写、工程导出或市场发布，这些按各自任务范围判断。
 

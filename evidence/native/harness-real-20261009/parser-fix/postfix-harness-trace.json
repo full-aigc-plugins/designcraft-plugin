@@ -1,0 +1,58 @@
+[
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python3",
+      "-I",
+      "-B",
+      "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-plugins-repositories/designcraft-plugin/skills/designcraft-harness/scripts/harness.py",
+      "new",
+      "--goal",
+      "验证修复后的文档顺序能真实创建、保存和导出四页样本",
+      "--scope",
+      "Only create a fresh sample and export into /var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-native-host-20261009-xxjn6a48/postfix-artifacts; preserve all existing files."
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"taskId\": \"29eecf50-1e9e-4025-9fd4-7ac63ba049ed\",\n  \"status\": \"PREPARED\",\n  \"scope\": \"Only create a fresh sample and export into /var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-native-host-20261009-xxjn6a48/postfix-artifacts; preserve all existing files.\",\n  \"actions\": [\n    \"designcraft-use\"\n  ],\n  \"evidence\": [],\n  \"artifacts\": [],\n  \"skipped\": [],\n  \"risks\": [],\n  \"next_action\": \"confirm_inputs_and_prepare\",\n  \"revision\": 0,\n  \"runId\": null,\n  \"nativeStatus\": \"NOT_RUN\",\n  \"nativeReceiptRef\": null,\n  \"checkpointRefs\": [],\n  \"reconciledRunId\": null,\n  \"recoveryAction\": null,\n  \"recoveryEvidence\": [],\n  \"recoveryPlanSha256\": null,\n  \"recoveryPlanRef\": null,\n  \"revisionScope\": null,\n  \"affectedPages\": []\n}\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python3",
+      "-I",
+      "-B",
+      "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-plugins-repositories/designcraft-plugin/skills/designcraft-harness/scripts/harness.py",
+      "transition",
+      "29eecf50-1e9e-4025-9fd4-7ac63ba049ed",
+      "EXECUTING",
+      "--expected-revision",
+      "0"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"taskId\": \"29eecf50-1e9e-4025-9fd4-7ac63ba049ed\",\n  \"status\": \"EXECUTING\",\n  \"scope\": \"Only create a fresh sample and export into /var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-native-host-20261009-xxjn6a48/postfix-artifacts; preserve all existing files.\",\n  \"actions\": [\n    \"designcraft-use\"\n  ],\n  \"evidence\": [],\n  \"artifacts\": [],\n  \"skipped\": [],\n  \"risks\": [],\n  \"next_action\": \"confirm_inputs_and_prepare\",\n  \"revision\": 1,\n  \"runId\": null,\n  \"nativeStatus\": \"NOT_RUN\",\n  \"nativeReceiptRef\": null,\n  \"checkpointRefs\": [],\n  \"reconciledRunId\": null,\n  \"recoveryAction\": null,\n  \"recoveryEvidence\": [],\n  \"recoveryPlanSha256\": null,\n  \"recoveryPlanRef\": null,\n  \"revisionScope\": null,\n  \"affectedPages\": []\n}\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/opt/anaconda3/bin/python3",
+      "-I",
+      "-B",
+      "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-plugins-repositories/designcraft-plugin/skills/designcraft-harness/scripts/harness.py",
+      "native",
+      "29eecf50-1e9e-4025-9fd4-7ac63ba049ed",
+      "--expected-revision",
+      "1",
+      "--runtime-home",
+      "/Users/wandl/.local/share/craft-runtimes",
+      "--capability-evidence",
+      "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-plugins-repositories/designcraft-plugin/evidence/native-capabilities.json",
+      "--",
+      "run",
+      "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-native-host-20261009-xxjn6a48/postfix-plan.json",
+      "--output",
+      "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-native-host-20261009-xxjn6a48/postfix-output"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"taskId\": \"29eecf50-1e9e-4025-9fd4-7ac63ba049ed\",\n  \"status\": \"EXECUTING\",\n  \"scope\": \"Only create a fresh sample and export into /var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-native-host-20261009-xxjn6a48/postfix-artifacts; preserve all existing files.\",\n  \"actions\": [\n    \"designcraft-use\"\n  ],\n  \"evidence\": [],\n  \"artifacts\": [],\n  \"skipped\": [],\n  \"risks\": [],\n  \"next_action\": \"review_native_result\",\n  \"revision\": 3,\n  \"runId\": \"ff36a74d-066d-4be9-9ebb-0a36f476d2de\",\n  \"nativeStatus\": \"NATIVE_EXIT_ZERO_REVIEW_REQUIRED\",\n  \"nativeReceiptRef\": \"runs/ff36a74d-066d-4be9-9ebb-0a36f476d2de.json\",\n  \"checkpointRefs\": [],\n  \"reconciledRunId\": null,\n  \"recoveryAction\": null,\n  \"recoveryEvidence\": [],\n  \"recoveryPlanSha256\": null,\n  \"recoveryPlanRef\": null,\n  \"revisionScope\": null,\n  \"affectedPages\": []\n}\n",
+    "stderr": ""
+  }
+]

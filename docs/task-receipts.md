@@ -8,7 +8,7 @@ NATIVE_EXIT_ZERO_REVIEW_REQUIRED still requires actual artifact, project-reopen 
 
 `scripts/sync_local_snapshot.py` updates only a matching unpublished local plugin after verifying old snapshot hashes. Modified user snapshots, published source identities and source removals are rejected. It does not establish a release, install tools, initialize Git or adopt a specification system.
 
-Only mocked subprocess and temporary-copy behavior has been tested; real native, host, model-dispatch and creative acceptance remain pending.
+Controlled subprocess tests verify status propagation and preservation. Actual native observations are saved separately, including the local Harness four-page create/save/PDF flow. Pinned-plugin discovery and nine read-only model routes pass for the recorded bundled Codex CLI and model; full native host workflows, restart recovery and creative acceptance remain open. See project-status.json and evidence/native/ for their separate scope.
 
 ## Native parameter schema boundary
 
