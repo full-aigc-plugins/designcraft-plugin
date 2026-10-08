@@ -69,6 +69,14 @@ python3 -I -B "$HARNESS_SKILL_DIR/scripts/harness.py" new \
 
 任务数据默认写入用户数据目录 `~/.local/share/designcraft/tasks`，可用 `DESIGNCRAFT_TASK_HOME` 指定其他可写位置。不得把任务状态、日志或工程写进只读插件缓存。
 
+查看已有任务时，只使用本技能内实际存在的 Harness CLI。当前查询入口是 `show <task_id>`：
+
+```bash
+python3 -I -B "$HARNESS_SKILL_DIR/scripts/harness.py" show "$TASK_ID"
+```
+
+不得把它改写成 `designcraft task show` 等未在本技能脚本 `--help` 中列出的命令，也不得假设存在独立的 `designcraft` 可执行文件。遇到未记录的子命令时，先运行本脚本 `--help` 并依据真实输出回答；只读状态问题仅查询 Harness，不打开或修改创作应用。
+
 执行前先查看只读就绪报告。它分别核对插件快照、源版本、固定 CLI 安装身份、宿主验收和请求命令的版本绑定验证记录；不会下载、安装、登录或修改工程。报告不是用户授权，只有 `READY` 表示技术前置齐全：
 
 ```bash

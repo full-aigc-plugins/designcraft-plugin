@@ -7,6 +7,34 @@ import tempfile
 import unittest
 ROOT=Path(__file__).resolve().parents[1]
 class SnapshotContract(unittest.TestCase):
+    def record_host_evidence(self,fixture,platforms):
+        project_path=fixture/'project-status.json';project=json.loads(project_path.read_text())
+        project['hostDiscovery']='PASS';project_path.write_text(json.dumps(project))
+        matrix_path=fixture/'support-matrix.json';matrix=json.loads(matrix_path.read_text())
+        matrix['host']['discovery']='PASS';matrix['host']['testedPlatforms']=platforms;matrix_path.write_text(json.dumps(matrix))
+        report_path=fixture/'evidence/host/fixture.json';report_path.parent.mkdir(parents=True,exist_ok=True)
+        report_path.write_text(json.dumps({'testedPlatforms':platforms}))
+        freshness_path=fixture/'scripts/evidence_freshness.py'
+        spec=importlib.util.spec_from_file_location('fixture_freshness',freshness_path)
+        freshness=importlib.util.module_from_spec(spec);spec.loader.exec_module(freshness)
+        from datetime import datetime,timezone
+        import uuid
+        manifest_path=fixture/'evidence-manifest.json';manifest=json.loads(manifest_path.read_text())
+        manifest['records']=[item for item in manifest['records'] if item.get('id')!='host']
+        manifest['records'].append(freshness.create_record(fixture,'host','host','PASS',str(uuid.uuid4()),datetime.now(timezone.utc).isoformat(),[],['evidence/host/fixture.json']))
+        manifest_path.write_text(json.dumps(manifest))
+
+    def clear_host_acceptance(self,fixture):
+        project=fixture/'project-status.json';status=json.loads(project.read_text())
+        status['hostDiscovery']='NOT_RUN';status['modelDispatch']='NOT_RUN';project.write_text(json.dumps(status))
+        matrix=fixture/'support-matrix.json';support=json.loads(matrix.read_text())
+        support['host']['discovery']='NOT_RUN';support['host']['modelDispatch']='NOT_RUN';support['host']['testedPlatforms']=[]
+        matrix.write_text(json.dumps(support))
+        manifest=fixture/'evidence-manifest.json';evidence=json.loads(manifest.read_text())
+        for record in evidence['records']:
+            if record.get('id') in ('host','model-dispatch'):record['status']='NOT_RUN'
+        manifest.write_text(json.dumps(evidence))
+
     def test_self_contained_snapshot_and_unpublished_identity(self):
         p=ROOT/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('validator',p)
         module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
@@ -17,6 +45,7 @@ class SnapshotContract(unittest.TestCase):
     def test_candidate_identity_is_schema_checked_and_independent_of_plugin_version(self):
         with tempfile.TemporaryDirectory() as temp:
             fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            self.clear_host_acceptance(fixture)
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('candidate_validator',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
             manifest=json.loads((fixture/'plugin.json').read_text());manifest['version']='9.4.0';(fixture/'plugin.json').write_text(json.dumps(manifest))
@@ -49,10 +78,23 @@ class SnapshotContract(unittest.TestCase):
     def test_support_matrix_rejects_unverified_host_claims_and_status_drift(self):
         with tempfile.TemporaryDirectory() as temp:
             fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            self.record_host_evidence(fixture,['Codex CLI 0.147.0 on macOS arm64'])
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('support_validator',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
             path=fixture/'support-matrix.json';matrix=json.loads(path.read_text());matrix['host']['testedPlatforms']=['Windows x64'];path.write_text(json.dumps(matrix))
-            with self.assertRaisesRegex(ValueError,'support_matrix_status_mismatch'):
+            with self.assertRaisesRegex(ValueError,'host_evidence_platform_mismatch'):
+                module.validate()
+
+    def test_host_evidence_path_escape_is_rejected(self):
+        with tempfile.TemporaryDirectory() as temp:
+            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            self.record_host_evidence(fixture,['Codex CLI 0.147.0 on macOS arm64'])
+            manifest_path=fixture/'evidence-manifest.json';manifest=json.loads(manifest_path.read_text())
+            record=next(item for item in manifest['records'] if item.get('id')=='host')
+            record['artifacts'][0]['path']='../../outside.json';manifest_path.write_text(json.dumps(manifest))
+            p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('host_path_validator',p)
+            module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
+            with self.assertRaisesRegex(ValueError,'host_evidence_report_path_invalid'):
                 module.validate()
 
     def test_nonstandard_plugin_manifest_field_and_name_are_rejected(self):
@@ -109,6 +151,7 @@ class SnapshotContract(unittest.TestCase):
     def test_matching_codex_compatibility_manifest_and_valid_icon_are_accepted(self):
         with tempfile.TemporaryDirectory() as temp:
             fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            self.clear_host_acceptance(fixture)
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('valid_host_manifest_validator',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
             icon=fixture/'assets/composer.png';icon.parent.mkdir();icon.write_bytes(b'\x89PNG\r\n\x1a\nfixture')

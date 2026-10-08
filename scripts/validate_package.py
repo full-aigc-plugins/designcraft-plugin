@@ -1,6 +1,8 @@
 """校验插件候选的自包含技能快照；不声明来源已发布。"""
 from pathlib import Path
+from pathlib import PurePosixPath
 import hashlib
+import importlib.util
 import json
 import re
 from urllib.parse import unquote
@@ -87,6 +89,44 @@ def transient_path(path):
     value=Path(path)
     return '__pycache__' in value.parts or value.name=='.DS_Store' or value.suffix in ('.pyc','.pyo')
 
+def validate_host_platform_evidence(matrix):
+    host=matrix.get('host',{})
+    if host.get('discovery')!='PASS' and host.get('modelDispatch')!='PASS':
+        return
+    manifest=json.loads((ROOT/'evidence-manifest.json').read_text(encoding='utf-8'))
+    records={item.get('id'):item for item in manifest.get('records',[]) if isinstance(item,dict)}
+    host_record=records.get('host')
+    if not isinstance(host_record,dict) or host_record.get('status')!='PASS':
+        raise ValueError('host_evidence_status_mismatch')
+    artifacts=host_record.get('artifacts',[])
+    host_artifact=next((item.get('path') for item in artifacts if isinstance(item,dict) and isinstance(item.get('path'),str)),None)
+    if not host_artifact:
+        raise ValueError('host_evidence_report_missing')
+    relative=PurePosixPath(host_artifact)
+    if relative.is_absolute() or not relative.parts or '..' in relative.parts or '\\' in host_artifact:
+        raise ValueError('host_evidence_report_path_invalid')
+    report_path=ROOT.joinpath(*relative.parts)
+    current=ROOT
+    for part in relative.parts:
+        current=current/part
+        if current.is_symlink():
+            raise ValueError('host_evidence_report_path_invalid')
+    try:
+        report_path.resolve().relative_to(ROOT.resolve())
+    except ValueError as error:
+        raise ValueError('host_evidence_report_path_invalid') from error
+    if not report_path.is_file():
+        raise ValueError('host_evidence_report_missing')
+    report=json.loads(report_path.read_text(encoding='utf-8'))
+    if report.get('testedPlatforms')!=host.get('testedPlatforms'):
+        raise ValueError('host_evidence_platform_mismatch')
+    freshness_path=Path(__file__).with_name('evidence_freshness.py')
+    spec=importlib.util.spec_from_file_location('designcraft_evidence_freshness',freshness_path)
+    freshness=importlib.util.module_from_spec(spec);spec.loader.exec_module(freshness)
+    statuses=freshness.evaluate_manifest(ROOT,manifest)
+    if statuses.get('host')!='PASS' or (host.get('modelDispatch')=='PASS' and statuses.get('model-dispatch')!='PASS'):
+        raise ValueError('host_evidence_stale')
+
 def validate():
     manifest=json.loads((ROOT/'plugin.json').read_text())
     if manifest['$schema']!='https://agent-plugins.org/schemas/1.0.0/plugin.schema.json':raise ValueError('unsupported_plugin_schema')
@@ -133,6 +173,7 @@ def validate():
         skill=ROOT/item['path'];text=(skill/'SKILL.md').read_text(encoding='utf-8')
         if item.get('owner')!='designcraft-plugin' or item.get('kind')!='plugin-local' or not text.startswith('---\n') or f"name: {item['name']}\n" not in text or 'description:' not in text:raise ValueError('local_skill_invalid')
         validate_local_skill_references(skill)
+    validate_host_platform_evidence(matrix)
     return {'plugin':manifest['name'],'skills':len(actual),'externalSkills':len(external_names),'localSkills':len(local_names),'snapshot':'PASS','hostManifest':'PASS' if host_manifest else 'NOT_PRESENT','sourceRelease':'UNPUBLISHED','hostAcceptance':'NOT_RUN'}
 
 if __name__=='__main__':print(json.dumps(validate(),ensure_ascii=False))

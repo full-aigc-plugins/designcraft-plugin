@@ -206,7 +206,11 @@ class HarnessStateContract(unittest.TestCase):
         retained=[item for item in manifest['records'] if item.get('id') not in {record_id for record_id,_,_ in records}]
         for record_id,layer,path in records:
             artifact=root/path
-            if not artifact.exists():artifact.write_text(json.dumps({'fixture':record_id}))
+            if not artifact.exists():
+                fixture={'fixture':record_id}
+                if record_id=='host':
+                    fixture['testedPlatforms']=json.loads((root/'support-matrix.json').read_text())['host']['testedPlatforms']
+                artifact.write_text(json.dumps(fixture))
             retained.append(freshness.create_record(root,record_id,layer,'PASS',str(uuid.uuid4()),datetime.now(timezone.utc).isoformat(),[],[path]))
         (root/'evidence-manifest.json').write_text(json.dumps({'schemaVersion':1,'records':retained},indent=2)+'\n')
 
