@@ -1,0 +1,21 @@
+{
+  "README.zh-CN.md": "65c12e5238d53ea0c046ada91c6dcc01380d623eb395c18df4bc1e2869efc3ff",
+  "artifacts/magazine.designcraft": "a354c1b91ef49d924c4d0b0634e202354cdec6aeaa5319aa646b4d988a1ef6f9",
+  "artifacts/magazine.pdf": "7b69889e8d4e774829e3aa6e0f35c9ade43785c6649e7cd873c80b93314e1831",
+  "cases.json": "32086b547d478b020cb8786308fdca0efea0a78ecc43712249637a7d42bc6336",
+  "installed-file-sha256.json": "c8caa32951b7682b955cd2aa8c2004cb276d0a5bc70ffcf3f327eaeeacb1eff0",
+  "missing-runtime.public-tool-calls.json": "750b3532d5ff0287a3133cd510d75dbd059271d62e39948cabb1fefdd41ec61e",
+  "missing-runtime.trace.json": "298a13c93e947e2316032dca6544387e7c515985a79dd70fa32e80ea6dba5a49",
+  "native-create-export.public-tool-calls.json": "c9bebfa17a496a404cda7c70c7e8bc597beb67285aedb5a6ba5e328e12aac77b",
+  "native-create-export.trace.json": "0786866e24e44e3673ba043826d72e9238526ba0c39bd26d8d2dfc8517ec0587",
+  "native-output/native-plan.json": "cf22998718f27fcc909f4766694bfe0b88b3af2ea0cf711280c79d56dc660f8d",
+  "native-output/native-result.json": "22c2a8977400229865f06720dfc89916078e1a2d68adb9e2d277d434ac1c32c3",
+  "native-output/receipt.json": "9d8c10730effe9795ed63058420735b129b70e07c8c73c0ebba7080950bd8fd7",
+  "pre-show-fix-evidence-manifest.json": "88f91ea8121b88cfdf8b6c4e3be1cc70fa8e3c0dcf7b5f11906bb659020c8967",
+  "report.json": "e88b5e8c8c05546028438dce080445599a0ae437fd61a4b1828eb3d47fed79a2",
+  "restart-show-fixed.trace.json": "71ceee1dc09f422f12f0a7fdcbe4306672f59975590b47511b5687aacc6555d7",
+  "restart-show.public-tool-calls.json": "2e4632dfb02674213ea06eaf0f577007d1ffa35c54c5e229ebf882aca2e49298",
+  "tasks/.locks/57556efb-e0d7-4565-8952-f1ac7716d19b.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "tasks/57556efb-e0d7-4565-8952-f1ac7716d19b/runs/d4acd4bf-d6ef-486d-8d78-0f8cd4f83d13.json": "3625271ef6b9b16e60a0d6809e47d931466960371d0e14abbaf876c2d02ee84d",
+  "tasks/57556efb-e0d7-4565-8952-f1ac7716d19b/task.json": "e6dd0463096a3438ccd0b21172c803f0cf9837b7bb1acb935f9263c546fb346c"
+}

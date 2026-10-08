@@ -83,3 +83,7 @@ Harness SHALL 输出 status、scope、actions、evidence、artifacts、skipped�
 #### Scenario: 只读插件安装目录
 - **WHEN** 宿主从只读缓存加载插件并发起任务
 - **THEN** 任务状态写入独立可写目录；第二个写入者不会覆盖活动任务状态。
+
+#### Scenario: 只读宿主重启查询已有任务
+- **WHEN** 新宿主进程在只读沙箱通过公开 show 查询已保存的 taskId
+- **THEN** 只读取原子保存的完整任务快照，不创建目录或以写模式打开锁；缺失或损坏状态明确拒绝，不重放原生操作；后续写操作仍通过独占锁与 expected_revision 核对。

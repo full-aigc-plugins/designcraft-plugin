@@ -26,6 +26,20 @@ class HarnessStateContract(unittest.TestCase):
 
     def tearDown(self):self.temp.cleanup()
 
+    def test_show_reads_atomic_snapshot_without_write_lock_or_directory_creation(self):
+        task_path=self.root/self.task['taskId']/'task.json'
+        original=task_path.read_bytes()
+        with patch.object(self.store,'_locked',side_effect=PermissionError('read-only task home')):
+            observed=self.store.get(self.task['taskId'])
+        self.assertEqual(observed['taskId'],self.task['taskId'])
+        self.assertEqual(observed['revision'],0)
+        self.assertEqual(task_path.read_bytes(),original)
+        missing_root=Path(self.temp.name)/'absent-task-home'
+        missing_store=self.harness.TaskStore(missing_root)
+        with self.assertRaisesRegex(ValueError,'task_state_invalid'):
+            missing_store.get(self.task['taskId'])
+        self.assertFalse(missing_root.exists())
+
     def test_task_lifecycle_is_persisted_and_unknown_needs_reconciliation(self):
         task=self.task
         self.assertEqual(task['state'],'PREPARED')

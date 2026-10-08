@@ -1,0 +1,23 @@
+{
+  "scope": "actual model-selected public Harness missing-runtime and create-save-export scenarios",
+  "testedPluginCommit": "f8809f0385fc1efc1ca462fb0c118b1e6c532f85",
+  "installedTrackedFiles": 195,
+  "cacheUnmodified": true,
+  "missingRuntimeDirectoryAbsent": true,
+  "taskId": "57556efb-e0d7-4565-8952-f1ac7716d19b",
+  "nativeRunId": "d4acd4bf-d6ef-486d-8d78-0f8cd4f83d13",
+  "nativeStatus": "NATIVE_EXIT_ZERO_REVIEW_REQUIRED",
+  "artifacts": {
+    "magazine.designcraft": {
+      "sha256": "a354c1b91ef49d924c4d0b0634e202354cdec6aeaa5319aa646b4d988a1ef6f9",
+      "bytes": 831608
+    },
+    "magazine.pdf": {
+      "sha256": "7b69889e8d4e774829e3aa6e0f35c9ade43785c6649e7cd873c80b93314e1831",
+      "bytes": 552570
+    }
+  },
+  "fullHostScenarioAcceptance": false,
+  "creativeAcceptance": "NOT_RUN",
+  "completeAcceptance": false
+}

@@ -1,3 +1,5 @@
+> Current candidate: the read-only `show` fix changes Harness executable code. Earlier CI and host/model results are historical; current candidate requalification is pending. Formal release remains gated.
+
 # designcraft plugin — local development project
 
 Six standalone skills are included from `designcraft-skills`, with local snapshot checksums. Unpublished. Host discovery and nine read-only model-routing cases passed on bundled Codex CLI 0.162.0-alpha.2 / gpt-6-astra / macOS arm64. Native execution, full domain workflows and creative acceptance remain open.

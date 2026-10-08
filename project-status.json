@@ -7,16 +7,17 @@
   "specification": "OPEN_SPEC_CHANGE_IMPLEMENTATION_IN_PROGRESS",
   "offlineTests": "PASS",
   "packageValidation": "PASS",
-  "ci": "PASS",
+  "ci": "NOT_RUN",
   "nativeInstallation": "NOT_RUN",
   "targetPlatformAcceptance": "NOT_RUN",
-  "hostDiscovery": "PASS",
-  "modelDispatch": "PASS",
+  "hostDiscovery": "NOT_RUN",
+  "modelDispatch": "NOT_RUN",
   "creativeAcceptance": "NOT_RUN",
   "published": false,
   "specificationChange": "openspec/changes/harden-designcraft-plugin-delivery",
   "ciEvidence": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37807952859",
   "ciTestedCommit": "f320d0d3a50d3fc4075473e1113eeee4c106229c",
   "hostEvidence": "evidence/host/bundled-codex-discovery-20261009.json",
-  "modelDispatchEvidence": "evidence/host/bundled-codex-model-routing-20261009.json"
+  "modelDispatchEvidence": "evidence/host/bundled-codex-model-routing-20261009.json",
+  "currentCandidateNote": "Harness show read-only fix changed executable source; previous CI/host/model/capability reports retained as historical evidence, current candidate requires requalification."
 }

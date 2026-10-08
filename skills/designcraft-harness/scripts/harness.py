@@ -237,10 +237,10 @@ class TaskStore:
         finally:self._unlock(lock)
 
     def get(self,identifier):
-        """读取任务，不修复或覆盖损坏状态。"""
-        identifier=task_id(identifier);lock=self._locked(identifier)
-        try:return self._load(identifier)
-        finally:self._unlock(lock)
+        """只读获取原子保存的单文件快照，不创建目录、写锁或修复损坏状态。"""
+        # 写入通过同目录临时文件和 os.replace 原子替换；查询只观察旧或新完整快照。
+        # 后续写操作仍须取得独占锁并核对 expected_revision，不依赖查询结果保持最新。
+        return self._load(task_id(identifier))
 
     @staticmethod
     def _check_revision(data,expected_revision):
