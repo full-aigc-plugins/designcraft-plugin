@@ -1,44 +1,75 @@
 {
   "schemaVersion": 1,
   "provider": "github-actions",
-  "runId": 37768562737,
+  "runId": 37770411637,
   "workflow": "DesignCraft plugin CI",
-  "url": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37768562737",
+  "url": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37770411637",
   "conclusion": "success",
-  "testedCommitSha": "b42c9c83a02ca2b79ea8f35802d8fa5150448201",
-  "createdAt": "2026-10-08T11:12:42Z",
-  "completedAt": "2026-10-08T11:13:04Z",
+  "testedCommitSha": "845726969629110712a064ebf25e31f043c35433",
+  "createdAt": "2026-10-08T11:29:45Z",
+  "completedAt": "2026-10-08T11:30:04Z",
   "executionEnvironment": {
     "provider": "github-actions",
     "runner": "ubuntu-latest",
-    "pythonVersions": ["3.11", "3.12", "3.13"]
+    "pythonVersions": [
+      "3.11",
+      "3.12",
+      "3.13"
+    ]
   },
   "jobs": [
-    {
-      "name": "Python 3.11",
-      "conclusion": "success",
-      "steps": [
-        {"name": "Run unit tests", "conclusion": "success"},
-        {"name": "Validate plugin package", "conclusion": "success"},
-        {"name": "Check whitespace", "conclusion": "success"}
-      ]
-    },
     {
       "name": "Python 3.12",
       "conclusion": "success",
       "steps": [
-        {"name": "Run unit tests", "conclusion": "success"},
-        {"name": "Validate plugin package", "conclusion": "success"},
-        {"name": "Check whitespace", "conclusion": "success"}
+        {
+          "name": "Check whitespace",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run unit tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Validate plugin package",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "Python 3.11",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Check whitespace",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run unit tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Validate plugin package",
+          "conclusion": "success"
+        }
       ]
     },
     {
       "name": "Python 3.13",
       "conclusion": "success",
       "steps": [
-        {"name": "Run unit tests", "conclusion": "success"},
-        {"name": "Validate plugin package", "conclusion": "success"},
-        {"name": "Check whitespace", "conclusion": "success"}
+        {
+          "name": "Check whitespace",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run unit tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Validate plugin package",
+          "conclusion": "success"
+        }
       ]
     }
   ]
