@@ -1,6 +1,6 @@
 ---
 name: designcraft-use
-description: 用户要从目标、大纲或素材出发完成页面设计、完整排版或出版交付时使用，包括尚未提供大纲、需要先澄清的通用请求；这是默认入口。首次使用从固定摘要制品安装原生 CLI，保留源素材与可编辑工程。
+description: 用户要制作新的 DesignCraft 文档、设计页面、完成版式或出版交付时使用；即使只有目标、缺失大纲或未定尺寸，也由此默认入口先澄清。新建文档与从内容/素材制作成品都用本技能。仅已有工程的单项打开/保存/另存/重开操作使用 designcraft-cli-document。
 license: Apache-2.0
 ---
 
@@ -10,11 +10,11 @@ license: Apache-2.0
 
 ## 路由范围
 
-这是用户提出 DesignCraft 页面设计、完整排版或出版目标时的唯一默认入口。即使用户只提到“两页”“可编辑文档”或尚未提交大纲，只要目标仍需内容/版面规划，就先在本入口澄清内容、页面、素材、修改范围和交付物；不能因提到新建工程就直接路由到 document。只有用户明确只要一个工程生命周期原生操作（例如打开现有工程另存，或在已确定方案后新建空白工程）时，才交给 `designcraft-cli-document`（Install: `npx skills add full-aigc-skills/designcraft-skills --skill designcraft-cli-document`）。局部版面调整交给 `designcraft-cli-layout`（Install: `npx skills add full-aigc-skills/designcraft-skills --skill designcraft-cli-layout`），已有工程的明确导出交给 `designcraft-cli-export`（Install: `npx skills add full-aigc-skills/designcraft-skills --skill designcraft-cli-export`）。用户明确只问原生命令或安装诊断时，交给对应原子技能；无关请求不触发本技能。执行可能安装运行时、修改工程并写出产物；只有在授权路径内继续。未知执行结果先核对持久工程和回执，不自动重放。完成以保存并重开工程、核对导出及逐页审阅为准，命令成功不代表验收完成。
+这是用户提出 DesignCraft 新建文档、页面设计、完整排版或出版目标时的唯一默认入口。即使用户只提到“两页”“可编辑文档”、新建文件，或尚未提交大纲，只要需要内容/版面规划，就先在本入口澄清内容、页面、素材、修改范围和交付物。`designcraft-cli-document` 只处理已有工程的单项生命周期操作，不负责创建空白工程或新文档。局部版面调整交给 `designcraft-cli-layout`（Install: `npx skills add full-aigc-skills/designcraft-skills --skill designcraft-cli-layout`），已有工程的明确导出交给 `designcraft-cli-export`（Install: `npx skills add full-aigc-skills/designcraft-skills --skill designcraft-cli-export`）。用户明确只问原生命令或安装诊断时，交给对应原子技能；无关请求不触发本技能。执行可能安装运行时、修改工程并写出产物；只有在授权路径内继续。未知执行结果先核对持久工程和回执，不自动重放写入。完成以保存并重开工程、核对导出及逐页审阅为准，命令成功不代表验收完成。
 
 ## When to Use
 
-用户要从目标、大纲或素材出发制作或修订页面时使用本入口；输入缺失时先问具体缺项，不跳到工程创建技能。若需求只要求一个已确定方案上的原生生命周期动作、单独安装诊断、命令查询、既有对象的局部操作或已有工程导出，才转交对应原子技能。
+用户要新建文档、从目标/大纲/素材出发制作或修订页面时使用本入口；输入缺失时先问具体缺项。即使只说“新建空白文档”，仍由本入口接收并澄清目标。若需求只要求对已有工程执行一个原生生命周期动作、单独安装诊断、命令查询、既有对象的局部操作或已有工程导出，才转交对应原子技能。
 
 ## 不适用范围与安全边界
 

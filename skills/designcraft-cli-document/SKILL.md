@@ -1,6 +1,6 @@
 ---
 name: designcraft-cli-document
-description: 用户已确定内容和版式方案，只要求单独新建空白工程、打开、保存、另存或重开核验时使用；从大纲或素材制作成品时走 designcraft-use。首次使用从固定摘要制品安装原生 CLI，保留源素材与可编辑工程。
+description: 用户只要求对一个已存在的 DesignCraft 工程执行单项打开、保存、另存或重开核验时使用。从内容、大纲或素材制作新文档/成品（包括新建空白文档）使用 designcraft-use。
 license: Apache-2.0
 ---
 
@@ -10,11 +10,11 @@ license: Apache-2.0
 
 ## 路由范围
 
-仅处理用户明确只要求一个已确定方案上的工程生命周期操作：新建空白工程、打开、另存、保存或重新打开核验。若用户从大纲、文字或素材开始制作一份或多页成品，即使尚缺输入、只说“创建可编辑文档”或目标需要页面规划，交给 `designcraft-use`（Install: `npx skills add full-aigc-skills/designcraft-skills --skill designcraft-use`），不得仅因出现“新建”或“可编辑”触发本技能。版面对象调整交给 `designcraft-cli-layout`（Install: `npx skills add full-aigc-skills/designcraft-skills --skill designcraft-cli-layout`），已有工程导出交给 `designcraft-cli-export`（Install: `npx skills add full-aigc-skills/designcraft-skills --skill designcraft-cli-export`）。新建或保存会写入指定位置；开始前确认源工程、工作副本、输出路径和覆盖授权。遇到失败或 UNKNOWN 时检查现有工程与回执，不重做可能已完成的创建或保存。以目标文件存在、工程能重新打开且页面和链接素材符合约定为验收。
+仅处理用户明确只要求对一个已存在工程执行单项生命周期操作：打开、另存、保存或重新打开核验。不创建空白工程或新文档。若用户从大纲、文字或素材开始制作一份或多页成品，即使尚缺输入、只说“创建可编辑文档”，交给 `designcraft-use`（Install: `npx skills add full-aigc-skills/designcraft-skills --skill designcraft-use`），不得仅因出现“新建”或“可编辑”触发本技能。版面对象调整交给 `designcraft-cli-layout`（Install: `npx skills add full-aigc-skills/designcraft-skills --skill designcraft-cli-layout`），已有工程导出交给 `designcraft-cli-export`（Install: `npx skills add full-aigc-skills/designcraft-skills --skill designcraft-cli-export`）。保存会写入指定位置；开始前确认源工程、工作副本、输出路径和覆盖授权。遇到失败或 UNKNOWN 时检查现有工程与回执，不重做可能已完成的保存。以目标文件存在、工程能重新打开且页面和链接素材符合约定为验收。
 
 ## When to Use
 
-当用户单独要求对一个已经确定方案的工程执行空白工程创建、打开、另存、保存或重开检查时使用。若还要从大纲、内容或素材规划页面与成品，交给 `designcraft-use`；只改对象或导出文件时转交对应技能。
+当用户单独要求对一个已经存在的工程执行打开、另存、保存或重开检查时使用。若要新建文档，或还要从大纲、内容或素材规划页面与成品，交给 `designcraft-use`；只改对象或导出文件时转交对应技能。
 
 ## 不适用范围与安全边界
 
@@ -27,7 +27,7 @@ license: Apache-2.0
 
 ### Step 1：登记工程与路径
 
-确认新建或既有工程、原件位置、工作副本位置、保存目标及覆盖范围。
+确认既有源工程、原件位置、工作副本位置、保存目标及覆盖范围。
 
 ### Step 2：检查前置
 
@@ -47,6 +47,7 @@ license: Apache-2.0
 
 ## Rules（执行约束）
 
+- 不处理新建空白工程或新文档；用户有新建目标时应转交 `designcraft-use`。
 - 文件存在不证明它能被 DesignCraft 重新打开；使用独立会话核验。
 - 创建和保存属于写入；确认授权的输出位置和覆盖边界后再执行。
 - 目录、模型路由、原生调用、工程重开是分层证据，互不替代。
@@ -89,7 +90,7 @@ python3 -I -B "$SKILL_DIR/scripts/cli.py" -- --version
 以下示例中的素材路径与输出位置必须替换成当前任务实际授权路径。
 
 ```bash
-python3 -I -B "$SKILL_DIR/scripts/cli.py" -- run --sample --export /absolute/path/sample.designcraft
+python3 -I -B "$SKILL_DIR/scripts/cli.py" -- commands
 ```
 
 交付原生 .designcraft 工程、收集素材与字体许可清单、逐页预览及适用的 PDF／IDML／EPUB。重新打开原生工程核对页数、文字和链接素材；交换格式损失单独记录。
@@ -111,7 +112,7 @@ CLI 参数按 argv 传递，不执行 shell。原生命令可能具有文件写�
 
 ## 场景示例
 
-本技能的新建/重开成功路径以及保存结果未知时的恢复边界见 [场景示例](examples/workflow-cases.md)、[新建工作副本](examples/new-working-copy.md)、[既有工程重开](examples/reopen-existing.md)和[保存结果未知](examples/unknown-save.md)。这些场景只说明判断流程，不证明固定原生 CLI 已验收。
+本技能的既有工程重开成功路径以及保存结果未知时的恢复边界见 [场景示例](examples/workflow-cases.md)、[既有工程工作副本](examples/new-working-copy.md)、[既有工程重开](examples/reopen-existing.md)和[保存结果未知](examples/unknown-save.md)。这些场景只说明判断流程，不证明固定原生 CLI 已验收。
 
 
 
