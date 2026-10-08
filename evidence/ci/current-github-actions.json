@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "provider": "github-actions",
-  "runId": 37801413806,
+  "runId": 37803071518,
   "workflow": "DesignCraft plugin CI",
-  "url": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37801413806",
+  "url": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37803071518",
   "conclusion": "success",
-  "testedCommitSha": "243aa44f4403b4e6e52f953683420bf23a10db8c",
-  "createdAt": "2026-10-08T15:31:06Z",
-  "completedAt": "2026-10-08T15:31:26Z",
+  "testedCommitSha": "a8448e86685804190344c665ed37a066e0c916f8",
+  "createdAt": "2026-10-08T15:43:19Z",
+  "completedAt": "2026-10-08T15:43:55Z",
   "executionEnvironment": {
     "provider": "github-actions",
     "runner": "ubuntu-latest",
@@ -19,7 +19,7 @@
   },
   "jobs": [
     {
-      "name": "Python 3.11",
+      "name": "Python 3.12",
       "conclusion": "success",
       "steps": [
         {
@@ -55,7 +55,7 @@
       ]
     },
     {
-      "name": "Python 3.12",
+      "name": "Python 3.11",
       "conclusion": "success",
       "steps": [
         {

@@ -9,10 +9,10 @@
     "packageValidation": "python3 -I -B scripts/validate_package.py"
   },
   "ci": {
-    "status": "NOT_RUN",
+    "status": "PASS",
     "provider": "GitHub Actions",
-    "runUrl": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37801413806",
-    "testedCommit": "243aa44f4403b4e6e52f953683420bf23a10db8c",
+    "runUrl": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37803071518",
+    "testedCommit": "a8448e86685804190344c665ed37a066e0c916f8",
     "runner": "ubuntu-latest",
     "pythonVersions": [
       "3.11",
