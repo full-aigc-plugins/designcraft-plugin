@@ -107,30 +107,10 @@ CLI 参数按 argv 传递，不执行 shell。原生命令可能具有文件写�
 
 页/对象/Story 局部修订、受影响页面闭包和修订后导出身份重验见 `references/revision-evidence.md`；`scripts/revision_evidence.py` 校验两轮 AV-02/AV-03 证据、规范化对象快照和授权声明的一致性。它不执行原生编辑，也不证明这些声明真实发生；真实 CLI 目录与创作验收仍需单独完成。
 
-## 命令目录、参数与单会话计划
-
-`scripts/commands.py list` 从实际固定CLI读取完整原生目录，`describe <命令ID>` 返回参数与分类。
-显式 `--catalog <原生JSON目录文件>` 支持离线查询与检查，执行禁止使用离线目录。
-计划格式为 `{"domain":"designcraft","steps":[{"command":"实际命令ID","params":{}}]}`。
-`check <计划JSON>` 检查结构、命令存在及原生 schema 的受支持约束；纯文本参数只展示原文，参数类型和状态前置条件由原生程序判断，不能将检查通过当成执行通过。
-`run <计划JSON> --output <新目录>` 重新读取真实目录，在一个原生会话中执行整个计划，保留执行回执；零退出状态仍标记 REVIEW_REQUIRED。
-原生源工程用 DesignCraft `--source`，照片库用 LightCraft `--library` 与重复 `--import`，PDF 文件根用 PrintCraft `--root`。
-超时或中断保留 UNKNOWN 回执，不自动重放可能已写入的命令。
-
 ## 场景示例
 
 本技能的已有工程导出成功路径及警告/未知结果的恢复边界见 [场景示例](examples/workflow-cases.md)、[PDF 检查](examples/pdf-review.md)、[IDML 往返](examples/idml-roundtrip.md)和[未知导出结果](examples/unknown-export.md)。示例只说明流程，不证明固定原生 CLI 已验收。
 
+## 执行前必读
 
-
-## 输入保全与执行回执
-
-计划执行可重复传入 `--input <需保全的文件或目录>`，登记输入摘要；`--source` 与 `--import` 输入自动登记。DesignCraft `--source` 会复制到新任务目录的 `working-copy/<源名称>`，原生命令只接收副本路径，不直接编辑原件。
-目录按普通文件登记，拒绝缺失文件和符号链接；每个目录最多登记100000条目。未显式登记、且只藏在命令参数里的路径不在此保全检查内；这不是文件系统沙箱。
-安装／目录查询后、编辑开始前重新核对输入与当前技能执行资源；漂移时拒绝编辑。
-回执保存当前计划、命令目录、输入、运行时锁及技能资源摘要，并记录工作副本执行前后的文件摘要；超时保存可获得的部分日志并标记UNKNOWN，不自动重放。工作副本的摘要用于追踪改动，不代表写入范围沙箱。
-原生零退出却改动登记输入会标记INPUT_CHANGED_REVIEW_REQUIRED并返回失败；这是事后检测，不会回滚已经发生的写入。需要修改原图或源工程时应先另存可编辑副本，再明确登记需保持的原始输入。
-
-格式可验证属性和损失边界见本技能 [格式检查参考](references/format-checks.md)。
-
-原始业务回执通过 `scripts/business_evidence.py` 重算并绑定 AV-02；使用方法、支持的预检/PDF 子集及证据边界见 [AV-01 业务证据](references/business-evidence.md)。手写 PASS 不能代替原始结果校验。
+在执行命令计划、检查点恢复或交付验证前，必须读取本技能的 [执行与验收细节](references/execution-details.md)，按其中的输入保全、UNKNOWN、回执与格式验证要求操作。摘要只能检测变化，不能隔离或回滚写入；未知结果不得自动重放。

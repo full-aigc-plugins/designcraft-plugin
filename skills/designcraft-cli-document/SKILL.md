@@ -100,16 +100,6 @@ CLI 参数按 argv 传递，不执行 shell。原生命令可能具有文件写�
 命令查询或零退出不等于交付通过：检查实际文件、保存重开、内容与修改后的结果，另记录创作审阅。
 运行时与技能安装、宿主技能发现、模型自然语言选用是分别验收的门禁。
 
-## 命令目录、参数与单会话计划
-
-`scripts/commands.py list` 从实际固定CLI读取完整原生目录，`describe <命令ID>` 返回参数与分类。
-显式 `--catalog <原生JSON目录文件>` 支持离线查询与检查，执行禁止使用离线目录。
-计划格式为 `{"domain":"designcraft","steps":[{"command":"实际命令ID","params":{}}]}`。
-`check <计划JSON>` 检查结构、命令存在及原生 schema 的受支持约束；纯文本参数只展示原文，参数类型和状态前置条件由原生程序判断，不能将检查通过当成执行通过。
-`run <计划JSON> --output <新目录>` 重新读取真实目录，在一个原生会话中执行整个计划，保留执行回执；零退出状态仍标记 REVIEW_REQUIRED。
-原生源工程用 DesignCraft `--source`，照片库用 LightCraft `--library` 与重复 `--import`，PDF 文件根用 PrintCraft `--root`。
-超时或中断保留 UNKNOWN 回执，不自动重放可能已写入的命令。
-
 ## 场景示例
 
 本技能的既有工程重开成功路径以及保存结果未知时的恢复边界见 [场景示例](examples/workflow-cases.md)、[既有工程工作副本](examples/new-working-copy.md)、[既有工程重开](examples/reopen-existing.md)和[保存结果未知](examples/unknown-save.md)。这些场景只说明判断流程，不证明固定原生 CLI 已验收。
@@ -117,3 +107,7 @@ CLI 参数按 argv 传递，不执行 shell。原生命令可能具有文件写�
 
 
 输入登记、工程副本和执行回执字段的细节见本技能 [工程生命周期参考](references/project-lifecycle.md)。这些摘要仅提供身份与漂移证据，不代表写入隔离或回滚。
+
+## 执行前必读
+
+在执行命令计划、检查点恢复或交付验证前，必须读取本技能的 [执行与验收细节](references/execution-details.md)，按其中的输入保全、UNKNOWN、回执与格式验证要求操作。摘要只能检测变化，不能隔离或回滚写入；未知结果不得自动重放。

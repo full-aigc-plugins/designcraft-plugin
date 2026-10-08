@@ -49,6 +49,15 @@ class SnapshotContract(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError,'skill_invocation_policy_invalid'):
                     module.validate()
 
+    def test_harness_budget_rejects_multibyte_overflow(self):
+        with tempfile.TemporaryDirectory() as temp:
+            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__','.DS_Store'))
+            path=fixture/'skills/designcraft-harness/SKILL.md';path.write_text(path.read_text()+'\n'+'汉'*2600)
+            spec=importlib.util.spec_from_file_location('budget_validator',fixture/'scripts/validate_package.py')
+            module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
+            with self.assertRaisesRegex(ValueError,'skill_host_byte_budget_exceeded'):
+                module.validate()
+
     def test_self_contained_snapshot_and_unpublished_identity(self):
         p=ROOT/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('validator',p)
         module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)

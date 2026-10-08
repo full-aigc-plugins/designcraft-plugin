@@ -177,10 +177,12 @@ def validate():
     if files!=provenance['skillFileSha256']:raise ValueError('snapshot_drift')
     for name in sorted(external_names):
         validate_invocation_policy(ROOT/'skills'/name,name=='designcraft-use')
+        if (ROOT/'skills'/name/'SKILL.md').stat().st_size>7500:raise ValueError('skill_host_byte_budget_exceeded:'+name)
     for item in local['skills']:
         if item.get('path')!=f"skills/{item.get('name')}":raise ValueError('local_skill_path_invalid')
         skill=ROOT/item['path'];text=(skill/'SKILL.md').read_text(encoding='utf-8')
         if item.get('owner')!='designcraft-plugin' or item.get('kind')!='plugin-local' or not text.startswith('---\n') or f"name: {item['name']}\n" not in text or 'description:' not in text:raise ValueError('local_skill_invalid')
+        if len(text.encode('utf-8'))>7500:raise ValueError('skill_host_byte_budget_exceeded:'+item['name'])
         validate_local_skill_references(skill)
         validate_invocation_policy(skill,False)
     validate_host_platform_evidence(matrix)

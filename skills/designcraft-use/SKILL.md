@@ -70,17 +70,7 @@ license: Apache-2.0
 python3 -I -B "$SKILL_DIR/scripts/cli.py" -- commands
 ```
 
-需要只检查安装时：
-
-```bash
-python3 -I -B "$SKILL_DIR/scripts/bootstrap.py"
-python3 -I -B "$SKILL_DIR/scripts/cli.py" -- --version
-```
-
-`--runtime-home` 或 CRAFT_RUNTIME_HOME 指定隔离运行时目录，放在 `--` 之前。
-`--archive` 指向已有固定 ZIP，仍校验归档与二进制摘要。
-安装失败返回 dependencySetup，不自动重试编辑或渲染；校验失败保留已有目录。
-当前锁仅固定原生 CLI，发布快照与宿主自动发现仍须另行验证。
+安装诊断和隔离运行时参数见执行前必读资料。
 
 ## 当前场景
 
@@ -99,18 +89,6 @@ CLI 参数按 argv 传递，不执行 shell。原生命令可能具有文件写�
 命令查询或零退出不等于交付通过：检查实际文件、保存重开、内容与修改后的结果，另记录创作审阅。
 运行时与技能安装、宿主技能发现、模型自然语言选用是分别验收的门禁。
 
-## 命令目录、参数与单会话计划
-
-`scripts/commands.py list` 从实际固定CLI读取完整原生目录，`describe <命令ID>` 返回参数与分类。
-显式 `--catalog <原生JSON目录文件>` 支持离线查询与检查，执行禁止使用离线目录。
-计划格式为 `{"domain":"designcraft","steps":[{"command":"实际命令ID","params":{}}]}`。
-`check <计划JSON>` 检查结构、命令存在及原生 schema 的受支持约束；纯文本参数只展示原文，参数类型和状态前置条件由原生程序判断，不能将检查通过当成执行通过。
-`run <计划JSON> --output <新目录>` 重新读取真实目录，在一个原生会话中执行整个计划，保留执行回执；零退出状态仍标记 REVIEW_REQUIRED。`receipt <旧回执路径>` 仅离线读取历史回执；`recover <原回执路径> --checkpoint-receipt <重开回执>` 只核对保存工程并输出安全恢复计划，不安装、不自动执行，也不重放原计划。
-原生源工程用 DesignCraft `--source`，照片库用 LightCraft `--library` 与重复 `--import`，PDF 文件根用 PrintCraft `--root`。
-超时或中断保留 UNKNOWN 回执，不自动重放可能已写入的命令。
-
-对包含已完成 `file.saveAs` 的部分失败回执，先用一个新计划执行 `file.open` 与 `document.inspect`，并用 `--input` 登记保存工程；之后 `commands.py recover <原回执> --checkpoint-receipt <重开回执>` 只核对身份并生成未启动后缀。机器结果按 `designcraft-checkpoint-recovery/v1` 输出 `originalRunId`、`reopenRunId`、保存工程 SHA 和剩余计划，供插件 Harness 交叉核验。只有返回 `RECOVERY_READY` 才可人工审阅后显式提交为新计划；已完成前缀和可能有副作用的失败步永不重放。旧对象的 `step:N` 跨会话引用会被拒绝自动恢复，必须先按新 inspection 的对象身份人工重绑。检查点缺失、摘要漂移、未知状态或回执缺字段时只返回诊断。
-
 ## 场景示例
 
 本技能的多页排版编排成功路径及无关请求/未知结果的拒绝与恢复边界见 [场景示例](examples/workflow-cases.md)、[从提纲到可编辑工程](examples/multi-page-plan.md)、[既有工程局部修订](examples/revise-existing.md)和[UNKNOWN 恢复](examples/unknown-recovery.md)。示例只说明流程，不证明固定原生 CLI 已验收。
@@ -118,3 +96,7 @@ CLI 参数按 argv 传递，不执行 shell。原生命令可能具有文件写�
 
 
 输入登记范围、工作副本策略、执行前后摘要与回执字段说明见本技能 [执行与回执参考](references/execution-and-receipts.md)。摘要仅用于漂移检测，不构成沙箱或回滚证明。
+
+## 执行前必读
+
+在执行命令计划、检查点恢复或交付验证前，必须读取本技能的 [执行与验收细节](references/execution-details.md)，按其中的输入保全、UNKNOWN、回执与格式验证要求操作。摘要只能检测变化，不能隔离或回滚写入；未知结果不得自动重放。
