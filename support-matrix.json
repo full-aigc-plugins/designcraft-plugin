@@ -9,7 +9,7 @@
     "packageValidation": "python3 -I -B scripts/validate_package.py"
   },
   "ci": {
-    "status": "PASS",
+    "status": "NOT_RUN",
     "provider": "GitHub Actions",
     "runUrl": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37799406507",
     "testedCommit": "bfb2f3718d9dc6d98601c0ecd02cf92420081783",

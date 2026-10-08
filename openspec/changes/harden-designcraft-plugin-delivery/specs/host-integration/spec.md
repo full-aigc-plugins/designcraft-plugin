@@ -12,6 +12,10 @@
 - **WHEN** 用户分别请求多页手册、显式导出和无关任务
 - **THEN** 宿主分别选择 use、export 和不调用 DesignCraft，记录选择与实际执行证据。
 
+#### Scenario: Codex 默认和显式技能输入
+- **WHEN** Codex 构建未指定技能或显式指定原子技能的模型输入
+- **THEN** agents/openai.yaml 仅允许 use 隐式调用；原子技能和插件本地 Harness 的 allow_implicit_invocation 为 false，仍可显式加载。包校验拒绝缺失或错误策略；宿主输入验证不代替实际模型路由和原生验收。
+
 ### Requirement: HI-02 声明组件与实际组件一致
 
 插件 SHALL 检查 portable 与宿主清单、技能集合、资源路径、版本、图标和存在的命令入口；没有实际可用服务时不声明 MCP，没有执行实现时不登记 hook。建议型 hook 不得阻塞无关任务或自动安装外部依赖。

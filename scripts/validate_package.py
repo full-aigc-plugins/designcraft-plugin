@@ -127,6 +127,13 @@ def validate_host_platform_evidence(matrix):
     if statuses.get('host')!='PASS' or (host.get('modelDispatch')=='PASS' and statuses.get('model-dispatch')!='PASS'):
         raise ValueError('host_evidence_stale')
 
+def validate_invocation_policy(skill, implicit):
+    """校验本包维护的最小 Codex 策略格式，不将其当作通用 YAML 解析器。"""
+    path=skill/'agents/openai.yaml'
+    expected='policy:\n  allow_implicit_invocation: '+('true' if implicit else 'false')
+    if path.is_symlink() or not path.is_file() or path.read_text(encoding='utf-8').strip()!=expected:
+        raise ValueError('skill_invocation_policy_invalid:'+skill.name)
+
 def validate():
     manifest=json.loads((ROOT/'plugin.json').read_text())
     if manifest['$schema']!='https://agent-plugins.org/schemas/1.0.0/plugin.schema.json':raise ValueError('unsupported_plugin_schema')
@@ -168,11 +175,14 @@ def validate():
     if actual!=external_names|set(local_names) or any(not n.startswith(manifest['name']+'-') for n in external_names) or set(local_names)!={'designcraft-harness'}:raise ValueError('skill_set_mismatch')
     files={str(p.relative_to(ROOT/'skills')):hashlib.sha256(p.read_bytes()).hexdigest() for name in sorted(external_names) for p in sorted((ROOT/'skills'/name).rglob('*')) if p.is_file() and not transient_path(p.relative_to(ROOT/'skills'))}
     if files!=provenance['skillFileSha256']:raise ValueError('snapshot_drift')
+    for name in sorted(external_names):
+        validate_invocation_policy(ROOT/'skills'/name,name=='designcraft-use')
     for item in local['skills']:
         if item.get('path')!=f"skills/{item.get('name')}":raise ValueError('local_skill_path_invalid')
         skill=ROOT/item['path'];text=(skill/'SKILL.md').read_text(encoding='utf-8')
         if item.get('owner')!='designcraft-plugin' or item.get('kind')!='plugin-local' or not text.startswith('---\n') or f"name: {item['name']}\n" not in text or 'description:' not in text:raise ValueError('local_skill_invalid')
         validate_local_skill_references(skill)
+        validate_invocation_policy(skill,False)
     validate_host_platform_evidence(matrix)
     return {'plugin':manifest['name'],'skills':len(actual),'externalSkills':len(external_names),'localSkills':len(local_names),'snapshot':'PASS','hostManifest':'PASS' if host_manifest else 'NOT_PRESENT','sourceRelease':'UNPUBLISHED','hostAcceptance':'NOT_RUN'}
 

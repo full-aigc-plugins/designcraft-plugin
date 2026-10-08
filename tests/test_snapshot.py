@@ -35,6 +35,20 @@ class SnapshotContract(unittest.TestCase):
             if record.get('id') in ('host','model-dispatch'):record['status']='NOT_RUN'
         manifest.write_text(json.dumps(evidence))
 
+    def test_harness_invocation_policy_rejects_implicit_or_missing_policy(self):
+        for value in ('true', '"false"', 'false\n  allow_implicit_invocation: true', None):
+            with self.subTest(value=value), tempfile.TemporaryDirectory() as temp:
+                fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__','.DS_Store'))
+                path=fixture/'skills/designcraft-harness/agents/openai.yaml';path.parent.mkdir(exist_ok=True)
+                if value is None:
+                    path.unlink(missing_ok=True)
+                else:
+                    path.write_text('policy:\n  allow_implicit_invocation: '+value+'\n')
+                spec=importlib.util.spec_from_file_location('policy_validator',fixture/'scripts/validate_package.py')
+                module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
+                with self.assertRaisesRegex(ValueError,'skill_invocation_policy_invalid'):
+                    module.validate()
+
     def test_self_contained_snapshot_and_unpublished_identity(self):
         p=ROOT/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('validator',p)
         module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
