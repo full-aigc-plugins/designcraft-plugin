@@ -25,8 +25,8 @@
       "id": "host",
       "layer": "host",
       "status": "PASS",
-      "runId": "c4565d0a-20f2-41d6-a95e-00d7c6131fa2",
-      "observedAt": "2026-10-08T14:22:17+00:00",
+      "runId": "589b73f6-3304-4d56-83ec-5735b952c3fe",
+      "observedAt": "2026-10-08T14:31:50+00:00",
       "environment": {
         "os": "Darwin",
         "machine": "arm64",
@@ -34,7 +34,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "8997cc8468cdef9b3f76d10c3a057352acd3654b7f5f8724581bcbe91d4dd037",
+        "pluginTreeSha256": "eed299503dc6d080d97fedd68322f4757e6ee5b73438b11877edfd776d8ce7c4",
         "sourceLockSha256": "5d1603c259e9c43f376e845cb5945aae667022dffdcc082345e68b5cf0ed8bc4",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -67,8 +67,8 @@
       "id": "model-dispatch",
       "layer": "model-dispatch",
       "status": "FAIL",
-      "runId": "37636d62-9fe6-47d7-b819-8f62806bffde",
-      "observedAt": "2026-10-08T14:22:17+00:00",
+      "runId": "dca15904-f03e-4c3c-8375-01413a2daef2",
+      "observedAt": "2026-10-08T14:31:50+00:00",
       "environment": {
         "os": "Darwin",
         "machine": "arm64",
@@ -76,7 +76,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "8997cc8468cdef9b3f76d10c3a057352acd3654b7f5f8724581bcbe91d4dd037",
+        "pluginTreeSha256": "eed299503dc6d080d97fedd68322f4757e6ee5b73438b11877edfd776d8ce7c4",
         "sourceLockSha256": "5d1603c259e9c43f376e845cb5945aae667022dffdcc082345e68b5cf0ed8bc4",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -108,14 +108,55 @@
     {
       "id": "ci",
       "layer": "ci",
-      "status": "NOT_RUN"
+      "status": "PASS",
+      "runId": "61ecd9c9-1184-498c-b38d-f8643d802b18",
+      "observedAt": "2026-10-08T14:31:50+00:00",
+      "environment": {
+        "provider": "github-actions",
+        "runner": "ubuntu-latest",
+        "pythonVersions": [
+          "3.11",
+          "3.12",
+          "3.13"
+        ]
+      },
+      "bindings": {
+        "pluginVersion": "0.1.0-dev.1",
+        "pluginTreeSha256": "eed299503dc6d080d97fedd68322f4757e6ee5b73438b11877edfd776d8ce7c4",
+        "sourceLockSha256": "5d1603c259e9c43f376e845cb5945aae667022dffdcc082345e68b5cf0ed8bc4",
+        "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+        "nativeVersions": [
+          "0.2.1"
+        ],
+        "expectedNativeBinarySha256": [
+          "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+        ]
+      },
+      "inputs": [
+        {
+          "path": "project-status.json",
+          "sha256": "c6581ca7a93dd5976086955825f0bed4a8556030b4a23dd94bba44e960954f3b"
+        },
+        {
+          "path": "support-matrix.json",
+          "sha256": "3f26d263216a08fac08a1b0010c3e6c1e9c071dd5195fef5a491289a3909fb6f"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "evidence/ci/current-github-actions.json",
+          "sha256": "3079f08c31112fac058e4009882380e42ade1b62ca95559d68cd508f2db6dadf"
+        }
+      ],
+      "environmentSource": "artifact",
+      "environmentArtifactPath": "evidence/ci/current-github-actions.json"
     },
     {
       "id": "offline-tests",
       "layer": "offline-tests",
       "status": "PASS",
-      "runId": "365fe556-6762-47b6-afa5-5ab713a5b8fb",
-      "observedAt": "2026-10-08T14:31:10.809294+00:00",
+      "runId": "33a61c01-f9f9-4928-9357-03c11765e157",
+      "observedAt": "2026-10-08T14:32:31.129716+00:00",
       "environment": {
         "os": "Darwin",
         "machine": "arm64",
@@ -123,7 +164,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "8997cc8468cdef9b3f76d10c3a057352acd3654b7f5f8724581bcbe91d4dd037",
+        "pluginTreeSha256": "eed299503dc6d080d97fedd68322f4757e6ee5b73438b11877edfd776d8ce7c4",
         "sourceLockSha256": "5d1603c259e9c43f376e845cb5945aae667022dffdcc082345e68b5cf0ed8bc4",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -162,7 +203,7 @@
       "artifacts": [
         {
           "path": "evidence/current-offline-validation.json",
-          "sha256": "3992fea8bcae9477e6f0bf5749287052645d320496f2166991fbb82414790e01"
+          "sha256": "dde40ea4cda7aba8680c3e423e62179bbf0c5d8f90814e437381deee5292915d"
         }
       ]
     },
@@ -170,8 +211,8 @@
       "id": "package-validation",
       "layer": "package-validation",
       "status": "PASS",
-      "runId": "365fe556-6762-47b6-afa5-5ab713a5b8fb",
-      "observedAt": "2026-10-08T14:31:10.809294+00:00",
+      "runId": "33a61c01-f9f9-4928-9357-03c11765e157",
+      "observedAt": "2026-10-08T14:32:31.129716+00:00",
       "environment": {
         "os": "Darwin",
         "machine": "arm64",
@@ -179,7 +220,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "8997cc8468cdef9b3f76d10c3a057352acd3654b7f5f8724581bcbe91d4dd037",
+        "pluginTreeSha256": "eed299503dc6d080d97fedd68322f4757e6ee5b73438b11877edfd776d8ce7c4",
         "sourceLockSha256": "5d1603c259e9c43f376e845cb5945aae667022dffdcc082345e68b5cf0ed8bc4",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -204,13 +245,13 @@
         },
         {
           "path": "support-matrix.json",
-          "sha256": "f6e7c3ce0beffcf69e8df77f8b12b1fee5b05293089fc21f407508b7a14d355f"
+          "sha256": "3f26d263216a08fac08a1b0010c3e6c1e9c071dd5195fef5a491289a3909fb6f"
         }
       ],
       "artifacts": [
         {
           "path": "evidence/current-offline-validation.json",
-          "sha256": "3992fea8bcae9477e6f0bf5749287052645d320496f2166991fbb82414790e01"
+          "sha256": "dde40ea4cda7aba8680c3e423e62179bbf0c5d8f90814e437381deee5292915d"
         }
       ]
     }
