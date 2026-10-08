@@ -1,6 +1,6 @@
 # DesignCraft 支持与验收矩阵
 
-离线检查已在 macOS arm64 / Python 3.14.3 通过；GitHub Actions 在 Ubuntu runner 上的 Python 3.11、3.12、3.13 矩阵也通过单测、包校验和空白检查，详见 [CI run](https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37766652013)。这两类证据只覆盖离线软件检查。
+离线检查已在 macOS arm64 / Python 3.14.3 通过；GitHub Actions 在 Ubuntu runner 上的 Python 3.11、3.12、3.13 矩阵也通过单测、包校验和空白检查，详见 [CI run](https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37766935807)。这两类证据只覆盖离线软件检查。
 
 固定 CLI 0.2.1 尚未安装或运行，macOS arm64 尚无原生验收。Codex 宿主发现、模型自动路由、重启后的真实任务恢复、真实工程与导出质量和正式发行仍为 `NOT_RUN`/`UNPUBLISHED`。CI 通过不代表原生、宿主或创作验收。未实测的操作系统、宿主、模型和 Python 组合不列为支持。其他宿主、其他操作系统、自动多轮修改及 ArtCraft 集成明确留给后续变更。
 
