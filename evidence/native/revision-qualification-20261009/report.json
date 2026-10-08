@@ -1,0 +1,22 @@
+{
+  "scope": "NATIVE_COMMAND_QUALIFICATION_NOT_MODEL_REVISION_ACCEPTANCE",
+  "nativeRunId": "ff01c72e-3579-45cb-8f8f-dc4f3e579446",
+  "reopenRunId": "50cb345d-4615-4dd0-9d57-390102cae304",
+  "originalInputPath": "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-skills-repositories/designcraft-skills/evidence/native/designcraft-cli-0.2.1/av04-revision/before/magazine.designcraft",
+  "originalInputSha256": "b7e34dab77d3f1fd21c22dc478bf295ae4ea49ac947a1783aade9e827a5197a6",
+  "inputPreserved": true,
+  "workingCopyPath": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-revision-qualification-20261009-w0cftr82/native-output/working-copy/magazine.designcraft",
+  "changedStoryIds": [
+    "65"
+  ],
+  "beforeText": "A Better Grid",
+  "afterText": "A Considered Grid",
+  "spreadsUnchanged": true,
+  "reopenedPageCount": 4,
+  "nativeStatus": "NATIVE_EXIT_ZERO_REVIEW_REQUIRED",
+  "completeAcceptance": false,
+  "limitations": [
+    "No model-issued revision, human creative signoff or AV-04 full contract validation is claimed.",
+    "Native receipts preserve original paths; this directory contains archive copies."
+  ]
+}

@@ -1,0 +1,7 @@
+{"command": "story.get", "params": {"story": 65}}
+{"command": "story.setText", "params": {"story": 65, "text": "A Considered Grid"}}
+{"command": "story.get", "params": {"story": 65}}
+{"command": "preflight.run", "params": {"minPpi": 150}}
+{"command": "file.saveAs", "params": {"path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-revision-qualification-20261009-w0cftr82/revised.designcraft"}}
+{"command": "file.exportPdf", "params": {"path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-revision-qualification-20261009-w0cftr82/revised.pdf", "standard": "none"}}
+{"command": "document.inspect", "params": {}}

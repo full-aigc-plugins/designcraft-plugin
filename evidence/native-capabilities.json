@@ -61,11 +61,33 @@
       "evidenceReceipt": "evidence/native/qualification-20261009/reopen-qualification/receipt.json",
       "validationRunId": "46d27fae-2111-4059-899c-95c526e51528",
       "resultIndex": 0
+    },
+    {
+      "id": "story.get",
+      "validationStatus": "NATIVE_TESTED",
+      "parameterScope": {
+        "story": 65
+      },
+      "evidenceReceipt": "evidence/native/revision-qualification-20261009/native-output/receipt.json",
+      "validationRunId": "ff01c72e-3579-45cb-8f8f-dc4f3e579446",
+      "resultIndex": 0
+    },
+    {
+      "id": "story.setText",
+      "validationStatus": "NATIVE_TESTED",
+      "parameterScope": {
+        "story": 65,
+        "text": "A Considered Grid"
+      },
+      "evidenceReceipt": "evidence/native/revision-qualification-20261009/native-output/receipt.json",
+      "validationRunId": "ff01c72e-3579-45cb-8f8f-dc4f3e579446",
+      "resultIndex": 1
     }
   ],
   "completeAcceptance": false,
   "limitations": [
     "Only recorded sample creation, inspection, clean preflight, saveAs, four-page PDF export and fresh file.open parameters were observed.",
-    "NATIVE_TESTED does not prove all parameter combinations, creative quality, host dispatch or reopen."
+    "NATIVE_TESTED does not prove all parameter combinations, creative quality, host dispatch or reopen.",
+    "Story get/setText qualified against the preserved AV-04 before sample with story 65; does not prove arbitrary story IDs, all parameters, model-issued editing or human creative acceptance."
   ]
 }

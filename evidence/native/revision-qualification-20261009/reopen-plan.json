@@ -1,0 +1,27 @@
+{
+  "domain": "designcraft",
+  "steps": [
+    {
+      "command": "file.open",
+      "params": {
+        "path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-revision-qualification-20261009-w0cftr82/revised.designcraft"
+      }
+    },
+    {
+      "command": "story.get",
+      "params": {
+        "story": 65
+      }
+    },
+    {
+      "command": "document.inspect",
+      "params": {}
+    },
+    {
+      "command": "preflight.run",
+      "params": {
+        "minPpi": 150
+      }
+    }
+  ]
+}

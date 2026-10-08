@@ -145,78 +145,6 @@
       "environmentArtifactPath": "evidence/ci/current-github-actions.json"
     },
     {
-      "id": "native-capabilities",
-      "layer": "native-capabilities",
-      "status": "PASS",
-      "runId": "171ed04f-7ed0-4339-84d5-9f26c03a1ec7",
-      "observedAt": "2026-10-08T16:13:09.734359+00:00",
-      "environment": {
-        "os": "Darwin",
-        "machine": "arm64",
-        "python": "3.13.5"
-      },
-      "bindings": {
-        "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "4f46cbf4faeffe6ba28f78c0d1abe91460d5644f1800e19f6a2dd5da9812377f",
-        "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
-        "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
-        "nativeVersions": [
-          "0.2.1"
-        ],
-        "expectedNativeBinarySha256": [
-          "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
-        ]
-      },
-      "inputs": [
-        {
-          "path": "skills/designcraft-cli/scripts/bootstrap.py",
-          "sha256": "27e87459d328ef8fd4894e1e96d9b14ddd0c83ddc98a010d19155d560d47302a"
-        },
-        {
-          "path": "skills/designcraft-cli/scripts/cli.py",
-          "sha256": "09c39a397e2e409edf9a84edc8fa24023f736f794a5f0e21bb79390842141044"
-        },
-        {
-          "path": "skills/designcraft-cli/scripts/command_gateway.py",
-          "sha256": "cc003905fcc082cae36f4ffb90b5e995fce2b210cb523763711a58dd0e2c1afa"
-        },
-        {
-          "path": "skills/designcraft-cli/scripts/commands.py",
-          "sha256": "1c68012b9c9ca0b023a7cbfc05376d9a66059457311734036a8fe7ff13d432b7"
-        },
-        {
-          "path": "skills/designcraft-cli/scripts/runtime.lock.json",
-          "sha256": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8"
-        }
-      ],
-      "artifacts": [
-        {
-          "path": "evidence/host/show-fix-requalification-basis.json",
-          "sha256": "81f0f1803d4532664048cb2f0105307d4086c82964ba33eb2b1ec4311dd68404"
-        },
-        {
-          "path": "evidence/native-capabilities.json",
-          "sha256": "de9a468031d391cc92030aa64c015f2ba7dc2cc0ec13801153d9dc3f8b3a3f5a"
-        },
-        {
-          "path": "evidence/native/qualification-20261009/qualification/receipt.json",
-          "sha256": "53927535347d6db5ee8e62c6dff0339d8e09c3cbc10f27c7641f65f85503a8ea"
-        },
-        {
-          "path": "evidence/native/qualification-20261009/qualify-plan.json",
-          "sha256": "d416ec3c88baaceb389625d815af915c65a770cc0d74793dda38f1acc6164530"
-        },
-        {
-          "path": "evidence/native/qualification-20261009/reopen-plan.json",
-          "sha256": "56eb020cd83bb979f0f2b8b2bd01391d5ab7e4228717b76365b42ec915bc83a1"
-        },
-        {
-          "path": "evidence/native/qualification-20261009/reopen-qualification/receipt.json",
-          "sha256": "5cf1ba31d5da482d8799502fa883766cbc7cf55e2da40ab1f65c52f71e80125b"
-        }
-      ]
-    },
-    {
       "id": "offline-tests",
       "layer": "offline-tests",
       "status": "PASS",
@@ -356,6 +284,110 @@
         {
           "path": "evidence/source-handoff-20261008.json",
           "sha256": "05bb933e113ed11f3d78d6eded811fa71a97f8ca83eae3a79a1873b1d1ba7036"
+        }
+      ]
+    },
+    {
+      "id": "native-capabilities",
+      "layer": "native-capabilities",
+      "status": "PASS",
+      "runId": "425e19c9-fc80-4aa7-8003-28c3e2e8787b",
+      "observedAt": "2026-10-08T17:01:09.736897+00:00",
+      "environment": {
+        "os": "Darwin",
+        "machine": "arm64",
+        "python": "3.13.5"
+      },
+      "bindings": {
+        "pluginVersion": "0.1.0-dev.1",
+        "pluginTreeSha256": "4f46cbf4faeffe6ba28f78c0d1abe91460d5644f1800e19f6a2dd5da9812377f",
+        "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
+        "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+        "nativeVersions": [
+          "0.2.1"
+        ],
+        "expectedNativeBinarySha256": [
+          "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+        ]
+      },
+      "inputs": [
+        {
+          "path": "skills/designcraft-cli/scripts/bootstrap.py",
+          "sha256": "27e87459d328ef8fd4894e1e96d9b14ddd0c83ddc98a010d19155d560d47302a"
+        },
+        {
+          "path": "skills/designcraft-cli/scripts/cli.py",
+          "sha256": "09c39a397e2e409edf9a84edc8fa24023f736f794a5f0e21bb79390842141044"
+        },
+        {
+          "path": "skills/designcraft-cli/scripts/command_gateway.py",
+          "sha256": "cc003905fcc082cae36f4ffb90b5e995fce2b210cb523763711a58dd0e2c1afa"
+        },
+        {
+          "path": "skills/designcraft-cli/scripts/commands.py",
+          "sha256": "1c68012b9c9ca0b023a7cbfc05376d9a66059457311734036a8fe7ff13d432b7"
+        },
+        {
+          "path": "skills/designcraft-cli/scripts/runtime.lock.json",
+          "sha256": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "evidence/host/show-fix-requalification-basis.json",
+          "sha256": "81f0f1803d4532664048cb2f0105307d4086c82964ba33eb2b1ec4311dd68404"
+        },
+        {
+          "path": "evidence/native-capabilities.json",
+          "sha256": "c8392e3c3cf2063f977f21bb8b7845d7e0fadd401baebabd39b16bed5600fdfd"
+        },
+        {
+          "path": "evidence/native/qualification-20261009/qualification/receipt.json",
+          "sha256": "53927535347d6db5ee8e62c6dff0339d8e09c3cbc10f27c7641f65f85503a8ea"
+        },
+        {
+          "path": "evidence/native/qualification-20261009/qualify-plan.json",
+          "sha256": "d416ec3c88baaceb389625d815af915c65a770cc0d74793dda38f1acc6164530"
+        },
+        {
+          "path": "evidence/native/qualification-20261009/reopen-plan.json",
+          "sha256": "56eb020cd83bb979f0f2b8b2bd01391d5ab7e4228717b76365b42ec915bc83a1"
+        },
+        {
+          "path": "evidence/native/qualification-20261009/reopen-qualification/receipt.json",
+          "sha256": "5cf1ba31d5da482d8799502fa883766cbc7cf55e2da40ab1f65c52f71e80125b"
+        },
+        {
+          "path": "evidence/native/revision-qualification-20261009/native-output/receipt.json",
+          "sha256": "f6d6d7099c9ab941577a1a43029410916aadd1acae566d458e3b78bf3650e012"
+        },
+        {
+          "path": "evidence/native/revision-qualification-20261009/original.designcraft",
+          "sha256": "b7e34dab77d3f1fd21c22dc478bf295ae4ea49ac947a1783aade9e827a5197a6"
+        },
+        {
+          "path": "evidence/native/revision-qualification-20261009/plan.json",
+          "sha256": "130f6eaf9486f2e57378c6fbd3d5cad16472d396e2463fca3d0bb97150d73e94"
+        },
+        {
+          "path": "evidence/native/revision-qualification-20261009/reopen-output/receipt.json",
+          "sha256": "5ef244aff8258daf95ec9ce0ca79e2194129cc3f244712e6b4ed0de1c73d1ea6"
+        },
+        {
+          "path": "evidence/native/revision-qualification-20261009/reopen-plan.json",
+          "sha256": "712e210cc7b9df9886d8d08cf1f8cbffb511068e9148ba5ac9b19af511481b9a"
+        },
+        {
+          "path": "evidence/native/revision-qualification-20261009/report.json",
+          "sha256": "69ebfde28e068d3f00f1d562ea76c6c4066bead26344a2643885c76ed1499326"
+        },
+        {
+          "path": "evidence/native/revision-qualification-20261009/revised.designcraft",
+          "sha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+        },
+        {
+          "path": "evidence/native/revision-qualification-20261009/revised.pdf",
+          "sha256": "27f925e1fec6fc322d01f0821e22e0227ecdd006006feb633becf1c04dd4b0b3"
         }
       ]
     }

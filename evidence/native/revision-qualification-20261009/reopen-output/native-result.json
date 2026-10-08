@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "status": "NATIVE_EXIT_ZERO_REVIEW_REQUIRED",
+  "reason": "native_exit",
+  "exitCode": 0,
+  "started": true,
+  "startedAt": "2026-10-08T17:00:19.723859+00:00",
+  "finishedAt": "2026-10-08T17:00:19.816648+00:00",
+  "terminationVerified": true,
+  "descendantsTerminationVerified": false
+}
