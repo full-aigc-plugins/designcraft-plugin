@@ -239,6 +239,133 @@ def observe_step_results(references,native_status,started):
     return [{'stepRef':item['stepRef'],'index':item['index'],'command':item['command'],'status':status,'granularity':'single-native-session'} for item in references]
 
 
+def _business_step(reference,status,reason,**details):
+    return {'stepRef':reference['stepRef'],'index':reference['index'],'command':reference['command'],'status':status,'reason':reason,**details}
+
+
+def _preflight_assessment(reference,result):
+    if not isinstance(result,dict) or set(result)!={'errors','issues','warnings'}:
+        return _business_step(reference,'UNKNOWN','preflight_result_schema_unknown')
+    errors=result['errors'];warnings=result['warnings'];issues=result['issues']
+    if type(errors) is not int or errors<0 or type(warnings) is not int or warnings<0 or not isinstance(issues,list):
+        return _business_step(reference,'UNKNOWN','preflight_result_schema_unknown')
+    normalized=[];observed_errors=0;observed_warnings=0;missing_image=False
+    for issue in issues:
+        allowed={'severity','kind','message','item','page'}
+        if not isinstance(issue,dict) or set(issue)-allowed or not {'severity','kind','message'}.issubset(issue):
+            return _business_step(reference,'UNKNOWN','preflight_issue_schema_unknown')
+        severity=issue['severity'];kind=issue['kind'];message=issue['message']
+        if severity not in ('info','warning','error') or not isinstance(kind,str) or not kind or not isinstance(message,str) or not message:
+            return _business_step(reference,'UNKNOWN','preflight_issue_schema_unknown')
+        if 'item' in issue and (type(issue['item']) is not int or issue['item']<0):
+            return _business_step(reference,'UNKNOWN','preflight_issue_schema_unknown')
+        if 'page' in issue and (type(issue['page']) is not int or issue['page']<1):
+            return _business_step(reference,'UNKNOWN','preflight_issue_schema_unknown')
+        observed_errors+=severity=='error';observed_warnings+=severity=='warning'
+        normalized_issue={key:issue[key] for key in ('severity','kind','message','item','page') if key in issue}
+        normalized.append(normalized_issue)
+        compact=''.join(char.lower() for char in kind if char.isalnum())
+        missing_image=missing_image or compact in {'missingimage','missingimagefile','missingasset'}
+    if observed_errors!=errors or observed_warnings!=warnings:
+        return _business_step(reference,'UNKNOWN','preflight_count_mismatch')
+    if missing_image:
+        status='REJECTED';reason='missing_image'
+    elif errors:
+        status='REJECTED';reason='preflight_errors'
+    elif warnings:
+        status='REVIEW_REQUIRED';reason='preflight_warnings'
+    else:
+        status='PASS';reason='preflight_clean'
+    return _business_step(reference,status,reason,issueCounts={'errors':errors,'warnings':warnings},issues=normalized)
+
+
+def _link_assessment(reference,result):
+    if not isinstance(result,list):return _business_step(reference,'UNKNOWN','links_result_schema_unknown')
+    unhealthy=[]
+    for link in result:
+        allowed={'asset','name','path','pixels','status','uses'}
+        if not isinstance(link,dict) or set(link)!=allowed or type(link.get('asset')) is not int or link['asset']<0 or not isinstance(link.get('name'),str) or not link['name'] or (link.get('path') is not None and not isinstance(link.get('path'),str)) or link.get('status') not in ('ok','modified','missing','embedded') or not isinstance(link.get('pixels'),list) or len(link['pixels'])!=2 or any(type(value) is not int or value<1 for value in link['pixels']) or not isinstance(link.get('uses'),list):
+            return _business_step(reference,'UNKNOWN','links_result_schema_unknown')
+        for use in link['uses']:
+            if not isinstance(use,dict) or set(use)!={'id','page','ppi'} or type(use.get('id')) is not int or not isinstance(use.get('page'),str) or not use['page'] or type(use.get('ppi')) not in (int,float) or use['ppi']<=0:
+                return _business_step(reference,'UNKNOWN','links_result_schema_unknown')
+        if link['status'] in ('missing','modified'):
+            unhealthy.append({'name':link['name'],'status':link['status']})
+    if any(link['status']=='missing' for link in unhealthy):
+        return _business_step(reference,'REJECTED','missing_image',unhealthyLinks=unhealthy)
+    if unhealthy:
+        return _business_step(reference,'REVIEW_REQUIRED','modified_image',unhealthyLinks=unhealthy)
+    return _business_step(reference,'PASS','links_available')
+
+
+def assess_business_results(stdout,references,domain):
+    """仅分类有固定输出合同的 DesignCraft 业务结果；未知形状保持 UNKNOWN。"""
+    if domain!='designcraft':
+        return {'contractVersion':'designcraft-business-assessment/v1','status':'NOT_APPLICABLE','steps':[]}
+    unknown=[_business_step(item,'UNKNOWN','native_batch_result_unknown') for item in references]
+    try:batch=strict_json(stdout)
+    except (ValueError,TypeError):
+        return {'contractVersion':'designcraft-business-assessment/v1','status':'UNKNOWN','steps':unknown}
+    if not isinstance(batch,dict) or set(batch)!={'completed','results'} or type(batch.get('completed')) is not int or not isinstance(batch.get('results'),list) or batch['completed']!=len(references) or len(batch['results'])!=len(references):
+        return {'contractVersion':'designcraft-business-assessment/v1','status':'UNKNOWN','steps':unknown}
+    assessments=[]
+    for reference,result in zip(references,batch['results']):
+        command=reference['command']
+        if command=='preflight.run':
+            item=_preflight_assessment(reference,result)
+        elif command=='links.list':
+            item=_link_assessment(reference,result)
+        elif command=='data.fields':
+            valid=isinstance(result,list) and bool(result) and all(isinstance(field,str) and field.strip() for field in result) and len(set(result))==len(result)
+            item=_business_step(reference,'PASS' if valid else 'UNKNOWN','field_list_read' if valid else 'data_fields_result_schema_unknown')
+        elif command=='data.merge':
+            valid=isinstance(result,dict) and set(result)=={'records','pages'} and type(result.get('records')) is int and result['records']>0 and type(result.get('pages')) is int and result['pages']>0
+            item=_business_step(reference,'REVIEW_REQUIRED' if valid else 'UNKNOWN','merge_counts_need_content_verification' if valid else 'data_merge_result_schema_unknown')
+        elif command=='file.exportPdf':
+            valid=isinstance(result,dict) and set(result)=={'path','bytes','pages','warnings'} and isinstance(result.get('path'),str) and bool(result['path']) and type(result.get('bytes')) is int and result['bytes']>0 and type(result.get('pages')) is int and result['pages']>0 and isinstance(result.get('warnings'),list) and all(isinstance(warning,str) for warning in result['warnings'])
+            if not valid:item=_business_step(reference,'UNKNOWN','pdf_export_result_schema_unknown')
+            elif result['warnings']:item=_business_step(reference,'REVIEW_REQUIRED','pdf_export_warnings')
+            else:item=_business_step(reference,'PASS','pdf_export_recorded')
+        else:
+            item=_business_step(reference,'NOT_CLASSIFIED','no_business_result_contract')
+        assessments.append(item)
+    classified=[item['status'] for item in assessments if item['status']!='NOT_CLASSIFIED']
+    if 'REJECTED' in classified:status='REJECTED'
+    elif 'UNKNOWN' in classified:status='UNKNOWN'
+    elif 'REVIEW_REQUIRED' in classified:status='REVIEW_REQUIRED'
+    elif 'PASS' in classified:status='PASS'
+    else:status='NOT_CLASSIFIED'
+    return {'contractVersion':'designcraft-business-assessment/v1','status':status,'steps':assessments}
+
+
+def validate_business_assessment(value,references):
+    """拒绝错绑、未知版本或结构漂移的业务分类回执。"""
+    allowed_statuses={'PASS','REVIEW_REQUIRED','REJECTED','UNKNOWN','NOT_CLASSIFIED','NOT_APPLICABLE'}
+    if not isinstance(value,dict) or set(value)!={'contractVersion','status','steps'} or value.get('contractVersion')!='designcraft-business-assessment/v1' or value.get('status') not in allowed_statuses or not isinstance(value.get('steps'),list):
+        raise ValueError('receipt_business_assessment_invalid')
+    if value['status']=='NOT_APPLICABLE':
+        if value['steps']:raise ValueError('receipt_business_assessment_invalid')
+        return
+    if len(value['steps'])!=len(references):raise ValueError('receipt_business_assessment_invalid')
+    step_statuses=[]
+    statuses={'PASS','REVIEW_REQUIRED','REJECTED','UNKNOWN','NOT_CLASSIFIED'}
+    for reference,step in zip(references,value['steps']):
+        if not isinstance(step,dict) or set(step)-{'stepRef','index','command','status','reason','issueCounts','issues','unhealthyLinks'} or not {'stepRef','index','command','status','reason'}.issubset(step):
+            raise ValueError('receipt_business_assessment_invalid')
+        if step['stepRef']!=reference['stepRef'] or step['index']!=reference['index'] or step['command']!=reference['command'] or step['status'] not in statuses or not isinstance(step['reason'],str) or not step['reason']:
+            raise ValueError('receipt_business_assessment_identity_mismatch')
+        if 'issueCounts' in step and (step['command']!='preflight.run' or not isinstance(step['issueCounts'],dict) or set(step['issueCounts'])!={'errors','warnings'} or any(type(count) is not int or count<0 for count in step['issueCounts'].values())):
+            raise ValueError('receipt_business_assessment_invalid')
+        if 'issues' in step and (step['command']!='preflight.run' or not isinstance(step['issues'],list)):
+            raise ValueError('receipt_business_assessment_invalid')
+        if 'unhealthyLinks' in step and (step['command']!='links.list' or not isinstance(step['unhealthyLinks'],list) or any(not isinstance(link,dict) or set(link)!={'name','status'} or not isinstance(link['name'],str) or link['status'] not in ('missing','modified') for link in step['unhealthyLinks'])):
+            raise ValueError('receipt_business_assessment_invalid')
+        step_statuses.append(step['status'])
+    classified=[item for item in step_statuses if item!='NOT_CLASSIFIED']
+    expected=('REJECTED' if 'REJECTED' in classified else 'UNKNOWN' if 'UNKNOWN' in classified else 'REVIEW_REQUIRED' if 'REVIEW_REQUIRED' in classified else 'PASS' if 'PASS' in classified else 'NOT_CLASSIFIED')
+    if value['status']!=expected:raise ValueError('receipt_business_assessment_aggregate_mismatch')
+
+
 def copy_working_source(source,output):
     """把 DesignCraft 输入复制到新任务目录，原生编辑只接触副本。"""
     source=Path(source).expanduser().absolute()
@@ -317,6 +444,7 @@ def inspect_receipt(path,domain):
             for index,(reference,result) in enumerate(zip(references,results)):
                 if not isinstance(reference,dict) or not isinstance(result,dict) or type(reference.get('index')) is not int or reference.get('index')!=index or reference.get('stepRef')!=f"{value['runId']}:step:{index}" or not isinstance(reference.get('command'),str) or not reference['command'] or not isinstance(reference.get('paramsSha256'),str) or not re.fullmatch('[0-9a-f]{64}',reference['paramsSha256']):raise ValueError('receipt_step_identity_mismatch')
                 if result.get('stepRef')!=reference['stepRef'] or result.get('index')!=index or result.get('command')!=reference['command'] or result.get('granularity')!='single-native-session' or result.get('status') not in {'SUBMITTED','NOT_STARTED','BATCH_EXIT_ZERO_REVIEW_REQUIRED','UNKNOWN'}:raise ValueError('receipt_step_identity_mismatch')
+            if 'businessAssessment' in value:validate_business_assessment(value['businessAssessment'],references)
         runtime=value.get('runtimeIdentity')
         if runtime is not None:
             if not isinstance(runtime,dict) or runtime.get('verificationStatus')!='LOCKED_EXPECTATION' or not isinstance(runtime.get('name'),str) or not isinstance(runtime.get('version'),str) or not isinstance(runtime.get('platform'),str) or not isinstance(runtime.get('runtimeHome'),str) or not re.fullmatch('[0-9a-f]{64}',str(runtime.get('lockSha256'))):raise ValueError('receipt_runtime_identity_invalid')
@@ -413,6 +541,7 @@ def main(domain,script_dir):
                     native_result=read_native_result(machine_result,result.returncode)
                     receipt.update(status=native_result['status'],reason=native_result.get('reason'),exitCode=native_result.get('exitCode'),started=native_result.get('started'),terminationVerified=native_result.get('terminationVerified'),descendantsTerminationVerified=native_result.get('descendantsTerminationVerified'),nativeResultSchemaVersion=native_result.get('schemaVersion'),finishedAt=native_result.get('finishedAt',datetime.now(timezone.utc).isoformat()),stdout=result.stdout,stderr=result.stderr)
                     receipt['stepResults']=observe_step_results(references,native_result['status'],native_result.get('started') is True)
+                    receipt['businessAssessment']=assess_business_results(receipt['stdout'],references,domain)
                 except (OSError,subprocess.SubprocessError,KeyboardInterrupt) as error:
                     receipt.update(status='UNKNOWN',reason='gateway_interrupted_or_timed_out',terminationVerified=False,descendantsTerminationVerified=False,finishedAt=datetime.now(timezone.utc).isoformat(),error=str(error),stdout=output_text(getattr(error,'stdout',None)),stderr=output_text(getattr(error,'stderr',None)))
                     receipt['stepResults']=observe_step_results(references,'UNKNOWN',True)
