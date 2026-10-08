@@ -1,0 +1,12 @@
+{
+  "artifact": "designcraft-cli",
+  "resolvedVersion": "0.2.1",
+  "artifacts": {
+    "darwin-arm64": {
+      "url": "https://github.com/storytold/designcraft/releases/download/v0.2.1/designcraft-cli-0.2.1-macos-universal.zip",
+      "archiveSha256": "e11386860ee88da34a59c79dfedeba2a00166c368d7e99650d97a8db89702aaf",
+      "binarySha256": "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8",
+      "versionOutput": "designcraft-cli 0.2.1"
+    }
+  }
+}

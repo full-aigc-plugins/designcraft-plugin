@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "skills": [
+    {
+      "name": "designcraft-harness",
+      "path": "skills/designcraft-harness",
+      "owner": "designcraft-plugin",
+      "kind": "plugin-local"
+    }
+  ]
+}

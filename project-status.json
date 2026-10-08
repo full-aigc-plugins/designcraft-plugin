@@ -1,0 +1,18 @@
+{
+  "domain": "designcraft",
+  "version": "0.1.0-dev.1",
+  "status": "IMPLEMENTATION_IN_PROGRESS",
+  "gitRepository": "PUBLIC_REMOTE_MAIN_PUSHED",
+  "repositoryUrl": "https://github.com/full-aigc-plugins/designcraft-plugin",
+  "specification": "OPEN_SPEC_CHANGE_IMPLEMENTATION_IN_PROGRESS",
+  "offlineTests": "PASS",
+  "packageValidation": "PASS",
+  "ci": "NOT_RUN",
+  "nativeInstallation": "NOT_RUN",
+  "targetPlatformAcceptance": "NOT_RUN",
+  "hostDiscovery": "NOT_RUN",
+  "modelDispatch": "NOT_RUN",
+  "creativeAcceptance": "NOT_RUN",
+  "published": false,
+  "specificationChange": "openspec/changes/harden-designcraft-plugin-delivery"
+}

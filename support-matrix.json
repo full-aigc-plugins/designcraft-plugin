@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "packageVersion": "0.1.0-dev.1",
+  "offline": {
+    "status": "PASS",
+    "os": "macOS 27 arm64",
+    "python": "Python 3.13.5",
+    "tests": "python3 -I -B -m unittest discover -s tests",
+    "packageValidation": "python3 -I -B scripts/validate_package.py"
+  },
+  "ci": {
+    "status": "NOT_RUN",
+    "reason": "No CI result is attached to this local candidate."
+  },
+  "nativeRuntime": {
+    "cliVersion": "0.2.1",
+    "os": "macOS arm64",
+    "python": "Python 3.11+",
+    "status": "NOT_RUN"
+  },
+  "host": {
+    "name": "Codex",
+    "discovery": "NOT_RUN",
+    "modelDispatch": "NOT_RUN",
+    "testedPlatforms": []
+  },
+  "creativeAcceptance": "NOT_RUN",
+  "release": "UNPUBLISHED",
+  "futureScope": [
+    "Additional hosts beyond Codex",
+    "Operating systems other than macOS arm64",
+    "Automatic multi-round revisions",
+    "ArtCraft integration"
+  ],
+  "authorization": "Native CLI download and installation requires explicit user authorization; offline checks do not install it or imply host acceptance."
+}

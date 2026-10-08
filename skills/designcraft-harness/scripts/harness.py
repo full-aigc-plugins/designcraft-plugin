@@ -1,0 +1,602 @@
+#!/usr/bin/env python3
+"""DesignCraft 本地任务状态库；不安装原生运行时，也不执行技能命令。"""
+import argparse
+import fcntl
+import hashlib
+import json
+import os
+from pathlib import Path, PurePosixPath
+import platform
+import re
+import subprocess
+import sys
+import tempfile
+from datetime import datetime, timezone
+import uuid
+
+REQUIRED_EVIDENCE=('AV-01','AV-02','AV-03','AV-04')
+PACKAGE_ROOT=Path(__file__).resolve().parents[3]
+EXTERNAL_COMMANDS=PACKAGE_ROOT/'skills/designcraft-use/scripts/commands.py'
+ARTIFACT_VALIDATOR=PACKAGE_ROOT/'skills/designcraft-cli-export/scripts/artifact_manifest.py'
+PAGE_REVIEW_VALIDATOR=PACKAGE_ROOT/'skills/designcraft-cli-export/scripts/page_review.py'
+TRANSITIONS={
+ 'PREPARED':{'EXECUTING','FAILED'},
+ 'EXECUTING':{'VERIFYING','RECONCILING','FAILED'},
+ 'RECONCILING':{'VERIFYING','PREPARED','FAILED'},
+ 'VERIFYING':{'REVIEW_REQUIRED','REVISION_REQUIRED','FAILED'},
+ 'REVIEW_REQUIRED':{'COMPLETED','REVISION_REQUIRED','FAILED'},
+ 'REVISION_REQUIRED':{'PREPARED','FAILED'},
+ 'COMPLETED':set(),'FAILED':set(),
+}
+TASK_FIELDS={'runId','nativeStatus','nativeReceiptRef','candidateSha256','artifactRefs','checkpointRefs','blockers','nextAction','reconciledRunId','recoveryAction','recoveryEvidence','revisionScope','revisionPageRefs'}
+SUPPORTED_SOURCE_VERSIONS={'0.1.0-dev.1'}
+SUPPORTED_NATIVE_RECEIPT_SCHEMA=2
+SUPPORTED_ARTIFACT_CONTRACTS={'designcraft-artifact-manifest/v1','designcraft-page-review/v1'}
+
+def _freshness_report():
+    """读取证据清单的逐层新鲜度结果；失败时返回空状态而不放行能力。"""
+    manifest=PACKAGE_ROOT/'evidence-manifest.json'
+    checker=PACKAGE_ROOT/'scripts/evidence_freshness.py'
+    if not manifest.is_file() or manifest.is_symlink() or not checker.is_file() or checker.is_symlink():return {}
+    try:
+        result=subprocess.run([sys.executable,'-I','-B',str(checker),str(manifest)],capture_output=True,text=True,timeout=20)
+        report=json.loads(result.stdout)
+        return report if isinstance(report,dict) and isinstance(report.get('records'),dict) else {}
+    except (OSError,ValueError,subprocess.SubprocessError,json.JSONDecodeError):return {}
+
+def now():
+    """返回 UTC ISO-8601 时间。"""
+    return datetime.now(timezone.utc).isoformat()
+
+def task_id(value):
+    """验证任务标识，避免路径遍历。"""
+    try:return str(uuid.UUID(value))
+    except (ValueError,TypeError,AttributeError) as error:raise ValueError('invalid_task_id') from error
+
+def readiness_report(runtime_home=None,capability_evidence=None,required_commands=()):
+    """只读核验插件候选、源契约、固定 CLI 与指定命令能力；不安装或调用原生写操作。"""
+    components={}
+    components['harnessInvocation']={'status':'READY','evidence':str(Path(__file__).resolve())}
+    try:
+        result=subprocess.run([sys.executable,'-I','-B',str(PACKAGE_ROOT/'scripts/validate_package.py')],capture_output=True,text=True,timeout=30)
+        if result.returncode!=0:raise ValueError('plugin_validation_failed:'+result.stderr.strip())
+        validation=json.loads(result.stdout)
+        if not isinstance(validation,dict):raise ValueError('plugin_validation_report_invalid')
+        components['pluginSnapshot']={'status':'READY' if result.returncode==0 and validation.get('snapshot')=='PASS' else 'UNAVAILABLE','evidence':validation}
+    except (OSError,ValueError,subprocess.SubprocessError,json.JSONDecodeError) as error:
+        components['pluginSnapshot']={'status':'UNAVAILABLE','reason':str(error)}
+    source={}
+    try:
+        source=json.loads((PACKAGE_ROOT/'candidate-source.json').read_text(encoding='utf-8'))
+        if not isinstance(source,dict):raise ValueError('candidate_source_invalid')
+        valid=(source.get('sourceProject')=='designcraft-skills' and source.get('candidateType')=='local-unpublished-candidate'
+               and source.get('sourceVersion') in SUPPORTED_SOURCE_VERSIONS and source.get('releaseTag') is None)
+        components['sourceIdentity']={'status':'READY' if valid and components['pluginSnapshot']['status']=='READY' else 'UNAVAILABLE','sourceProject':source.get('sourceProject'),'sourceVersion':source.get('sourceVersion'),'releaseTag':source.get('releaseTag')}
+    except (OSError,ValueError,json.JSONDecodeError) as error:
+        components['sourceIdentity']={'status':'UNAVAILABLE','reason':str(error)}
+    lock={};expected={};version=None;binary_sha=None;runtime_path=None
+    try:
+        lock=json.loads((PACKAGE_ROOT/'skills/designcraft-use/scripts/runtime.lock.json').read_text(encoding='utf-8'))
+        if not isinstance(lock,dict) or not isinstance(lock.get('artifacts'),dict):raise ValueError('runtime_lock_invalid')
+        version=lock.get('resolvedVersion');key=f'{platform.system().lower()}-{platform.machine().lower()}';expected=lock.get('artifacts',{}).get(key,{})
+        if not isinstance(expected,dict):raise ValueError('runtime_platform_unsupported:'+key)
+        binary_sha=expected.get('binarySha256')
+        home=Path(runtime_home or os.environ.get('CRAFT_RUNTIME_HOME',str(Path.home()/'.local/share/craft-runtimes'))).expanduser().absolute()
+        runtime_path=home/'designcraft'/str(version)
+        binary=runtime_path/'designcraft-cli';receipt_path=runtime_path/'installation.json'
+        if sys.version_info<(3,11):raise ValueError('python_version_unsupported')
+        if not expected:raise ValueError('runtime_platform_unsupported:'+key)
+        if runtime_path.is_symlink() or binary.is_symlink() or receipt_path.is_symlink():raise ValueError('runtime_path_unsafe')
+        if not runtime_path.is_dir() or not binary.is_file() or not receipt_path.is_file():
+            components['runtime']={'status':'UNAVAILABLE','expectedVersion':version,'runtimePath':str(runtime_path),'reason':'locked_cli_not_installed'}
+        else:
+            receipt=json.loads(receipt_path.read_text(encoding='utf-8'))
+            required=dict(expected,name='designcraft',version=str(version))
+            valid_receipt=isinstance(receipt,dict) and all(receipt.get(name)==value for name,value in required.items())
+            valid_binary=hashlib.sha256(binary.read_bytes()).hexdigest()==binary_sha
+            components['runtime']={'status':'READY' if valid_receipt and valid_binary else 'DEGRADED','expectedVersion':version,'runtimePath':str(runtime_path),'binarySha256':hashlib.sha256(binary.read_bytes()).hexdigest() if binary.is_file() else None,'reason':None if valid_receipt and valid_binary else 'runtime_identity_mismatch'}
+    except (OSError,ValueError,TypeError,json.JSONDecodeError) as error:
+        components['runtime']={'status':'UNAVAILABLE','expectedVersion':version,'runtimePath':str(runtime_path) if runtime_path else None,'reason':str(error)}
+    receipt_entry=PACKAGE_ROOT/'skills/designcraft-use/scripts/commands.py'
+    components['sharedContract']={'status':'READY' if source.get('sourceVersion') in SUPPORTED_SOURCE_VERSIONS and receipt_entry.is_file() and all((PACKAGE_ROOT/'skills/designcraft-cli-export/scripts'/name).is_file() for name in ('artifact_manifest.py','page_review.py')) else 'UNAVAILABLE','sourceVersion':source.get('sourceVersion'),'receiptSchemaVersion':SUPPORTED_NATIVE_RECEIPT_SCHEMA,'artifactContracts':sorted(SUPPORTED_ARTIFACT_CONTRACTS)}
+    matrix={}
+    try:
+        matrix=json.loads((PACKAGE_ROOT/'support-matrix.json').read_text(encoding='utf-8'))
+        if not isinstance(matrix,dict):matrix={}
+    except (OSError,ValueError,json.JSONDecodeError):pass
+    host=matrix.get('host',{}) if isinstance(matrix,dict) else {}
+    if not isinstance(host,dict):host={}
+    try:project_status=json.loads((PACKAGE_ROOT/'project-status.json').read_text(encoding='utf-8'))
+    except (OSError,ValueError,json.JSONDecodeError):project_status={}
+    fresh=_freshness_report();fresh_records=fresh.get('records',{}) if isinstance(fresh,dict) else {}
+    def layer_readiness(record_id,project_key,matrix_value):
+        recorded=fresh_records.get(record_id,'NOT_RUN')
+        project_value=project_status.get(project_key) if isinstance(project_status,dict) else None
+        if recorded=='PASS' and project_value=='PASS' and matrix_value=='PASS':return {'status':'READY','evidence':record_id,'freshness':'PASS'}
+        if recorded in ('FAIL','STALE') or (recorded=='PASS' and (project_value!='PASS' or matrix_value!='PASS')):return {'status':'UNAVAILABLE','evidence':record_id,'freshness':recorded,'reason':'acceptance_evidence_failed_stale_or_status_mismatch'}
+        return {'status':'NOT_CHECKED','evidence':record_id,'freshness':recorded}
+    components['hostDiscovery']=layer_readiness('host','hostDiscovery',host.get('discovery'))
+    components['modelDispatch']=layer_readiness('model-dispatch','modelDispatch',host.get('modelDispatch'))
+    commands=tuple(required_commands)
+    if not commands:
+        components['requestCapability']={'status':'READY','commands':[],'mode':'read-only-preflight'}
+    elif not capability_evidence:
+        components['requestCapability']={'status':'NOT_CHECKED','commands':list(commands),'reason':'version-bound-native-capability-evidence_required'}
+    else:
+        try:
+            evidence_path=Path(capability_evidence).expanduser().absolute()
+            evidence_root=PACKAGE_ROOT/'evidence'
+            if evidence_root.is_symlink() or evidence_path.is_symlink() or not evidence_path.is_file() or not evidence_path.resolve().is_relative_to(evidence_root.resolve()):raise ValueError('evidence_not_in_plugin_evidence_root')
+            manifest=json.loads((PACKAGE_ROOT/'evidence-manifest.json').read_text(encoding='utf-8'))
+            manifest_records=manifest.get('records') if isinstance(manifest,dict) else None
+            bound_record=next((item for item in manifest_records if isinstance(item,dict) and item.get('id')=='native-capabilities'),None) if isinstance(manifest_records,list) else None
+            relative_path=evidence_path.resolve().relative_to(PACKAGE_ROOT.resolve()).as_posix()
+            if not isinstance(bound_record,dict) or bound_record.get('layer')!='native-capabilities' or not any(item.get('path')==relative_path for item in bound_record.get('artifacts',[]) if isinstance(item,dict)):
+                raise ValueError('capability_evidence_record_missing')
+            if fresh_records.get('native-capabilities')!='PASS':
+                components['requestCapability']={'status':'UNAVAILABLE' if fresh_records.get('native-capabilities') in ('FAIL','STALE') else 'NOT_CHECKED','commands':list(commands),'reason':'capability_evidence_not_current','evidencePath':str(evidence_path)}
+                statuses=[item['status'] for item in components.values()]
+                overall='UNAVAILABLE' if 'UNAVAILABLE' in statuses else ('DEGRADED' if any(status in ('DEGRADED','NOT_CHECKED') for status in statuses) else 'READY')
+                next_action='proceed_with_explicit_scope' if overall=='READY' else 'resolve_readiness_gaps_without_automatic_install_or_write'
+                return {'contractVersion':'designcraft-readiness/v1','status':overall,'readOnly':True,'dispatchPrerequisitesMet':overall=='READY','userAuthorizationStillRequired':True,'components':components,'completeAcceptance':False,'nextAction':next_action}
+            evidence=json.loads(evidence_path.read_text(encoding='utf-8'))
+            if not isinstance(evidence,dict):raise ValueError('capability_evidence_invalid')
+            identity=evidence.get('nativeCatalogIdentity')
+            rows=evidence.get('nativeCommands')
+            valid_identity=(evidence.get('schemaVersion')==1 and evidence.get('domain')=='designcraft' and evidence.get('nativeCatalogStatus')=='VERIFIED' and isinstance(identity,dict) and identity.get('cliVersion')==version and identity.get('binarySha256')==binary_sha and isinstance(identity.get('catalogSha256'),str) and re.fullmatch('[0-9a-f]{64}',identity['catalogSha256']) is not None)
+            row_ids=[item.get('id') for item in rows if isinstance(item,dict)] if isinstance(rows,list) else []
+            if not isinstance(rows,list) or len(row_ids)!=len(rows) or any(not isinstance(value,str) or not value for value in row_ids) or len(set(row_ids))!=len(row_ids):raise ValueError('capability_command_inventory_invalid')
+            proven={item.get('id') for item in rows if item.get('validationStatus') in ('NATIVE_TESTED','HOST_TESTED')}
+            missing=sorted(set(commands)-proven)
+            status='READY' if valid_identity and not missing else ('DEGRADED' if valid_identity else 'UNAVAILABLE')
+            components['requestCapability']={'status':status,'commands':list(commands),'missingCommands':missing,'evidencePath':str(evidence_path),'freshness':'PASS','catalogSha256':identity.get('catalogSha256') if isinstance(identity,dict) else None}
+        except (OSError,ValueError,TypeError,json.JSONDecodeError) as error:
+            components['requestCapability']={'status':'UNAVAILABLE','commands':list(commands),'reason':str(error)}
+    statuses=[item['status'] for item in components.values()]
+    overall='UNAVAILABLE' if 'UNAVAILABLE' in statuses else ('DEGRADED' if any(status in ('DEGRADED','NOT_CHECKED') for status in statuses) else 'READY')
+    next_action='proceed_with_explicit_scope' if overall=='READY' else 'resolve_readiness_gaps_without_automatic_install_or_write'
+    return {'contractVersion':'designcraft-readiness/v1','status':overall,'readOnly':True,'dispatchPrerequisitesMet':overall=='READY','userAuthorizationStillRequired':True,'components':components,'completeAcceptance':False,'nextAction':next_action}
+
+class TaskStore:
+    """以原子 JSON 更新和跨进程锁持久化任务状态。"""
+    def __init__(self,root):
+        self.root=Path(root).expanduser().resolve()
+        if self.root==PACKAGE_ROOT or PACKAGE_ROOT in self.root.parents:raise ValueError('task_home_inside_plugin_cache')
+
+    def _dir(self,identifier):return self.root/task_id(identifier)
+
+    def _locked(self,identifier):
+        self.root.mkdir(parents=True,exist_ok=True)
+        lock_dir=self.root/'.locks'
+        if lock_dir.is_symlink():raise ValueError('task_lock_invalid')
+        lock_dir.mkdir(exist_ok=True)
+        lock_path=lock_dir/(task_id(identifier)+'.lock')
+        if lock_path.is_symlink():raise ValueError('task_lock_invalid')
+        lock=lock_path.open('a+b')
+        fcntl.flock(lock.fileno(),fcntl.LOCK_EX)
+        return lock
+
+    @staticmethod
+    def _unlock(lock):
+        fcntl.flock(lock.fileno(),fcntl.LOCK_UN);lock.close()
+
+    def _load(self,identifier):
+        folder=self._dir(identifier)
+        if folder.is_symlink():raise ValueError('task_state_invalid')
+        path=folder/'task.json'
+        if path.is_symlink():raise ValueError('task_state_invalid')
+        try:data=json.loads(path.read_text(encoding='utf-8'))
+        except (OSError,json.JSONDecodeError) as error:raise ValueError('task_state_invalid') from error
+        required={'schemaVersion','taskId','state','revision','goal','authorizationScope','skillRoute','createdAt','updatedAt','requiredEvidence','evidenceRefs','artifactRefs','checkpointRefs','blockers','nextAction'}
+        if not isinstance(data,dict) or not required.issubset(data) or data.get('schemaVersion')!=1 or data.get('taskId')!=task_id(identifier) or data.get('state') not in TRANSITIONS or type(data.get('revision')) is not int:
+            raise ValueError('task_state_invalid')
+        if not all(isinstance(data.get(key),list) for key in ('requiredEvidence','evidenceRefs','artifactRefs','checkpointRefs','blockers')) or any(not isinstance(item,str) for item in data['blockers']):raise ValueError('task_state_invalid')
+        for item in data['evidenceRefs']:
+            if not isinstance(item,dict) or not isinstance(item.get('file'),str) or Path(item['file']).name!=item['file'] or not re.fullmatch('[0-9a-f]{64}',str(item.get('sha256',''))):raise ValueError('task_state_invalid')
+        # 旧状态文件可继续读取；新字段只在发生修订时要求写入。
+        data.setdefault('revisionPageRefs',[])
+        if not isinstance(data['revisionPageRefs'],list) or any(not isinstance(item,str) or not item.strip() or '\n' in item for item in data['revisionPageRefs']) or len(set(data['revisionPageRefs']))!=len(data['revisionPageRefs']):raise ValueError('task_state_invalid')
+        if data.get('revisionScope') is not None and not isinstance(data['revisionScope'],str):raise ValueError('task_state_invalid')
+        return data
+
+    def _save(self,identifier,data):
+        folder=self._dir(identifier);folder.mkdir(parents=True,exist_ok=True)
+        if folder.is_symlink():raise ValueError('task_state_invalid')
+        target=folder/'task.json';temporary=None
+        if target.is_symlink():raise ValueError('task_state_invalid')
+        try:
+            with tempfile.NamedTemporaryFile(mode='w',encoding='utf-8',dir=folder,prefix='.task-',delete=False) as stream:
+                temporary=Path(stream.name);json.dump(data,stream,ensure_ascii=False,indent=2);stream.write('\n');stream.flush();os.fsync(stream.fileno())
+            os.replace(temporary,target)
+            descriptor=os.open(folder,os.O_RDONLY)
+            try:os.fsync(descriptor)
+            finally:os.close(descriptor)
+        finally:
+            if temporary is not None and temporary.exists():temporary.unlink()
+
+    def create(self,goal,authorization_scope,skill_route='designcraft-use'):
+        """创建待执行任务；目标、操作范围和路由必须显式给出。"""
+        for value in (goal,authorization_scope,skill_route):
+            if not isinstance(value,str) or not value.strip():raise ValueError('task_fields_required')
+        identifier=str(uuid.uuid4());lock=self._locked(identifier)
+        try:
+            stamp=now();data={'schemaVersion':1,'taskId':identifier,'state':'PREPARED','revision':0,'goal':goal.strip(),'authorizationScope':authorization_scope.strip(),'skillRoute':skill_route.strip(),'runId':None,'nativeStatus':'NOT_RUN','nativeReceiptRef':None,'candidateSha256':None,'reconciledRunId':None,'recoveryAction':None,'recoveryEvidence':[],'revisionScope':None,'revisionPageRefs':[],'createdAt':stamp,'updatedAt':stamp,'requiredEvidence':list(REQUIRED_EVIDENCE),'evidenceRefs':[],'artifactRefs':[],'checkpointRefs':[],'blockers':[],'nextAction':'confirm_inputs_and_prepare'}
+            self._save(identifier,data);return data
+        finally:self._unlock(lock)
+
+    def get(self,identifier):
+        """读取任务，不修复或覆盖损坏状态。"""
+        identifier=task_id(identifier);lock=self._locked(identifier)
+        try:return self._load(identifier)
+        finally:self._unlock(lock)
+
+    @staticmethod
+    def _check_revision(data,expected_revision):
+        if type(expected_revision) is not int or data['revision']!=expected_revision:raise ValueError('task_revision_conflict')
+
+    @staticmethod
+    def _apply_updates(data,updates):
+        if not isinstance(updates,dict) or set(updates)-TASK_FIELDS:raise ValueError('task_update_fields_invalid')
+        for key,value in updates.items():
+            if key=='candidateSha256' and value is not None and (not isinstance(value,str) or not re.fullmatch('[0-9a-f]{64}',value)):raise ValueError('candidate_identity_invalid')
+            if key in ('artifactRefs','checkpointRefs','blockers') and not isinstance(value,list):raise ValueError('task_update_fields_invalid')
+            if key=='revisionPageRefs' and (not isinstance(value,list) or not value or any(not isinstance(item,str) or not item.strip() or '\n' in item for item in value) or len(set(value))!=len(value)):raise ValueError('revision_page_refs_invalid')
+            if key in ('runId','nativeReceiptRef','nextAction') and value is not None and not isinstance(value,str):raise ValueError('task_update_fields_invalid')
+            if key=='nativeStatus' and value not in {'NOT_RUN','STARTING','NOT_STARTED','FAILED_OR_PARTIAL','UNKNOWN','NATIVE_EXIT_ZERO_REVIEW_REQUIRED'}:raise ValueError('task_update_fields_invalid')
+            if key in ('recoveryEvidence',) and (not isinstance(value,list) or any(not isinstance(item,str) or not item for item in value)):raise ValueError('task_update_fields_invalid')
+            if key in ('reconciledRunId','recoveryAction','revisionScope') and value is not None and not isinstance(value,str):raise ValueError('task_update_fields_invalid')
+            data[key]=value
+
+    def update(self,identifier,updates,expected_revision):
+        """更新任务身份或引用，并拒绝基于旧 revision 的写入。"""
+        identifier=task_id(identifier);lock=self._locked(identifier)
+        try:
+            data=self._load(identifier);self._check_revision(data,expected_revision);self._apply_updates(data,updates)
+            data['revision']+=1;data['updatedAt']=now();self._save(identifier,data);return data
+        finally:self._unlock(lock)
+
+    def _fresh_evidence(self,data):
+        found=set();folder=self._dir(data['taskId'])/'evidence'
+        for entry in data['evidenceRefs']:
+            path=folder/entry['file']
+            if folder.is_symlink() or path.is_symlink():continue
+            try:payload=json.loads(path.read_text(encoding='utf-8'))
+            except (OSError,json.JSONDecodeError):continue
+            digest=hashlib.sha256(path.read_bytes()).hexdigest()
+            validator_valid=(entry.get('kind')!='AV-02' or self._valid_artifact_evidence(payload,data)) and (entry.get('kind')!='AV-03' or self._valid_page_review_evidence(payload,data))
+            if digest==entry.get('sha256') and payload.get('taskId')==data['taskId'] and payload.get('status')=='PASS' and payload.get('candidateSha256')==data.get('candidateSha256') and payload.get('kind')==entry.get('kind') and validator_valid:
+                found.add(entry['kind'])
+        return found
+
+    @staticmethod
+    def _run_artifact_validator(root,manifest):
+        if not ARTIFACT_VALIDATOR.is_file() or ARTIFACT_VALIDATOR.is_symlink():raise ValueError('artifact_validator_missing_or_unsafe')
+        root=Path(root).expanduser().absolute();manifest=Path(manifest).expanduser().absolute()
+        if root.is_symlink() or manifest.is_symlink() or not manifest.is_file():raise ValueError('artifact_manifest_path_invalid')
+        result=subprocess.run([sys.executable,'-I','-B',str(ARTIFACT_VALIDATOR),'--root',str(root),'--manifest',str(manifest)],capture_output=True,text=True,timeout=900)
+        try:report=json.loads(result.stdout)
+        except json.JSONDecodeError as error:raise ValueError('artifact_validator_output_invalid') from error
+        if result.returncode!=0 or not isinstance(report,dict):raise ValueError('artifact_manifest_invalid')
+        return report,root,manifest
+
+    def _valid_artifact_evidence(self,payload,data):
+        try:
+            root=payload['artifactRoot'];manifest=payload['manifestPath'];report,root_path,manifest_path=self._run_artifact_validator(root,manifest)
+            result=report.get('result')
+            return (
+                payload.get('verifiedBy')=='designcraft-harness'
+                and payload.get('manifestSha256')==hashlib.sha256(manifest_path.read_bytes()).hexdigest()
+                and payload.get('validatorSha256')==hashlib.sha256(ARTIFACT_VALIDATOR.read_bytes()).hexdigest()
+                and payload.get('artifactReport')==report
+                and report.get('status')=='PASS'
+                and isinstance(result,dict)
+                and result.get('artifactIdentity')=='PASS'
+                and result.get('contractVersion')=='designcraft-artifact-manifest/v1'
+                and result.get('reopenEvidence')=='PASS'
+                and result.get('projectSha256')==data.get('candidateSha256')
+                and result.get('completeAcceptance') is False
+            )
+        except (OSError,KeyError,TypeError,ValueError,subprocess.SubprocessError):
+            return False
+
+    @staticmethod
+    def _run_page_review_validator(root,manifest,review):
+        if not PAGE_REVIEW_VALIDATOR.is_file() or PAGE_REVIEW_VALIDATOR.is_symlink():raise ValueError('page_review_validator_missing_or_unsafe')
+        root=Path(root).expanduser().absolute();manifest=Path(manifest).expanduser().absolute();review=Path(review).expanduser().absolute()
+        if root.is_symlink() or not root.is_dir() or manifest.is_symlink() or review.is_symlink() or not manifest.is_file() or not review.is_file():raise ValueError('page_review_path_invalid')
+        result=subprocess.run([sys.executable,'-I','-B',str(PAGE_REVIEW_VALIDATOR),'--root',str(root),'--artifact-manifest',str(manifest),'--review',str(review)],capture_output=True,text=True,timeout=900)
+        try:report=json.loads(result.stdout)
+        except json.JSONDecodeError as error:raise ValueError('page_review_validator_output_invalid') from error
+        if result.returncode!=0 or not isinstance(report,dict):raise ValueError('page_review_invalid')
+        return report,root,manifest,review
+
+    def _artifact_manifest_hashes(self,data):
+        """返回仍有效的 AV-02 清单摘要，供 AV-03 绑定同一份重开证据。"""
+        folder=self._dir(data['taskId'])/'evidence';hashes=set()
+        for entry in data['evidenceRefs']:
+            if entry.get('kind')!='AV-02':continue
+            path=folder/entry['file']
+            if folder.is_symlink() or path.is_symlink():continue
+            try:
+                payload=json.loads(path.read_text(encoding='utf-8'))
+                if hashlib.sha256(path.read_bytes()).hexdigest()!=entry.get('sha256'):continue
+                if payload.get('taskId')!=data['taskId'] or payload.get('candidateSha256')!=data.get('candidateSha256') or payload.get('status')!='PASS' or not self._valid_artifact_evidence(payload,data):continue
+                hashes.add(payload['manifestSha256'])
+            except (OSError,KeyError,TypeError,ValueError,json.JSONDecodeError,subprocess.SubprocessError):
+                continue
+        return hashes
+
+    def _valid_page_review_evidence(self,payload,data):
+        try:
+            root=payload['artifactRoot'];manifest=payload['manifestPath'];review=payload['reviewPath']
+            report,root_path,manifest_path,review_path=self._run_page_review_validator(root,manifest,review)
+            result=report.get('result')
+            manifest_sha=hashlib.sha256(manifest_path.read_bytes()).hexdigest()
+            return (
+                'AV-02' in self._fresh_evidence_without_page_review(data)
+                and manifest_sha in self._artifact_manifest_hashes(data)
+                and payload.get('verifiedBy')=='designcraft-harness'
+                and payload.get('manifestSha256')==manifest_sha
+                and payload.get('reviewSha256')==hashlib.sha256(review_path.read_bytes()).hexdigest()
+                and payload.get('validatorSha256')==hashlib.sha256(PAGE_REVIEW_VALIDATOR.read_bytes()).hexdigest()
+                and payload.get('pageReviewReport')==report
+                and report.get('status')=='PASS'
+                and isinstance(result,dict)
+                and result.get('contractVersion')=='designcraft-page-review/v1'
+                and result.get('projectSha256')==data.get('candidateSha256')
+                and result.get('artifactManifestSha256')==manifest_sha
+                and result.get('completeAcceptance') is False
+            )
+        except (OSError,KeyError,TypeError,ValueError,subprocess.SubprocessError):
+            return False
+
+    def _fresh_evidence_without_page_review(self,data):
+        """避免 AV-03 freshness 递归，同时复用 AV-02 的真实校验。"""
+        found=set();folder=self._dir(data['taskId'])/'evidence'
+        for entry in data['evidenceRefs']:
+            if entry.get('kind')!='AV-02':continue
+            path=folder/entry['file']
+            if folder.is_symlink() or path.is_symlink():continue
+            try:
+                payload=json.loads(path.read_text(encoding='utf-8'))
+                if hashlib.sha256(path.read_bytes()).hexdigest()==entry.get('sha256') and payload.get('taskId')==data['taskId'] and payload.get('status')=='PASS' and payload.get('candidateSha256')==data.get('candidateSha256') and self._valid_artifact_evidence(payload,data):found.add('AV-02')
+            except (OSError,json.JSONDecodeError,ValueError,TypeError,KeyError,subprocess.SubprocessError):continue
+        return found
+
+    def verify_artifact_manifest(self,identifier,root,manifest,expected_revision):
+        """通过技能源公开清单校验入口登记与当前工程重开绑定的 AV-02 证据。"""
+        identifier=task_id(identifier);task=self.get(identifier);self._check_revision(task,expected_revision)
+        if task['state'] not in ('VERIFYING','REVIEW_REQUIRED'):raise ValueError('artifact_verification_state_required')
+        if not task.get('candidateSha256'):raise ValueError('candidate_identity_required')
+        report,root_path,manifest_path=self._run_artifact_validator(root,manifest)
+        result=report.get('result') if isinstance(report,dict) else None
+        if report.get('status')=='NOT_RUN' or not isinstance(result,dict) or result.get('reopenEvidence')=='NOT_RUN':raise ValueError('artifact_reopen_not_verified')
+        if report.get('status')!='PASS' or result.get('artifactIdentity')!='PASS' or result.get('reopenEvidence')!='PASS' or result.get('contractVersion')!='designcraft-artifact-manifest/v1':raise ValueError('artifact_reopen_failed')
+        if result.get('projectSha256')!=task['candidateSha256']:raise ValueError('artifact_candidate_mismatch')
+        manifest_sha=hashlib.sha256(manifest_path.read_bytes()).hexdigest()
+        payload={'taskId':identifier,'kind':'AV-02','status':'PASS','candidateSha256':task['candidateSha256'],'artifactRoot':str(root_path),'manifestPath':str(manifest_path),'manifestSha256':manifest_sha,'validatorSha256':hashlib.sha256(ARTIFACT_VALIDATOR.read_bytes()).hexdigest(),'artifactReport':report,'verifiedBy':'designcraft-harness'}
+        folder=self._dir(identifier)/'evidence';folder.mkdir(parents=True,exist_ok=True)
+        if folder.is_symlink():raise ValueError('evidence_path_invalid')
+        filename='AV-02-'+manifest_sha+'.json';target=folder/filename
+        encoded=(json.dumps(payload,ensure_ascii=False,indent=2)+'\n').encode()
+        if target.exists():
+            if target.is_symlink() or target.read_bytes()!=encoded:raise ValueError('evidence_file_conflict')
+        else:
+            temporary=None
+            try:
+                with tempfile.NamedTemporaryFile(mode='wb',dir=folder,prefix='.artifact-evidence-',delete=False) as stream:
+                    temporary=Path(stream.name);stream.write(encoded);stream.flush();os.fsync(stream.fileno())
+                os.replace(temporary,target)
+            finally:
+                if temporary is not None and temporary.exists():temporary.unlink()
+        return self.attach_evidence(identifier,filename,expected_revision)
+
+    def verify_page_review(self,identifier,root,manifest,review,expected_revision):
+        """经源方公开 AV-03 校验器验证后，登记当前 AV-02/工程/预览绑定的页审阅。"""
+        identifier=task_id(identifier);task=self.get(identifier);self._check_revision(task,expected_revision)
+        if task['state'] not in ('VERIFYING','REVIEW_REQUIRED'):raise ValueError('page_review_state_required')
+        if not task.get('candidateSha256'):raise ValueError('candidate_identity_required')
+        if 'AV-02' not in self._fresh_evidence_without_page_review(task):raise ValueError('artifact_reopen_not_verified')
+        report,root_path,manifest_path,review_path=self._run_page_review_validator(root,manifest,review)
+        result=report.get('result') if isinstance(report,dict) else None
+        if report.get('status')!='PASS' or not isinstance(result,dict) or result.get('status')!='PASS' or result.get('contractVersion')!='designcraft-page-review/v1' or result.get('completeAcceptance') is not False:raise ValueError('page_review_not_pass')
+        manifest_sha=hashlib.sha256(manifest_path.read_bytes()).hexdigest()
+        if manifest_sha not in self._artifact_manifest_hashes(task):raise ValueError('page_review_artifact_manifest_mismatch')
+        if result.get('projectSha256')!=task['candidateSha256']:raise ValueError('page_review_candidate_mismatch')
+        payload={'taskId':identifier,'kind':'AV-03','status':'PASS','candidateSha256':task['candidateSha256'],'artifactRoot':str(root_path),'manifestPath':str(manifest_path),'manifestSha256':manifest_sha,'reviewPath':str(review_path),'reviewSha256':hashlib.sha256(review_path.read_bytes()).hexdigest(),'validatorSha256':hashlib.sha256(PAGE_REVIEW_VALIDATOR.read_bytes()).hexdigest(),'pageReviewReport':report,'verifiedBy':'designcraft-harness'}
+        folder=self._dir(identifier)/'evidence';folder.mkdir(parents=True,exist_ok=True)
+        if folder.is_symlink():raise ValueError('evidence_path_invalid')
+        filename='AV-03-'+hashlib.sha256((manifest_sha+payload['reviewSha256']).encode()).hexdigest()+'.json';target=folder/filename
+        encoded=(json.dumps(payload,ensure_ascii=False,indent=2)+'\n').encode()
+        if target.exists():
+            if target.is_symlink() or target.read_bytes()!=encoded:raise ValueError('evidence_file_conflict')
+        else:
+            temporary=None
+            try:
+                with tempfile.NamedTemporaryFile(mode='wb',dir=folder,prefix='.page-review-evidence-',delete=False) as stream:
+                    temporary=Path(stream.name);stream.write(encoded);stream.flush();os.fsync(stream.fileno())
+                os.replace(temporary,target)
+            finally:
+                if temporary is not None and temporary.exists():temporary.unlink()
+        return self.attach_evidence(identifier,filename,expected_revision)
+
+    def attach_evidence(self,identifier,file_name,expected_revision):
+        """登记任务目录中的 PASS 证据，并绑定当前候选摘要。"""
+        identifier=task_id(identifier)
+        if not isinstance(file_name,str) or Path(file_name).name!=file_name or file_name in ('','.','..'):raise ValueError('evidence_path_invalid')
+        lock=self._locked(identifier)
+        try:
+            data=self._load(identifier);self._check_revision(data,expected_revision)
+            if not data.get('candidateSha256'):raise ValueError('candidate_identity_required')
+            path=self._dir(identifier)/'evidence'/file_name
+            if path.parent.is_symlink() or path.is_symlink():raise ValueError('evidence_path_invalid')
+            try:payload=json.loads(path.read_text(encoding='utf-8'))
+            except (OSError,json.JSONDecodeError) as error:raise ValueError('evidence_file_invalid') from error
+            if not isinstance(payload,dict):raise ValueError('evidence_file_invalid')
+            if not isinstance(payload,dict) or payload.get('taskId')!=identifier or payload.get('candidateSha256')!=data['candidateSha256']:raise ValueError('evidence_candidate_mismatch')
+            kind=payload.get('kind')
+            if kind not in data['requiredEvidence'] or payload.get('status')!='PASS':raise ValueError('evidence_not_accepted')
+            if kind=='AV-02' and not self._valid_artifact_evidence(payload,data):raise ValueError('artifact_reopen_not_verified')
+            if kind=='AV-03' and not self._valid_page_review_evidence(payload,data):raise ValueError('page_review_not_verified')
+            reference={'kind':kind,'file':file_name,'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'candidateSha256':data['candidateSha256']}
+            data['evidenceRefs']=[item for item in data['evidenceRefs'] if item.get('kind')!=kind]+[reference]
+            data['revision']+=1;data['updatedAt']=now();self._save(identifier,data);return data
+        finally:self._unlock(lock)
+
+    def reconcile(self,identifier):
+        """只读核对保存的原生回执；源端检查点未验证前不放行恢复执行。"""
+        identifier=task_id(identifier);data=self.get(identifier)
+        if data['state']!='RECONCILING':raise ValueError('reconciliation_state_required')
+        blockers=[];receipt_identity='MISSING';receipt_sha=None;payload={}
+        reference=data.get('nativeReceiptRef')
+        if isinstance(reference,str):
+            relative=PurePosixPath(reference);task_root=self._dir(identifier);receipt_path=task_root.joinpath(*relative.parts)
+            if relative.is_absolute() or '..' in relative.parts or len(relative.parts)!=2 or relative.parts[0]!='runs' or relative.suffix!='.json' or task_root.is_symlink() or receipt_path.parent.is_symlink() or receipt_path.is_symlink() or not receipt_path.is_file():
+                blockers.append('native_receipt_missing_or_unsafe')
+            else:
+                try:
+                    wrapper=json.loads(receipt_path.read_text(encoding='utf-8'))
+                    if not isinstance(wrapper,dict) or not isinstance(wrapper.get('payload'),dict):raise ValueError('native_receipt_invalid')
+                    payload=wrapper['payload'];receipt_sha=hashlib.sha256(receipt_path.read_bytes()).hexdigest()
+                    if wrapper.get('taskId')!=identifier:
+                        receipt_identity='MISMATCH';blockers.append('receipt_task_id_mismatch')
+                    elif payload.get('schemaVersion')!=2 or payload.get('status') not in {'NOT_STARTED','FAILED_OR_PARTIAL','UNKNOWN','NATIVE_EXIT_ZERO_REVIEW_REQUIRED'}:
+                        blockers.append('native_receipt_schema_unsupported')
+                    elif not data.get('runId') or payload.get('runId')!=data.get('runId'):
+                        receipt_identity='MISMATCH';blockers.append('receipt_run_id_mismatch')
+                    elif wrapper.get('processExitCode')!=payload.get('exitCode'):
+                        receipt_identity='MISMATCH';blockers.append('receipt_exit_code_mismatch')
+                    else:
+                        receipt_identity='MATCHED'
+                    if payload.get('terminationVerified') is not True or payload.get('descendantsTerminationVerified') is not True:
+                        blockers.append('process_termination_unverified')
+                except (OSError,json.JSONDecodeError,ValueError,TypeError):
+                    blockers.append('native_receipt_invalid')
+        else:
+            blockers.append('native_receipt_reference_missing')
+        if not data.get('checkpointRefs'):blockers.append('persistent_project_checkpoint_missing')
+        blockers.append('source_checkpoint_contract_unavailable')
+        source_steps=payload.get('stepResults',[])
+        if not isinstance(source_steps,list) or len(source_steps)>1000 or any(not isinstance(item,dict) for item in source_steps):
+            blockers.append('source_step_results_malformed');source_steps=[]
+        return {'taskId':identifier,'state':data['state'],'status':payload.get('status','UNKNOWN'),'runId':data.get('runId'),'receiptIdentity':receipt_identity,'receiptSha256':receipt_sha,'checkpointRefs':data.get('checkpointRefs',[]),'stepResults':source_steps,'stepResultGranularity':payload.get('stepResultGranularity'),'stepResultsVerified':False,'blockers':list(dict.fromkeys(blockers)),'resumeAllowed':False,'nextAction':'inspect_saved_project_and_source_checkpoints'}
+
+    def dispatch_native(self,identifier,argv,expected_revision,capability_evidence=None,runtime_home=None):
+        """仅从执行态通过技能源公开命令入口调用，并保存版本化运行回执。"""
+        identifier=task_id(identifier)
+        if not isinstance(argv,list) or not argv or any(not isinstance(value,str) for value in argv):raise ValueError('native_arguments_invalid')
+        task=self.get(identifier);self._check_revision(task,expected_revision)
+        if task['state']!='EXECUTING':raise ValueError('native_dispatch_requires_executing_state')
+        if not EXTERNAL_COMMANDS.is_file() or EXTERNAL_COMMANDS.is_symlink():raise ValueError('shared_skill_entry_missing')
+        uses_native=argv[0] in ('list','describe','run') or (argv[0]=='check' and '--catalog' not in argv)
+        if uses_native:
+            requested=[]
+            if argv[0]=='run':
+                if len(argv)<2:raise ValueError('plan_required')
+                try:plan=json.loads(Path(argv[1]).read_text(encoding='utf-8'))
+                except (OSError,json.JSONDecodeError) as error:raise ValueError('plan_unreadable_before_readiness') from error
+                if not isinstance(plan,dict) or not isinstance(plan.get('steps'),list):raise ValueError('plan_invalid_before_readiness')
+                requested=[step.get('command') for step in plan['steps'] if isinstance(step,dict) and isinstance(step.get('command'),str)]
+                if len(requested)!=len(plan['steps']) or not requested:raise ValueError('plan_commands_invalid_before_readiness')
+            readiness=readiness_report(runtime_home,capability_evidence,requested)
+            if readiness['status']!='READY':raise ValueError('readiness_gate_blocked:'+readiness['status'])
+        starting=self.update(identifier,{'nativeStatus':'STARTING','nextAction':'native_command_running'},expected_revision)
+        try:result=subprocess.run([sys.executable,'-I','-B',str(EXTERNAL_COMMANDS),*argv],capture_output=True,text=True)
+        except (OSError,subprocess.SubprocessError) as error:
+            latest=self.get(identifier)
+            return self.update(identifier,{'nativeStatus':'UNKNOWN','nextAction':'reconcile_native_result','blockers':latest['blockers']+[str(error)]},latest['revision'])
+        try:payload=json.loads(result.stdout)
+        except json.JSONDecodeError:payload=None
+        run_id=payload.get('runId') if isinstance(payload,dict) else None
+        status=payload.get('status') if isinstance(payload,dict) else None
+        supported={'NOT_STARTED','FAILED_OR_PARTIAL','UNKNOWN','NATIVE_EXIT_ZERO_REVIEW_REQUIRED'}
+        try:valid_run_id=isinstance(run_id,str) and str(uuid.UUID(run_id))==run_id
+        except ValueError:valid_run_id=False
+        exit_code=payload.get('exitCode') if isinstance(payload,dict) else None
+        versioned=bool(isinstance(payload,dict) and payload.get('schemaVersion')==2 and status in supported and valid_run_id and (exit_code is None or type(exit_code) is int) and (status!='NATIVE_EXIT_ZERO_REVIEW_REQUIRED' or exit_code==0 and result.returncode==0) and not (result.returncode==0 and status!='NATIVE_EXIT_ZERO_REVIEW_REQUIRED'))
+        if argv[0]=='run' and not versioned:
+            status='UNKNOWN';run_id=None;payload={'schemaVersion':None,'status':status,'reason':'shared_receipt_missing_or_unsupported','stdout':result.stdout,'stderr':result.stderr,'exitCode':result.returncode}
+        elif argv[0]!='run':status='NOT_RUN'
+        folder=self._dir(identifier)/'runs';folder.mkdir(parents=True,exist_ok=True)
+        ref=f"runs/{run_id if run_id and re.fullmatch(r'[0-9a-f-]{36}',run_id) else uuid.uuid4()}.json"
+        target=self._dir(identifier)/ref;temporary=None
+        try:
+            with tempfile.NamedTemporaryFile(mode='w',encoding='utf-8',dir=folder,prefix='.run-',delete=False) as stream:
+                temporary=Path(stream.name);json.dump({'taskId':identifier,'payload':payload,'stdout':result.stdout,'stderr':result.stderr,'processExitCode':result.returncode},stream,ensure_ascii=False,indent=2);stream.write('\n');stream.flush();os.fsync(stream.fileno())
+            os.replace(temporary,target)
+        finally:
+            if temporary is not None and temporary.exists():temporary.unlink()
+        updates={'nativeStatus':status,'nativeReceiptRef':ref,'nextAction':'reconcile_native_result' if status=='UNKNOWN' else ('review_native_result' if status=='NATIVE_EXIT_ZERO_REVIEW_REQUIRED' else 'continue_task')}
+        if run_id:updates['runId']=run_id
+        latest=self.get(identifier)
+        return self.update(identifier,updates,latest['revision'])
+
+    def transition(self,identifier,target,expected_revision,updates=None):
+        """执行受限状态迁移；完成必须具有当前候选的完整验收证据。"""
+        identifier=task_id(identifier);lock=self._locked(identifier)
+        try:
+            data=self._load(identifier);self._check_revision(data,expected_revision)
+            if target not in TRANSITIONS[data['state']]:raise ValueError('invalid_state_transition')
+            next_updates=updates or {}
+            if target=='RECONCILING' and data.get('nativeStatus')=='STARTING':
+                if not next_updates.get('recoveryEvidence') or not next_updates.get('recoveryAction'):raise ValueError('reconciliation_evidence_required')
+            if data['state']=='RECONCILING' and target in ('PREPARED','VERIFYING'):
+                raise ValueError('reconciliation_checkpoint_verification_required')
+            if target=='EXECUTING' and data.get('nativeStatus') in ('UNKNOWN','FAILED_OR_PARTIAL','NATIVE_EXIT_ZERO_REVIEW_REQUIRED'):
+                raise ValueError('reconciliation_checkpoint_verification_required')
+            if data['state']=='REVISION_REQUIRED' and target=='PREPARED':
+                revision_scope=next_updates.get('revisionScope',data.get('revisionScope'))
+                page_refs=next_updates.get('revisionPageRefs',data.get('revisionPageRefs',[]))
+                if not isinstance(revision_scope,str) or not revision_scope.strip() or not page_refs:raise ValueError('revision_scope_required')
+                if ' '.join(revision_scope.casefold().split()) not in ' '.join(data['authorizationScope'].casefold().split()):raise ValueError('revision_scope_exceeds_authorization')
+            self._apply_updates(data,updates or {})
+            if target=='PREPARED' and data['state']=='REVISION_REQUIRED':data['nextAction']='execute_scoped_revision'
+            if target=='REVISION_REQUIRED':
+                data['revisionScope']=None;data['revisionPageRefs']=[];data['nextAction']='define_revision_scope'
+            if target=='PREPARED' and data['state'] in ('RECONCILING','REVISION_REQUIRED') and not data.get('nextAction'):
+                raise ValueError('recovery_action_required')
+            if target=='COMPLETED':
+                if data['blockers']:raise ValueError('unresolved_blockers')
+                if not data.get('candidateSha256') or not set(data['requiredEvidence']).issubset(self._fresh_evidence(data)):raise ValueError('required_acceptance_evidence_missing')
+            data['state']=target;data['revision']+=1;data['updatedAt']=now();self._save(identifier,data);return data
+        finally:self._unlock(lock)
+
+def render_status(task):
+    """渲染稳定的 Harness 回执字段，区分状态、证据、风险和下一动作。"""
+    return {'taskId':task['taskId'],'status':task['state'],'scope':task['authorizationScope'],'actions':[task['skillRoute']],'evidence':task['evidenceRefs'],'artifacts':task['artifactRefs'],'skipped':[],'risks':task['blockers'],'next_action':task['nextAction'],'revision':task['revision'],'runId':task.get('runId'),'nativeStatus':task.get('nativeStatus'),'nativeReceiptRef':task.get('nativeReceiptRef'),'checkpointRefs':task['checkpointRefs'],'revisionScope':task.get('revisionScope'),'affectedPages':task.get('revisionPageRefs',[])}
+
+def main():
+    """提供本地任务创建、状态读取、显式迁移和证据登记入口。"""
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--task-home',default=os.environ.get('DESIGNCRAFT_TASK_HOME',str(Path.home()/'.local/share/designcraft/tasks')))
+    commands=parser.add_subparsers(dest='command',required=True)
+    create=commands.add_parser('new');create.add_argument('--goal',required=True);create.add_argument('--scope',required=True);create.add_argument('--route',default='designcraft-use')
+    show=commands.add_parser('show');show.add_argument('task_id')
+    update=commands.add_parser('update');update.add_argument('task_id');update.add_argument('--expected-revision',type=int,required=True);update.add_argument('--json',required=True)
+    transition=commands.add_parser('transition');transition.add_argument('task_id');transition.add_argument('state');transition.add_argument('--expected-revision',type=int,required=True);transition.add_argument('--updates-json',default='{}')
+    evidence=commands.add_parser('attach-evidence');evidence.add_argument('task_id');evidence.add_argument('file');evidence.add_argument('--expected-revision',type=int,required=True)
+    native=commands.add_parser('native');native.add_argument('task_id');native.add_argument('--expected-revision',type=int,required=True);native.add_argument('--capability-evidence');native.add_argument('--runtime-home');native.add_argument('arguments',nargs=argparse.REMAINDER)
+    reconcile=commands.add_parser('reconcile');reconcile.add_argument('task_id')
+    artifacts=commands.add_parser('verify-artifacts');artifacts.add_argument('task_id');artifacts.add_argument('--expected-revision',type=int,required=True);artifacts.add_argument('--root',required=True);artifacts.add_argument('--manifest',required=True)
+    review=commands.add_parser('verify-review');review.add_argument('task_id');review.add_argument('--expected-revision',type=int,required=True);review.add_argument('--root',required=True);review.add_argument('--artifact-manifest',required=True);review.add_argument('--review',required=True)
+    readiness=commands.add_parser('readiness');readiness.add_argument('--runtime-home');readiness.add_argument('--capability-evidence');readiness.add_argument('--command-id',action='append',default=[])
+    args=parser.parse_args();store=TaskStore(args.task_home)
+    try:
+        if args.command=='new':task=store.create(args.goal,args.scope,args.route)
+        elif args.command=='show':task=store.get(args.task_id)
+        elif args.command=='update':task=store.update(args.task_id,json.loads(args.json),args.expected_revision)
+        elif args.command=='transition':task=store.transition(args.task_id,args.state,args.expected_revision,json.loads(args.updates_json))
+        elif args.command=='attach-evidence':task=store.attach_evidence(args.task_id,args.file,args.expected_revision)
+        elif args.command=='reconcile':
+            print(json.dumps(store.reconcile(args.task_id),ensure_ascii=False,indent=2));return 0
+        elif args.command=='verify-artifacts':task=store.verify_artifact_manifest(args.task_id,args.root,args.manifest,args.expected_revision)
+        elif args.command=='verify-review':task=store.verify_page_review(args.task_id,args.root,args.artifact_manifest,args.review,args.expected_revision)
+        elif args.command=='readiness':
+            print(json.dumps(readiness_report(args.runtime_home,args.capability_evidence,args.command_id),ensure_ascii=False,indent=2));return 0
+        else:
+            native_args=args.arguments[1:] if args.arguments[:1]==['--'] else args.arguments
+            task=store.dispatch_native(args.task_id,native_args,args.expected_revision,args.capability_evidence,args.runtime_home)
+        print(json.dumps(render_status(task),ensure_ascii=False,indent=2));return 0
+    except (ValueError,OSError,json.JSONDecodeError) as error:
+        print(json.dumps({'error':str(error)},ensure_ascii=False));return 1
+
+if __name__=='__main__':raise SystemExit(main())

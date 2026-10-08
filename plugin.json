@@ -1,0 +1,7 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "designcraft",
+  "version": "0.1.0-dev.1",
+  "description": "页面排版与出版；本地候选，完整首用与宿主验收未完成。",
+  "license": "Apache-2.0"
+}
