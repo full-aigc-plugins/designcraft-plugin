@@ -1,0 +1,78 @@
+[
+  {
+    "phase": "before",
+    "page": 1,
+    "pdfSha256": "bc1f80d28c5c60dd915d23a3460fc6956f8780dea3d970455260789a08c38a23",
+    "previewSha256": "aa2c21b74998547dc1014acc83da9fe3c72a466119bb2b422d99f4f3b59683c6",
+    "width": 918,
+    "height": 1188,
+    "renderer": "1.27.1"
+  },
+  {
+    "phase": "before",
+    "page": 2,
+    "pdfSha256": "bc1f80d28c5c60dd915d23a3460fc6956f8780dea3d970455260789a08c38a23",
+    "previewSha256": "c9083d9ce7983723cfd0f639fdd0377270f6c50d6bd5d803fd875f472fb8256b",
+    "width": 918,
+    "height": 1188,
+    "renderer": "1.27.1"
+  },
+  {
+    "phase": "before",
+    "page": 3,
+    "pdfSha256": "bc1f80d28c5c60dd915d23a3460fc6956f8780dea3d970455260789a08c38a23",
+    "previewSha256": "e7268841dad5468c329838df2316754e508eb3f992d196a448cc47fd99ab668f",
+    "width": 918,
+    "height": 1188,
+    "renderer": "1.27.1"
+  },
+  {
+    "phase": "before",
+    "page": 4,
+    "pdfSha256": "bc1f80d28c5c60dd915d23a3460fc6956f8780dea3d970455260789a08c38a23",
+    "previewSha256": "37dbcb6a95df9f56a034874507af0e906a606b00d8abb9d1e799949687b8338f",
+    "width": 918,
+    "height": 1188,
+    "renderer": "1.27.1"
+  },
+  {
+    "phase": "after",
+    "page": 1,
+    "pdfSha256": "77b626d585c459967753008759cbf787d0c61a7e21a4e2558b2caad71d0b2414",
+    "previewSha256": "aa2c21b74998547dc1014acc83da9fe3c72a466119bb2b422d99f4f3b59683c6",
+    "width": 918,
+    "height": 1188,
+    "renderer": "1.27.1",
+    "pixelsIdenticalToDirectlyViewedRevisionPdf": true
+  },
+  {
+    "phase": "after",
+    "page": 2,
+    "pdfSha256": "77b626d585c459967753008759cbf787d0c61a7e21a4e2558b2caad71d0b2414",
+    "previewSha256": "c9083d9ce7983723cfd0f639fdd0377270f6c50d6bd5d803fd875f472fb8256b",
+    "width": 918,
+    "height": 1188,
+    "renderer": "1.27.1",
+    "pixelsIdenticalToDirectlyViewedRevisionPdf": true
+  },
+  {
+    "phase": "after",
+    "page": 3,
+    "pdfSha256": "77b626d585c459967753008759cbf787d0c61a7e21a4e2558b2caad71d0b2414",
+    "previewSha256": "e7541a7eefbeed6396554fcbdf56472ecbd80cdc148b13ca962606fa45f2fc97",
+    "width": 918,
+    "height": 1188,
+    "renderer": "1.27.1",
+    "pixelsIdenticalToDirectlyViewedRevisionPdf": true
+  },
+  {
+    "phase": "after",
+    "page": 4,
+    "pdfSha256": "77b626d585c459967753008759cbf787d0c61a7e21a4e2558b2caad71d0b2414",
+    "previewSha256": "37dbcb6a95df9f56a034874507af0e906a606b00d8abb9d1e799949687b8338f",
+    "width": 918,
+    "height": 1188,
+    "renderer": "1.27.1",
+    "pixelsIdenticalToDirectlyViewedRevisionPdf": true
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "taskId": "ee080135-babb-401d-9830-36b37a7f6b9b",
+  "status": "VERIFYING",
+  "scope": "仅将输入 /private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/home/plugins/cache/designcraft-bundled-acceptance/designcraft/0.1.0-dev.1/evidence/native/revision-qualification-20261009/original.designcraft 第三页 Story 65 的标题 A Better Grid 改为 A Considered Grid；其他对象、Story、页不改。保留原件且摘要前后一致，使用 --source 创建并载入工作副本。只在 /var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/native-workspace 写任务、计划、工作副本、另存工程 revised.designcraft、revised.pdf 和回执。仅使用已有 /Users/wandl/.local/share/craft-runtimes，不安装、不下载、不升级、不改缓存或全局配置、不读凭据、不做 Git 操作。失败保存现场且不重试。不标记 COMPLETED 或 AV-01/02/03/04 PASS。",
+  "actions": [
+    "designcraft-use"
+  ],
+  "evidence": [
+    {
+      "kind": "AV-02",
+      "file": "AV-02-63b90ad39bb621a0686c237e2edc7472e48afee01ba54dcef057be048f67597f.json",
+      "sha256": "1b79cc24a0712c37b81ba73e252e011ad25956e96d72be44697c656205068fd2",
+      "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+    },
+    {
+      "kind": "AV-01",
+      "file": "AV-01-baa03ede63bcb982739ac38c28e70aa9b7ac3948b5e46414cfb92e2c00c9540c.json",
+      "sha256": "baa03ede63bcb982739ac38c28e70aa9b7ac3948b5e46414cfb92e2c00c9540c",
+      "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+    }
+  ],
+  "artifacts": [
+    "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-plugins-repositories/designcraft-plugin/evidence/native/model-revision-export-20261009/after/revised.designcraft",
+    "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-plugins-repositories/designcraft-plugin/evidence/native/model-revision-export-20261009/after/final.pdf"
+  ],
+  "skipped": [],
+  "risks": [],
+  "next_action": "Verify current artifact, business, page review and revision evidence; human creative signoff pending",
+  "revision": 6,
+  "runId": "d996c10a-b54d-439b-8825-cb4b2c79eb82",
+  "nativeStatus": "NATIVE_EXIT_ZERO_REVIEW_REQUIRED",
+  "nativeReceiptRef": "runs/d996c10a-b54d-439b-8825-cb4b2c79eb82.json",
+  "checkpointRefs": [],
+  "reconciledRunId": null,
+  "recoveryAction": null,
+  "recoveryEvidence": [],
+  "recoveryPlanSha256": null,
+  "recoveryPlanRef": null,
+  "revisionScope": null,
+  "affectedPages": []
+}

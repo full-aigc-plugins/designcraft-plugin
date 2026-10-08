@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "scope": "task tracking metadata requalification only; no old model/native/test observation rerun",
+  "observedAt": "2026-10-08T17:18:04.560191+00:00",
+  "testedInstalledCommit": "cb8a129af88fee6a5703f3386d898c340cad2e7a",
+  "repositoryBeforeCommit": "7d64cf65ffe37b82e2726a7ab91594dbcc6c6d5a",
+  "changedNonEvidenceFiles": {
+    "openspec/changes/harden-designcraft-plugin-delivery/tasks.md": "5cfc41452bc95767b018474ea519f6a1e6f42ffaf4c17477a4040eb400534000"
+  },
+  "unchangedInstalledTrackedFileCount": 137,
+  "allSourceOwnedSkillFilesVerified": 87,
+  "freshModels": [
+    "01a11c78-7d0c-7641-9380-172a1c112e55",
+    "01a11c81-761a-7913-8202-e27ebc491c3e"
+  ],
+  "limitations": [
+    "Existing host, CI and offline observations reused with their original runId/observedAt, after byte equality and original evidence digest checks.",
+    "New scenarios do not complete recovery, target format, human creative or release acceptance."
+  ],
+  "completeAcceptance": false,
+  "currentMetadataBindings": {
+    "pluginVersion": "0.1.0-dev.1",
+    "pluginTreeSha256": "dba84da00c7a436cd12cf41e653f1c65cf05f76044459354c70376a191e354a8",
+    "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
+    "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+    "nativeVersions": [
+      "0.2.1"
+    ],
+    "expectedNativeBinarySha256": [
+      "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+    ]
+  },
+  "previousBindings": {
+    "pluginVersion": "0.1.0-dev.1",
+    "pluginTreeSha256": "4f46cbf4faeffe6ba28f78c0d1abe91460d5644f1800e19f6a2dd5da9812377f",
+    "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
+    "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+    "nativeVersions": [
+      "0.2.1"
+    ],
+    "expectedNativeBinarySha256": [
+      "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+    ]
+  }
+}

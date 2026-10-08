@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "designcraft-revision/v1",
+  "authorization": {
+    "scope": {
+      "type": "story",
+      "storyId": "65"
+    },
+    "authorizationText": "只将输入工程第三页 Story 65 的标题 A Better Grid 改为 A Considered Grid，其他对象/Story/页不改；保留原件。"
+  },
+  "affectedPages": [
+    3
+  ],
+  "revalidatedExports": [
+    {
+      "format": "pdf",
+      "sha256": "77b626d585c459967753008759cbf787d0c61a7e21a4e2558b2caad71d0b2414",
+      "status": "PASS",
+      "artifactId": "fresh-export"
+    }
+  ],
+  "before": {
+    "artifactManifestPath": "before/artifact-manifest.json",
+    "artifactManifestSha256": "b375cc0682cf75081e79517d6f9d7d7408944144cf60064dc8bcd3f28cbe190f",
+    "pageReviewPath": "before/current-page-review.json",
+    "pageReviewSha256": "11447e1be08d1aef1eee0b745b395a0a0f674337c31ecf6b70c590fdbf4b4a9c",
+    "snapshotPath": "before/current-revision-snapshot.json",
+    "snapshotSha256": "7c944be57e858bd89987826dd30cd873741d48d7974b8c67d1e2791acdbb0da7"
+  },
+  "after": {
+    "artifactManifestPath": "after/artifact-manifest.json",
+    "artifactManifestSha256": "63b90ad39bb621a0686c237e2edc7472e48afee01ba54dcef057be048f67597f",
+    "pageReviewPath": "after/current-page-review.json",
+    "pageReviewSha256": "8774e9c7166cc44be349f4b09a5aac1b8e275cd05568e63815d74b307928d92f",
+    "snapshotPath": "after/current-revision-snapshot.json",
+    "snapshotSha256": "e32a5f7f5e74669c872696239b6c50d790c7077fc0b2ed9c1e0022668a80e322"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "taskId": "ee080135-babb-401d-9830-36b37a7f6b9b",
+  "kind": "AV-01",
+  "status": "PASS",
+  "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e",
+  "artifactRoot": "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-plugins-repositories/designcraft-plugin/evidence/native/model-revision-export-20261009/after",
+  "manifestPath": "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-plugins-repositories/designcraft-plugin/evidence/native/model-revision-export-20261009/after/artifact-manifest.json",
+  "manifestSha256": "63b90ad39bb621a0686c237e2edc7472e48afee01ba54dcef057be048f67597f",
+  "receiptPath": "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-plugins-repositories/designcraft-plugin/evidence/native/model-revision-export-20261009/explicit-export/receipt.json",
+  "receiptSha256": "492f2bf76902f85c5a7a215b0a1ba7303e72dc71f4941a2dfe09d147d161f7c6",
+  "validatorResources": {
+    "business_evidence.py": "72690294f6fb83170d7cab5f7f8a3cd70d79348f734b32c40df148db685ee03d",
+    "artifact_manifest.py": "1f96eef6927d1aa34c8c5f8ce513ed6f207cec60c13affdd693484d3df1dbb6e",
+    "command_gateway.py": "cc003905fcc082cae36f4ffb90b5e995fce2b210cb523763711a58dd0e2c1afa",
+    "runtime.lock.json": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8"
+  },
+  "businessReport": {
+    "status": "PASS",
+    "result": {
+      "contractVersion": "designcraft-business-evidence/v1",
+      "status": "PASS",
+      "projectSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e",
+      "artifactManifestSha256": "63b90ad39bb621a0686c237e2edc7472e48afee01ba54dcef057be048f67597f",
+      "receiptSha256": "492f2bf76902f85c5a7a215b0a1ba7303e72dc71f4941a2dfe09d147d161f7c6",
+      "reopenRunId": "dcef98df-c27f-44cc-a1f1-d49c1f9e48a9",
+      "businessAssessment": {
+        "contractVersion": "designcraft-business-assessment/v1",
+        "status": "PASS",
+        "steps": [
+          {
+            "stepRef": "dcef98df-c27f-44cc-a1f1-d49c1f9e48a9:step:0",
+            "index": 0,
+            "command": "file.open",
+            "status": "NOT_CLASSIFIED",
+            "reason": "no_business_result_contract"
+          },
+          {
+            "stepRef": "dcef98df-c27f-44cc-a1f1-d49c1f9e48a9:step:1",
+            "index": 1,
+            "command": "story.get",
+            "status": "NOT_CLASSIFIED",
+            "reason": "no_business_result_contract"
+          },
+          {
+            "stepRef": "dcef98df-c27f-44cc-a1f1-d49c1f9e48a9:step:2",
+            "index": 2,
+            "command": "document.inspect",
+            "status": "NOT_CLASSIFIED",
+            "reason": "no_business_result_contract"
+          },
+          {
+            "stepRef": "dcef98df-c27f-44cc-a1f1-d49c1f9e48a9:step:3",
+            "index": 3,
+            "command": "preflight.run",
+            "status": "PASS",
+            "reason": "preflight_clean",
+            "issueCounts": {
+              "errors": 0,
+              "warnings": 0
+            },
+            "issues": []
+          },
+          {
+            "stepRef": "dcef98df-c27f-44cc-a1f1-d49c1f9e48a9:step:4",
+            "index": 4,
+            "command": "file.exportPdf",
+            "status": "PASS",
+            "reason": "pdf_export_recorded"
+          }
+        ]
+      },
+      "completeAcceptance": false,
+      "acceptanceNote": "Validates recorded raw results and current candidate binding; does not prove native execution, visual quality, target-application compatibility or external PDF/X certification."
+    }
+  },
+  "verifiedBy": "designcraft-harness"
+}

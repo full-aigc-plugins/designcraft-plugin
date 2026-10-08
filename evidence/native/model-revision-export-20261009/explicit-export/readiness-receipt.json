@@ -1,0 +1,76 @@
+{
+  "contractVersion": "designcraft-readiness/v1",
+  "status": "READY",
+  "readOnly": true,
+  "dispatchPrerequisitesMet": true,
+  "userAuthorizationStillRequired": true,
+  "components": {
+    "harnessInvocation": {
+      "status": "READY",
+      "evidence": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/home/plugins/cache/designcraft-bundled-acceptance/designcraft/0.1.0-dev.1/skills/designcraft-harness/scripts/harness.py"
+    },
+    "pluginSnapshot": {
+      "status": "READY",
+      "evidence": {
+        "plugin": "designcraft",
+        "skills": 7,
+        "externalSkills": 6,
+        "localSkills": 1,
+        "snapshot": "PASS",
+        "hostManifest": "PASS",
+        "sourceRelease": "UNPUBLISHED",
+        "hostAcceptance": "NOT_RUN"
+      }
+    },
+    "sourceIdentity": {
+      "status": "READY",
+      "sourceProject": "designcraft-skills",
+      "sourceVersion": "0.1.0-dev.1",
+      "releaseTag": null
+    },
+    "runtime": {
+      "status": "READY",
+      "expectedVersion": "0.2.1",
+      "runtimePath": "/Users/wandl/.local/share/craft-runtimes/designcraft/0.2.1",
+      "binarySha256": "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8",
+      "reason": null
+    },
+    "sharedContract": {
+      "status": "READY",
+      "sourceVersion": "0.1.0-dev.1",
+      "receiptSchemaVersion": 2,
+      "artifactContracts": [
+        "designcraft-artifact-manifest/v1",
+        "designcraft-business-evidence/v1",
+        "designcraft-page-review/v1",
+        "designcraft-revision/v1"
+      ]
+    },
+    "hostDiscovery": {
+      "status": "READY",
+      "evidence": "host",
+      "freshness": "PASS"
+    },
+    "modelDispatch": {
+      "status": "READY",
+      "evidence": "model-dispatch",
+      "freshness": "PASS"
+    },
+    "requestCapability": {
+      "status": "READY",
+      "commands": [
+        "file.open",
+        "story.get",
+        "document.inspect",
+        "preflight.run",
+        "file.exportPdf"
+      ],
+      "missingCommands": [],
+      "evidencePath": "/private/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/home/plugins/cache/designcraft-bundled-acceptance/designcraft/0.1.0-dev.1/evidence/native-capabilities.json",
+      "freshness": "PASS",
+      "catalogSha256": "bf780a8b8a356f6af52e1bdda9319aad2d804b4915148cccf3b1f9c5d3c01700"
+    }
+  },
+  "completeAcceptance": false,
+  "nextAction": "proceed_with_explicit_scope"
+}

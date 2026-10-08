@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "runId": "d996c10a-b54d-439b-8825-cb4b2c79eb82",
+  "projectArtifactId": "edited-project",
+  "artifacts": [
+    {
+      "id": "edited-project",
+      "kind": "project",
+      "path": "revised.designcraft",
+      "format": "designcraft",
+      "byteCount": 831873,
+      "sha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e"
+    },
+    {
+      "id": "fresh-export",
+      "kind": "export",
+      "path": "final.pdf",
+      "format": "pdf",
+      "byteCount": 552605,
+      "sha256": "77b626d585c459967753008759cbf787d0c61a7e21a4e2558b2caad71d0b2414"
+    }
+  ],
+  "expectations": {
+    "pageCount": 4,
+    "pageDimensionsMm": [
+      {
+        "page": 1,
+        "width": 215.9,
+        "height": 279.4
+      },
+      {
+        "page": 2,
+        "width": 215.9,
+        "height": 279.4
+      },
+      {
+        "page": 3,
+        "width": 215.9,
+        "height": 279.4
+      },
+      {
+        "page": 4,
+        "width": 215.9,
+        "height": 279.4
+      }
+    ],
+    "criticalText": [
+      "A Considered Grid"
+    ],
+    "linkedAssets": []
+  },
+  "reopenCheck": {
+    "status": "PASS",
+    "sessionId": "dcef98df-c27f-44cc-a1f1-d49c1f9e48a9",
+    "projectSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e",
+    "pageCount": 4,
+    "pageDimensionsMm": [
+      {
+        "page": 1,
+        "width": 215.9,
+        "height": 279.4
+      },
+      {
+        "page": 2,
+        "width": 215.9,
+        "height": 279.4
+      },
+      {
+        "page": 3,
+        "width": 215.9,
+        "height": 279.4
+      },
+      {
+        "page": 4,
+        "width": 215.9,
+        "height": 279.4
+      }
+    ],
+    "criticalText": [
+      "A Considered Grid"
+    ],
+    "linkedAssets": [],
+    "verifiedBy": "actual installed export skill, fresh native session; receipt and saved ZIP independently checked",
+    "verifiedAt": "2026-10-08T17:15:56.648616+00:00"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "taskId": "ee080135-babb-401d-9830-36b37a7f6b9b",
+  "kind": "AV-03",
+  "status": "PASS",
+  "candidateSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e",
+  "artifactRoot": "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-plugins-repositories/designcraft-plugin/evidence/native/model-revision-export-20261009/after",
+  "manifestPath": "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-plugins-repositories/designcraft-plugin/evidence/native/model-revision-export-20261009/after/artifact-manifest.json",
+  "manifestSha256": "63b90ad39bb621a0686c237e2edc7472e48afee01ba54dcef057be048f67597f",
+  "reviewPath": "/Users/wandl/workspaces/workspace-agent-skills/full-aigc-plugins-repositories/designcraft-plugin/evidence/native/model-revision-export-20261009/after/current-page-review.json",
+  "reviewSha256": "8774e9c7166cc44be349f4b09a5aac1b8e275cd05568e63815d74b307928d92f",
+  "validatorSha256": "056006ec68217020a5179f40636790fa4ac976d0d8c48172f8eefadb17eb3b74",
+  "pageReviewReport": {
+    "status": "PASS",
+    "result": {
+      "contractVersion": "designcraft-page-review/v1",
+      "status": "PASS",
+      "projectSha256": "9af246d8abe08ac633aa57e1144016078873793586a0bd45c27547e259f43c3e",
+      "artifactManifestSha256": "63b90ad39bb621a0686c237e2edc7472e48afee01ba54dcef057be048f67597f",
+      "rubricVersion": "designcraft-layout-rubric/v1",
+      "pagesReviewed": 4,
+      "reviewSource": "automated",
+      "reviewerIdentity": "Codex actual four-page pixel review",
+      "basisType": "task-spec",
+      "completeAcceptance": false,
+      "acceptanceNote": "AV-03 structure binds review claims to current previews; it does not establish AV-01/02/04 or the truth of human/automated visual judgments."
+    }
+  },
+  "verifiedBy": "designcraft-harness"
+}

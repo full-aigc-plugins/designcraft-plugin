@@ -1,0 +1,5 @@
+{"command": "file.open", "params": {"path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/native-workspace/revised.designcraft"}}
+{"command": "story.get", "params": {"story": 65}}
+{"command": "document.inspect", "params": {}}
+{"command": "preflight.run", "params": {"minPpi": 150}}
+{"command": "file.exportPdf", "params": {"path": "/var/folders/_s/9_xnnkz141920t1yv5zhvd1r0000gn/T/designcraft-bundled-host-3ma1dx6v/export-workspace/final.pdf", "standard": "none"}}
