@@ -32,110 +32,6 @@
       "status": "NOT_RUN"
     },
     {
-      "id": "offline-tests",
-      "layer": "offline-tests",
-      "status": "PASS",
-      "runId": "a3cb4bc2-725b-47c1-bd94-5455a0758c7c",
-      "observedAt": "2026-10-08T12:20:37.383351+00:00",
-      "environment": {
-        "os": "Darwin",
-        "machine": "arm64",
-        "python": "3.13.5"
-      },
-      "bindings": {
-        "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "e27100eacf062be9f62b0e5c091f60f3f0fad6755f1831dc70b102fdfa7caf53",
-        "sourceLockSha256": "59d1bb2da0a72327d76af49d1f283e3fb91d929922fca92152e77179d11a811d",
-        "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
-        "nativeVersions": [
-          "0.2.1"
-        ],
-        "expectedNativeBinarySha256": [
-          "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
-        ]
-      },
-      "inputs": [
-        {
-          "path": "tests/test_evidence_freshness.py",
-          "sha256": "a8201ae811538f73e88f573798928cce0a0afd9ed494ce2cd6c4163a5948205d"
-        },
-        {
-          "path": "tests/test_harness_state.py",
-          "sha256": "9af3c6b680eecb473afb722c1b2a08805108d09dc2371bff3592c5d0e518e0c2"
-        },
-        {
-          "path": "tests/test_release_candidate.py",
-          "sha256": "58ff68e0cd2ecb154193af9985497f319eb17cb7c8ebc418d36d8e3d8d5f4b5e"
-        },
-        {
-          "path": "tests/test_release_lock.py",
-          "sha256": "d94cf47b106b1ed9fd1329a8e45b27bd1db14f8f38db9b5b1f2560ceb2472fb3"
-        },
-        {
-          "path": "tests/test_revision_evidence.py",
-          "sha256": "cfb38d472f58ab9f536754fe196f7f986aa7ebc9e544e5d76de324c167e5a8b3"
-        },
-        {
-          "path": "tests/test_snapshot.py",
-          "sha256": "48ec5ff937c52b24baa086bb4e70f6de03bbd12aa84d9dba06a11af4b61b9afb"
-        }
-      ],
-      "artifacts": [
-        {
-          "path": "evidence/current-offline-validation.json",
-          "sha256": "e12306992e62d32b197dcdf42a806832a9a88c00eafce9d8f50b47978fb99951"
-        }
-      ]
-    },
-    {
-      "id": "package-validation",
-      "layer": "package-validation",
-      "status": "PASS",
-      "runId": "a3cb4bc2-725b-47c1-bd94-5455a0758c7c",
-      "observedAt": "2026-10-08T12:20:37.383351+00:00",
-      "environment": {
-        "os": "Darwin",
-        "machine": "arm64",
-        "python": "3.13.5"
-      },
-      "bindings": {
-        "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "e27100eacf062be9f62b0e5c091f60f3f0fad6755f1831dc70b102fdfa7caf53",
-        "sourceLockSha256": "59d1bb2da0a72327d76af49d1f283e3fb91d929922fca92152e77179d11a811d",
-        "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
-        "nativeVersions": [
-          "0.2.1"
-        ],
-        "expectedNativeBinarySha256": [
-          "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
-        ]
-      },
-      "inputs": [
-        {
-          "path": "candidate-source.json",
-          "sha256": "59d1bb2da0a72327d76af49d1f283e3fb91d929922fca92152e77179d11a811d"
-        },
-        {
-          "path": "plugin.json",
-          "sha256": "3ee67bebff8aee1f49dc12213a9a9b685e4c7688528d2da5f5a493a05eca6390"
-        },
-        {
-          "path": "scripts/validate_package.py",
-          "sha256": "a5b7a47a67145803433f51254ae221717ddb031d5143168c50337c708eb8fbb1"
-        },
-        {
-          "path": "support-matrix.json",
-          "sha256": "5bdc7eb3395c41a4a9c3b5aa5ba165ca0bf6b52117d9926fb4865934e82e30d2"
-        }
-      ],
-      "artifacts": [
-        {
-          "path": "evidence/current-offline-validation.json",
-          "sha256": "e12306992e62d32b197dcdf42a806832a9a88c00eafce9d8f50b47978fb99951"
-        }
-      ]
-    },
-    {
       "id": "ci",
       "layer": "ci",
       "status": "PASS",
@@ -176,6 +72,110 @@
       ],
       "environmentSource": "artifact",
       "environmentArtifactPath": "evidence/ci/current-github-actions.json"
+    },
+    {
+      "id": "offline-tests",
+      "layer": "offline-tests",
+      "status": "PASS",
+      "runId": "0647460c-4eac-4e60-a15e-dcc7bb7d7852",
+      "observedAt": "2026-10-08T12:24:28.280992+00:00",
+      "environment": {
+        "os": "Darwin",
+        "machine": "arm64",
+        "python": "3.13.5"
+      },
+      "bindings": {
+        "pluginVersion": "0.1.0-dev.1",
+        "pluginTreeSha256": "ad52e1fc3e901d0bed2cd041d9d706ef333e90bb7a553a63ffb2e50fcdd8db68",
+        "sourceLockSha256": "e58bcece4ea91916d517db7ee8a004547c5562ef25a0a48a050ade09b2bdecb3",
+        "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+        "nativeVersions": [
+          "0.2.1"
+        ],
+        "expectedNativeBinarySha256": [
+          "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+        ]
+      },
+      "inputs": [
+        {
+          "path": "tests/test_evidence_freshness.py",
+          "sha256": "a8201ae811538f73e88f573798928cce0a0afd9ed494ce2cd6c4163a5948205d"
+        },
+        {
+          "path": "tests/test_harness_state.py",
+          "sha256": "9af3c6b680eecb473afb722c1b2a08805108d09dc2371bff3592c5d0e518e0c2"
+        },
+        {
+          "path": "tests/test_release_candidate.py",
+          "sha256": "58ff68e0cd2ecb154193af9985497f319eb17cb7c8ebc418d36d8e3d8d5f4b5e"
+        },
+        {
+          "path": "tests/test_release_lock.py",
+          "sha256": "d94cf47b106b1ed9fd1329a8e45b27bd1db14f8f38db9b5b1f2560ceb2472fb3"
+        },
+        {
+          "path": "tests/test_revision_evidence.py",
+          "sha256": "cfb38d472f58ab9f536754fe196f7f986aa7ebc9e544e5d76de324c167e5a8b3"
+        },
+        {
+          "path": "tests/test_snapshot.py",
+          "sha256": "48ec5ff937c52b24baa086bb4e70f6de03bbd12aa84d9dba06a11af4b61b9afb"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "evidence/current-offline-validation.json",
+          "sha256": "fa591abab4339c5e3e96b3a5dbaaa1f0b0c7bd73c182546c635c953330a3bd94"
+        }
+      ]
+    },
+    {
+      "id": "package-validation",
+      "layer": "package-validation",
+      "status": "PASS",
+      "runId": "0647460c-4eac-4e60-a15e-dcc7bb7d7852",
+      "observedAt": "2026-10-08T12:24:28.280992+00:00",
+      "environment": {
+        "os": "Darwin",
+        "machine": "arm64",
+        "python": "3.13.5"
+      },
+      "bindings": {
+        "pluginVersion": "0.1.0-dev.1",
+        "pluginTreeSha256": "ad52e1fc3e901d0bed2cd041d9d706ef333e90bb7a553a63ffb2e50fcdd8db68",
+        "sourceLockSha256": "e58bcece4ea91916d517db7ee8a004547c5562ef25a0a48a050ade09b2bdecb3",
+        "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+        "nativeVersions": [
+          "0.2.1"
+        ],
+        "expectedNativeBinarySha256": [
+          "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+        ]
+      },
+      "inputs": [
+        {
+          "path": "candidate-source.json",
+          "sha256": "e58bcece4ea91916d517db7ee8a004547c5562ef25a0a48a050ade09b2bdecb3"
+        },
+        {
+          "path": "plugin.json",
+          "sha256": "3ee67bebff8aee1f49dc12213a9a9b685e4c7688528d2da5f5a493a05eca6390"
+        },
+        {
+          "path": "scripts/validate_package.py",
+          "sha256": "a5b7a47a67145803433f51254ae221717ddb031d5143168c50337c708eb8fbb1"
+        },
+        {
+          "path": "support-matrix.json",
+          "sha256": "5bdc7eb3395c41a4a9c3b5aa5ba165ca0bf6b52117d9926fb4865934e82e30d2"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "evidence/current-offline-validation.json",
+          "sha256": "fa591abab4339c5e3e96b3a5dbaaa1f0b0c7bd73c182546c635c953330a3bd94"
+        }
+      ]
     }
   ]
 }
