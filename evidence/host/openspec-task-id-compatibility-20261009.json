@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "scope": "Task ID compatibility fix only; no execution or acceptance semantics changed",
+  "observedAt": "2026-10-08T17:34:26.297345+00:00",
+  "repositoryBeforeCommit": "22727dbf6c721609b9d04fc57d6b5b9bd1734323",
+  "taskPath": "openspec/changes/harden-designcraft-plugin-delivery/tasks.md",
+  "taskBeforeSha256": "8fbcb4ddbd8357d0bbb6201078abedc7287b8af503aa3245c93fd273879e4b94",
+  "taskAfterSha256": "97875e85da03bbb5098a6aa9d916233133d02bd5a594a0851c2e93481c4d5339",
+  "taskIdAlias": {
+    "oldId": "2.4b",
+    "oldLine": 22,
+    "newId": "2.4d",
+    "description": "Native CLI explicit-boundary parser fix; the earlier contract-integration task remains 2.4b"
+  },
+  "validationBefore": {
+    "executable": "/Users/wandl/.npm-global/bin/openspec",
+    "version": "1.13.1",
+    "exitCode": 1,
+    "reason": "duplicate task ID 2.4b first declared on line 21"
+  },
+  "validationAfter": [
+    {
+      "executable": "/Users/wandl/.nvm/versions/node/v24.18.0/bin/openspec",
+      "version": "1.8.0",
+      "exitCode": 0,
+      "stdout": "Change 'harden-designcraft-plugin-delivery' is valid\n",
+      "stderr": ""
+    },
+    {
+      "executable": "/Users/wandl/.npm-global/bin/openspec",
+      "version": "1.13.1",
+      "exitCode": 0,
+      "stdout": "Change 'harden-designcraft-plugin-delivery' is valid\n",
+      "stderr": ""
+    }
+  ],
+  "unchangedExecutableTestSourceAndManifestFilesVerified": true,
+  "previousBindings": {
+    "pluginVersion": "0.1.0-dev.1",
+    "pluginTreeSha256": "86fcb63f6624c7ba12399f559cd0c6d569a0dfc7699879fe72a2e4c73a4600f7",
+    "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
+    "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+    "nativeVersions": [
+      "0.2.1"
+    ],
+    "expectedNativeBinarySha256": [
+      "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+    ]
+  },
+  "currentMetadataBindings": {
+    "pluginVersion": "0.1.0-dev.1",
+    "pluginTreeSha256": "0291a61121420e2a6edba419d7c31e84260de68550575995a9cab218ef832f41",
+    "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
+    "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+    "nativeVersions": [
+      "0.2.1"
+    ],
+    "expectedNativeBinarySha256": [
+      "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+    ]
+  },
+  "originalObservationRunIdsAndDatesRetained": true,
+  "completeAcceptance": false
+}
