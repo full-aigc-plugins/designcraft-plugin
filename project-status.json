@@ -7,7 +7,7 @@
   "specification": "OPEN_SPEC_CHANGE_IMPLEMENTATION_IN_PROGRESS",
   "offlineTests": "PASS",
   "packageValidation": "PASS",
-  "ci": "NOT_RUN",
+  "ci": "PASS",
   "nativeInstallation": "NOT_RUN",
   "targetPlatformAcceptance": "NOT_RUN",
   "hostDiscovery": "PASS",
@@ -15,8 +15,8 @@
   "creativeAcceptance": "NOT_RUN",
   "published": false,
   "specificationChange": "openspec/changes/harden-designcraft-plugin-delivery",
-  "ciEvidence": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37803071518",
-  "ciTestedCommit": "a8448e86685804190344c665ed37a066e0c916f8",
+  "ciEvidence": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37805287858",
+  "ciTestedCommit": "300953dc7afe45318df759c477b7541965e7b06d",
   "hostEvidence": "evidence/host/bundled-codex-discovery-20261008.json",
   "modelDispatchEvidence": "evidence/host/bundled-codex-model-routing-20261008.json"
 }
