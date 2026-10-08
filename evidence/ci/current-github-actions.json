@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "provider": "github-actions",
-  "runId": 37775840031,
+  "runId": 37776068516,
   "workflow": "DesignCraft plugin CI",
-  "url": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37775840031",
+  "url": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37776068516",
   "conclusion": "success",
-  "testedCommitSha": "4e5b7309d2f0d1d85b0efeaabf40669d04776fa5",
-  "createdAt": "2026-10-08T12:17:37Z",
-  "completedAt": "2026-10-08T12:18:12Z",
+  "testedCommitSha": "102f82aa5ec7c48aa99f81348637b194922ef830",
+  "createdAt": "2026-10-08T12:19:39Z",
+  "completedAt": "2026-10-08T12:20:13Z",
   "executionEnvironment": {
     "provider": "github-actions",
     "runner": "ubuntu-latest",
