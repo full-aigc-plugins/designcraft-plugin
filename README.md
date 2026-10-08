@@ -1,4 +1,4 @@
-> Current candidate: the read-only `show` fix changes Harness executable code. Earlier CI and host/model results are historical; current candidate requalification is pending. Formal release remains gated.
+> Current candidate: pinned installation/discovery and installed read-only `show` passed after the fix. Nine documentation-only model-routing observations are reused with unchanged instructions/references. Full native/recovery/creative and release acceptance remains open.
 
 # designcraft plugin — local development project
 

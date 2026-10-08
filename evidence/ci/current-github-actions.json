@@ -1,13 +1,11 @@
 {
   "schemaVersion": 1,
-  "provider": "github-actions",
-  "runId": 37807952859,
+  "provider": "GitHub Actions",
+  "runId": 37811463916,
   "workflow": "DesignCraft plugin CI",
-  "url": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37807952859",
+  "url": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37811463916",
   "conclusion": "success",
-  "testedCommitSha": "f320d0d3a50d3fc4075473e1113eeee4c106229c",
-  "createdAt": "2026-10-08T16:20:03Z",
-  "completedAt": "2026-10-08T16:20:27Z",
+  "testedCommitSha": "e936c46ed933b4680faed7fde81414fe2b1eeb7f",
   "executionEnvironment": {
     "provider": "github-actions",
     "runner": "ubuntu-latest",
@@ -19,59 +17,254 @@
   },
   "jobs": [
     {
-      "name": "Python 3.13",
+      "completedAt": "2026-10-08T16:47:09Z",
       "conclusion": "success",
-      "steps": [
-        {
-          "name": "Run unit tests",
-          "conclusion": "success"
-        },
-        {
-          "name": "Validate plugin package",
-          "conclusion": "success"
-        },
-        {
-          "name": "Check whitespace",
-          "conclusion": "success"
-        }
-      ]
-    },
-    {
-      "name": "Python 3.11",
-      "conclusion": "success",
-      "steps": [
-        {
-          "name": "Run unit tests",
-          "conclusion": "success"
-        },
-        {
-          "name": "Validate plugin package",
-          "conclusion": "success"
-        },
-        {
-          "name": "Check whitespace",
-          "conclusion": "success"
-        }
-      ]
-    },
-    {
+      "databaseId": 113429096114,
       "name": "Python 3.12",
-      "conclusion": "success",
+      "startedAt": "2026-10-08T16:46:55Z",
+      "status": "completed",
       "steps": [
         {
+          "completedAt": "2026-10-08T16:46:57Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-08T16:46:56Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:46:58Z",
+          "conclusion": "success",
+          "name": "Check out source",
+          "number": 2,
+          "startedAt": "2026-10-08T16:46:57Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:46:58Z",
+          "conclusion": "success",
+          "name": "Set up Python",
+          "number": 3,
+          "startedAt": "2026-10-08T16:46:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:47:06Z",
+          "conclusion": "success",
           "name": "Run unit tests",
-          "conclusion": "success"
+          "number": 4,
+          "startedAt": "2026-10-08T16:46:58Z",
+          "status": "completed"
         },
         {
+          "completedAt": "2026-10-08T16:47:06Z",
+          "conclusion": "success",
           "name": "Validate plugin package",
-          "conclusion": "success"
+          "number": 5,
+          "startedAt": "2026-10-08T16:47:06Z",
+          "status": "completed"
         },
         {
+          "completedAt": "2026-10-08T16:47:06Z",
+          "conclusion": "success",
           "name": "Check whitespace",
-          "conclusion": "success"
+          "number": 6,
+          "startedAt": "2026-10-08T16:47:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:47:06Z",
+          "conclusion": "success",
+          "name": "Post Set up Python",
+          "number": 11,
+          "startedAt": "2026-10-08T16:47:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:47:07Z",
+          "conclusion": "success",
+          "name": "Post Check out source",
+          "number": 12,
+          "startedAt": "2026-10-08T16:47:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:47:07Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 13,
+          "startedAt": "2026-10-08T16:47:07Z",
+          "status": "completed"
         }
-      ]
+      ],
+      "url": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37811463916/job/113429096114"
+    },
+    {
+      "completedAt": "2026-10-08T16:47:11Z",
+      "conclusion": "success",
+      "databaseId": 113429096450,
+      "name": "Python 3.13",
+      "startedAt": "2026-10-08T16:46:55Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-08T16:46:56Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-08T16:46:56Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:46:57Z",
+          "conclusion": "success",
+          "name": "Check out source",
+          "number": 2,
+          "startedAt": "2026-10-08T16:46:56Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:46:57Z",
+          "conclusion": "success",
+          "name": "Set up Python",
+          "number": 3,
+          "startedAt": "2026-10-08T16:46:57Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:47:08Z",
+          "conclusion": "success",
+          "name": "Run unit tests",
+          "number": 4,
+          "startedAt": "2026-10-08T16:46:57Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:47:08Z",
+          "conclusion": "success",
+          "name": "Validate plugin package",
+          "number": 5,
+          "startedAt": "2026-10-08T16:47:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:47:08Z",
+          "conclusion": "success",
+          "name": "Check whitespace",
+          "number": 6,
+          "startedAt": "2026-10-08T16:47:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:47:08Z",
+          "conclusion": "success",
+          "name": "Post Set up Python",
+          "number": 11,
+          "startedAt": "2026-10-08T16:47:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:47:08Z",
+          "conclusion": "success",
+          "name": "Post Check out source",
+          "number": 12,
+          "startedAt": "2026-10-08T16:47:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:47:08Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 13,
+          "startedAt": "2026-10-08T16:47:08Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37811463916/job/113429096450"
+    },
+    {
+      "completedAt": "2026-10-08T16:47:14Z",
+      "conclusion": "success",
+      "databaseId": 113429096515,
+      "name": "Python 3.11",
+      "startedAt": "2026-10-08T16:46:55Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-08T16:46:57Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-08T16:46:56Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:46:58Z",
+          "conclusion": "success",
+          "name": "Check out source",
+          "number": 2,
+          "startedAt": "2026-10-08T16:46:57Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:46:58Z",
+          "conclusion": "success",
+          "name": "Set up Python",
+          "number": 3,
+          "startedAt": "2026-10-08T16:46:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:47:10Z",
+          "conclusion": "success",
+          "name": "Run unit tests",
+          "number": 4,
+          "startedAt": "2026-10-08T16:46:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:47:10Z",
+          "conclusion": "success",
+          "name": "Validate plugin package",
+          "number": 5,
+          "startedAt": "2026-10-08T16:47:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:47:10Z",
+          "conclusion": "success",
+          "name": "Check whitespace",
+          "number": 6,
+          "startedAt": "2026-10-08T16:47:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:47:10Z",
+          "conclusion": "success",
+          "name": "Post Set up Python",
+          "number": 11,
+          "startedAt": "2026-10-08T16:47:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:47:10Z",
+          "conclusion": "success",
+          "name": "Post Check out source",
+          "number": 12,
+          "startedAt": "2026-10-08T16:47:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-08T16:47:10Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 13,
+          "startedAt": "2026-10-08T16:47:10Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37811463916/job/113429096515"
     }
   ],
-  "recordingNote": "Follow-up commits only update acceptance metadata and handoff evidence; tested implementation/source snapshot is identified by testedCommitSha."
+  "recordingNote": "Actual e936c46 CI passed all three Python jobs. Subsequent edits only record scoped evidence and status; executable skills, tests and validators remain identical to this tested commit."
 }
