@@ -7,12 +7,14 @@
   "specification": "OPEN_SPEC_CHANGE_IMPLEMENTATION_IN_PROGRESS",
   "offlineTests": "PASS",
   "packageValidation": "PASS",
-  "ci": "NOT_RUN",
+  "ci": "PASS",
   "nativeInstallation": "NOT_RUN",
   "targetPlatformAcceptance": "NOT_RUN",
   "hostDiscovery": "NOT_RUN",
   "modelDispatch": "NOT_RUN",
   "creativeAcceptance": "NOT_RUN",
   "published": false,
-  "specificationChange": "openspec/changes/harden-designcraft-plugin-delivery"
+  "specificationChange": "openspec/changes/harden-designcraft-plugin-delivery",
+  "ciEvidence": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37799406507",
+  "ciTestedCommit": "bfb2f3718d9dc6d98601c0ecd02cf92420081783"
 }

@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "provider": "github-actions",
-  "runId": 37799406507,
+  "runId": 37797496256,
   "workflow": "DesignCraft plugin CI",
-  "url": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37799406507",
+  "url": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37797496256",
   "conclusion": "success",
-  "testedCommitSha": "bfb2f3718d9dc6d98601c0ecd02cf92420081783",
-  "createdAt": "2026-10-08T15:16:43Z",
-  "completedAt": "2026-10-08T15:17:06Z",
+  "testedCommitSha": "95f743badcdeb60d17a67a43434312a0f5bc0006",
+  "createdAt": "2026-10-08T15:02:53Z",
+  "completedAt": "2026-10-08T15:03:38Z",
   "executionEnvironment": {
     "provider": "github-actions",
     "runner": "ubuntu-latest",
@@ -19,7 +19,7 @@
   },
   "jobs": [
     {
-      "name": "Python 3.11",
+      "name": "Python 3.13",
       "conclusion": "success",
       "steps": [
         {
@@ -55,7 +55,7 @@
       ]
     },
     {
-      "name": "Python 3.13",
+      "name": "Python 3.11",
       "conclusion": "success",
       "steps": [
         {
@@ -73,5 +73,5 @@
       ]
     }
   ],
-  "recordingNote": "Follow-up commits only update acceptance metadata and handoff evidence; tested implementation/source snapshot is identified by testedCommitSha."
+  "recordingNote": "Follow-up commit only updates acceptance metadata; tested implementation/source snapshot is identified by testedCommitSha."
 }
