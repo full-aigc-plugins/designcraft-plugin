@@ -9,8 +9,13 @@
     "packageValidation": "python3 -I -B scripts/validate_package.py"
   },
   "ci": {
-    "status": "NOT_RUN",
-    "reason": "No CI result is attached to this local candidate."
+    "status": "PASS",
+    "provider": "GitHub Actions",
+    "runUrl": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37766652013",
+    "testedCommit": "d31371f5568f7d3b218d38f6015e0d3d27de23fe",
+    "runner": "ubuntu-latest",
+    "pythonVersions": ["3.11", "3.12", "3.13"],
+    "checks": ["unit-tests", "package-validation", "whitespace"]
   },
   "nativeRuntime": {
     "cliVersion": "0.2.1",
