@@ -35,8 +35,8 @@
       "id": "ci",
       "layer": "ci",
       "status": "PASS",
-      "runId": "59acb773-0825-55e0-9ac4-a39060318a48",
-      "observedAt": "2026-10-08T12:35:18Z",
+      "runId": "f1233e2a-4148-5286-b600-62767f585dfa",
+      "observedAt": "2026-10-08T12:55:00Z",
       "environment": {
         "provider": "github-actions",
         "runner": "ubuntu-latest",
@@ -48,8 +48,8 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "8e877bf7b41a6429a0ad99d765b437d5b4f4c4ada06285f7d1d44461022377bf",
-        "sourceLockSha256": "e58bcece4ea91916d517db7ee8a004547c5562ef25a0a48a050ade09b2bdecb3",
+        "pluginTreeSha256": "1372da14ae415be595e5521453ee1410143cf8893bdf1fe0871581c8a07ebec5",
+        "sourceLockSha256": "4d2232e4bc8c4356cb9865105284d2bf4971b1616d38646880144ffdfdcba303",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
           "0.2.1"
@@ -67,7 +67,7 @@
       "artifacts": [
         {
           "path": "evidence/ci/current-github-actions.json",
-          "sha256": "443d3365472cabd50c699aff53d71af786d6c6056bd43e752b588147bd93b656"
+          "sha256": "430af149506252e4d11dadedc9f1e937e3cfa6fb21261f78bc0f826a7879bec2"
         }
       ],
       "environmentSource": "artifact",
@@ -77,8 +77,8 @@
       "id": "offline-tests",
       "layer": "offline-tests",
       "status": "PASS",
-      "runId": "079d9086-a1d2-4acf-882c-07ba9b71de4e",
-      "observedAt": "2026-10-08T12:54:14.283282+00:00",
+      "runId": "c811fe05-e440-40df-84d3-d206e87c50a2",
+      "observedAt": "2026-10-08T12:55:58.729606+00:00",
       "environment": {
         "os": "Darwin",
         "machine": "arm64",
@@ -86,7 +86,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "a7bb20c52f58e3fdbf471c38d2bd2b4d9f5665945c173ff9c67d8176c3798339",
+        "pluginTreeSha256": "1372da14ae415be595e5521453ee1410143cf8893bdf1fe0871581c8a07ebec5",
         "sourceLockSha256": "4d2232e4bc8c4356cb9865105284d2bf4971b1616d38646880144ffdfdcba303",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -125,7 +125,7 @@
       "artifacts": [
         {
           "path": "evidence/current-offline-validation.json",
-          "sha256": "8fee27b3b937dfb38ca23ceab51bec0cdcc94c15c08e6188c642f3fc9cc122e7"
+          "sha256": "4bbb9623c75dbb414ccd0d448cb422d8874431e401f494d7b3cb5db2130d81ec"
         }
       ]
     },
@@ -133,8 +133,8 @@
       "id": "package-validation",
       "layer": "package-validation",
       "status": "PASS",
-      "runId": "079d9086-a1d2-4acf-882c-07ba9b71de4e",
-      "observedAt": "2026-10-08T12:54:14.283282+00:00",
+      "runId": "c811fe05-e440-40df-84d3-d206e87c50a2",
+      "observedAt": "2026-10-08T12:55:58.729606+00:00",
       "environment": {
         "os": "Darwin",
         "machine": "arm64",
@@ -142,7 +142,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "a7bb20c52f58e3fdbf471c38d2bd2b4d9f5665945c173ff9c67d8176c3798339",
+        "pluginTreeSha256": "1372da14ae415be595e5521453ee1410143cf8893bdf1fe0871581c8a07ebec5",
         "sourceLockSha256": "4d2232e4bc8c4356cb9865105284d2bf4971b1616d38646880144ffdfdcba303",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -167,13 +167,13 @@
         },
         {
           "path": "support-matrix.json",
-          "sha256": "d015fd9f8bb11db2101363a3e3bb607f92fda727f0f9069f922fdfd6c176e1b2"
+          "sha256": "08abcd8d82d97a9db347655ca565d579b4742c0b96382c3f5b819aea6f3cc358"
         }
       ],
       "artifacts": [
         {
           "path": "evidence/current-offline-validation.json",
-          "sha256": "8fee27b3b937dfb38ca23ceab51bec0cdcc94c15c08e6188c642f3fc9cc122e7"
+          "sha256": "4bbb9623c75dbb414ccd0d448cb422d8874431e401f494d7b3cb5db2130d81ec"
         }
       ]
     }

@@ -11,8 +11,8 @@
   "ci": {
     "status": "PASS",
     "provider": "GitHub Actions",
-    "runUrl": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37776722401",
-    "testedCommit": "41bc3f5346052b57c4705c49e915a8520ce5ab61",
+    "runUrl": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37780285014",
+    "testedCommit": "0eada21880847c41fcd922eb381855ebc741aefa",
     "runner": "ubuntu-latest",
     "pythonVersions": [
       "3.11",
