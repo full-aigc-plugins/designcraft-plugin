@@ -12,6 +12,10 @@
 - **WHEN** 同步后的技能源回执版本不在 Harness 支持范围
 - **THEN** 停止执行并报告兼容性缺口，不猜测字段或调用私有实现绕过。
 
+#### Scenario: 原生零退出但登记输入或执行资源漂移
+- **WHEN** 源网关返回 schema 2 的 `INPUT_CHANGED_REVIEW_REQUIRED`、`SKILL_CHANGED_REVIEW_REQUIRED` 或 `INPUT_OR_SKILL_CHANGED_REVIEW_REQUIRED`，原生 exitCode 为 0 而网关进程非零退出
+- **THEN** Harness 保留源状态、runId、原始回执和保全诊断，标明对应阻塞项并要求只读核对；不得降为丢失身份的通用 UNKNOWN、继续写入或标记完成。缺少保全证据、版本不兼容或退出关系矛盾仍按 UNKNOWN 处理。
+
 ### Requirement: PH-02 单任务状态与可恢复身份
 
 Harness SHALL 持久记录任务目标、授权范围、技能路由、runId、工程/产物与检查点引用；状态至少区分准备、执行、未知核对、验证、待审阅、待修订、完成和失败。恢复继承技能源 EX-01～EX-05，不重复写入。
@@ -27,6 +31,10 @@ Harness SHALL 持久记录任务目标、授权范围、技能路由、runId、�
 #### Scenario: 技能源检查点恢复合同匹配
 - **WHEN** `reconcile` 收到同一原 run 的技能源 `designcraft-checkpoint-recovery/v1` 报告、原/重开计划与回执及保存工程，且所有步骤、runId、运行时、工程 SHA 和新会话 inspection 相符
 - **THEN** 只读返回已核验的 `remainingPlan`、计划 SHA 和对象清单；人工确认同一计划 SHA 后，`prepare-recovery` 在原 taskId 上持久化精确未启动后缀并迁移到 `PREPARED`，不得新建重复任务或自动执行。
+
+#### Scenario: 系统目录别名下的检查点
+- **WHEN** 调用者的保存工程路径与源回执的绝对路径经系统目录别名解析后指向同一文件，例如 macOS `/var` 与 `/private/var`
+- **THEN** Harness 核对同一真实文件及摘要后保留源回执的路径身份，用该身份核对重开计划、输入摘要及 inspection；不能仅因目录别名差异拒绝，也不能接受另一个同内容文件或符号链接工程。
 
 #### Scenario: 恢复计划摘要或执行进程身份有风险
 - **WHEN** 保存工程摘要、来源回执或剩余计划不匹配，或进程后代终止未确认

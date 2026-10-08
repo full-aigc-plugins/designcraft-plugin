@@ -1,0 +1,47 @@
+{
+  "reason": "Harness preservation/recovery behavior changed; prior CI does not prove the new implementation.",
+  "records": [
+    {
+      "id": "ci",
+      "layer": "ci",
+      "status": "PASS",
+      "runId": "f9ea9258-4c1f-4149-b282-273e556f5b36",
+      "observedAt": "2026-10-08T15:03:38Z",
+      "environment": {
+        "provider": "github-actions",
+        "runner": "ubuntu-latest",
+        "pythonVersions": [
+          "3.11",
+          "3.12",
+          "3.13"
+        ]
+      },
+      "bindings": {
+        "pluginVersion": "0.1.0-dev.1",
+        "pluginTreeSha256": "67a1dba4b9a75a527626e549a915ff2af1f002908ecc4958e46e500a8a962df1",
+        "sourceLockSha256": "2a2282f9458306968308c3004fad9c52052c4a266b9f076063bc0af149117f33",
+        "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+        "nativeVersions": [
+          "0.2.1"
+        ],
+        "expectedNativeBinarySha256": [
+          "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+        ]
+      },
+      "inputs": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "sha256": "a65edd52ccd88171f731aa4c172d0c220fe63d0a9be2d712124bcf7cf96f1749"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "evidence/ci/current-github-actions.json",
+          "sha256": "c5f3cc25eca04f34dc8c1e505463e787acc4780f6a7f2e095957a7cc35182eba"
+        }
+      ],
+      "environmentSource": "artifact",
+      "environmentArtifactPath": "evidence/ci/current-github-actions.json"
+    }
+  ]
+}

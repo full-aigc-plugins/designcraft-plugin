@@ -35,6 +35,8 @@ TASK_FIELDS={'runId','nativeStatus','nativeReceiptRef','candidateSha256','artifa
 PROTECTED_RECOVERY_FIELDS={'recoveryPlan','recoveryPlanSha256','recoveryProof'}
 SUPPORTED_SOURCE_VERSIONS={'0.1.0-dev.1'}
 SUPPORTED_NATIVE_RECEIPT_SCHEMA=2
+PRESERVATION_BLOCKERS={'INPUT_CHANGED_REVIEW_REQUIRED':'registered_inputs_changed','SKILL_CHANGED_REVIEW_REQUIRED':'skill_resources_changed','INPUT_OR_SKILL_CHANGED_REVIEW_REQUIRED':'preservation_check_incomplete'}
+SUPPORTED_RUN_STATUSES={'NOT_STARTED','FAILED_OR_PARTIAL','UNKNOWN','NATIVE_EXIT_ZERO_REVIEW_REQUIRED'}|set(PRESERVATION_BLOCKERS)
 SUPPORTED_ARTIFACT_CONTRACTS={'designcraft-business-evidence/v1','designcraft-artifact-manifest/v1','designcraft-page-review/v1','designcraft-revision/v1'}
 
 def _freshness_report():
@@ -252,7 +254,7 @@ class TaskStore:
             if key in ('artifactRefs','checkpointRefs','blockers') and not isinstance(value,list):raise ValueError('task_update_fields_invalid')
             if key=='revisionPageRefs' and (not isinstance(value,list) or not value or any(not isinstance(item,str) or not item.strip() or '\n' in item for item in value) or len(set(value))!=len(value)):raise ValueError('revision_page_refs_invalid')
             if key in ('runId','nativeReceiptRef','nextAction') and value is not None and not isinstance(value,str):raise ValueError('task_update_fields_invalid')
-            if key=='nativeStatus' and value not in {'NOT_RUN','STARTING','NOT_STARTED','FAILED_OR_PARTIAL','UNKNOWN','NATIVE_EXIT_ZERO_REVIEW_REQUIRED'}:raise ValueError('task_update_fields_invalid')
+            if key=='nativeStatus' and value not in SUPPORTED_RUN_STATUSES|{'NOT_RUN','STARTING'}:raise ValueError('task_update_fields_invalid')
             if key in ('recoveryEvidence',) and (not isinstance(value,list) or any(not isinstance(item,str) or not item for item in value)):raise ValueError('task_update_fields_invalid')
             if key in ('reconciledRunId','recoveryAction','revisionScope') and value is not None and not isinstance(value,str):raise ValueError('task_update_fields_invalid')
             data[key]=value
@@ -656,8 +658,10 @@ class TaskStore:
             project_sha=hashlib.sha256(project.read_bytes()).hexdigest()
             project_bytes=project.stat().st_size
             saved=original_payload.get('savedProjectCheckpoint')
-            if not isinstance(saved,dict) or saved.get('status')!='SAVED_REOPEN_REQUIRED' or saved.get('path')!=project_path or saved.get('sha256')!=project_sha or saved.get('bytes')!=project_bytes:
+            if not isinstance(saved,dict) or not isinstance(saved.get('path'),str) or not Path(saved['path']).is_absolute() or Path(saved['path']).is_symlink() or str(Path(saved['path']).resolve(strict=True))!=project_path or saved.get('status')!='SAVED_REOPEN_REQUIRED' or saved.get('sha256')!=project_sha or saved.get('bytes')!=project_bytes:
                 raise ValueError('source_recovery_checkpoint_mismatch')
+            # 源网关以绝对路径登记身份；同一系统目录别名不能破坏回执内部的路径绑定。
+            project_path=saved['path']
             if data.get('runId')!=original_payload.get('runId') or report.get('originalRunId')!=data.get('runId'):
                 raise ValueError('source_recovery_original_run_mismatch')
             if report.get('contractVersion')!='designcraft-checkpoint-recovery/v1' or report.get('status')!='RECOVERY_READY':
@@ -698,7 +702,7 @@ class TaskStore:
                 raise ValueError('source_recovery_save_step_mismatch')
             save_result=original_batch['results'][save_index]
             save_result_sha=hashlib.sha256(json.dumps(save_result,sort_keys=True,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
-            if not isinstance(save_result,dict) or save_result.get('bytes')!=project_bytes or save_result.get('path') is None or str(Path(save_result['path']).expanduser().resolve())!=project_path or saved.get('resultSha256')!=save_result_sha:
+            if not isinstance(save_result,dict) or save_result.get('bytes')!=project_bytes or save_result.get('path') is None or str(Path(save_result['path']).expanduser().absolute())!=project_path or saved.get('resultSha256')!=save_result_sha:
                 raise ValueError('source_recovery_save_result_mismatch')
             if not isinstance(reopen,dict) or reopen.get('schemaVersion')!=2 or reopen.get('domain')!='designcraft' or reopen.get('runId')!=report.get('reopenRunId') or reopen.get('status')!='NATIVE_EXIT_ZERO_REVIEW_REQUIRED' or reopen.get('exitCode')!=0 or reopen.get('terminationVerified') is not True:
                 raise ValueError('source_recovery_reopen_receipt_invalid')
@@ -907,11 +911,21 @@ class TaskStore:
         except json.JSONDecodeError:payload=None
         run_id=payload.get('runId') if isinstance(payload,dict) else None
         status=payload.get('status') if isinstance(payload,dict) else None
-        supported={'NOT_STARTED','FAILED_OR_PARTIAL','UNKNOWN','NATIVE_EXIT_ZERO_REVIEW_REQUIRED'}
         try:valid_run_id=isinstance(run_id,str) and str(uuid.UUID(run_id))==run_id
         except ValueError:valid_run_id=False
         exit_code=payload.get('exitCode') if isinstance(payload,dict) else None
-        versioned=bool(isinstance(payload,dict) and payload.get('schemaVersion')==2 and status in supported and valid_run_id and (exit_code is None or type(exit_code) is int) and (status!='NATIVE_EXIT_ZERO_REVIEW_REQUIRED' or exit_code==0 and result.returncode==0) and not (result.returncode==0 and status!='NATIVE_EXIT_ZERO_REVIEW_REQUIRED'))
+        versioned=bool(isinstance(payload,dict) and type(payload.get('schemaVersion')) is int and payload.get('schemaVersion')==SUPPORTED_NATIVE_RECEIPT_SCHEMA and status in SUPPORTED_RUN_STATUSES and valid_run_id and (exit_code is None or type(exit_code) is int) and (status!='NATIVE_EXIT_ZERO_REVIEW_REQUIRED' or exit_code==0 and result.returncode==0) and not (result.returncode==0 and status!='NATIVE_EXIT_ZERO_REVIEW_REQUIRED'))
+        if versioned and status in PRESERVATION_BLOCKERS:
+            # 原生退出 0 后网关可因保全检查返回 1；两层退出码不能混为一谈。
+            valid_preservation=(exit_code==0 and result.returncode!=0 and payload.get('started') is True and payload.get('automaticReplay') is False and payload.get('completeAcceptance') is False)
+            if status=='INPUT_CHANGED_REVIEW_REQUIRED':
+                before=payload.get('inputSha256');after=payload.get('inputAfterSha256')
+                valid_preservation=valid_preservation and isinstance(before,dict) and isinstance(after,dict) and before!=after
+            elif status=='SKILL_CHANGED_REVIEW_REQUIRED':
+                before=payload.get('skillResourceSha256');after=payload.get('skillResourceAfterSha256')
+                valid_preservation=valid_preservation and isinstance(before,dict) and isinstance(after,dict) and before!=after
+            else:valid_preservation=valid_preservation and isinstance(payload.get('preservationCheckError'),str) and bool(payload['preservationCheckError'])
+            versioned=bool(valid_preservation)
         if argv[0]=='run' and not versioned:
             status='UNKNOWN';run_id=None;payload={'schemaVersion':None,'status':status,'reason':'shared_receipt_missing_or_unsupported','stdout':result.stdout,'stderr':result.stderr,'exitCode':result.returncode}
         elif argv[0]!='run':status='NOT_RUN'
@@ -924,7 +938,8 @@ class TaskStore:
             os.replace(temporary,target)
         finally:
             if temporary is not None and temporary.exists():temporary.unlink()
-        updates={'nativeStatus':status,'nativeReceiptRef':ref,'nextAction':'reconcile_native_result' if status=='UNKNOWN' else ('review_native_result' if status=='NATIVE_EXIT_ZERO_REVIEW_REQUIRED' else 'continue_task')}
+        updates={'nativeStatus':status,'nativeReceiptRef':ref,'nextAction':'reconcile_native_result' if status=='UNKNOWN' or status in PRESERVATION_BLOCKERS else ('review_native_result' if status=='NATIVE_EXIT_ZERO_REVIEW_REQUIRED' else 'continue_task')}
+        if status in PRESERVATION_BLOCKERS:updates['blockers']=list(dict.fromkeys(starting['blockers']+[PRESERVATION_BLOCKERS[status]]))
         if run_id:updates['runId']=run_id
         latest=self.get(identifier)
         return self.update(identifier,updates,latest['revision'])
@@ -941,7 +956,7 @@ class TaskStore:
                 if not next_updates.get('recoveryEvidence') or not next_updates.get('recoveryAction'):raise ValueError('reconciliation_evidence_required')
             if data['state']=='RECONCILING' and target in ('PREPARED','VERIFYING'):
                 raise ValueError('reconciliation_checkpoint_verification_required')
-            if target=='EXECUTING' and data.get('nativeStatus') in ('UNKNOWN','FAILED_OR_PARTIAL','NATIVE_EXIT_ZERO_REVIEW_REQUIRED'):
+            if target=='EXECUTING' and data.get('nativeStatus') in ({'UNKNOWN','FAILED_OR_PARTIAL','NATIVE_EXIT_ZERO_REVIEW_REQUIRED'}|set(PRESERVATION_BLOCKERS)):
                 raise ValueError('reconciliation_checkpoint_verification_required')
             if data['state']=='REVISION_REQUIRED' and target=='PREPARED':
                 revision_scope=next_updates.get('revisionScope',data.get('revisionScope'))

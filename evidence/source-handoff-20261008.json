@@ -1,0 +1,446 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "designcraft-plugin-handoff/v1",
+  "status": "PASS",
+  "scope": "OFFLINE_SHARED_CONTRACT_COMPATIBILITY",
+  "runId": "7584c77b-54d8-4bc5-be81-1efb5751032c",
+  "observedAt": "2026-10-08T15:15:21.265436+00:00",
+  "sourceProject": "designcraft-skills",
+  "sourceVersion": "0.1.0-dev.1",
+  "pluginProject": "designcraft-plugin",
+  "pluginVersion": "0.1.0-dev.1",
+  "sourceStatus": "local-unpublished-candidate",
+  "sourceCandidateSha256": "2a2282f9458306968308c3004fad9c52052c4a266b9f076063bc0af149117f33",
+  "sourceSkillFileSha256": {
+    "designcraft-cli/SKILL.md": "a4e8a0fece6bee5628737604bf58f3487b463fa7e8c2d5510fbe419a142012cc",
+    "designcraft-cli/examples/authorized-run.md": "7a067b44fd3521e3659bfbcb7d2b7c8bf6d675e60968b3455ded2fe49fac0451",
+    "designcraft-cli/examples/catalog-read.md": "9e6548621153d1bae37df61ffa161850e062fb8850a26dbb6653fca44f7fc95d",
+    "designcraft-cli/examples/unknown-result.md": "9a0164414c7e406e70822ea336ce18650613fd833810ea0be7c08d97599bacae",
+    "designcraft-cli/examples/workflow-cases.md": "1129c34b68e9dcc96b1e079d142a13cdc70db3c216b6bcf68ac68f14404667ad",
+    "designcraft-cli/references/command-plans-and-receipts.md": "4e371f1e4e786f398d236dd1e729f935b777cccf8253e81cea07eb7a1cb44375",
+    "designcraft-cli/scripts/bootstrap.py": "27e87459d328ef8fd4894e1e96d9b14ddd0c83ddc98a010d19155d560d47302a",
+    "designcraft-cli/scripts/cli.py": "09c39a397e2e409edf9a84edc8fa24023f736f794a5f0e21bb79390842141044",
+    "designcraft-cli/scripts/command_gateway.py": "cc003905fcc082cae36f4ffb90b5e995fce2b210cb523763711a58dd0e2c1afa",
+    "designcraft-cli/scripts/commands.py": "1c68012b9c9ca0b023a7cbfc05376d9a66059457311734036a8fe7ff13d432b7",
+    "designcraft-cli/scripts/runtime.lock.json": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8",
+    "designcraft-cli-document/SKILL.md": "d402f0faf5601b1dd2f2f4a3f8bec98e4ba119771b3742693950c28a5b0df31c",
+    "designcraft-cli-document/examples/new-working-copy.md": "df2062dfe6d9839ed44eed03ec2e7073c3c75eb3a7ab5569a5d8e8f6a89c7660",
+    "designcraft-cli-document/examples/reopen-existing.md": "f95568bd20327d41c11576081bdd1a86d4ed0d32f2163a8f91eafe28535ec5a0",
+    "designcraft-cli-document/examples/unknown-save.md": "54f47c9178b853d0a31c27d656ea51a1992042e05ab8b892aaf1053438b1cb8d",
+    "designcraft-cli-document/examples/workflow-cases.md": "1951623e8ce6f5ed38279fafaefd40d9cc2978957c3ea242a4d3d976b8741d8d",
+    "designcraft-cli-document/references/project-lifecycle.md": "48f279c72365b3f2787531d1720776e7641fd9f012b7102391792cfdd2b21140",
+    "designcraft-cli-document/scripts/bootstrap.py": "27e87459d328ef8fd4894e1e96d9b14ddd0c83ddc98a010d19155d560d47302a",
+    "designcraft-cli-document/scripts/cli.py": "09c39a397e2e409edf9a84edc8fa24023f736f794a5f0e21bb79390842141044",
+    "designcraft-cli-document/scripts/command_gateway.py": "cc003905fcc082cae36f4ffb90b5e995fce2b210cb523763711a58dd0e2c1afa",
+    "designcraft-cli-document/scripts/commands.py": "1c68012b9c9ca0b023a7cbfc05376d9a66059457311734036a8fe7ff13d432b7",
+    "designcraft-cli-document/scripts/runtime.lock.json": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8",
+    "designcraft-cli-export/SKILL.md": "1f0732945d67e476fe75489040993fa75c8734a14bd714fdb912846bcfeaee88",
+    "designcraft-cli-export/examples/idml-roundtrip.md": "b589520017cbf2f5881dd38d289b81d303f0d1ba71f17f4a6d68de63a1812061",
+    "designcraft-cli-export/examples/pdf-review.md": "1d0f84f4c17af4548f3ee47d5986557a4f8ba77eba2c80bce6a41c6713f3a576",
+    "designcraft-cli-export/examples/unknown-export.md": "424747c786fed0cc4894368ea815612a60de6bcaa89eb1e02283941187229548",
+    "designcraft-cli-export/examples/workflow-cases.md": "2dfe3160e799c46d26c8fc54fae34619636464b97525f4875ce92a1cff03fa67",
+    "designcraft-cli-export/references/artifact-manifest.md": "319c7d56a3fb6c09bc28e3b7049a77e805f0438cb1d01424c097a71053e233ad",
+    "designcraft-cli-export/references/business-evidence.md": "d234ded449f89e7d101b890e25c0b57d30134ba969e59d9e06488671be78b5ea",
+    "designcraft-cli-export/references/format-checks.md": "6bd23aeefcef6aae816c2ac6e14502e60305b2442ea52901f7a2093aed067540",
+    "designcraft-cli-export/references/page-review.md": "fbe67630850ca3c9b68377ddce08d5dd0f82786922fa323e8996fd27cf3bf4a7",
+    "designcraft-cli-export/references/revision-evidence.md": "1d9c7b30049d50676721c0d99faa8fc9fa868fc331c94ce59196dc41865212da",
+    "designcraft-cli-export/scripts/artifact_manifest.py": "1f96eef6927d1aa34c8c5f8ce513ed6f207cec60c13affdd693484d3df1dbb6e",
+    "designcraft-cli-export/scripts/bootstrap.py": "27e87459d328ef8fd4894e1e96d9b14ddd0c83ddc98a010d19155d560d47302a",
+    "designcraft-cli-export/scripts/business_evidence.py": "72690294f6fb83170d7cab5f7f8a3cd70d79348f734b32c40df148db685ee03d",
+    "designcraft-cli-export/scripts/cli.py": "09c39a397e2e409edf9a84edc8fa24023f736f794a5f0e21bb79390842141044",
+    "designcraft-cli-export/scripts/command_gateway.py": "cc003905fcc082cae36f4ffb90b5e995fce2b210cb523763711a58dd0e2c1afa",
+    "designcraft-cli-export/scripts/commands.py": "1c68012b9c9ca0b023a7cbfc05376d9a66059457311734036a8fe7ff13d432b7",
+    "designcraft-cli-export/scripts/format_probe.py": "191be8030f7e32bd4cbd1ff78c4e03411fe479393db42047c776dcc78949154c",
+    "designcraft-cli-export/scripts/page_review.py": "056006ec68217020a5179f40636790fa4ac976d0d8c48172f8eefadb17eb3b74",
+    "designcraft-cli-export/scripts/revision_evidence.py": "7c551ff2019b289d853884c94039bdb2a9c172b14e18a2a33f2cf36eacdc0c40",
+    "designcraft-cli-export/scripts/runtime.lock.json": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8",
+    "designcraft-cli-layout/SKILL.md": "4e8138db4acb4c394a3b997d20a120ab2b14243c244ff58325eead23221ff181",
+    "designcraft-cli-layout/examples/image-placement.md": "fe36b02686e5110e99bdb7eca767b3bedf381a721afe1b6513c059ccb85be2c3",
+    "designcraft-cli-layout/examples/overflow-review.md": "9495e0a2a5796b0fb5f0c94053b4ba71ede1ae23ddea73d4ff0735f960e94551",
+    "designcraft-cli-layout/examples/story-flow.md": "a16626c22bb76850131de81e89e2db5d0f49105692aac3a5fe922072d8195067",
+    "designcraft-cli-layout/examples/workflow-cases.md": "7761f8fd0037597a1f1128abafbf6bc360565dc670ec1f18003a16e20598f6e7",
+    "designcraft-cli-layout/references/layout-review.md": "21ed709fa6ca8e0713abdee3481312387b8aae2cadb1ae2c820b4e8ac43a34ab",
+    "designcraft-cli-layout/scripts/bootstrap.py": "27e87459d328ef8fd4894e1e96d9b14ddd0c83ddc98a010d19155d560d47302a",
+    "designcraft-cli-layout/scripts/cli.py": "09c39a397e2e409edf9a84edc8fa24023f736f794a5f0e21bb79390842141044",
+    "designcraft-cli-layout/scripts/command_gateway.py": "cc003905fcc082cae36f4ffb90b5e995fce2b210cb523763711a58dd0e2c1afa",
+    "designcraft-cli-layout/scripts/commands.py": "1c68012b9c9ca0b023a7cbfc05376d9a66059457311734036a8fe7ff13d432b7",
+    "designcraft-cli-layout/scripts/runtime.lock.json": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8",
+    "designcraft-cli-setup/SKILL.md": "18a10787c0b31f45e91102db3f52b420f26a1a39dc9348cc464a35f05d0614d8",
+    "designcraft-cli-setup/examples/authorized-install.md": "87630c033c4e8d38b5479239cd504a0b01e49536d883ef7eee79d33552e7dbfd",
+    "designcraft-cli-setup/examples/inspect-only.md": "a13a75e443a240ec38e1e06860df1a456df6f4ce2828a7bc496b152bedf09da6",
+    "designcraft-cli-setup/examples/rejected-artifact.md": "126d4e7342f65d6d0610dd56cf8b3fe2d4444c8351b25d49efde55b58d2abeae",
+    "designcraft-cli-setup/examples/workflow-cases.md": "55e660f45fed11d49c13e2e6cb7e70c47f1babf10393458cdb59d37201b98289",
+    "designcraft-cli-setup/references/installation-contract.md": "b8042c75c74b1f6fd4fcd1d57a7bb8bb4d9a1b21d022705bdfde984e37bbc639",
+    "designcraft-cli-setup/scripts/bootstrap.py": "27e87459d328ef8fd4894e1e96d9b14ddd0c83ddc98a010d19155d560d47302a",
+    "designcraft-cli-setup/scripts/cli.py": "09c39a397e2e409edf9a84edc8fa24023f736f794a5f0e21bb79390842141044",
+    "designcraft-cli-setup/scripts/command_gateway.py": "cc003905fcc082cae36f4ffb90b5e995fce2b210cb523763711a58dd0e2c1afa",
+    "designcraft-cli-setup/scripts/commands.py": "1c68012b9c9ca0b023a7cbfc05376d9a66059457311734036a8fe7ff13d432b7",
+    "designcraft-cli-setup/scripts/runtime.lock.json": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8",
+    "designcraft-use/SKILL.md": "a392162200d23092ffa59a33916a2a81326cdfcaf6bb41e5c75cf737b1b9d094",
+    "designcraft-use/examples/multi-page-plan.md": "edc9453634c932a4045c909a6b9197e1fbafb206856d5aff4a48c53b20240677",
+    "designcraft-use/examples/revise-existing.md": "9de304948a3df628cfd9136fc4132a14d6d3fbe8d140d039d2d494fed6ce815d",
+    "designcraft-use/examples/unknown-recovery.md": "5c3a13327f05b44a61cb82d693394e05992f6041e45eb4192abe506da5634b96",
+    "designcraft-use/examples/workflow-cases.md": "664dcb0a7f357b0a7cbbf667700eedf82f367ae5dcec4dcc05c6e2d4cade427b",
+    "designcraft-use/references/execution-and-receipts.md": "2f88eab2df276b621981b94194a7abb87dd5c279febabf9067efe31ae97e3261",
+    "designcraft-use/scripts/bootstrap.py": "27e87459d328ef8fd4894e1e96d9b14ddd0c83ddc98a010d19155d560d47302a",
+    "designcraft-use/scripts/cli.py": "09c39a397e2e409edf9a84edc8fa24023f736f794a5f0e21bb79390842141044",
+    "designcraft-use/scripts/command_gateway.py": "cc003905fcc082cae36f4ffb90b5e995fce2b210cb523763711a58dd0e2c1afa",
+    "designcraft-use/scripts/commands.py": "1c68012b9c9ca0b023a7cbfc05376d9a66059457311734036a8fe7ff13d432b7",
+    "designcraft-use/scripts/runtime.lock.json": "3bec92e2eaf7227ee265ec2817413859c709261c41f4eb5363c8915dc1dbbad8"
+  },
+  "contracts": {
+    "nativeResult": {
+      "schemaVersion": 1,
+      "entrypoint": "skills/designcraft-use/scripts/cli.py"
+    },
+    "executionReceipt": {
+      "schemaVersion": 2,
+      "entrypoint": "skills/designcraft-use/scripts/commands.py",
+      "actions": [
+        "run",
+        "receipt",
+        "recover"
+      ]
+    },
+    "checkpointRecovery": {
+      "contractVersion": "designcraft-checkpoint-recovery/v1",
+      "entrypoint": "skills/designcraft-use/scripts/commands.py recover"
+    },
+    "business": {
+      "contractVersion": "designcraft-business-evidence/v1",
+      "entrypoint": "skills/designcraft-cli-export/scripts/business_evidence.py"
+    },
+    "artifact": {
+      "contractVersion": "designcraft-artifact-manifest/v1",
+      "entrypoint": "skills/designcraft-cli-export/scripts/artifact_manifest.py"
+    },
+    "review": {
+      "contractVersion": "designcraft-page-review/v1",
+      "entrypoint": "skills/designcraft-cli-export/scripts/page_review.py"
+    },
+    "revision": {
+      "contractVersion": "designcraft-revision/v1",
+      "entrypoint": "skills/designcraft-cli-export/scripts/revision_evidence.py"
+    }
+  },
+  "checks": {
+    "designcraft-skills": {
+      "runId": "a4f11edc-795f-461e-87b2-f20265f52067",
+      "reportSha256": "68e905cb3d44ad5f3883fdc1aded13686f302f6dc959e8c4cfcd0ed223ce273b",
+      "testsPassed": 102,
+      "bindings": {
+        "packageVersion": "0.1.0-dev.1",
+        "nativeVersion": "0.2.1",
+        "packageTreeSha256": "78e4dc08a1c455a6bacd027c442ba10d079aedaa6893b0c441616d19b09df311",
+        "skillSuiteSha256": "322fcf3293cf09ca778bb05a833e8b6987a875999e4d649c359ffed6c5a5fafe",
+        "commandCoverageSha256": "d8262425ea416afb8e4a305ce7aeb66213566c7b3e77ad93a6a9de360a2b07a3",
+        "researchInventorySha256": "91815ca5eb391eb4ab19ad0d0d90eb4c90a06f71d1a44c2c6aef64e7da74fcaa",
+        "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+        "expectedNativeBinarySha256": [
+          "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+        ]
+      },
+      "environment": {
+        "os": "Darwin",
+        "machine": "arm64",
+        "python": "3.13.5"
+      }
+    },
+    "designcraft-plugin": {
+      "runId": "a900caf9-63b6-4913-ac19-618a5095c5af",
+      "reportSha256": "baeaaee5be19737bf9667eb4e9aab144894cf635aaad3456781cf75bb9d287dd",
+      "testsPassed": 97,
+      "bindings": {
+        "pluginVersion": "0.1.0-dev.1",
+        "pluginTreeSha256": "0d1023abae8bc1192c32947498b27aa5a5ece2ca943d137cb4745e0c3d5f7d63",
+        "sourceLockSha256": "2a2282f9458306968308c3004fad9c52052c4a266b9f076063bc0af149117f33",
+        "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+        "nativeVersions": [
+          "0.2.1"
+        ],
+        "expectedNativeBinarySha256": [
+          "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+        ]
+      },
+      "environment": {
+        "os": "Darwin",
+        "machine": "arm64",
+        "python": "3.13.5"
+      }
+    }
+  },
+  "requirementCoverage": {
+    "EX-01": [
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_execution_handoff.ExecutionHandoffContract.test_ex01_ex02_actual_child_interrupt_stays_unknown_with_partial_logs",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_execution_handoff.ExecutionHandoffContract.test_ex01_known_launch_failure_stays_not_started",
+        "status": "PASS"
+      }
+    ],
+    "EX-02": [
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_execution_handoff.ExecutionHandoffContract.test_ex01_ex02_actual_child_interrupt_stays_unknown_with_partial_logs",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_native_result.NativeResultContract.test_timeout_writes_unknown_and_mcp_has_no_short_task_timeout",
+        "status": "PASS"
+      }
+    ],
+    "EX-03": [
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_execution_handoff.ExecutionHandoffContract.test_ex03_public_source_recovery_report_is_accepted_by_harness_without_replay",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_harness_state.HarnessStateContract.test_prepare_recovery_requires_confirmed_plan_hash_and_reuses_existing_task",
+        "status": "PASS"
+      }
+    ],
+    "EX-04": [
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_execution_handoff.ExecutionHandoffContract.test_ex03_ex04_partial_steps_and_single_session_references_reach_harness",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_harness_state.HarnessStateContract.test_unknown_receipt_version_is_not_interpreted_as_success",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_gateway_receipts.ReceiptContract.test_legacy_receipt_is_read_only_and_never_starts_native_cli",
+        "status": "PASS"
+      }
+    ],
+    "EX-05": [
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_execution_handoff.ExecutionHandoffContract.test_ex05_before_edit_input_drift_creates_no_output_and_invokes_no_edit",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_execution_handoff.ExecutionHandoffContract.test_ex05_incomplete_preservation_check_retains_source_diagnostic",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_execution_handoff.ExecutionHandoffContract.test_ex05_preservation_status_and_run_identity_survive_gateway_nonzero_exit",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_execution_handoff.ExecutionHandoffContract.test_ex05_resource_drift_survives_and_cannot_be_reported_as_ordinary_success",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_execution_handoff.ExecutionHandoffContract.test_ex05_working_copy_preserves_original_and_zero_exit_needs_acceptance",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_execution_handoff.ExecutionHandoffContract.test_preservation_status_without_evidence_or_with_contradictory_exit_is_unknown",
+        "status": "PASS"
+      }
+    ],
+    "AV-01": [
+      {
+        "repository": "designcraft-skills",
+        "case": "test_business_evidence.BusinessEvidenceContract.test_current_reopened_candidate_passes_with_raw_classification",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_business_evidence.BusinessEvidenceContract.test_forged_pass_cannot_hide_raw_warning_error_or_unknown_field",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_business_evidence.BusinessEvidenceContract.test_matching_warning_classification_still_cannot_pass",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_business_evidence.BusinessEvidenceContract.test_single_skill_cli_isolated_imports_work_and_receipt_link_is_rejected",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_business_evidence.BusinessEvidenceContract.test_wrong_session_project_runtime_or_export_is_rejected",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_business_evidence.BusinessEvidenceIntegration.test_av01_without_registered_current_av02_is_rejected",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_business_evidence.BusinessEvidenceIntegration.test_raw_warning_cannot_be_registered_by_reusing_pass_classification",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_business_evidence.BusinessEvidenceIntegration.test_verified_av01_uses_public_validator_and_receipt_drift_invalidates_it",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_harness_state.HarnessStateContract.test_fabricated_av01_pass_cannot_enter_completion_evidence",
+        "status": "PASS"
+      }
+    ],
+    "AV-02": [
+      {
+        "repository": "designcraft-skills",
+        "case": "test_artifact_manifest.ArtifactManifestContract.test_cli_preserves_not_run_boundary",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_artifact_manifest.ArtifactManifestContract.test_files_are_bound_but_not_run_reopen_does_not_claim_acceptance",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_artifact_manifest.ArtifactManifestContract.test_matching_reopen_evidence_is_bound_to_project_and_expectations",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_artifact_manifest.ArtifactManifestContract.test_missing_project_and_receipt_paths_cannot_count_as_artifacts",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_artifact_manifest.ArtifactManifestContract.test_reopen_page_content_and_link_mismatches_are_not_accepted",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_artifact_manifest.ArtifactManifestContract.test_traversal_symlinks_and_identity_drift_are_rejected",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_harness_state.HarnessStateContract.test_artifact_manifest_for_different_candidate_cannot_attach_av02",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_harness_state.HarnessStateContract.test_artifact_manifest_not_run_never_becomes_av02_pass_evidence",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_harness_state.HarnessStateContract.test_artifact_manifest_requires_reopened_current_candidate_before_av02_attachment",
+        "status": "PASS"
+      }
+    ],
+    "AV-03": [
+      {
+        "repository": "designcraft-skills",
+        "case": "test_page_review.PageReviewContract.test_automated_reviewer_model_is_recorded",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_page_review.PageReviewContract.test_missing_page_criterion_failed_conclusion_and_unbound_basis_are_rejected",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_page_review.PageReviewContract.test_no_reference_image_is_valid_when_task_spec_is_the_review_basis",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_page_review.PageReviewContract.test_stale_project_preview_rubric_or_artifact_binding_is_rejected",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_harness_state.HarnessStateContract.test_page_review_not_run_and_fail_are_rejected",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_harness_state.HarnessStateContract.test_page_review_requires_verified_av02_and_binds_current_candidate_and_preview",
+        "status": "PASS"
+      }
+    ],
+    "AV-04": [
+      {
+        "repository": "designcraft-skills",
+        "case": "test_revision_evidence.RevisionEvidenceContract.test_changed_snapshot_after_review_or_cli_report_cannot_claim_completion",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_revision_evidence.RevisionEvidenceContract.test_out_of_scope_change_or_incomplete_story_impact_is_rejected",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_revision_evidence.RevisionEvidenceContract.test_page_three_title_revision_binds_before_after_reviews_and_fresh_export",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_revision_evidence.RevisionEvidenceContract.test_stale_or_unreviewed_export_cannot_pass_revision",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-skills",
+        "case": "test_revision_evidence.RevisionEvidenceContract.test_story_revision_includes_all_pages_in_the_affected_flow",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_revision_evidence.RevisionEvidenceIntegration.test_invalid_revision_scope_is_not_registered_as_av04",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_revision_evidence.RevisionEvidenceIntegration.test_verified_revision_is_bound_to_task_candidate_and_freshness",
+        "status": "PASS"
+      },
+      {
+        "repository": "designcraft-plugin",
+        "case": "test_harness_state.HarnessStateContract.test_completion_rejects_fabricated_av04_and_requires_current_hash_bound_evidence",
+        "status": "PASS"
+      }
+    ]
+  },
+  "redObservations": [
+    {
+      "implementationBeforeCommit": "44e4a9241a4a270e23ba5b8ab5b21b210046fdca",
+      "behavior": "Three source preservation statuses became UNKNOWN and lost run identity",
+      "failureCount": 3
+    },
+    {
+      "behavior": "Public source recovery for macOS /var checkpoint rejected as source_recovery_checkpoint_mismatch, then source_recovery_save_result_mismatch",
+      "fixedBy": "Match same canonical file first, then retain source absolute path identity"
+    }
+  ],
+  "completeAcceptance": false,
+  "limitations": [
+    "Installation and native binary are controlled offline fixture programs; no native runtime or host acceptance is claimed.",
+    "Current source launcher/gateway run as real child processes. Readiness is replaced only in isolated tests.",
+    "AV fixtures validate contract consistency, not native execution or visual judgment truth.",
+    "No automatic replay or recovery execution; unverified process descendants remain explicit recovery risk.",
+    "Formal source lock/tag, application format acceptance, Codex dispatch and creative acceptance remain open."
+  ]
+}
