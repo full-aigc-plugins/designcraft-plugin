@@ -8,6 +8,10 @@
 
 插件 SHALL 声明本地 designcraft-harness 与六项外部技能的不同所有权，Harness 通过技能源公开入口调用并读取版本化契约，不重复定义安装、原生参数和回执语义。
 
+#### Scenario: 显式参数边界与文档调用顺序
+- **WHEN** 调用方在 `native TASK_ID --expected-revision REV --runtime-home PATH --capability-evidence FILE -- <源入口参数>` 中使用显式 `--` 边界，或把 Harness 参数放在 TASK_ID 前
+- **THEN** 两种顺序均解析同一 Harness 头部，边界后的参数按原顺序逐字交给源入口，不把源参数当成 Harness 参数；未知头部选项和缺少 revision 在执行或状态写入前拒绝。既有无分隔符且 Harness 参数在 TASK_ID 前的调用继续兼容。
+
 #### Scenario: 共享接口不兼容
 - **WHEN** 同步后的技能源回执版本不在 Harness 支持范围
 - **THEN** 停止执行并报告兼容性缺口，不猜测字段或调用私有实现绕过。

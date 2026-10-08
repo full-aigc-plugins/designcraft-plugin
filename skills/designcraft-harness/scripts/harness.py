@@ -981,16 +981,35 @@ def render_status(task):
     risks=list(dict.fromkeys(task['blockers']+proof.get('risks',[])))
     return {'taskId':task['taskId'],'status':task['state'],'scope':task['authorizationScope'],'actions':[task['skillRoute']],'evidence':task['evidenceRefs'],'artifacts':task['artifactRefs'],'skipped':[],'risks':risks,'next_action':task['nextAction'],'revision':task['revision'],'runId':task.get('runId'),'nativeStatus':task.get('nativeStatus'),'nativeReceiptRef':task.get('nativeReceiptRef'),'checkpointRefs':task['checkpointRefs'],'reconciledRunId':task.get('reconciledRunId'),'recoveryAction':task.get('recoveryAction'),'recoveryEvidence':task.get('recoveryEvidence',[]),'recoveryPlanSha256':task.get('recoveryPlanSha256'),'recoveryPlanRef':proof.get('remainingPlanRef'),'revisionScope':task.get('revisionScope'),'affectedPages':task.get('revisionPageRefs',[])}
 
+class HarnessArgumentParser(argparse.ArgumentParser):
+    """在原生转发边界前解析 Harness 选项，保留旧调用的余参行为。"""
+    def parse_known_args(self,args=None,namespace=None):
+        action=getattr(self,'native_passthrough_action',None)
+        if action is None or args is None or '--' not in args:
+            return super().parse_known_args(args,namespace)
+        boundary=args.index('--')
+        # 显式边界前只有 Harness 头部；REMAINDER 不能吞掉 task_id 后的选项。
+        previous=action.nargs;action.nargs='*'
+        try:
+            parsed,unknown=super().parse_known_args(args[:boundary],namespace)
+        finally:
+            action.nargs=previous
+        # 多余的头部位置参数不能被覆盖后悄然丢弃。
+        if parsed.arguments:
+            self.error('unexpected arguments before native -- boundary: '+' '.join(parsed.arguments))
+        parsed.arguments=list(args[boundary+1:])
+        return parsed,unknown
+
 def main():
     """提供本地任务创建、状态读取、显式迁移和证据登记入口。"""
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--task-home',default=os.environ.get('DESIGNCRAFT_TASK_HOME',str(Path.home()/'.local/share/designcraft/tasks')))
-    commands=parser.add_subparsers(dest='command',required=True)
+    commands=parser.add_subparsers(dest='command',required=True,parser_class=HarnessArgumentParser)
     create=commands.add_parser('new');create.add_argument('--goal',required=True);create.add_argument('--scope',required=True);create.add_argument('--route',default='designcraft-use')
     show=commands.add_parser('show');show.add_argument('task_id')
     update=commands.add_parser('update');update.add_argument('task_id');update.add_argument('--expected-revision',type=int,required=True);update.add_argument('--json',required=True)
     transition=commands.add_parser('transition');transition.add_argument('task_id');transition.add_argument('state');transition.add_argument('--expected-revision',type=int,required=True);transition.add_argument('--updates-json',default='{}')
     evidence=commands.add_parser('attach-evidence');evidence.add_argument('task_id');evidence.add_argument('file');evidence.add_argument('--expected-revision',type=int,required=True)
-    native=commands.add_parser('native');native.add_argument('task_id');native.add_argument('--expected-revision',type=int,required=True);native.add_argument('--capability-evidence');native.add_argument('--runtime-home');native.add_argument('arguments',nargs=argparse.REMAINDER)
+    native=commands.add_parser('native');native.add_argument('task_id');native.add_argument('--expected-revision',type=int,required=True);native.add_argument('--capability-evidence');native.add_argument('--runtime-home');native.native_passthrough_action=native.add_argument('arguments',nargs=argparse.REMAINDER)
     reconcile=commands.add_parser('reconcile');reconcile.add_argument('task_id')
     for option in ('recovery-report','reopen-receipt','reopen-plan','original-plan','saved-project'):
         reconcile.add_argument('--'+option,dest=option.replace('-','_'))

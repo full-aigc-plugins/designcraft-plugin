@@ -24,7 +24,7 @@
     {
       "id": "ci",
       "layer": "ci",
-      "status": "PASS",
+      "status": "NOT_RUN",
       "runId": "7df6619d-44ee-4b84-818e-2ff2ab0d97de",
       "observedAt": "2026-10-08T16:01:13.162273+00:00",
       "environment": {
@@ -61,7 +61,7 @@
     {
       "id": "host",
       "layer": "host",
-      "status": "PASS",
+      "status": "NOT_RUN",
       "runId": "44945832-d055-4e59-9154-6de34413f8b1",
       "observedAt": "2026-10-08T15:55:33.921948+00:00",
       "environment": {
@@ -96,7 +96,7 @@
     {
       "id": "model-dispatch",
       "layer": "model-dispatch",
-      "status": "PASS",
+      "status": "NOT_RUN",
       "runId": "44945832-d055-4e59-9154-6de34413f8b1",
       "observedAt": "2026-10-08T15:55:33.921948+00:00",
       "environment": {
@@ -132,8 +132,8 @@
       "id": "offline-tests",
       "layer": "offline-tests",
       "status": "PASS",
-      "runId": "599029f5-2a24-4a35-a50a-5985185d9c8d",
-      "observedAt": "2026-10-08T16:01:13.425275+00:00",
+      "runId": "c732c34c-73a9-4c37-9e25-e2eca0f2457a",
+      "observedAt": "2026-10-08T16:19:26.729792+00:00",
       "environment": {
         "os": "Darwin",
         "machine": "arm64",
@@ -141,7 +141,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "938ed992ede6688214f6d9637ba4978d2acc9a2c85803f0f07b66434965458aa",
+        "pluginTreeSha256": "58fc47bfc8e3e3f9aab6ddd88a182c69e553407a1caf75b1dc82531f9247df45",
         "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -166,7 +166,7 @@
         },
         {
           "path": "tests/test_harness_state.py",
-          "sha256": "d64bb8f6e8c24c7ebd861ee2f68a2d258c2cd697682d6cf185784c4cabf96977"
+          "sha256": "141040de1053606b2d9c748b85b8a437b4ead1797c48f254af4d84c8b74d7d85"
         },
         {
           "path": "tests/test_release_candidate.py",
@@ -188,7 +188,7 @@
       "artifacts": [
         {
           "path": "evidence/current-offline-validation.json",
-          "sha256": "20f008b433640d8ccfbc1319b01b657d86bea9046b2ecf88b2f5bd865b178d1d"
+          "sha256": "7e7455435cf2270f0e88766405b6b26cbdab66e1ea7df8c13b66d5cbb012abfc"
         }
       ]
     },
@@ -196,8 +196,8 @@
       "id": "package-validation",
       "layer": "package-validation",
       "status": "PASS",
-      "runId": "599029f5-2a24-4a35-a50a-5985185d9c8d",
-      "observedAt": "2026-10-08T16:01:13.425275+00:00",
+      "runId": "c732c34c-73a9-4c37-9e25-e2eca0f2457a",
+      "observedAt": "2026-10-08T16:19:26.729792+00:00",
       "environment": {
         "os": "Darwin",
         "machine": "arm64",
@@ -205,7 +205,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "938ed992ede6688214f6d9637ba4978d2acc9a2c85803f0f07b66434965458aa",
+        "pluginTreeSha256": "58fc47bfc8e3e3f9aab6ddd88a182c69e553407a1caf75b1dc82531f9247df45",
         "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -230,44 +230,13 @@
         },
         {
           "path": "support-matrix.json",
-          "sha256": "cd24fb40e903b696a2c63ed3c1532c73b20e0fc94e0b480e60217c24c103a190"
+          "sha256": "388d4e8537bd9abccde38fcfe147d618aaf1b45dc89cd090a6b3ca63bd4a24a8"
         }
       ],
       "artifacts": [
         {
           "path": "evidence/current-offline-validation.json",
-          "sha256": "20f008b433640d8ccfbc1319b01b657d86bea9046b2ecf88b2f5bd865b178d1d"
-        }
-      ]
-    },
-    {
-      "id": "shared-contract-handoff",
-      "layer": "compatibility",
-      "status": "PASS",
-      "runId": "624ce973-2531-485c-8c84-5f1b50aad5c8",
-      "observedAt": "2026-10-08T16:12:09.992834+00:00",
-      "environment": {
-        "os": "Darwin",
-        "machine": "arm64",
-        "python": "3.13.5"
-      },
-      "bindings": {
-        "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "938ed992ede6688214f6d9637ba4978d2acc9a2c85803f0f07b66434965458aa",
-        "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
-        "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
-        "nativeVersions": [
-          "0.2.1"
-        ],
-        "expectedNativeBinarySha256": [
-          "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
-        ]
-      },
-      "inputs": [],
-      "artifacts": [
-        {
-          "path": "evidence/source-handoff-20261008.json",
-          "sha256": "62db79c99f60162a9e2f15e7fd3924f2dcda8bdec5d04919b2661ddb75dcf827"
+          "sha256": "7e7455435cf2270f0e88766405b6b26cbdab66e1ea7df8c13b66d5cbb012abfc"
         }
       ]
     },
@@ -284,7 +253,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "938ed992ede6688214f6d9637ba4978d2acc9a2c85803f0f07b66434965458aa",
+        "pluginTreeSha256": "58fc47bfc8e3e3f9aab6ddd88a182c69e553407a1caf75b1dc82531f9247df45",
         "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -328,6 +297,37 @@
         {
           "path": "evidence/native/qualification-20261009/qualify-plan.json",
           "sha256": "d416ec3c88baaceb389625d815af915c65a770cc0d74793dda38f1acc6164530"
+        }
+      ]
+    },
+    {
+      "id": "shared-contract-handoff",
+      "layer": "compatibility",
+      "status": "PASS",
+      "runId": "91b22980-eddf-4c0e-a610-b448156a4229",
+      "observedAt": "2026-10-08T16:19:58.779259+00:00",
+      "environment": {
+        "os": "Darwin",
+        "machine": "arm64",
+        "python": "3.13.5"
+      },
+      "bindings": {
+        "pluginVersion": "0.1.0-dev.1",
+        "pluginTreeSha256": "58fc47bfc8e3e3f9aab6ddd88a182c69e553407a1caf75b1dc82531f9247df45",
+        "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
+        "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+        "nativeVersions": [
+          "0.2.1"
+        ],
+        "expectedNativeBinarySha256": [
+          "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+        ]
+      },
+      "inputs": [],
+      "artifacts": [
+        {
+          "path": "evidence/source-handoff-20261008.json",
+          "sha256": "f9b81c6aad049d7bf3fb3703e903142b4e7c5e3a46f9eb9f9037402d1c279a19"
         }
       ]
     }

@@ -1,5 +1,7 @@
 """Harness 状态机验证持久化、恢复限制和完成证据门禁。"""
 import importlib.util
+import io
+from contextlib import redirect_stdout, redirect_stderr
 import hashlib
 import json
 from pathlib import Path
@@ -545,6 +547,30 @@ class HarnessStateContract(unittest.TestCase):
         task=self._unknown_reconciling_task()
         with self.assertRaisesRegex(ValueError,'reconciliation_checkpoint_verification_required'):
             self.store.transition(task['taskId'],'PREPARED',expected_revision=task['revision'],updates={'reconciledRunId':task['runId'],'recoveryAction':'continue','recoveryEvidence':['I looked at it']})
+
+    def test_native_cli_explicit_boundary_accepts_documented_and_legacy_order(self):
+        forwarded=['run','计划 with spaces.json','--runtime-home','source-runtime','--output','输出目录','--','literal']
+        common=['--expected-revision','0','--runtime-home','host-runtime','--capability-evidence','proof.json']
+        for header in ([self.task['taskId'],*common],[*common,self.task['taskId']]):
+            with self.subTest(header=header), patch.object(sys,'argv',[str(SOURCE),'--task-home',str(self.root),'native',*header,'--',*forwarded]), patch.object(self.harness.TaskStore,'dispatch_native',return_value=self.task) as dispatch, redirect_stdout(io.StringIO()):
+                self.assertEqual(self.harness.main(),0)
+                dispatch.assert_called_once_with(self.task['taskId'],forwarded,0,'proof.json','host-runtime')
+        self.assertEqual(self.store.get(self.task['taskId'])['revision'],0)
+
+    def test_native_cli_preserves_legacy_without_explicit_boundary(self):
+        forwarded=['check','plan.json','--catalog','catalog.json']
+        argv=[str(SOURCE),'--task-home',str(self.root),'native','--expected-revision','0',self.task['taskId'],*forwarded]
+        with patch.object(sys,'argv',argv), patch.object(self.harness.TaskStore,'dispatch_native',return_value=self.task) as dispatch, redirect_stdout(io.StringIO()):
+            self.assertEqual(self.harness.main(),0)
+            dispatch.assert_called_once_with(self.task['taskId'],forwarded,0,None,None)
+
+    def test_native_cli_rejects_invalid_header_before_dispatch(self):
+        for header in ([self.task['taskId'],'--expected-revision','0','--unknown-option','value'],[self.task['taskId']],[self.task['taskId'],'extra','--expected-revision','0']):
+            with self.subTest(header=header), patch.object(sys,'argv',[str(SOURCE),'--task-home',str(self.root),'native',*header,'--','run','plan.json']), patch.object(self.harness.TaskStore,'dispatch_native') as dispatch, redirect_stderr(io.StringIO()):
+                with self.assertRaises(SystemExit) as failure:self.harness.main()
+                self.assertEqual(failure.exception.code,2)
+                dispatch.assert_not_called()
+        self.assertEqual(self.store.get(self.task['taskId'])['revision'],0)
 
     def test_status_output_exposes_required_harness_fields(self):
         result=self.harness.render_status(self.task)

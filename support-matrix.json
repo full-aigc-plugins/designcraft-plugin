@@ -9,7 +9,7 @@
     "packageValidation": "python3 -I -B scripts/validate_package.py"
   },
   "ci": {
-    "status": "PASS",
+    "status": "NOT_RUN",
     "provider": "GitHub Actions",
     "runUrl": "https://github.com/full-aigc-plugins/designcraft-plugin/actions/runs/37805287858",
     "testedCommit": "300953dc7afe45318df759c477b7541965e7b06d",
@@ -33,11 +33,9 @@
   },
   "host": {
     "name": "Codex",
-    "discovery": "PASS",
-    "modelDispatch": "PASS",
-    "testedPlatforms": [
-      "macOS arm64 / Python 3.13.5 / bundled Codex CLI 0.162.0-alpha.2 / gpt-6-astra"
-    ],
+    "discovery": "NOT_RUN",
+    "modelDispatch": "NOT_RUN",
+    "testedPlatforms": [],
     "cliPath": "/Applications/ChatGPT.app/Contents/Resources/codex-cli/bin/codex",
     "scope": "Pinned plugin install, default discovery and nine read-only model-routing cases; native execution/restart/creative acceptance pending"
   },

@@ -3,8 +3,8 @@
   "contractVersion": "designcraft-plugin-handoff/v1",
   "status": "PASS",
   "scope": "OFFLINE_SHARED_CONTRACT_COMPATIBILITY",
-  "runId": "624ce973-2531-485c-8c84-5f1b50aad5c8",
-  "observedAt": "2026-10-08T16:12:09.992834+00:00",
+  "runId": "91b22980-eddf-4c0e-a610-b448156a4229",
+  "observedAt": "2026-10-08T16:19:58.779259+00:00",
   "sourceProject": "designcraft-skills",
   "sourceVersion": "0.1.0-dev.1",
   "pluginProject": "designcraft-plugin",
@@ -159,12 +159,12 @@
       }
     },
     "designcraft-plugin": {
-      "runId": "599029f5-2a24-4a35-a50a-5985185d9c8d",
-      "reportSha256": "20f008b433640d8ccfbc1319b01b657d86bea9046b2ecf88b2f5bd865b178d1d",
-      "testsPassed": 99,
+      "runId": "c732c34c-73a9-4c37-9e25-e2eca0f2457a",
+      "reportSha256": "7e7455435cf2270f0e88766405b6b26cbdab66e1ea7df8c13b66d5cbb012abfc",
+      "testsPassed": 102,
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "938ed992ede6688214f6d9637ba4978d2acc9a2c85803f0f07b66434965458aa",
+        "pluginTreeSha256": "58fc47bfc8e3e3f9aab6ddd88a182c69e553407a1caf75b1dc82531f9247df45",
         "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
