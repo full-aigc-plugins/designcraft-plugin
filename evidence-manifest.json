@@ -36,7 +36,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "129aee3c1da89d3ecdc74df25795961144a81cbf917dbffc8579f8a1311fc308",
+        "pluginTreeSha256": "a273239da68666f1932e6ecfbb8a5b11868b5bf94cea5a0c5747b4852c4611a0",
         "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -69,6 +69,10 @@
           "sha256": "6c756664a643f69882db60454f5643872f902abfc7b9826defef49305319a499"
         },
         {
+          "path": "evidence/host/user-layout-task-count-requalification-20261009.json",
+          "sha256": "821a47057cdf4af922ad4eba0a4cab9387657b1efaeb9d0824538fd972de4186"
+        },
+        {
           "path": "evidence/native/model-create-20261009/task-metadata-requalification.json",
           "sha256": "1bb0caef999e405839e0d2d4dc9a1f240fdff10840558eda1b3d38047104df8e"
         },
@@ -95,7 +99,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "129aee3c1da89d3ecdc74df25795961144a81cbf917dbffc8579f8a1311fc308",
+        "pluginTreeSha256": "a273239da68666f1932e6ecfbb8a5b11868b5bf94cea5a0c5747b4852c4611a0",
         "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -128,6 +132,10 @@
           "sha256": "6c756664a643f69882db60454f5643872f902abfc7b9826defef49305319a499"
         },
         {
+          "path": "evidence/host/user-layout-task-count-requalification-20261009.json",
+          "sha256": "821a47057cdf4af922ad4eba0a4cab9387657b1efaeb9d0824538fd972de4186"
+        },
+        {
           "path": "evidence/native/model-create-20261009/task-metadata-requalification.json",
           "sha256": "1bb0caef999e405839e0d2d4dc9a1f240fdff10840558eda1b3d38047104df8e"
         },
@@ -156,7 +164,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "129aee3c1da89d3ecdc74df25795961144a81cbf917dbffc8579f8a1311fc308",
+        "pluginTreeSha256": "a273239da68666f1932e6ecfbb8a5b11868b5bf94cea5a0c5747b4852c4611a0",
         "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -179,6 +187,10 @@
         {
           "path": "evidence/host/user-layout-signoff-requalification-20261009.json",
           "sha256": "6c756664a643f69882db60454f5643872f902abfc7b9826defef49305319a499"
+        },
+        {
+          "path": "evidence/host/user-layout-task-count-requalification-20261009.json",
+          "sha256": "821a47057cdf4af922ad4eba0a4cab9387657b1efaeb9d0824538fd972de4186"
         },
         {
           "path": "evidence/native/model-create-20261009/task-metadata-requalification.json",
@@ -205,7 +217,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "129aee3c1da89d3ecdc74df25795961144a81cbf917dbffc8579f8a1311fc308",
+        "pluginTreeSha256": "a273239da68666f1932e6ecfbb8a5b11868b5bf94cea5a0c5747b4852c4611a0",
         "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -263,6 +275,10 @@
           "sha256": "6c756664a643f69882db60454f5643872f902abfc7b9826defef49305319a499"
         },
         {
+          "path": "evidence/host/user-layout-task-count-requalification-20261009.json",
+          "sha256": "821a47057cdf4af922ad4eba0a4cab9387657b1efaeb9d0824538fd972de4186"
+        },
+        {
           "path": "evidence/native/model-create-20261009/task-metadata-requalification.json",
           "sha256": "1bb0caef999e405839e0d2d4dc9a1f240fdff10840558eda1b3d38047104df8e"
         },
@@ -285,7 +301,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "129aee3c1da89d3ecdc74df25795961144a81cbf917dbffc8579f8a1311fc308",
+        "pluginTreeSha256": "a273239da68666f1932e6ecfbb8a5b11868b5bf94cea5a0c5747b4852c4611a0",
         "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -327,6 +343,10 @@
           "sha256": "6c756664a643f69882db60454f5643872f902abfc7b9826defef49305319a499"
         },
         {
+          "path": "evidence/host/user-layout-task-count-requalification-20261009.json",
+          "sha256": "821a47057cdf4af922ad4eba0a4cab9387657b1efaeb9d0824538fd972de4186"
+        },
+        {
           "path": "evidence/native/model-create-20261009/task-metadata-requalification.json",
           "sha256": "1bb0caef999e405839e0d2d4dc9a1f240fdff10840558eda1b3d38047104df8e"
         },
@@ -349,7 +369,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "129aee3c1da89d3ecdc74df25795961144a81cbf917dbffc8579f8a1311fc308",
+        "pluginTreeSha256": "a273239da68666f1932e6ecfbb8a5b11868b5bf94cea5a0c5747b4852c4611a0",
         "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -368,6 +388,10 @@
         {
           "path": "evidence/host/user-layout-signoff-requalification-20261009.json",
           "sha256": "6c756664a643f69882db60454f5643872f902abfc7b9826defef49305319a499"
+        },
+        {
+          "path": "evidence/host/user-layout-task-count-requalification-20261009.json",
+          "sha256": "821a47057cdf4af922ad4eba0a4cab9387657b1efaeb9d0824538fd972de4186"
         },
         {
           "path": "evidence/native/model-create-20261009/task-metadata-requalification.json",
@@ -396,7 +420,7 @@
       },
       "bindings": {
         "pluginVersion": "0.1.0-dev.1",
-        "pluginTreeSha256": "129aee3c1da89d3ecdc74df25795961144a81cbf917dbffc8579f8a1311fc308",
+        "pluginTreeSha256": "a273239da68666f1932e6ecfbb8a5b11868b5bf94cea5a0c5747b4852c4611a0",
         "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
         "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
         "nativeVersions": [
@@ -440,6 +464,10 @@
         {
           "path": "evidence/host/user-layout-signoff-requalification-20261009.json",
           "sha256": "6c756664a643f69882db60454f5643872f902abfc7b9826defef49305319a499"
+        },
+        {
+          "path": "evidence/host/user-layout-task-count-requalification-20261009.json",
+          "sha256": "821a47057cdf4af922ad4eba0a4cab9387657b1efaeb9d0824538fd972de4186"
         },
         {
           "path": "evidence/native-capabilities.json",

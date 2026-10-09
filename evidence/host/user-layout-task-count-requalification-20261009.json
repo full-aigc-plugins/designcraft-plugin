@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-09T01:55:03.464003+00:00",
+  "scope": "Correct task summary after human layout acceptance; no code or runtime changes",
+  "taskBeforeSha256": "91eb10c1e0661eb2bede3ed332d682c49d09a2d4aa99f8341a5b663148525047",
+  "taskAfterSha256": "bab2f9761655df39d6bf4d4bcf3969c6d3c7ee9d665d91dabdb9b5febc106bb6",
+  "previousBindings": {
+    "pluginVersion": "0.1.0-dev.1",
+    "pluginTreeSha256": "129aee3c1da89d3ecdc74df25795961144a81cbf917dbffc8579f8a1311fc308",
+    "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
+    "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+    "nativeVersions": [
+      "0.2.1"
+    ],
+    "expectedNativeBinarySha256": [
+      "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+    ]
+  },
+  "currentMetadataBindings": {
+    "pluginVersion": "0.1.0-dev.1",
+    "pluginTreeSha256": "a273239da68666f1932e6ecfbb8a5b11868b5bf94cea5a0c5747b4852c4611a0",
+    "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
+    "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+    "nativeVersions": [
+      "0.2.1"
+    ],
+    "expectedNativeBinarySha256": [
+      "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+    ]
+  },
+  "unchangedNonTaskFileCount": 136,
+  "recoveryArchiveFilesVerified": 23,
+  "recoveryTaskState": "RECONCILING",
+  "recoveryTaskRevision": 5,
+  "recoverySuffixExecuted": false,
+  "runtimeAvailableAtPreviouslyRecordedLocation": false,
+  "originalObservationRunIdsAndDatesRetained": true,
+  "completeAcceptance": false,
+  "releaseAllowed": false
+}
