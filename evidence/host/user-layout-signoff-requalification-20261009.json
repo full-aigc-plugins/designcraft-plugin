@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "scope": "Explicit human layout acceptance and one task checkbox only; no executable changes or rerun claims",
+  "recordedAt": "2026-10-09T01:47:38.258524+00:00",
+  "repositoryBeforeCommit": "444818bddd5d69240d048ffd367b91a107395ad8",
+  "taskPath": "openspec/changes/harden-designcraft-plugin-delivery/tasks.md",
+  "taskBeforeSha256": "97875e85da03bbb5098a6aa9d916233133d02bd5a594a0851c2e93481c4d5339",
+  "taskAfterSha256": "91eb10c1e0661eb2bede3ed332d682c49d09a2d4aa99f8341a5b663148525047",
+  "unchangedNonTaskFilesVerified": 136,
+  "previousBindings": {
+    "pluginVersion": "0.1.0-dev.1",
+    "pluginTreeSha256": "0291a61121420e2a6edba419d7c31e84260de68550575995a9cab218ef832f41",
+    "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
+    "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+    "nativeVersions": [
+      "0.2.1"
+    ],
+    "expectedNativeBinarySha256": [
+      "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+    ]
+  },
+  "currentMetadataBindings": {
+    "pluginVersion": "0.1.0-dev.1",
+    "pluginTreeSha256": "129aee3c1da89d3ecdc74df25795961144a81cbf917dbffc8579f8a1311fc308",
+    "sourceLockSha256": "cbe7ca8bacaa5562628202f0b7805ce8342121c286002fecc749a5a0d34d18b9",
+    "runtimeLockSha256": "d6a81aac9587fe5fa46b1b2518083eafe8c2217422b11fbd3b6b44be718d512f",
+    "nativeVersions": [
+      "0.2.1"
+    ],
+    "expectedNativeBinarySha256": [
+      "e18578b28f43d6c6854ded930065feed5c9ee8af6a2e51338aa675ba4a5723a8"
+    ]
+  },
+  "humanReviewPath": "evidence/native/model-revision-export-20261009/human-layout-acceptance/review.json",
+  "humanReviewSha256": "018f62b2c246ee35959159bbd49b52a42a92c1fcbd89567a7fa3837a17ceb70c",
+  "originalObservationRunIdsAndDatesRetained": true,
+  "creativeLayerPromoted": false,
+  "completeAcceptance": false,
+  "releaseAllowed": false
+}
