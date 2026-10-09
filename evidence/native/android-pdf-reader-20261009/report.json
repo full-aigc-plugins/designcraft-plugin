@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-09T02:02:39.330577+00:00",
+  "scope": "ANDROID_EXISTING_WPS_PDF_OPEN_AND_RENDER_SMOKE",
+  "status": "PASS",
+  "device": {
+    "model": "MI 9",
+    "android": "11",
+    "abi": "arm64-v8a",
+    "screenPixels": [
+      1080,
+      2340
+    ]
+  },
+  "reader": {
+    "package": "cn.wps.moffice_eng.xiaomi.lite",
+    "versionName": "4.0.4",
+    "versionCode": 404,
+    "activity": "cn.wps.moffice_eng.xiaomi.lite/cn.wps.moffice.plugin.app.multiactivity.pdf.PDFActivity1",
+    "launchState": "WARM",
+    "launchStatus": "ok",
+    "totalTimeMs": 442
+  },
+  "artifact": {
+    "path": "evidence/native/model-revision-export-20261009/after/final.pdf",
+    "bytes": 552605,
+    "sha256": "77b626d585c459967753008759cbf787d0c61a7e21a4e2558b2caad71d0b2414",
+    "devicePath": "/sdcard/Download/designcraft-acceptance/final.pdf",
+    "deviceSha256": "77b626d585c459967753008759cbf787d0c61a7e21a4e2558b2caad71d0b2414"
+  },
+  "observations": [
+    "WPS opened the existing PDF without installation; no login or upload action was invoked.",
+    "Thumbnail view rendered pages 1 through 4.",
+    "Page 3 title A Considered Grid, three-column text and pull quote are visible.",
+    "Page 4 heading, four color swatches and table are visible.",
+    "Visual observations are automated; no claim of editorial review or full pixel comparison."
+  ],
+  "operations": [
+    "ADB push local final.pdf to isolated Download/designcraft-acceptance directory",
+    "Explicit VIEW intent to existing WPS PDF entrance",
+    "Verify device SHA-256 equals source PDF",
+    "Capture initial view and XML hierarchy",
+    "Tap thumbnail control; capture four-page overview",
+    "Select page 3; dismiss WPS promotional overlay; capture page",
+    "Scroll to page 4; capture page"
+  ],
+  "warnings": [
+    "uiautomator emitted MIUI theme_compatibility.xml ENOENT diagnostics but produced a readable hierarchy file.",
+    "Initial WPS overlay obscured part of the page; it was dismissed for page 3 observation."
+  ],
+  "notVerified": [
+    "EPUB reading: no dedicated reader identified; browser intent alone is not proof",
+    "IDML interoperability",
+    "PDF/X external certification",
+    "Full page-by-page visual acceptance on Android",
+    "Native Designcraft runtime or Android host/plugin support",
+    "Recovery suffix execution"
+  ],
+  "deviceChanges": [
+    "Created /sdcard/Download/designcraft-acceptance with copied PDF and UI hierarchy; left available for user review",
+    "Opened existing WPS once and reused its session; no force-stop, installation or native Designcraft instance"
+  ],
+  "completeAcceptance": false,
+  "releaseAllowed": false,
+  "openSpecTaskClosed": null,
+  "planProgress": {
+    "completed": 65,
+    "total": 73,
+    "open": 8
+  }
+}
