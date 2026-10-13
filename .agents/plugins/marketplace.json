@@ -1,0 +1,27 @@
+{
+  "name": "full-aigc-plugins-designcraft",
+  "interface": {
+    "displayName": "designcraft"
+  },
+  "plugins": [
+    {
+      "name": "designcraft",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/full-aigc-plugins/designcraft-plugin.git",
+        "ref": "main"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Creativity",
+      "version": "0.1.0-dev.1",
+      "description": "页面排版与出版；本地候选，完整首用与宿主验收未完成。",
+      "interface": {
+        "displayName": "designcraft",
+        "shortDescription": "Page layout and publishing"
+      }
+    }
+  ]
+}
