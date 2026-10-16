@@ -68,7 +68,7 @@ def validate_host_manifest(manifest):
     for field in ('description','homepage','repository','license'):
         if field in host and host[field]!=manifest.get(field):raise ValueError('plugin_host_manifest_identity_mismatch')
     if 'skills' in host and host['skills']!='./skills/':raise ValueError('plugin_host_manifest_component_mismatch')
-    if 'mcpServers' in host and (host['mcpServers']!='./.mcp.json' or not (ROOT/'.mcp.json').is_file()):raise ValueError('plugin_host_manifest_component_mismatch')
+    if 'mcpServers' in host and (host['mcpServers'] not in ('./.mcp.json', './.codex-plugin/mcp.json') or not (ROOT/host['mcpServers']).is_file()):raise ValueError('plugin_host_manifest_component_mismatch')
     if 'interface' in host:validate_interface(host['interface'])
     return host
 

@@ -177,7 +177,7 @@ class SnapshotContract(unittest.TestCase):
             self.clear_host_acceptance(fixture)
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('valid_host_manifest_validator',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
-            icon=fixture/'assets/composer.png';icon.parent.mkdir();icon.write_bytes(b'\x89PNG\r\n\x1a\nfixture')
+            icon=fixture/'assets/composer.png';icon.parent.mkdir(exist_ok=True);icon.write_bytes(b'\x89PNG\r\n\x1a\nfixture')
             manifest_path=fixture/'plugin.json';manifest=json.loads(manifest_path.read_text())
             manifest['extensions']={'com.openai':{'interface':{'composerIcon':'./assets/composer.png'}}}
             manifest_path.write_text(json.dumps(manifest))
