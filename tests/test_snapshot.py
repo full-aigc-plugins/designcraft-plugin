@@ -62,12 +62,12 @@ class SnapshotContract(unittest.TestCase):
         p=ROOT/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('validator',p)
         module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
         result=module.validate()
-        self.assertEqual((result['skills'],result['externalSkills'],result['localSkills']),(7,6,1))
+        self.assertEqual((result['skills'],result['externalSkills'],result['localSkills']),(14,6,8))
         self.assertEqual(result['hostManifest'],'PASS')
 
     def test_candidate_identity_is_schema_checked_and_independent_of_plugin_version(self):
         with tempfile.TemporaryDirectory() as temp:
-            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__','node_modules','dist','.local'))
             self.clear_host_acceptance(fixture)
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('candidate_validator',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
@@ -78,7 +78,7 @@ class SnapshotContract(unittest.TestCase):
 
     def test_candidate_identity_mismatch_is_rejected_before_snapshot_acceptance(self):
         with tempfile.TemporaryDirectory() as temp:
-            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__','node_modules','dist','.local'))
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('candidate_validator_bad',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
             path=fixture/'candidate-source.json';original=json.loads(path.read_text())
@@ -91,7 +91,7 @@ class SnapshotContract(unittest.TestCase):
 
     def test_external_script_drift_invalidates_the_bundled_snapshot(self):
         with tempfile.TemporaryDirectory() as temp:
-            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__','node_modules','dist','.local'))
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('drift_validator',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
             script=fixture/'skills/designcraft-use/scripts/command_gateway.py';script.write_text(script.read_text()+'\n# source drift\n')
@@ -100,7 +100,7 @@ class SnapshotContract(unittest.TestCase):
 
     def test_support_matrix_rejects_unverified_host_claims_and_status_drift(self):
         with tempfile.TemporaryDirectory() as temp:
-            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__','node_modules','dist','.local'))
             self.record_host_evidence(fixture,['Codex CLI 0.147.0 on macOS arm64'])
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('support_validator',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
@@ -110,7 +110,7 @@ class SnapshotContract(unittest.TestCase):
 
     def test_host_evidence_path_escape_is_rejected(self):
         with tempfile.TemporaryDirectory() as temp:
-            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__','node_modules','dist','.local'))
             self.record_host_evidence(fixture,['Codex CLI 0.147.0 on macOS arm64'])
             manifest_path=fixture/'evidence-manifest.json';manifest=json.loads(manifest_path.read_text())
             record=next(item for item in manifest['records'] if item.get('id')=='host')
@@ -122,7 +122,7 @@ class SnapshotContract(unittest.TestCase):
 
     def test_nonstandard_plugin_manifest_field_and_name_are_rejected(self):
         with tempfile.TemporaryDirectory() as temp:
-            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__','node_modules','dist','.local'))
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('manifest_validator',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
             path=fixture/'plugin.json';manifest=json.loads(path.read_text());manifest['skills']=[];path.write_text(json.dumps(manifest))
@@ -131,7 +131,7 @@ class SnapshotContract(unittest.TestCase):
 
     def test_unimplemented_host_extensions_are_rejected(self):
         with tempfile.TemporaryDirectory() as temp:
-            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__','node_modules','dist','.local'))
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('extension_validator',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
             path=fixture/'plugin.json';manifest=json.loads(path.read_text());manifest['extensions']={'mcp':{'servers':{'designcraft':{}}}};path.write_text(json.dumps(manifest))
@@ -140,7 +140,7 @@ class SnapshotContract(unittest.TestCase):
 
     def test_command_hook_and_mcp_declarations_without_implementations_are_rejected(self):
         with tempfile.TemporaryDirectory() as temp:
-            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__','node_modules','dist','.local'))
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('component_validator',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
             path=fixture/'plugin.json';original=json.loads(path.read_text())
@@ -152,7 +152,7 @@ class SnapshotContract(unittest.TestCase):
 
     def test_declared_icon_resource_must_exist_inside_assets(self):
         with tempfile.TemporaryDirectory() as temp:
-            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__','node_modules','dist','.local'))
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('resource_validator',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
             path=fixture/'plugin.json';manifest=json.loads(path.read_text())
@@ -163,7 +163,7 @@ class SnapshotContract(unittest.TestCase):
 
     def test_codex_compatibility_manifest_must_match_portable_identity(self):
         with tempfile.TemporaryDirectory() as temp:
-            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__','node_modules','dist','.local'))
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('host_manifest_validator',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
             host=fixture/'.codex-plugin/plugin.json';host.parent.mkdir(exist_ok=True)
@@ -173,7 +173,7 @@ class SnapshotContract(unittest.TestCase):
 
     def test_matching_codex_compatibility_manifest_and_valid_icon_are_accepted(self):
         with tempfile.TemporaryDirectory() as temp:
-            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__','node_modules','dist','.local'))
             self.clear_host_acceptance(fixture)
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('valid_host_manifest_validator',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
@@ -187,7 +187,7 @@ class SnapshotContract(unittest.TestCase):
 
     def test_non_semver_plugin_version_is_rejected(self):
         with tempfile.TemporaryDirectory() as temp:
-            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__','node_modules','dist','.local'))
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('semver_validator',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
             path=fixture/'plugin.json';manifest=json.loads(path.read_text());manifest['version']='dev-latest';path.write_text(json.dumps(manifest))
@@ -196,7 +196,7 @@ class SnapshotContract(unittest.TestCase):
 
     def test_local_harness_cannot_leak_into_the_external_source_lock(self):
         with tempfile.TemporaryDirectory() as temp:
-            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__','node_modules','dist','.local'))
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('ownership_validator',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
             path=fixture/'candidate-source.json';source=json.loads(path.read_text());source['bundledSourceIdentity']['skills'].append('designcraft-harness');path.write_text(json.dumps(source))
@@ -205,7 +205,7 @@ class SnapshotContract(unittest.TestCase):
 
     def test_plugin_local_skill_cannot_ship_broken_or_cross_skill_references(self):
         with tempfile.TemporaryDirectory() as temp:
-            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__'))
+            fixture=Path(temp)/'plugin';shutil.copytree(ROOT,fixture,ignore=shutil.ignore_patterns('openspec','__pycache__','node_modules','dist','.local'))
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('local_reference_validator',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
             skill=fixture/'skills/designcraft-harness/SKILL.md'

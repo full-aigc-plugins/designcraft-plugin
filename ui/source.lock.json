@@ -1,0 +1,11 @@
+{
+  "name": "designcraft",
+  "title": "DesignCraft",
+  "repository": "https://github.com/full-aigc-plugins/designcraft",
+  "commit": "a184db6f8f2d11bc20832c70ac438576d3d2dd1e",
+  "version": "0.8.0",
+  "sourceStatus": "fork",
+  "releaseRepository": "full-aigc-plugins/designcraft-plugin",
+  "patches": [],
+  "fontInput": "fonts.lock.json"
+}

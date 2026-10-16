@@ -1,0 +1,34 @@
+{
+  "status": "local-unreleased",
+  "sourcePackage": "full-aigc-skills/designcraft-skills",
+  "skills": [
+    {
+      "name": "designcraft-editor",
+      "sha256": "fcb6d3f69bff92f2130dabbf17580a1bb72faf2e6479b255d757a83dfc3c12a2"
+    },
+    {
+      "name": "designcraft-brochure",
+      "sha256": "2ab59866055d08c6928f9171c014b286f6efef5ab70fa4d5daa4a01d94c50a6a"
+    },
+    {
+      "name": "designcraft-catalog",
+      "sha256": "9b6e9abcb51f4c61caf92761807abbc6399773ff503d2282c7e59773ba37f838"
+    },
+    {
+      "name": "designcraft-newsletter",
+      "sha256": "032bef27cc1feb01da63643c7d8776207449626c140d3d733c7414dcf2426cb5"
+    },
+    {
+      "name": "designcraft-poster-layout",
+      "sha256": "c34a877f266b31a8cbbba336e7354571f77caac56aa692d9c002b0f628bacc51"
+    },
+    {
+      "name": "designcraft-long-document",
+      "sha256": "adb5a040b6d737d0d6553777224f1836ea09210e8440242fd8f60972bb71c38d"
+    },
+    {
+      "name": "designcraft-print-preflight",
+      "sha256": "3082646665c6ca8e62c5c18fc10b6eee1dd312714a551c2509834e8c30fb22ab"
+    }
+  ]
+}

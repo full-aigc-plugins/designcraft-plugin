@@ -7,6 +7,13 @@
   "extensions": {
     "ai.nanoco.nanoclaw": {
       "agentName": "designcraft"
+    },
+    "com.openai": {
+      "interface": {
+        "displayName": "DesignCraft Use",
+        "logo": "./assets/official-logo.png",
+        "logoDark": "./assets/official-logo.png"
+      }
     }
   }
 }

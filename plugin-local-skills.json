@@ -6,6 +6,48 @@
       "path": "skills/designcraft-harness",
       "owner": "designcraft-plugin",
       "kind": "plugin-local"
+    },
+    {
+      "name": "designcraft-editor",
+      "path": "skills/designcraft-editor",
+      "owner": "designcraft-plugin",
+      "kind": "plugin-local"
+    },
+    {
+      "name": "designcraft-brochure",
+      "path": "skills/designcraft-brochure",
+      "owner": "designcraft-plugin",
+      "kind": "plugin-local"
+    },
+    {
+      "name": "designcraft-catalog",
+      "path": "skills/designcraft-catalog",
+      "owner": "designcraft-plugin",
+      "kind": "plugin-local"
+    },
+    {
+      "name": "designcraft-newsletter",
+      "path": "skills/designcraft-newsletter",
+      "owner": "designcraft-plugin",
+      "kind": "plugin-local"
+    },
+    {
+      "name": "designcraft-poster-layout",
+      "path": "skills/designcraft-poster-layout",
+      "owner": "designcraft-plugin",
+      "kind": "plugin-local"
+    },
+    {
+      "name": "designcraft-long-document",
+      "path": "skills/designcraft-long-document",
+      "owner": "designcraft-plugin",
+      "kind": "plugin-local"
+    },
+    {
+      "name": "designcraft-print-preflight",
+      "path": "skills/designcraft-print-preflight",
+      "owner": "designcraft-plugin",
+      "kind": "plugin-local"
     }
   ]
 }
