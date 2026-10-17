@@ -1,6 +1,7 @@
 """校验插件候选的自包含技能快照；不声明来源已发布。"""
 from pathlib import Path
 from pathlib import PurePosixPath
+import runpy
 import hashlib
 import importlib.util
 import json
@@ -59,7 +60,7 @@ def validate_host_manifest(manifest):
     if not path.exists():return None
     if not path.is_file():raise ValueError('plugin_host_manifest_invalid')
     host=json.loads(path.read_text(encoding='utf-8'))
-    allowed={'name','version','description','author','homepage','repository','license','keywords','skills','interface'}
+    allowed={'name','version','description','author','homepage','repository','license','keywords','skills','interface','mcpServers'}
     if not isinstance(host,dict) or set(host)-allowed or host.get('name')!=manifest.get('name'):
         raise ValueError('plugin_host_manifest_invalid')
     if host.get('version')!=manifest.get('version'):
@@ -67,6 +68,7 @@ def validate_host_manifest(manifest):
     for field in ('description','homepage','repository','license'):
         if field in host and host[field]!=manifest.get(field):raise ValueError('plugin_host_manifest_identity_mismatch')
     if 'skills' in host and host['skills']!='./skills/':raise ValueError('plugin_host_manifest_component_mismatch')
+    if 'mcpServers' in host and (host['mcpServers'] not in ('./.mcp.json', './.codex-plugin/mcp.json') or not (ROOT/host['mcpServers']).is_file()):raise ValueError('plugin_host_manifest_component_mismatch')
     if 'interface' in host:validate_interface(host['interface'])
     return host
 
@@ -145,7 +147,7 @@ def validate():
     if 'keywords' in manifest and (not isinstance(manifest['keywords'],list) or any(not isinstance(item,str) for item in manifest['keywords'])):raise ValueError('plugin_manifest_invalid')
     extensions=manifest.get('extensions',{})
     if not isinstance(extensions,dict):raise ValueError('plugin_manifest_invalid')
-    if set(extensions)-{'com.openai'}:raise ValueError('plugin_extension_not_implemented')
+    if set(extensions)-{'com.openai','ai.nanoco.nanoclaw'}:raise ValueError('plugin_extension_not_implemented')
     if 'com.openai' in extensions:validate_openai_extension(extensions['com.openai'])
     host_manifest=validate_host_manifest(manifest)
     if not extensions and host_manifest and 'interface' in host_manifest:validate_interface(host_manifest['interface'])
@@ -172,7 +174,7 @@ def validate():
     local_names=[item.get('name') for item in local.get('skills',[]) if isinstance(item,dict)]
     if local.get('schemaVersion')!=1 or len(local_names)!=len(local.get('skills',[])) or len(set(local_names))!=len(local_names) or external_names.intersection(local_names):raise ValueError('local_skill_manifest_invalid')
     actual={p.name for p in (ROOT/'skills').iterdir() if p.is_dir()}
-    if actual!=external_names|set(local_names) or any(not n.startswith(manifest['name']+'-') for n in external_names) or set(local_names)!={'designcraft-harness'}:raise ValueError('skill_set_mismatch')
+    if actual!=external_names|set(local_names) or any(not n.startswith(manifest['name']+'-') for n in external_names) or set(local_names)!={'designcraft-harness'}|runpy.run_path(str(ROOT/'scripts/validate_editor_scenes.py'))['candidate_names'](ROOT):raise ValueError('skill_set_mismatch')
     files={str(p.relative_to(ROOT/'skills')):hashlib.sha256(p.read_bytes()).hexdigest() for name in sorted(external_names) for p in sorted((ROOT/'skills'/name).rglob('*')) if p.is_file() and not transient_path(p.relative_to(ROOT/'skills'))}
     if files!=provenance['skillFileSha256']:raise ValueError('snapshot_drift')
     for name in sorted(external_names):
@@ -184,7 +186,7 @@ def validate():
         if item.get('owner')!='designcraft-plugin' or item.get('kind')!='plugin-local' or not text.startswith('---\n') or f"name: {item['name']}\n" not in text or 'description:' not in text:raise ValueError('local_skill_invalid')
         if len(text.encode('utf-8'))>7500:raise ValueError('skill_host_byte_budget_exceeded:'+item['name'])
         validate_local_skill_references(skill)
-        validate_invocation_policy(skill,False)
+        validate_invocation_policy(skill,item['name'] in runpy.run_path(str(ROOT/'scripts/validate_editor_scenes.py'))['candidate_names'](ROOT))
     validate_host_platform_evidence(matrix)
     return {'plugin':manifest['name'],'skills':len(actual),'externalSkills':len(external_names),'localSkills':len(local_names),'snapshot':'PASS','hostManifest':'PASS' if host_manifest else 'NOT_PRESENT','sourceRelease':'UNPUBLISHED','hostAcceptance':'NOT_RUN'}
 

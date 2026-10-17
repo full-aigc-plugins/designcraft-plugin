@@ -1,0 +1,48 @@
+{
+  "schema": "craft-scenario-playbooks/v1",
+  "application": "designcraft",
+  "id": "brochure",
+  "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
+  "steps": [
+    {
+      "purpose": "建立正文段落样式",
+      "command": "style.paragraph.create",
+      "params": {
+        "name": "Body"
+      }
+    },
+    {
+      "purpose": "创建标题与正文框，坐标为pt",
+      "command": "frame.create",
+      "params": {
+        "rect": [
+          36,
+          36,
+          559,
+          180
+        ],
+        "content": "text",
+        "text": "产品主张与事实依据"
+      }
+    },
+    {
+      "purpose": "按两栏设定文字容器",
+      "command": "object.textFrameOptions",
+      "params": {
+        "columns": 2,
+        "gutter": 12
+      }
+    },
+    {
+      "purpose": "检查溢出与图像质量",
+      "command": "preflight.run",
+      "params": {
+        "minPpi": 150
+      }
+    }
+  ],
+  "check": "逐页检查标题层级、文字溢出、图像有效分辨率，并导出源工程与PDF。",
+  "boundary": "故事ID与框ID从创建返回值读取；不能在未选中文字时假定样式已经应用。",
+  "templateOnly": true,
+  "argumentPolicy": "示例参数必须按当前输入、选择和实际返回ID替换；$变量先解析，数组变量整字段替换，不能将本文件直接当原生CLI脚本执行。"
+}

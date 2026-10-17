@@ -1,6 +1,6 @@
 {
   "name": "designcraft",
-  "version": "0.1.0-dev.1",
+  "version": "0.1.0-dev.20261017.3",
   "description": "页面排版与出版；本地候选，完整首用与宿主验收未完成。",
   "author": {
     "name": "Full AIGC Plugins"
@@ -14,11 +14,23 @@
     "development-release"
   ],
   "interface": {
-    "displayName": "designcraft",
+    "displayName": "DesignCraft Use",
     "shortDescription": "Page layout and publishing",
     "longDescription": "designcraft 页面排版与出版：包含来自 designcraft-skills 的六项自包含技能快照及逐文件摘要；宿主发现与只读模型路由已验证，原生执行、完整领域流程与创作验收仍开放。",
     "developerName": "Full AIGC Plugins",
-    "websiteURL": "https://github.com/full-aigc-plugins/designcraft-plugin"
+    "websiteURL": "https://github.com/full-aigc-plugins/designcraft-plugin",
+    "logo": "./assets/official-logo.png",
+    "logoDark": "./assets/official-logo.png"
   },
-  "skills": "./skills/"
+  "skills": "./skills/",
+  "mcpServers": {
+    "designcraft-editor": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "ui/bootstrap.mjs"
+      ],
+      "cwd": "./"
+    }
+  }
 }

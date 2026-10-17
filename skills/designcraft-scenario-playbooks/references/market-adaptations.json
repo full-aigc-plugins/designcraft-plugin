@@ -1,0 +1,871 @@
+{
+  "schema": "craft-market-adaptations/v1",
+  "application": "designcraft",
+  "skill": "designcraft-scenario-playbooks",
+  "counting": "existing recipes with adapted task guidance; not additional mapped scenes",
+  "sources": [
+    {
+      "id": "suzheng/k2f/k2f-idml",
+      "repository": "suzheng/k2f",
+      "commit": "d28f3672ccadf8b537ceca227bb503c9dd2ffba3",
+      "path": "skills/expert/k2f-idml/SKILL.md",
+      "url": "https://github.com/suzheng/k2f/blob/d28f3672ccadf8b537ceca227bb503c9dd2ffba3/skills/expert/k2f-idml/SKILL.md",
+      "sha256": "3f498db1cd0702850ed18d23feb72b7fc603cd16e9da78b18854ce1eb7564fc9",
+      "bytes": 6092,
+      "market": "skills.sh",
+      "marketUrl": "https://skills.sh/suzheng/k2f/k2f-idml",
+      "repositoryLicense": "NOASSERTION",
+      "declaredSkillLicense": "UNDECLARED",
+      "reuse": "仅借鉴操作事实并原创适配，不复制正文、代码或素材",
+      "reading": "selected sections",
+      "readExcerptSha256": "2dfa4520828d71d9ea7d9971dd84cb312be3089e6821ec04bcf390f00d227e7a"
+    },
+    {
+      "id": "skillhub:indesign-script-for-claw",
+      "market": "SkillHub",
+      "marketUrl": "https://skillhub.cn/",
+      "downloadUrl": "https://api.skillhub.cn/api/v1/download?slug=indesign-script-for-claw",
+      "slug": "indesign-script-for-claw",
+      "version": "1.1.51",
+      "sha256": "fb914f1378f595702bdd447bfeaadd418a4ca06e2b1614f756f723a4e7014e38",
+      "bytes": 7017,
+      "declaredSkillLicense": "UNDECLARED",
+      "reuse": "仅借鉴操作事实并原创适配，不复制正文、代码或素材",
+      "reading": "selected sections"
+    },
+    {
+      "id": "skillhub:adobe-indesign-2026",
+      "market": "SkillHub",
+      "marketUrl": "https://skillhub.cn/",
+      "downloadUrl": "https://api.skillhub.cn/api/v1/download?slug=adobe-indesign-2026",
+      "slug": "adobe-indesign-2026",
+      "version": "2.0.2",
+      "sha256": "5a8c23020003e20f0290da4f80dc1278e2029a696b9d8706a0c889b7252f94a6",
+      "bytes": 21682,
+      "declaredSkillLicense": "MIT",
+      "reuse": "仅借鉴操作事实并原创适配，不复制正文、代码或素材",
+      "reading": "selected sections"
+    },
+    {
+      "id": "sfkislev/flue/indesign",
+      "repository": "sfkislev/flue",
+      "commit": "6c542fe2e490f47cd984abfc3b78e95021611fd2",
+      "path": "skills/indesign/SKILL.md",
+      "url": "https://github.com/sfkislev/flue/blob/6c542fe2e490f47cd984abfc3b78e95021611fd2/skills/indesign/SKILL.md",
+      "sha256": "64eb7d7305667f021101a9e359eeb6fc7b1421b1024b5c93062d0d65c48267d2",
+      "bytes": 1689,
+      "market": "skills.sh",
+      "marketUrl": "https://skills.sh/sfkislev/flue/indesign",
+      "repositoryLicense": "MIT",
+      "declaredSkillLicense": "UNDECLARED",
+      "reuse": "仅借鉴操作事实并原创适配，不复制正文、代码或素材",
+      "reading": "selected sections",
+      "readExcerptSha256": "7e9a892e35ae9248ad39333d2ed0449b4281fe22c9500028483b70c7994586ad"
+    },
+    {
+      "id": "ie3jp/illustrator-mcp-server/illustrator-preflight",
+      "repository": "ie3jp/illustrator-mcp-server",
+      "commit": "57c5c101a5192c61535493f39b653e6f92b8eb29",
+      "path": "plugins/ie3-design-bridge/skills/illustrator-preflight/SKILL.md",
+      "url": "https://github.com/ie3jp/illustrator-mcp-server/blob/57c5c101a5192c61535493f39b653e6f92b8eb29/plugins/ie3-design-bridge/skills/illustrator-preflight/SKILL.md",
+      "sha256": "aa83213c4cfd324eaee3208b7951f44598b6fcc065d68fda588195d95cc34f81",
+      "bytes": 8726,
+      "market": "skills.sh",
+      "marketUrl": "https://skills.sh/ie3jp/illustrator-mcp-server/illustrator-preflight",
+      "repositoryLicense": "MIT",
+      "declaredSkillLicense": "UNDECLARED",
+      "reuse": "仅借鉴操作事实并原创适配，不复制正文、代码或素材",
+      "reading": "selected sections",
+      "readExcerptSha256": "b7108b91efcd7652d86be7579e3a8b643a23fb0c5d90889c02339814bf287f2b"
+    }
+  ],
+  "adaptations": [
+    {
+      "id": "two-page-product-sheet",
+      "title": "先规划阅读顺序再排页",
+      "sourceIds": [
+        "suzheng/k2f/k2f-idml",
+        "skillhub:indesign-script-for-claw"
+      ],
+      "adaptation": "先列读者、用途、必须原样保留的价格与声明，再分配两页角色：第一页重点价值，第二页规格与行动入口。标题、正文与说明各有明确层级，然后创建实际文本框。",
+      "taskCheck": "两页各有清晰职责，关键事实完整，原生对象仍可编辑。",
+      "capabilityBoundary": "不把K2F、InDesign JSX或漫画排版器直接装进Craft。",
+      "existingRecipe": "skills/designcraft-scenario-playbooks/references/recipes.json",
+      "recipe": {
+        "id": "two-page-product-sheet",
+        "title": "双页产品说明",
+        "category": "page-layout",
+        "inputs": "2个非对页页面，每个spread独立坐标，示例技术参数需按实际产品核实。",
+        "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
+        "steps": [
+          {
+            "purpose": "仅新图建立指定页面，不用于已有文档",
+            "command": "file.new",
+            "params": {
+              "width": 595,
+              "height": 842,
+              "pages": 2,
+              "facingPages": false,
+              "margins": 36,
+              "bleed": 0,
+              "title": "双页产品说明"
+            },
+            "parameterReference": "command-evidence.json#file.new",
+            "newDocumentOnly": true
+          },
+          {
+            "purpose": "创建独立可编辑文本框并记录返回值",
+            "command": "frame.create",
+            "params": {
+              "spread": 0,
+              "rect": [
+                42,
+                48,
+                553,
+                110
+              ],
+              "content": "text",
+              "text": "Craft Desk Lamp"
+            },
+            "parameterReference": "command-evidence.json#frame.create",
+            "capture": "title1"
+          },
+          {
+            "purpose": "用UTF-8字节范围选择本次故事",
+            "command": "text.select",
+            "params": {
+              "story": {
+                "$ref": "title1.story"
+              },
+              "anchor": 0,
+              "focus": 15
+            },
+            "parameterReference": "command-evidence.json#text.select"
+          },
+          {
+            "purpose": "设置已核实的字体和字号",
+            "command": "type.char",
+            "params": {
+              "attrs": {
+                "fontFamily": "Source Sans 3",
+                "size": 28
+              }
+            },
+            "parameterReference": "command-evidence.json#type.char"
+          },
+          {
+            "purpose": "创建独立可编辑文本框并记录返回值",
+            "command": "frame.create",
+            "params": {
+              "spread": 0,
+              "rect": [
+                42,
+                150,
+                553,
+                390
+              ],
+              "content": "text",
+              "text": "Focused light for reading and making.\nMaterials: aluminium and recycled polymer.\nPower: 8 W. Colour temperature: 4000 K."
+            },
+            "parameterReference": "command-evidence.json#frame.create",
+            "capture": "intro"
+          },
+          {
+            "purpose": "用UTF-8字节范围选择本次故事",
+            "command": "text.select",
+            "params": {
+              "story": {
+                "$ref": "intro.story"
+              },
+              "anchor": 0,
+              "focus": 120
+            },
+            "parameterReference": "command-evidence.json#text.select"
+          },
+          {
+            "purpose": "设置已核实的字体和字号",
+            "command": "type.char",
+            "params": {
+              "attrs": {
+                "fontFamily": "Source Serif 4",
+                "size": 16
+              }
+            },
+            "parameterReference": "command-evidence.json#type.char"
+          },
+          {
+            "purpose": "创建独立可编辑文本框并记录返回值",
+            "command": "frame.create",
+            "params": {
+              "spread": 1,
+              "rect": [
+                42,
+                48,
+                553,
+                110
+              ],
+              "content": "text",
+              "text": "Setup and care"
+            },
+            "parameterReference": "command-evidence.json#frame.create",
+            "capture": "title2"
+          },
+          {
+            "purpose": "用UTF-8字节范围选择本次故事",
+            "command": "text.select",
+            "params": {
+              "story": {
+                "$ref": "title2.story"
+              },
+              "anchor": 0,
+              "focus": 14
+            },
+            "parameterReference": "command-evidence.json#text.select"
+          },
+          {
+            "purpose": "设置已核实的字体和字号",
+            "command": "type.char",
+            "params": {
+              "attrs": {
+                "fontFamily": "Source Sans 3",
+                "size": 28
+              }
+            },
+            "parameterReference": "command-evidence.json#type.char"
+          },
+          {
+            "purpose": "创建独立可编辑文本框并记录返回值",
+            "command": "frame.create",
+            "params": {
+              "spread": 1,
+              "rect": [
+                42,
+                150,
+                553,
+                420
+              ],
+              "content": "text",
+              "text": "1. Place on a stable surface.\n2. Connect the approved power adapter.\n3. Keep the light source clear.\nDisconnect power before cleaning."
+            },
+            "parameterReference": "command-evidence.json#frame.create",
+            "capture": "care"
+          },
+          {
+            "purpose": "用UTF-8字节范围选择本次故事",
+            "command": "text.select",
+            "params": {
+              "story": {
+                "$ref": "care.story"
+              },
+              "anchor": 0,
+              "focus": 134
+            },
+            "parameterReference": "command-evidence.json#text.select"
+          },
+          {
+            "purpose": "设置已核实的字体和字号",
+            "command": "type.char",
+            "params": {
+              "attrs": {
+                "fontFamily": "Source Serif 4",
+                "size": 16
+              }
+            },
+            "parameterReference": "command-evidence.json#type.char"
+          },
+          {
+            "purpose": "检查当前文档结构与溢出",
+            "command": "document.inspect",
+            "params": {},
+            "parameterReference": "command-evidence.json#document.inspect",
+            "capture": "final_inspect"
+          },
+          {
+            "purpose": "检查实际使用字体",
+            "command": "font.list",
+            "params": {},
+            "parameterReference": "command-evidence.json#font.list",
+            "capture": "fonts"
+          },
+          {
+            "purpose": "执行输出前技术预检",
+            "command": "preflight.run",
+            "params": {},
+            "parameterReference": "command-evidence.json#preflight.run",
+            "capture": "preflight"
+          }
+        ],
+        "assertions": {
+          "pages": 2,
+          "frameCount": 4,
+          "texts": [
+            "Craft Desk Lamp",
+            "Setup and care",
+            "4000 K."
+          ],
+          "pageTexts": {
+            "0": "Craft Desk Lamp",
+            "1": "Setup and care"
+          },
+          "size": [
+            595,
+            842
+          ]
+        },
+        "checks": [
+          "两页标题分属不同spread",
+          "规格与维护说明不丢失",
+          "导出含2页"
+        ],
+        "limits": "样例参数不是认证结果；正式说明须按产品实际安全资料审核。"
+      },
+      "execution": "REFERENCE_ADAPTATION_NOT_NEW_RUNTIME_ACCEPTANCE"
+    },
+    {
+      "id": "threaded-newsletter",
+      "title": "长文按故事流排版",
+      "sourceIds": [
+        "skillhub:adobe-indesign-2026",
+        "sfkislev/flue/indesign"
+      ],
+      "adaptation": "先检查页、跨页、文本框与故事关系，再串接两栏；正文只写入所属故事，后续校对关注换栏位置与overset，不复制同一段到两栏凑版。",
+      "taskCheck": "完整故事内容与输入一致，串接顺序正确且无溢出。",
+      "capabilityBoundary": "不能把删除尾文当成修复溢出；frame与story ID以实际返回为准。",
+      "existingRecipe": "skills/designcraft-scenario-playbooks/references/recipes.json",
+      "recipe": {
+        "id": "threaded-newsletter",
+        "title": "双栏串接简报",
+        "category": "page-layout",
+        "inputs": "两列文字框宽244、高300点，示例长文由同一故事流入两框。",
+        "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
+        "steps": [
+          {
+            "purpose": "仅新图建立指定页面，不用于已有文档",
+            "command": "file.new",
+            "params": {
+              "width": 595,
+              "height": 842,
+              "pages": 1,
+              "facingPages": false,
+              "margins": 36,
+              "bleed": 0,
+              "title": "双栏串接简报"
+            },
+            "parameterReference": "command-evidence.json#file.new",
+            "newDocumentOnly": true
+          },
+          {
+            "purpose": "创建独立可编辑文本框并记录返回值",
+            "command": "frame.create",
+            "params": {
+              "spread": 0,
+              "rect": [
+                42,
+                40,
+                553,
+                100
+              ],
+              "content": "text",
+              "text": "Neighbourhood Notes"
+            },
+            "parameterReference": "command-evidence.json#frame.create",
+            "capture": "title"
+          },
+          {
+            "purpose": "用UTF-8字节范围选择本次故事",
+            "command": "text.select",
+            "params": {
+              "story": {
+                "$ref": "title.story"
+              },
+              "anchor": 0,
+              "focus": 19
+            },
+            "parameterReference": "command-evidence.json#text.select"
+          },
+          {
+            "purpose": "设置已核实的字体和字号",
+            "command": "type.char",
+            "params": {
+              "attrs": {
+                "fontFamily": "Source Sans 3",
+                "size": 28
+              }
+            },
+            "parameterReference": "command-evidence.json#type.char"
+          },
+          {
+            "purpose": "创建独立可编辑文本框并记录返回值",
+            "command": "frame.create",
+            "params": {
+              "spread": 0,
+              "rect": [
+                42,
+                130,
+                286,
+                430
+              ],
+              "content": "text",
+              "text": "Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step."
+            },
+            "parameterReference": "command-evidence.json#frame.create",
+            "capture": "left"
+          },
+          {
+            "purpose": "用UTF-8字节范围选择本次故事",
+            "command": "text.select",
+            "params": {
+              "story": {
+                "$ref": "left.story"
+              },
+              "anchor": 0,
+              "focus": 1749
+            },
+            "parameterReference": "command-evidence.json#text.select"
+          },
+          {
+            "purpose": "设置已核实的字体和字号",
+            "command": "type.char",
+            "params": {
+              "attrs": {
+                "fontFamily": "Source Serif 4",
+                "size": 11
+              }
+            },
+            "parameterReference": "command-evidence.json#type.char"
+          },
+          {
+            "purpose": "创建独立可编辑文本框并记录返回值",
+            "command": "frame.create",
+            "params": {
+              "spread": 0,
+              "rect": [
+                309,
+                130,
+                553,
+                430
+              ],
+              "content": "text",
+              "text": ""
+            },
+            "parameterReference": "command-evidence.json#frame.create",
+            "capture": "right"
+          },
+          {
+            "purpose": "用UTF-8字节范围选择本次故事",
+            "command": "text.select",
+            "params": {
+              "story": {
+                "$ref": "right.story"
+              },
+              "anchor": 0,
+              "focus": 0
+            },
+            "parameterReference": "command-evidence.json#text.select"
+          },
+          {
+            "purpose": "设置已核实的字体和字号",
+            "command": "type.char",
+            "params": {
+              "attrs": {
+                "fontFamily": "Source Serif 4",
+                "size": 11
+              }
+            },
+            "parameterReference": "command-evidence.json#type.char"
+          },
+          {
+            "purpose": "将右栏接入左栏故事，不复制正文",
+            "command": "text.thread",
+            "params": {
+              "from": {
+                "$ref": "left.id"
+              },
+              "to": {
+                "$ref": "right.id"
+              }
+            },
+            "parameterReference": "command-evidence.json#text.thread",
+            "capture": "thread"
+          },
+          {
+            "purpose": "检查当前文档结构与溢出",
+            "command": "document.inspect",
+            "params": {},
+            "parameterReference": "command-evidence.json#document.inspect",
+            "capture": "final_inspect"
+          },
+          {
+            "purpose": "检查实际使用字体",
+            "command": "font.list",
+            "params": {},
+            "parameterReference": "command-evidence.json#font.list",
+            "capture": "fonts"
+          },
+          {
+            "purpose": "执行输出前技术预检",
+            "command": "preflight.run",
+            "params": {},
+            "parameterReference": "command-evidence.json#preflight.run",
+            "capture": "preflight"
+          }
+        ],
+        "assertions": {
+          "texts": [
+            "Neighbourhood Notes",
+            "Community teams"
+          ],
+          "frameCount": 3,
+          "thread": [
+            "left",
+            "right"
+          ],
+          "pages": 1,
+          "size": [
+            595,
+            842
+          ]
+        },
+        "checks": [
+          "两列共享同一故事且框顺序正确",
+          "正文完整保留且不溢出",
+          "不是把同样正文复制到两列"
+        ],
+        "limits": "实际长文长度与字体会改变流动；重排后再查overset与阅读顺序，不把双栏外观当成已串接。"
+      },
+      "execution": "REFERENCE_ADAPTATION_NOT_NEW_RUNTIME_ACCEPTANCE"
+    },
+    {
+      "id": "bleed-review-pdf",
+      "title": "把印前发现转成待处理项",
+      "sourceIds": [
+        "skillhub:adobe-indesign-2026",
+        "ie3jp/illustrator-mcp-server/illustrator-preflight"
+      ],
+      "adaptation": "导出前检查文本、字体与RGB等预检问题；背景按实际出血延伸，导出后核对PDF的TrimBox与BleedBox及边缘内容。警告按用途解释，未检查项保留为未知。",
+      "taskCheck": "出血量和裁切范围符合任务；缺字、RGB警告与未查项目可见。",
+      "capabilityBoundary": "审阅PDF不等于CMYK或印厂认证；不能把另一工具的preflight_check当本插件接口。",
+      "existingRecipe": "skills/designcraft-scenario-playbooks/references/recipes.json",
+      "recipe": {
+        "id": "bleed-review-pdf",
+        "title": "带出血的审阅PDF",
+        "category": "page-layout",
+        "inputs": "A4页面、四边9点出血；约3.175mm，真实印厂若要求3mm应换算8.504点。",
+        "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
+        "steps": [
+          {
+            "purpose": "仅新图建立指定页面，不用于已有文档",
+            "command": "file.new",
+            "params": {
+              "width": 595,
+              "height": 842,
+              "pages": 1,
+              "facingPages": false,
+              "margins": 36,
+              "bleed": 9,
+              "title": "带出血的审阅PDF"
+            },
+            "parameterReference": "command-evidence.json#file.new",
+            "newDocumentOnly": true
+          },
+          {
+            "purpose": "创建延伸到出血区的背景条",
+            "command": "frame.create",
+            "params": {
+              "rect": [
+                -9,
+                -9,
+                604,
+                150
+              ],
+              "content": "unassigned"
+            },
+            "parameterReference": "command-evidence.json#frame.create",
+            "capture": "bar"
+          },
+          {
+            "purpose": "为本次背景设置颜色",
+            "command": "object.color",
+            "params": {
+              "ids": [
+                {
+                  "$ref": "bar.id"
+                }
+              ],
+              "color": "#1d4ed8",
+              "target": "fill"
+            },
+            "parameterReference": "command-evidence.json#object.color"
+          },
+          {
+            "purpose": "背景条不保留默认黑色轮廓",
+            "command": "object.stroke",
+            "params": {
+              "ids": [
+                {
+                  "$ref": "bar.id"
+                }
+              ],
+              "swatch": "[None]",
+              "weight": 0
+            },
+            "parameterReference": "command-evidence.json#object.stroke"
+          },
+          {
+            "purpose": "创建独立可编辑文本框并记录返回值",
+            "command": "frame.create",
+            "params": {
+              "spread": 0,
+              "rect": [
+                42,
+                220,
+                553,
+                390
+              ],
+              "content": "text",
+              "text": "A print-ready conversation starts here"
+            },
+            "parameterReference": "command-evidence.json#frame.create",
+            "capture": "title"
+          },
+          {
+            "purpose": "用UTF-8字节范围选择本次故事",
+            "command": "text.select",
+            "params": {
+              "story": {
+                "$ref": "title.story"
+              },
+              "anchor": 0,
+              "focus": 38
+            },
+            "parameterReference": "command-evidence.json#text.select"
+          },
+          {
+            "purpose": "设置已核实的字体和字号",
+            "command": "type.char",
+            "params": {
+              "attrs": {
+                "fontFamily": "Source Sans 3",
+                "size": 30
+              }
+            },
+            "parameterReference": "command-evidence.json#type.char"
+          },
+          {
+            "purpose": "创建独立可编辑文本框并记录返回值",
+            "command": "frame.create",
+            "params": {
+              "spread": 0,
+              "rect": [
+                42,
+                450,
+                553,
+                570
+              ],
+              "content": "text",
+              "text": "Confirm paper, colour profile, bleed and finishing with the printer."
+            },
+            "parameterReference": "command-evidence.json#frame.create",
+            "capture": "note"
+          },
+          {
+            "purpose": "用UTF-8字节范围选择本次故事",
+            "command": "text.select",
+            "params": {
+              "story": {
+                "$ref": "note.story"
+              },
+              "anchor": 0,
+              "focus": 68
+            },
+            "parameterReference": "command-evidence.json#text.select"
+          },
+          {
+            "purpose": "设置已核实的字体和字号",
+            "command": "type.char",
+            "params": {
+              "attrs": {
+                "fontFamily": "Source Serif 4",
+                "size": 18
+              }
+            },
+            "parameterReference": "command-evidence.json#type.char"
+          },
+          {
+            "purpose": "输出包含出血和裁切标记的审阅PDF",
+            "command": "file.exportPdf",
+            "params": {
+              "path": "bleed-review.pdf",
+              "bleed": true,
+              "marks": {
+                "crop": true,
+                "bleed": true,
+                "pageInfo": false
+              },
+              "standard": "none"
+            },
+            "parameterReference": "command-evidence.json#file.exportPdf",
+            "capture": "bleed_pdf"
+          },
+          {
+            "purpose": "检查当前文档结构与溢出",
+            "command": "document.inspect",
+            "params": {},
+            "parameterReference": "command-evidence.json#document.inspect",
+            "capture": "final_inspect"
+          },
+          {
+            "purpose": "检查实际使用字体",
+            "command": "font.list",
+            "params": {},
+            "parameterReference": "command-evidence.json#font.list",
+            "capture": "fonts"
+          },
+          {
+            "purpose": "执行输出前技术预检",
+            "command": "preflight.run",
+            "params": {},
+            "parameterReference": "command-evidence.json#preflight.run",
+            "capture": "preflight"
+          }
+        ],
+        "assertions": {
+          "frameCount": 3,
+          "texts": [
+            "A print-ready conversation",
+            "Confirm paper"
+          ],
+          "bleedPdf": "bleed-review.pdf",
+          "bleedBounds": [
+            -9,
+            -9,
+            604,
+            150
+          ],
+          "pages": 1,
+          "size": [
+            595,
+            842
+          ],
+          "bleedNoStroke": true
+        },
+        "checks": [
+          "背景越过裁切边缘",
+          "PDF包含出血审阅区域",
+          "没有把RGB审阅稿说成已通过印厂色彩验收"
+        ],
+        "limits": "这是技术审阅输出，不宣称PDF/X、CMYK、软打样或印厂已验收。固定输出名只用于新的空工作目录。"
+      },
+      "execution": "REFERENCE_ADAPTATION_NOT_NEW_RUNTIME_ACCEPTANCE"
+    }
+  ],
+  "observedCommands": {
+    "file.new": {
+      "enabled": true,
+      "id": "file.new",
+      "label": "Document…",
+      "menu": [
+        "File",
+        "New"
+      ],
+      "params": "{preset?: \"Letter\"|\"A4\"|…, width?, height?, pages?, facingPages?, columns?, gutter?, margins?: number|{top,bottom,inside,outside}, bleed?, title?}",
+      "shortcut": "Cmd+N"
+    },
+    "frame.create": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "frame.create",
+      "label": "Create Frame",
+      "menu": [],
+      "params": "{spread?: index | {kind: doc|parent, index} (a parent spread: index into `parents` of document.inspect), rect: [x0,y0,x1,y1] (spread coords), shape?: rectangle|ellipse|polygon, content?: graphic|text|unassigned, sides?: 6, text?: string, caret?: bool, vertical?: bool (text: a new vertical story)}",
+      "shortcut": null
+    },
+    "text.select": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "text.select",
+      "label": "Select Text",
+      "menu": [],
+      "params": "{story, anchor, focus} (UTF-8 byte offsets into the story text, as find.find reports them: á or — counts 2 or 3)",
+      "shortcut": null
+    },
+    "type.char": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "type.char",
+      "label": "Character Formatting",
+      "menu": [],
+      "params": "{attrs: {fontFamily?, fontStyle?, size?, leading?: {kind:auto}|{kind:points,value}, tracking?, kerning?, hScale?, vScale?, baselineShift?, fill?, capitalization?, underline?, …}}",
+      "shortcut": null
+    },
+    "document.inspect": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "document.inspect",
+      "label": "Inspect Document",
+      "menu": [],
+      "params": "{} → pages, spreads, items, stories (with overset), styles, swatches, selection",
+      "shortcut": null
+    },
+    "font.list": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "font.list",
+      "label": "Fonts in Document",
+      "menu": [],
+      "params": "{} → [{family, style, characters, missing, styleMissing, source: bundled|installed|document|added (null when missing)}] (missing first)",
+      "shortcut": null
+    },
+    "preflight.run": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "preflight.run",
+      "label": "Preflight Document",
+      "menu": [
+        "Window",
+        "Output",
+        "Preflight"
+      ],
+      "params": "{minPpi?: 150} → issues [{severity, kind, message, item?, page?}]",
+      "shortcut": null
+    },
+    "text.thread": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "text.thread",
+      "label": "Thread Text Frames",
+      "menu": [],
+      "params": "{from?, to?, rect?: [x0,y0,x1,y1] (spread coords), spread?, autoflow?: bool} — threads frame `to` right after frame `from` (between `from` and the frame that followed it, if any). `to` is an empty frame or a text frame nothing threads into yet; its text joins the end of the story. Give `rect` in place of `from` or `to` to thread a new text frame made there on `spread`: `{from, rect}` adds it after `from`, `{rect, to}` in front of `to`. autoflow: then add pages with threaded frames until the story fits. Selects the frame that joined the thread. → {story, from, to, overset, pagesAdded}",
+      "shortcut": null
+    },
+    "object.color": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "object.color",
+      "label": "Apply Color",
+      "menu": [],
+      "params": "{color: \"#rrggbb\"|{c,m,y,k}(0..100)|[r,g,b](0..255), target?: fill|stroke, text?: bool, ids?} — an unnamed colour (not in the Swatches panel until Add to Swatches) on the selection; `text`: on the selected text, or the text of the selected frames (Formatting Affects Text)",
+      "shortcut": null
+    },
+    "object.stroke": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "object.stroke",
+      "label": "Stroke",
+      "menu": [],
+      "params": "{swatch?, tint?, weight?, align?: center|inside|outside, type?: {kind:…}, cap?: butt|round|projecting, join?: miter|round|bevel, miterLimit?, start?, end?: none|simple|simpleWide|triangle|triangleWide|barbed|curved|circle|circleSolid|square|squareSolid|bar, gapSwatch?, gapTint?, gapOverprint?: bool, ids?}",
+      "shortcut": null
+    },
+    "file.exportPdf": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "file.exportPdf",
+      "label": "Export PDF…",
+      "menu": [
+        "File"
+      ],
+      "params": "{path?, pages?: \"1-3,5\" | [1,3] (1-based positions; default all), flatten?: high|medium|low|ppi (Transparency Flattener: spreads with transparency are rasterised), spreads?: bool, fullScreen?: bool, bookmarksPanel?: bool, pageLayout?: single|continuous|twoUp|twoUpCover|twoUpContinuous, view?: fitPage|fitWidth|actual, advanceSeconds?: number (interactive PDF), bleed?: bool (document bleed), marks?: bool | {crop?, bleed?, pageInfo?, weight?, offset?}, standard?: \"none\"|\"x4\"|\"a2b\", compressImages?: bool, tagged?: bool (structure tree: stories as paragraphs, figures with alt text), media?: bool (interactive: embed placed video and sound), title?, author?} → {path, bytes, pages, warnings} (no path: {base64, …})",
+      "shortcut": null
+    }
+  }
+}

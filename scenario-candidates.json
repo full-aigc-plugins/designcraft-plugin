@@ -1,0 +1,38 @@
+{
+  "status": "local-unreleased",
+  "sourcePackage": "full-aigc-skills/designcraft-skills",
+  "skills": [
+    {
+      "name": "designcraft-editor",
+      "sha256": "fcb6d3f69bff92f2130dabbf17580a1bb72faf2e6479b255d757a83dfc3c12a2"
+    },
+    {
+      "name": "designcraft-brochure",
+      "sha256": "6e5f509d61f35069579865885fcc982553d19a99a90914ee77e7a707ed349a9d"
+    },
+    {
+      "name": "designcraft-catalog",
+      "sha256": "9f5e8729c67da2de691dc146d35db4ee0213287494926c20633fc8a480647117"
+    },
+    {
+      "name": "designcraft-newsletter",
+      "sha256": "2fc65295a78c01bba37686fbb71c3c94ca7183ee41b1516b3e30a767e3f42d32"
+    },
+    {
+      "name": "designcraft-poster-layout",
+      "sha256": "a7f1575ad2f9403136d6c7ea76764a3fae1fec73c272b35580a66ebb726b2723"
+    },
+    {
+      "name": "designcraft-long-document",
+      "sha256": "bb5eefabc70c02c2c1216c045aa5e3ff3a7f47da65c57dee7942886f18a99c6d"
+    },
+    {
+      "name": "designcraft-print-preflight",
+      "sha256": "69e8cdb569a2c3ec01605ca40fefbcd2a58e9f9db09ba44bbbea49a74a378031"
+    },
+    {
+      "name": "designcraft-scenario-playbooks",
+      "sha256": "91150e81c83e90771c2b88bb39c073cfbf7b1b4222afdcb09cb9390732671574"
+    }
+  ]
+}
