@@ -56,4 +56,4 @@
 
 ## 数据合并胸牌开发候选
 
-新增`designcraft-data-merge-badges`：真实字段模板、逐条预览、长姓名溢出处理、任务字体与缺字预检、完整字段重开检查。尚未发布新市场包，Windows和宿主同步状态另行记录。
+新增`designcraft-data-merge-badges`：真实字段模板、逐条预览、长姓名溢出处理、任务字体与缺字预检、完整字段重开检查。原生Windows及真实Codex/IAB的合成胸牌流程已验证；原生Noto与Web LXGW字体不同，其他宿主和商业印刷仍未验收。

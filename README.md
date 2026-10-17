@@ -1,6 +1,6 @@
 # DesignCraft Use
 
-当前开发候选：`0.1.0-dev.20261017.6`。包含重建的四页宣传册与A3海报技能；Codex市场使用完整薄包快照以在安装前读取官方图标。运行资源沿用已核验的dev.20261017.2，不代表引擎升级或全部创作验收通过。
+开发预发布：`0.1.0-dev.20261018.1`。新增CSV可编辑胸牌技能，包含逐条预览、长姓名处理、缺字检查及Web字体适配。运行资源沿用已核验的dev.20261017.2，不代表引擎升级或全部创作验收通过。
 
 ## Installable editor development candidate
 
@@ -54,4 +54,4 @@ Plugin display name: **DesignCraft Use**. Official upstream icon provenance and 
 
 ## 数据合并胸牌开发候选
 
-新增`designcraft-data-merge-badges`：真实字段模板、逐条预览、长姓名溢出处理、任务字体与缺字预检、完整字段重开检查。尚未发布新市场包，Windows和宿主同步状态另行记录。
+新增`designcraft-data-merge-badges`：真实字段模板、逐条预览、长姓名溢出处理、任务字体与缺字预检、完整字段重开检查。原生Windows及真实Codex/IAB的合成胸牌流程已验证；原生Noto与Web LXGW字体不同，其他宿主和商业印刷仍未验收。
