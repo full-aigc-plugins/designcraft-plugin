@@ -31,3 +31,7 @@ license: Apache-2.0
 ## 技能商店场景经验
 
 遇到先规划阅读顺序再排页、长文按故事流排版、把印前发现转成待处理项时，读取[商店工作流适配](references/market-workflows.md)，使用对应的Craft方法和实际结果检查。上游技能不作为运行依赖。
+
+## main开发候选
+
+将SVG导入原生版式、交付可编辑PPTX、使用Flex模块排版或跨文档加载样式时，先读[main新增工作流与版本边界](references/main-workflows.md)。完整新增和变化参数单独记录，不把目录数量当作实际验收。
