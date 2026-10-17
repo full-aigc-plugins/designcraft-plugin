@@ -5,31 +5,155 @@
   "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
   "steps": [
     {
-      "purpose": "执行有效分辨率与链接检查",
+      "purpose": "只读盘点现有版面，确认修复对象和安全边界",
+      "command": "document.inspect",
+      "params": {},
+      "capture": "before_inspect",
+      "phase": "inspect"
+    },
+    {
+      "purpose": "记录300PPI阈值下的真实问题与严重级别",
       "command": "preflight.run",
       "params": {
         "minPpi": 300
-      }
+      },
+      "capture": "before_preflight",
+      "phase": "inspect"
     },
     {
-      "purpose": "导出核对PDF",
+      "purpose": "核对真实素材路径、使用框及有效PPI",
+      "command": "links.list",
+      "params": {},
+      "capture": "before_links",
+      "phase": "inspect"
+    },
+    {
+      "purpose": "核对字体与替代情况；缺失时另行确认授权修复",
+      "command": "font.list",
+      "params": {},
+      "capture": "fonts",
+      "phase": "inspect"
+    },
+    {
+      "purpose": "仅替换确认的低分辨率素材，使用原asset ID",
+      "command": "links.relink",
+      "params": {
+        "asset": {
+          "$input": "lowResolutionAsset"
+        },
+        "path": {
+          "$input": "lowResolutionReplacement"
+        }
+      },
+      "phase": "repair"
+    },
+    {
+      "purpose": "仅修复确认的缺失链接，不能按文件名模糊匹配",
+      "command": "links.relink",
+      "params": {
+        "asset": {
+          "$input": "missingAsset"
+        },
+        "path": {
+          "$input": "missingReplacement"
+        }
+      },
+      "phase": "repair"
+    },
+    {
+      "purpose": "只扩展获准文本框；content=false保留字号与内容",
+      "command": "transform.resize",
+      "params": {
+        "ids": [
+          {
+            "$input": "oversetFrame"
+          }
+        ],
+        "from": {
+          "$input": "oldTextBounds"
+        },
+        "to": {
+          "$input": "approvedTextBounds"
+        },
+        "content": false
+      },
+      "phase": "repair"
+    },
+    {
+      "purpose": "按确认交付规格设出血，不改变页面尺寸与对象排布",
+      "command": "layout.documentSetup",
+      "params": {
+        "bleed": {
+          "$input": "bleedPoints"
+        }
+      },
+      "phase": "repair"
+    },
+    {
+      "purpose": "复查完整正文及溢出偏移",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$input": "oversetFrame"
+        }
+      },
+      "capture": "fixed_story",
+      "phase": "repair"
+    },
+    {
+      "purpose": "复查素材链接及实际使用框",
+      "command": "links.list",
+      "params": {},
+      "capture": "final_links",
+      "phase": "repair"
+    },
+    {
+      "purpose": "相同300PPI阈值重新预检；有错误或低PPI则停止导出",
+      "command": "preflight.run",
+      "params": {
+        "minPpi": 300
+      },
+      "capture": "final_preflight",
+      "stopIf": "Any error or unresolved lowResolution/missingLink/overset; inspect all other warnings",
+      "phase": "repair"
+    },
+    {
+      "purpose": "仅在问题已解决或明确接受后输出普通含出血PDF校样",
       "command": "file.exportPdf",
       "params": {
-        "path": "output/proof.pdf"
-      }
+        "path": "preflight-proof.pdf",
+        "bleed": true,
+        "marks": false,
+        "standard": "none"
+      },
+      "capture": "pdf",
+      "phase": "export"
     },
     {
-      "purpose": "保留字体与链接素材交付",
+      "purpose": "收集可返工工程及IDML，印刷校样使用上一步明确选项的PDF",
       "command": "file.package",
       "params": {
-        "dir": "output/print-package",
+        "dir": "print-package",
         "idml": true,
-        "pdf": true
-      }
+        "pdf": false
+      },
+      "capture": "package",
+      "phase": "export"
     }
   ],
-  "check": "检查页框、出血、字体、透明和逐页图文，记录所有未解决issue。",
-  "boundary": "普通PDF不自动等于PDF/X；印厂要求与实际导出选项分别核对。",
+  "check": "修复前确有缺链、低PPI与文字溢出；修复后相同阈值复检；正文/字号与非目标对象保持；原工程字节不变；PDF实际TrimBox/BleedBox及页数符合确认规格。",
+  "boundary": "这是针对确认问题的修复示例，不是无条件批处理。不同问题选择对应修复步骤，缺失字体/色彩/专色/透明度等须另行核实。普通PDF和零错误预检都不构成PDF/X或印刷认证。",
   "templateOnly": true,
-  "argumentPolicy": "示例参数必须按当前输入、选择和实际返回ID替换；$变量先解析，数组变量整字段替换，不能将本文件直接当原生CLI脚本执行。"
+  "argumentPolicy": "示例参数必须按当前输入、选择和实际返回ID替换；$变量先解析，数组变量整字段替换，不能将本文件直接当原生CLI脚本执行。",
+  "inputBindings": {
+    "lowResolutionAsset": "从links.list及问题item关联确认的asset ID",
+    "lowResolutionReplacement": "已确认清晰度与内容一致的高分辨率替换文件",
+    "missingAsset": "缺失链接对应asset ID",
+    "missingReplacement": "已确认与原物料相符的文件路径",
+    "oversetFrame": "预检中实际溢出文字框ID",
+    "oldTextBounds": "document.inspect读取的原四点边界",
+    "approvedTextBounds": "与相邻元素/安全边界不冲突的获准新边界",
+    "bleedPoints": "印厂确认的出血点数；9点仅为示例"
+  },
+  "executionGate": "CLI scripts do not evaluate stopIf; run inspect/repair/recheck in phases and inspect the returned report before running export/package."
 }

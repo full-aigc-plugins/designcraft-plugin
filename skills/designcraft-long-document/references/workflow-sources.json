@@ -31,9 +31,31 @@
           "path": "link-endnotes/README.md",
           "url": "https://github.com/le-tex/InDesignScripts/blob/b0fd4bbc49f33f860361736a702c1ed5c3e4ac95/link-endnotes/README.md",
           "bytes": 680
+        },
+        {
+          "path": "indb/ExportChapterAsIDML.jsx",
+          "url": "https://raw.githubusercontent.com/le-tex/InDesignScripts/b0fd4bbc49f33f860361736a702c1ed5c3e4ac95/indb/ExportChapterAsIDML.jsx",
+          "bytes": 10142,
+          "sha256": "338a89e311610d532b5bdc5a324822deeef59c367bf5d1e8dfa66fca1ab5fdb6"
         }
       ],
-      "reuse": "workflow facts and original adaptation only; no upstream text, code or assets copied"
+      "reuse": "workflow facts and original adaptation only; no upstream text, code or assets copied",
+      "adaptation": "借鉴章节选取与独立可编辑交付的工作流事实；本技能为单文档章节，不移植INDB脚本，也不声称多文件书籍转换。"
+    },
+    {
+      "repository": "reason-machines/design-skills",
+      "commit": "741547f75f6bdc36ba57c6b68f0c97a5bfc6fd63",
+      "license": "Repository LICENSE declares MIT but contains only the label; workflow facts only, no text/code copied",
+      "readFiles": [
+        {
+          "path": "skills/adobe-indesign-2026-workflow/SKILL.md",
+          "url": "https://raw.githubusercontent.com/reason-machines/design-skills/741547f75f6bdc36ba57c6b68f0c97a5bfc6fd63/skills/adobe-indesign-2026-workflow/SKILL.md",
+          "bytes": 14795,
+          "sha256": "a714c55ea95d288ef1e9f38841188488b26439cb4780a038cca6b36ddfb4bdae"
+        }
+      ],
+      "adaptation": "借鉴标题段落样式驱动目录、版式改变后刷新目录的事实，原创映射为Craft toc.generate/toc.update与插页后实际页码检查。",
+      "reuse": "workflow facts only; no upstream text/code/assets copied"
     }
   ]
 }

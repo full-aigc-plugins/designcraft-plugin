@@ -7,14 +7,27 @@
   },
   "ciRun": "https://github.com/partme-ai/full-aigc-plugins/actions/runs/38921194883",
   "observedCommands": {
-    "frame.grid": {
+    "file.new": {
+      "enabled": true,
+      "id": "file.new",
+      "label": "Document…",
+      "menu": [
+        "File",
+        "New"
+      ],
+      "params": "{preset?: \"Letter\"|\"A4\"|… or a saved preset (file.savePreset), intent?: print|web|mobile, units?: points|picas|millimeters|…, width?, height?, pages?, startPage?, facingPages?, columns?, gutter?, margins?: number|{top,bottom,inside,outside}, bleed?, slug?: n | [top, bottom, inside, outside], title?, primaryTextFrame?: bool}",
+      "shortcut": "Cmd+N"
+    },
+    "file.place": {
       "disabled_reason": "no document open",
       "enabled": false,
-      "id": "frame.grid",
-      "label": "Gridify",
-      "menu": [],
-      "params": "{rect, cols, rows, gutter? (pt, 12), shape?, content?, spread?} — a grid of frames filling `rect` (frame tools: arrow keys while dragging)",
-      "shortcut": null
+      "id": "file.place",
+      "label": "Place…",
+      "menu": [
+        "File"
+      ],
+      "params": "{path?|base64?, name?, frame?: id (place into), spread?, x?, y?, width?: finite number > 0 (null: absent), height? (video/audio), pdfPage?: n (1-based, Image Import Options), pdfCrop?: crop|art|trim|bleed|media|contentVisible|contentAll (the box the graphic shows; `width` is the whole page's), loadCursor? (with no frame to fill and no x/y, an image loads into the place cursor, as File › Place), layoutPage?: n (IDML / .designcraft: that page's objects as a group), page?, rect?: [x0,y0,x1,y1] (text: a new frame there), autoflow? (threads one frame per page column from the first frame on, adding pages until the text fits), removeStyles?, styleMap?: {imported name: document style}, styleConflicts?: useExisting|redefine|autoRename, link? (keep the file linked in the Links panel; default: the linkTextFiles preference)} — places an image into `frame` when given; otherwise any explicit x/y/spread/width creates a new frame; otherwise uses the selected empty or graphic frame, or creates a new frame; text files (.txt, .docx, .rtf, .md) and Excel workbooks (.xlsx, as a table) go into the insertion point, the selected frame or a new frame on `page`/`rect`",
+      "shortcut": "Cmd+D"
     },
     "frame.create": {
       "disabled_reason": "no document open",
@@ -22,7 +35,66 @@
       "id": "frame.create",
       "label": "Create Frame",
       "menu": [],
-      "params": "{spread?: index | {kind: doc|parent, index} (a parent spread: index into `parents` of document.inspect), rect: [x0,y0,x1,y1] (spread coords), shape?: rectangle|ellipse|polygon, content?: graphic|text|unassigned, sides?: 6, text?: string, caret?: bool, vertical?: bool (text: a new vertical story)}",
+      "params": "{spread?: index | {kind: doc|parent, index} (a parent spread: index into `parents` of document.inspect), rect: [x0,y0,x1,y1] (spread coords), shape?: rectangle|ellipse|polygon, content?: graphic|text|unassigned, sides?: 6, starInset?: 0–100 (%), text?: string, caret?: bool, vertical?: bool (text: a new vertical story)}",
+      "shortcut": null
+    },
+    "object.fit": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "object.fit",
+      "label": "Fitting",
+      "menu": [
+        "Object",
+        "Fitting"
+      ],
+      "params": "{mode: fillProportionally (preserves aspect ratio, covers frame, clips overflow)|fitProportionally (preserves aspect ratio, shows whole image, may leave empty space)|fitContentToFrame (stretches content to frame)|centerContent (keeps current size, positions at fitting alignment)|fitFrameToContent (resizes frame to content), axis?: both|height|width (frame-local sides Fit Frame to Content moves; default both), ids?} — locked objects and objects on locked layers are left as they are",
+      "shortcut": null
+    },
+    "file.package": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "file.package",
+      "label": "Package…",
+      "menu": [
+        "File"
+      ],
+      "params": "{dir: folder to create, idml?: true, pdf?: false, instructions?: text} — the document (its placed files relinked to Links/), Links/, the font files that draw its text in Document Fonts/ (fallback fonts included; unless their licence restricts it), an IDML copy (linking the files in Links/, nothing embedded), an optional PDF and a report → {dir, files, report}",
+      "shortcut": null
+    },
+    "text.select": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "text.select",
+      "label": "Select Text",
+      "menu": [],
+      "params": "{story, anchor, focus} (UTF-8 byte offsets into the story text, as find.find reports them: á or — counts 2 or 3)",
+      "shortcut": null
+    },
+    "story.get": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "story.get",
+      "label": "Get Story",
+      "menu": [],
+      "params": "{story? | frame?} → text, frames, paragraphs, vertical, overset",
+      "shortcut": null
+    },
+    "type.char": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "type.char",
+      "label": "Character Formatting",
+      "menu": [],
+      "params": "{attrs: {fontFamily?, fontStyle?, size?, leading?: {kind:auto}|{kind:points,value}, tracking?, kerning?, hScale?, vScale?, baselineShift?, fill?, capitalization?, underline?, …}}",
+      "shortcut": null
+    },
+    "style.paragraph.apply": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "style.paragraph.apply",
+      "label": "Apply Paragraph Style",
+      "menu": [],
+      "params": "{name, clearOverrides?: bool}",
       "shortcut": null
     },
     "style.paragraph.create": {
@@ -31,7 +103,25 @@
       "id": "style.paragraph.create",
       "label": "New Paragraph Style…",
       "menu": [],
-      "params": "{name, basedOn?, nextStyle?, para?: {…}, chars?: {…}, fromSelection?: bool}",
+      "params": "{name, basedOn?, nextStyle?, para?: {paragraph attributes, as type.para names them: align, leftIndent, firstLineIndent, spaceBefore, spaceAfter, …; startAt?: null = continue numbering; grepStyles?: [{style, pattern}]: a pattern that can't compile is an error}, chars?: {character attributes, as type.char names them: fontFamily, fontStyle, size, leading, tracking, fill, …}, fromSelection?: bool}",
+      "shortcut": null
+    },
+    "document.inspect": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "document.inspect",
+      "label": "Inspect Document",
+      "menu": [],
+      "params": "{} → pages, spreads, items, stories (with overset), styles, swatches, selection",
+      "shortcut": null
+    },
+    "links.list": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "links.list",
+      "label": "Links",
+      "menu": [],
+      "params": "{} → [{asset, name, path, status: ok|modified|missing|embedded, pixels, pdfCrop (placed PDFs: the box shown), uses: [{id, page, ppi}]}], then linked text files: [{story, name, path, status (also tooLarge: unchanged size, too big to check), edited (the story was changed in the layout), uses: [{id, page}]}]",
       "shortcut": null
     },
     "preflight.run": {
@@ -48,5 +138,10 @@
       "shortcut": null
     }
   },
-  "sceneAcceptance": "NOT_RUN"
+  "sceneAcceptance": "NOT_RUN",
+  "mainObservation": {
+    "commit": "fc36957fe05f38a6976df4734d52b9250cd54a2c",
+    "ciRun": "https://github.com/partme-ai/full-aigc-plugins/actions/runs/39007949879",
+    "status": "COMMAND_CATALOG_ONLY_NOT_CATALOG_ACCEPTANCE"
+  }
 }

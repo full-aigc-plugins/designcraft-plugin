@@ -31,9 +31,16 @@
           "path": "link-endnotes/README.md",
           "url": "https://github.com/le-tex/InDesignScripts/blob/b0fd4bbc49f33f860361736a702c1ed5c3e4ac95/link-endnotes/README.md",
           "bytes": 680
+        },
+        {
+          "path": "transpect-preflight/transpect-preflight.jsx",
+          "url": "https://raw.githubusercontent.com/le-tex/InDesignScripts/b0fd4bbc49f33f860361736a702c1ed5c3e4ac95/transpect-preflight/transpect-preflight.jsx",
+          "bytes": 45579,
+          "sha256": "cc2bc64887b2fbd0b4f066ba7989bbd5fb78553e8042ab1dcfca74a6e03170b0"
         }
       ],
-      "reuse": "workflow facts and original adaptation only; no upstream text, code or assets copied"
+      "reuse": "workflow facts and original adaptation only; no upstream text, code or assets copied",
+      "adaptation": "借鉴对现有文档进行格式盘点、按约定规则核对并保留可返工工程的事实；原脚本的条件隐藏、网络请求与外部执行流程不移植。图像PPI和溢出修复按Craft原生命令及实测另行实现。"
     }
   ]
 }

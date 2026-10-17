@@ -5,52 +5,315 @@
   "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
   "steps": [
     {
-      "purpose": "以最长商品名验证网格",
-      "command": "frame.grid",
+      "purpose": "新任务建立A4目录；已有工程先检查并跳过本步",
+      "command": "file.new",
       "params": {
-        "rect": [
-          36,
-          36,
-          559,
-          780
-        ],
-        "cols": 2,
-        "rows": 3,
-        "gutter": 12,
-        "content": "graphic"
-      }
+        "width": 595,
+        "height": 842,
+        "pages": 1,
+        "facingPages": false,
+        "margins": 36,
+        "bleed": 0,
+        "title": "Product selection"
+      },
+      "newDocumentOnly": true
     },
     {
-      "purpose": "另建可编辑商品文字框",
+      "purpose": "建立通栏标题并记录返回故事",
       "command": "frame.create",
       "params": {
+        "spread": 0,
         "rect": [
-          36,
-          200,
-          280,
-          250
+          42,
+          42,
+          553,
+          100
         ],
         "content": "text",
-        "text": "SKU-001 商品名称与规格"
+        "text": "Product selection / review copy"
+      },
+      "capture": "title"
+    },
+    {
+      "purpose": "显式选择标题全文",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "title.story"
+        },
+        "anchor": 0,
+        "focus": 31
       }
     },
     {
-      "purpose": "建立商品正文样式",
+      "purpose": "设置已核对字体和标题字号",
+      "command": "type.char",
+      "params": {
+        "attrs": {
+          "fontFamily": "Source Sans 3",
+          "size": 24
+        }
+      }
+    },
+    {
+      "purpose": "创建商品文字样式",
       "command": "style.paragraph.create",
       "params": {
-        "name": "ProductBody"
+        "name": "Catalog Product",
+        "chars": {
+          "fontFamily": "Source Sans 3",
+          "size": 11
+        }
       }
     },
     {
-      "purpose": "逐商品检查素材",
+      "purpose": "为SKU-101建立独立图片框",
+      "command": "frame.create",
+      "params": {
+        "spread": 0,
+        "rect": [
+          42,
+          140,
+          286,
+          340
+        ],
+        "content": "graphic"
+      },
+      "capture": "sku101_image"
+    },
+    {
+      "purpose": "把对应SKU的文件置入其明确返回框ID",
+      "command": "file.place",
+      "params": {
+        "path": "catalog-input/sku-101.png",
+        "frame": {
+          "$ref": "sku101_image.id"
+        },
+        "link": true
+      },
+      "capture": "sku101_placed"
+    },
+    {
+      "purpose": "保持长宽比完整展示商品，允许留白",
+      "command": "object.fit",
+      "params": {
+        "ids": [
+          {
+            "$ref": "sku101_image.id"
+          }
+        ],
+        "mode": "fitProportionally"
+      }
+    },
+    {
+      "purpose": "对应同一SKU创建可编辑名称价格规格",
+      "command": "frame.create",
+      "params": {
+        "spread": 0,
+        "rect": [
+          42,
+          360,
+          286,
+          620
+        ],
+        "content": "text",
+        "text": "SKU-101\nDesk organiser / blue\nUSD 24.00\n240 x 160 x 80 mm\nSample product data; confirm before publication."
+      },
+      "capture": "sku101_copy"
+    },
+    {
+      "purpose": "选中此商品故事全文，字节数随实际文字重算",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "sku101_copy.story"
+        },
+        "anchor": 0,
+        "focus": 106
+      }
+    },
+    {
+      "purpose": "将正文样式实际应用到本商品文字",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Catalog Product",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查此商品完整文字与溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "sku101_copy.id"
+        }
+      },
+      "capture": "sku101_story"
+    },
+    {
+      "purpose": "为SKU-205建立独立图片框",
+      "command": "frame.create",
+      "params": {
+        "spread": 0,
+        "rect": [
+          309,
+          140,
+          553,
+          340
+        ],
+        "content": "graphic"
+      },
+      "capture": "sku205_image"
+    },
+    {
+      "purpose": "把对应SKU的文件置入其明确返回框ID",
+      "command": "file.place",
+      "params": {
+        "path": "catalog-input/sku-205.png",
+        "frame": {
+          "$ref": "sku205_image.id"
+        },
+        "link": true
+      },
+      "capture": "sku205_placed"
+    },
+    {
+      "purpose": "保持长宽比完整展示商品，允许留白",
+      "command": "object.fit",
+      "params": {
+        "ids": [
+          {
+            "$ref": "sku205_image.id"
+          }
+        ],
+        "mode": "fitProportionally"
+      }
+    },
+    {
+      "purpose": "对应同一SKU创建可编辑名称价格规格",
+      "command": "frame.create",
+      "params": {
+        "spread": 0,
+        "rect": [
+          309,
+          360,
+          553,
+          620
+        ],
+        "content": "text",
+        "text": "SKU-205\nPortable document case / orange\nUSD 39.50\n320 x 240 x 45 mm\nSample product data; confirm before publication."
+      },
+      "capture": "sku205_copy"
+    },
+    {
+      "purpose": "选中此商品故事全文，字节数随实际文字重算",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "sku205_copy.story"
+        },
+        "anchor": 0,
+        "focus": 116
+      }
+    },
+    {
+      "purpose": "将正文样式实际应用到本商品文字",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Catalog Product",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查此商品完整文字与溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "sku205_copy.id"
+        }
+      },
+      "capture": "sku205_story"
+    },
+    {
+      "purpose": "读取每个素材的路径状态及实际使用框",
+      "command": "links.list",
+      "params": {},
+      "capture": "links"
+    },
+    {
+      "purpose": "检查所有框和文字状态",
+      "command": "document.inspect",
+      "params": {},
+      "capture": "final_inspect"
+    },
+    {
+      "purpose": "检查图片有效PPI、字体和溢出问题",
       "command": "preflight.run",
       "params": {
         "minPpi": 150
-      }
+      },
+      "capture": "preflight"
+    },
+    {
+      "purpose": "交付含链接副本的可编辑目录及IDML/PDF校样",
+      "command": "file.package",
+      "params": {
+        "dir": "catalog-package",
+        "idml": true,
+        "pdf": true,
+        "instructions": "Review copy. Verify product details and links before publication."
+      },
+      "capture": "package"
     }
   ],
-  "check": "逐项核对SKU、图片、价格，不允许图片与价格错配。",
-  "boundary": "对输入表逐条替换例子内容并对应返回框ID；网格不会自动绑定外部CSV。",
+  "check": "逐SKU核对全文、素材路径与使用框；两图均有真实链接；有效PPI达约定阈值；打包资源字节保持，脱离原目录仍可打开且链接正常。",
+  "boundary": "示例两条商品记录由Agent按确认的对应表展开，frame.grid不负责CSV合并；价格仅测试数据，不能补猜实际商品参数。图片视觉真实性与最终裁切另行审阅。",
   "templateOnly": true,
-  "argumentPolicy": "示例参数必须按当前输入、选择和实际返回ID替换；$变量先解析，数组变量整字段替换，不能将本文件直接当原生CLI脚本执行。"
+  "argumentPolicy": "示例参数必须按当前输入、选择和实际返回ID替换；$变量先解析，数组变量整字段替换，不能将本文件直接当原生CLI脚本执行。",
+  "products": [
+    {
+      "key": "sku101",
+      "sku": "SKU-101",
+      "image": "catalog-input/sku-101.png",
+      "rect": [
+        42,
+        140,
+        286,
+        340
+      ],
+      "textRect": [
+        42,
+        360,
+        286,
+        620
+      ],
+      "text": "SKU-101\nDesk organiser / blue\nUSD 24.00\n240 x 160 x 80 mm\nSample product data; confirm before publication."
+    },
+    {
+      "key": "sku205",
+      "sku": "SKU-205",
+      "image": "catalog-input/sku-205.png",
+      "rect": [
+        309,
+        140,
+        553,
+        340
+      ],
+      "textRect": [
+        309,
+        360,
+        553,
+        620
+      ],
+      "text": "SKU-205\nPortable document case / orange\nUSD 39.50\n320 x 240 x 45 mm\nSample product data; confirm before publication."
+    }
+  ],
+  "assertions": {
+    "pages": 1,
+    "size": [
+      595,
+      842
+    ],
+    "frameCount": 5
+  }
 }
