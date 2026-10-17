@@ -62,7 +62,8 @@ class SnapshotContract(unittest.TestCase):
         p=ROOT/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('validator',p)
         module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
         result=module.validate()
-        self.assertEqual((result['skills'],result['externalSkills'],result['localSkills']),(14,6,8))
+        local_count=len(json.loads((ROOT/'plugin-local-skills.json').read_text())['skills'])
+        self.assertEqual((result['skills'],result['externalSkills'],result['localSkills']),(6+local_count,6,local_count))
         self.assertEqual(result['hostManifest'],'PASS')
 
     def test_candidate_identity_is_schema_checked_and_independent_of_plugin_version(self):

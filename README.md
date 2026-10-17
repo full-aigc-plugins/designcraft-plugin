@@ -19,3 +19,7 @@ See [architecture](docs/architecture.md), the [support matrix](docs/support-matr
 Plugin display name: **DesignCraft Use**. Official upstream icon provenance and licenses are included under `assets/official-icon-source.json` and adjacent LICENSE files.
 
 源码增强候选采用 `ui/source.lock.json` 与 `ui/build-source.py`；兼容更新查询本插件自有 GitHub Releases，失败回退内置，原版 Web 不替换增强自动化运行时。当前会话保留；宿主安装验收另行记录。
+
+## 排版场景操作手册
+
+新增8条带具体方法、参数与结果检查的排版流程，见 [designcraft-scenario-playbooks](skills/designcraft-scenario-playbooks/SKILL.md)。包含原生脚本返回引用、活表格、溢出与PDF交付；技术运行与真实宿主/创作验收分别记录。

@@ -48,6 +48,12 @@
       "path": "skills/designcraft-print-preflight",
       "owner": "designcraft-plugin",
       "kind": "plugin-local"
+    },
+    {
+      "name": "designcraft-scenario-playbooks",
+      "path": "skills/designcraft-scenario-playbooks",
+      "owner": "designcraft-plugin",
+      "kind": "plugin-local"
     }
   ]
 }
