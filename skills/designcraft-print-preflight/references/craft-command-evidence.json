@@ -7,6 +7,96 @@
   },
   "ciRun": "https://github.com/partme-ai/full-aigc-plugins/actions/runs/38921194883",
   "observedCommands": {
+    "file.exportPdf": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "file.exportPdf",
+      "label": "Export PDF…",
+      "menu": [
+        "File"
+      ],
+      "params": "{path?, pages?: \"1-3,5\" | [1,3] (1-based positions; default all), flatten?: high|medium|low|ppi (Transparency Flattener: spreads with transparency are rasterised), spreads?: bool, fullScreen?: bool, bookmarksPanel?: bool, pageLayout?: single|continuous|twoUp|twoUpCover|twoUpContinuous, view?: fitPage|fitWidth|actual, advanceSeconds?: number (interactive PDF), bleed?: bool (document bleed), marks?: bool | {crop?, bleed?, pageInfo?, weight?, offset?}, standard?: \"none\"|\"x4\"|\"a2b\", compressImages?: bool, tagged?: bool (structure tree: stories as paragraphs, figures with alt text), media?: bool (interactive: embed placed video and sound), title?, author?} → {path, bytes, pages, warnings} (no path: {base64, …})",
+      "shortcut": null
+    },
+    "transform.resize": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "transform.resize",
+      "label": "Resize",
+      "menu": [],
+      "params": "{from: rect, to: rect, content?: bool (scale content), distribute?: bool (Live Distribute: objects keep their size, their centres spread with the bounds), ids?}",
+      "shortcut": null
+    },
+    "file.package": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "file.package",
+      "label": "Package…",
+      "menu": [
+        "File"
+      ],
+      "params": "{dir: folder to create, idml?: true, pdf?: false, instructions?: text} — the document (its placed files relinked to Links/), Links/, the font files that draw its text in Document Fonts/ (fallback fonts included; unless their licence restricts it), an IDML copy (linking the files in Links/, nothing embedded), an optional PDF and a report → {dir, files, report}",
+      "shortcut": null
+    },
+    "story.get": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "story.get",
+      "label": "Get Story",
+      "menu": [],
+      "params": "{story? | frame?} → text, frames, paragraphs, vertical, overset",
+      "shortcut": null
+    },
+    "layout.documentSetup": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "layout.documentSetup",
+      "label": "Document Setup…",
+      "menu": [
+        "File"
+      ],
+      "params": "{width?, height?, pages?: count, startPage?: n, facingPages?, binding?: leftToRight|rightToLeft, intent?: print|web|mobile, margins?: n | {top, bottom, inside, outside} (every page and parent page), bleed?, slug?: n | [top, bottom, inside, outside], adjustLayout?: bool (objects follow the new page size and margins)} → the document setup (margins: the first page's)",
+      "shortcut": "Cmd+Alt+P"
+    },
+    "document.inspect": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "document.inspect",
+      "label": "Inspect Document",
+      "menu": [],
+      "params": "{} → pages, spreads, items, stories (with overset), styles, swatches, selection",
+      "shortcut": null
+    },
+    "links.list": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "links.list",
+      "label": "Links",
+      "menu": [],
+      "params": "{} → [{asset, name, path, status: ok|modified|missing|embedded, pixels, pdfCrop (placed PDFs: the box shown), uses: [{id, page, ppi}]}], then linked text files: [{story, name, path, status (also tooLarge: unchanged size, too big to check), edited (the story was changed in the layout), uses: [{id, page}]}]",
+      "shortcut": null
+    },
+    "links.relink": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "links.relink",
+      "label": "Relink…",
+      "menu": [
+        "Window",
+        "Links"
+      ],
+      "params": "{asset | story, path} — use another file for every placement of the graphic (keeps the selected PDF page; error if missing), or import another text file into the linked story",
+      "shortcut": null
+    },
+    "font.list": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "font.list",
+      "label": "Fonts in Document",
+      "menu": [],
+      "params": "{} → [{family, style, characters, missing, styleMissing, source: bundled|installed|document|added (null when missing), matchStatus: exact|styleSubstitute|missing, resolvedFamily, resolvedStyle, replacementFamily, replacementStyle}] (missing first)",
+      "shortcut": null
+    },
     "preflight.run": {
       "disabled_reason": "no document open",
       "enabled": false,
@@ -19,29 +109,12 @@
       ],
       "params": "{minPpi?: 150} → issues [{severity, kind, message, item?, page?}]",
       "shortcut": null
-    },
-    "file.exportPdf": {
-      "disabled_reason": "no document open",
-      "enabled": false,
-      "id": "file.exportPdf",
-      "label": "Export PDF…",
-      "menu": [
-        "File"
-      ],
-      "params": "{path?, pages?: \"1-3,5\" | [1,3] (1-based positions; default all), flatten?: high|medium|low|ppi (Transparency Flattener: spreads with transparency are rasterised), spreads?: bool, fullScreen?: bool, bookmarksPanel?: bool, pageLayout?: single|continuous|twoUp|twoUpCover|twoUpContinuous, view?: fitPage|fitWidth|actual, advanceSeconds?: number (interactive PDF), bleed?: bool (document bleed), marks?: bool | {crop?, bleed?, pageInfo?, weight?, offset?}, standard?: \"none\"|\"x4\"|\"a2b\", compressImages?: bool, tagged?: bool (structure tree: stories as paragraphs, figures with alt text), media?: bool (interactive: embed placed video and sound), title?, author?} → {path, bytes, pages, warnings} (no path: {base64, …})",
-      "shortcut": null
-    },
-    "file.package": {
-      "disabled_reason": "no document open",
-      "enabled": false,
-      "id": "file.package",
-      "label": "Package…",
-      "menu": [
-        "File"
-      ],
-      "params": "{dir: folder to create, idml?: true, pdf?: false, instructions?: text} — the document (its placed files relinked to Links/), Links/, the font files that draw its text in Document Fonts/ (fallback fonts included; unless their licence restricts it), an IDML copy, an optional PDF and a report → {dir, files, report}",
-      "shortcut": null
     }
   },
-  "sceneAcceptance": "NOT_RUN"
+  "sceneAcceptance": "NOT_RUN",
+  "mainObservation": {
+    "commit": "fc36957fe05f38a6976df4734d52b9250cd54a2c",
+    "ciRun": "https://github.com/partme-ai/full-aigc-plugins/actions/runs/39007949879",
+    "status": "COMMAND_CATALOG_ONLY_NOT_PREFLIGHT_SCENE_ACCEPTANCE"
+  }
 }

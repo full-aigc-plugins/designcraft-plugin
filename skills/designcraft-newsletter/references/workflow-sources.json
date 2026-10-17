@@ -34,6 +34,21 @@
         }
       ],
       "reuse": "workflow facts and original adaptation only; no upstream text, code or assets copied"
+    },
+    {
+      "repository": "Id-Extras/Break-Text-Thread",
+      "commit": "611ad2fe4eb55325ab4de634d7996fde3b78c552",
+      "license": "MIT (explicit source header)",
+      "readFiles": [
+        {
+          "path": "BreakTextThreadVersion1.0.1.jsx",
+          "url": "https://github.com/Id-Extras/Break-Text-Thread/blob/611ad2fe4eb55325ab4de634d7996fde3b78c552/BreakTextThreadVersion1.0.1.jsx",
+          "bytes": 8723,
+          "sha256": "6d0b5a52835f7ffe2996e5d3766463eebe3f3986731013c6e2a3d91db0373be3"
+        }
+      ],
+      "adaptation": "借鉴框链与故事分离、续文顺序及注释数量保护的事实，原创改写为Craft显式ID串接和全文校验；不移植拆链脚本，也不宣称脚注迁移支持。",
+      "reuse": "workflow facts only; no upstream code or text copied"
     }
   ]
 }
