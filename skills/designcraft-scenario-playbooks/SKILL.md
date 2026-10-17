@@ -27,3 +27,7 @@ license: Apache-2.0
 每次输出采用未占用的新路径；原生CLI不会替你防止覆盖。保留可编辑.designcraft和需要的IDML、PDF。重开查询document.inspect、story.get、table.get；检查预检issues，不靠退出码或文件头宣称完整交付。溢出修复先证明确有overset，再检查修复后消失且内容未删；字体、行距、图片和分页变化后重新检查。
 
 模板中的assertions只适用于示例输入。逐页查看实际PDF，核对阅读顺序、数据、换行和对象覆盖。出血与PDF导出成功不代表CMYK、PDF/X、印厂或无障碍验收。交互PDF含注释也不代表目标网站可用，示例URL必须替换。
+
+## 技能商店场景经验
+
+遇到先规划阅读顺序再排页、长文按故事流排版、把印前发现转成待处理项时，读取[商店工作流适配](references/market-workflows.md)，使用对应的Craft方法和实际结果检查。上游技能不作为运行依赖。
