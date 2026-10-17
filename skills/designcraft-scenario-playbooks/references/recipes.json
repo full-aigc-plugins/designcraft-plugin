@@ -1,0 +1,1533 @@
+{
+  "schema": "craft-scenario-playbooks/v1",
+  "application": "designcraft",
+  "templateOnly": true,
+  "bindingPolicy": "$ref为手册命名标记，先用附带编译脚本转为原生$N.path；MCP逐步绑定真实返回值。",
+  "recipes": [
+    {
+      "id": "event-poster",
+      "title": "A4活动海报",
+      "category": "page-layout",
+      "inputs": "A4单页，标题、主题、时间地点与报名提示；示例日期地点需替换。",
+      "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
+      "steps": [
+        {
+          "purpose": "仅新图建立指定页面，不用于已有文档",
+          "command": "file.new",
+          "params": {
+            "width": 595,
+            "height": 842,
+            "pages": 1,
+            "facingPages": false,
+            "margins": 36,
+            "bleed": 0,
+            "title": "A4活动海报"
+          },
+          "parameterReference": "command-evidence.json#file.new",
+          "newDocumentOnly": true
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 0,
+            "rect": [
+              42,
+              70,
+              553,
+              160
+            ],
+            "content": "text",
+            "text": "Community Design Day"
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "title"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "title.story"
+            },
+            "anchor": 0,
+            "focus": 20
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Sans 3",
+              "size": 38
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 0,
+            "rect": [
+              42,
+              180,
+              553,
+              240
+            ],
+            "content": "text",
+            "text": "Make useful things, together."
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "subtitle"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "subtitle.story"
+            },
+            "anchor": 0,
+            "focus": 29
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Serif 4",
+              "size": 20
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 0,
+            "rect": [
+              42,
+              330,
+              553,
+              470
+            ],
+            "content": "text",
+            "text": "18 October 2026\n10:00 - 17:00\nStudio Hall"
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "details"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "details.story"
+            },
+            "anchor": 0,
+            "focus": 41
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Serif 4",
+              "size": 22
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 0,
+            "rect": [
+              42,
+              690,
+              553,
+              760
+            ],
+            "content": "text",
+            "text": "Register before attending. Capacity is limited."
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "footer"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "footer.story"
+            },
+            "anchor": 0,
+            "focus": 47
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Serif 4",
+              "size": 14
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "检查当前文档结构与溢出",
+          "command": "document.inspect",
+          "params": {},
+          "parameterReference": "command-evidence.json#document.inspect",
+          "capture": "final_inspect"
+        },
+        {
+          "purpose": "检查实际使用字体",
+          "command": "font.list",
+          "params": {},
+          "parameterReference": "command-evidence.json#font.list",
+          "capture": "fonts"
+        },
+        {
+          "purpose": "执行输出前技术预检",
+          "command": "preflight.run",
+          "params": {},
+          "parameterReference": "command-evidence.json#preflight.run",
+          "capture": "preflight"
+        }
+      ],
+      "assertions": {
+        "texts": [
+          "Community Design Day",
+          "18 October 2026",
+          "Studio Hall"
+        ],
+        "frameCount": 4,
+        "pages": 1,
+        "size": [
+          595,
+          842
+        ]
+      },
+      "checks": [
+        "标题与详情均为活文字",
+        "页面A4且无文本溢出",
+        "时间地点及报名条件与真实活动一致"
+      ],
+      "limits": "屏幕审阅不等于印厂验收；不要把本例日期地点当真实活动发布。"
+    },
+    {
+      "id": "threaded-newsletter",
+      "title": "双栏串接简报",
+      "category": "page-layout",
+      "inputs": "两列文字框宽244、高300点，示例长文由同一故事流入两框。",
+      "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
+      "steps": [
+        {
+          "purpose": "仅新图建立指定页面，不用于已有文档",
+          "command": "file.new",
+          "params": {
+            "width": 595,
+            "height": 842,
+            "pages": 1,
+            "facingPages": false,
+            "margins": 36,
+            "bleed": 0,
+            "title": "双栏串接简报"
+          },
+          "parameterReference": "command-evidence.json#file.new",
+          "newDocumentOnly": true
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 0,
+            "rect": [
+              42,
+              40,
+              553,
+              100
+            ],
+            "content": "text",
+            "text": "Neighbourhood Notes"
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "title"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "title.story"
+            },
+            "anchor": 0,
+            "focus": 19
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Sans 3",
+              "size": 28
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 0,
+            "rect": [
+              42,
+              130,
+              286,
+              430
+            ],
+            "content": "text",
+            "text": "Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step. Community teams share practical ideas for better public spaces. Each proposal starts with local needs and a clear next step."
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "left"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "left.story"
+            },
+            "anchor": 0,
+            "focus": 1749
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Serif 4",
+              "size": 11
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 0,
+            "rect": [
+              309,
+              130,
+              553,
+              430
+            ],
+            "content": "text",
+            "text": ""
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "right"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "right.story"
+            },
+            "anchor": 0,
+            "focus": 0
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Serif 4",
+              "size": 11
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "将右栏接入左栏故事，不复制正文",
+          "command": "text.thread",
+          "params": {
+            "from": {
+              "$ref": "left.id"
+            },
+            "to": {
+              "$ref": "right.id"
+            }
+          },
+          "parameterReference": "command-evidence.json#text.thread",
+          "capture": "thread"
+        },
+        {
+          "purpose": "检查当前文档结构与溢出",
+          "command": "document.inspect",
+          "params": {},
+          "parameterReference": "command-evidence.json#document.inspect",
+          "capture": "final_inspect"
+        },
+        {
+          "purpose": "检查实际使用字体",
+          "command": "font.list",
+          "params": {},
+          "parameterReference": "command-evidence.json#font.list",
+          "capture": "fonts"
+        },
+        {
+          "purpose": "执行输出前技术预检",
+          "command": "preflight.run",
+          "params": {},
+          "parameterReference": "command-evidence.json#preflight.run",
+          "capture": "preflight"
+        }
+      ],
+      "assertions": {
+        "texts": [
+          "Neighbourhood Notes",
+          "Community teams"
+        ],
+        "frameCount": 3,
+        "thread": [
+          "left",
+          "right"
+        ],
+        "pages": 1,
+        "size": [
+          595,
+          842
+        ]
+      },
+      "checks": [
+        "两列共享同一故事且框顺序正确",
+        "正文完整保留且不溢出",
+        "不是把同样正文复制到两列"
+      ],
+      "limits": "实际长文长度与字体会改变流动；重排后再查overset与阅读顺序，不把双栏外观当成已串接。"
+    },
+    {
+      "id": "two-page-product-sheet",
+      "title": "双页产品说明",
+      "category": "page-layout",
+      "inputs": "2个非对页页面，每个spread独立坐标，示例技术参数需按实际产品核实。",
+      "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
+      "steps": [
+        {
+          "purpose": "仅新图建立指定页面，不用于已有文档",
+          "command": "file.new",
+          "params": {
+            "width": 595,
+            "height": 842,
+            "pages": 2,
+            "facingPages": false,
+            "margins": 36,
+            "bleed": 0,
+            "title": "双页产品说明"
+          },
+          "parameterReference": "command-evidence.json#file.new",
+          "newDocumentOnly": true
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 0,
+            "rect": [
+              42,
+              48,
+              553,
+              110
+            ],
+            "content": "text",
+            "text": "Craft Desk Lamp"
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "title1"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "title1.story"
+            },
+            "anchor": 0,
+            "focus": 15
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Sans 3",
+              "size": 28
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 0,
+            "rect": [
+              42,
+              150,
+              553,
+              390
+            ],
+            "content": "text",
+            "text": "Focused light for reading and making.\nMaterials: aluminium and recycled polymer.\nPower: 8 W. Colour temperature: 4000 K."
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "intro"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "intro.story"
+            },
+            "anchor": 0,
+            "focus": 120
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Serif 4",
+              "size": 16
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 1,
+            "rect": [
+              42,
+              48,
+              553,
+              110
+            ],
+            "content": "text",
+            "text": "Setup and care"
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "title2"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "title2.story"
+            },
+            "anchor": 0,
+            "focus": 14
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Sans 3",
+              "size": 28
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 1,
+            "rect": [
+              42,
+              150,
+              553,
+              420
+            ],
+            "content": "text",
+            "text": "1. Place on a stable surface.\n2. Connect the approved power adapter.\n3. Keep the light source clear.\nDisconnect power before cleaning."
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "care"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "care.story"
+            },
+            "anchor": 0,
+            "focus": 134
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Serif 4",
+              "size": 16
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "检查当前文档结构与溢出",
+          "command": "document.inspect",
+          "params": {},
+          "parameterReference": "command-evidence.json#document.inspect",
+          "capture": "final_inspect"
+        },
+        {
+          "purpose": "检查实际使用字体",
+          "command": "font.list",
+          "params": {},
+          "parameterReference": "command-evidence.json#font.list",
+          "capture": "fonts"
+        },
+        {
+          "purpose": "执行输出前技术预检",
+          "command": "preflight.run",
+          "params": {},
+          "parameterReference": "command-evidence.json#preflight.run",
+          "capture": "preflight"
+        }
+      ],
+      "assertions": {
+        "pages": 2,
+        "frameCount": 4,
+        "texts": [
+          "Craft Desk Lamp",
+          "Setup and care",
+          "4000 K."
+        ],
+        "pageTexts": {
+          "0": "Craft Desk Lamp",
+          "1": "Setup and care"
+        },
+        "size": [
+          595,
+          842
+        ]
+      },
+      "checks": [
+        "两页标题分属不同spread",
+        "规格与维护说明不丢失",
+        "导出含2页"
+      ],
+      "limits": "样例参数不是认证结果；正式说明须按产品实际安全资料审核。"
+    },
+    {
+      "id": "plan-comparison-table",
+      "title": "套餐对比活表格",
+      "category": "page-layout",
+      "inputs": "3行3列，首行为表头；价格单位和周期在真实任务中明确。",
+      "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
+      "steps": [
+        {
+          "purpose": "仅新图建立指定页面，不用于已有文档",
+          "command": "file.new",
+          "params": {
+            "width": 595,
+            "height": 842,
+            "pages": 1,
+            "facingPages": false,
+            "margins": 36,
+            "bleed": 0,
+            "title": "套餐对比活表格"
+          },
+          "parameterReference": "command-evidence.json#file.new",
+          "newDocumentOnly": true
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 0,
+            "rect": [
+              42,
+              48,
+              553,
+              110
+            ],
+            "content": "text",
+            "text": "Plan comparison"
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "title"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "title.story"
+            },
+            "anchor": 0,
+            "focus": 15
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Sans 3",
+              "size": 28
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 0,
+            "rect": [
+              42,
+              160,
+              553,
+              430
+            ],
+            "content": "text",
+            "text": "Plan\tSeats\tUSD/month\nStarter\t5\t19\nTeam\t20\t59"
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "grid"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "grid.story"
+            },
+            "anchor": 0,
+            "focus": 44
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Serif 4",
+              "size": 14
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "按制表符把所选文字转为表格",
+          "command": "table.convertFromText",
+          "params": {
+            "columnSeparator": "tab"
+          },
+          "parameterReference": "command-evidence.json#table.convertFromText",
+          "capture": "table"
+        },
+        {
+          "purpose": "明确选择本次转换的整表",
+          "command": "table.select",
+          "params": {
+            "story": {
+              "$ref": "grid.story"
+            },
+            "table": {
+              "$ref": "table.table"
+            },
+            "what": "table"
+          },
+          "parameterReference": "command-evidence.json#table.select"
+        },
+        {
+          "purpose": "设置一行重复表头",
+          "command": "table.options",
+          "params": {
+            "headerRows": 1
+          },
+          "parameterReference": "command-evidence.json#table.options"
+        },
+        {
+          "purpose": "检查实际单元格",
+          "command": "table.get",
+          "params": {
+            "story": {
+              "$ref": "grid.story"
+            },
+            "table": {
+              "$ref": "table.table"
+            }
+          },
+          "parameterReference": "command-evidence.json#table.get",
+          "capture": "table_info"
+        },
+        {
+          "purpose": "检查当前文档结构与溢出",
+          "command": "document.inspect",
+          "params": {},
+          "parameterReference": "command-evidence.json#document.inspect",
+          "capture": "final_inspect"
+        },
+        {
+          "purpose": "检查实际使用字体",
+          "command": "font.list",
+          "params": {},
+          "parameterReference": "command-evidence.json#font.list",
+          "capture": "fonts"
+        },
+        {
+          "purpose": "执行输出前技术预检",
+          "command": "preflight.run",
+          "params": {},
+          "parameterReference": "command-evidence.json#preflight.run",
+          "capture": "preflight"
+        }
+      ],
+      "assertions": {
+        "frameCount": 2,
+        "texts": [
+          "Plan comparison"
+        ],
+        "table": {
+          "capture": "grid",
+          "cells": [
+            "Plan",
+            "Seats",
+            "USD/month",
+            "Starter",
+            "5",
+            "19",
+            "Team",
+            "20",
+            "59"
+          ],
+          "rows": 3,
+          "columns": 3,
+          "headerRows": 1
+        },
+        "pages": 1,
+        "size": [
+          595,
+          842
+        ]
+      },
+      "checks": [
+        "真实表格单元格而非空格对齐文字",
+        "行列及表头保留",
+        "源工程和IDML均可编辑"
+      ],
+      "limits": "表格不自动计费，也不自动核实价格；转换后检查列宽、换行及文字是否溢出。"
+    },
+    {
+      "id": "brand-copy-revision",
+      "title": "品牌文案替换并保留段落样式",
+      "category": "page-layout",
+      "inputs": "首段为标题、次段为正文，替换2次品牌名。",
+      "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
+      "steps": [
+        {
+          "purpose": "仅新图建立指定页面，不用于已有文档",
+          "command": "file.new",
+          "params": {
+            "width": 595,
+            "height": 842,
+            "pages": 1,
+            "facingPages": false,
+            "margins": 36,
+            "bleed": 0,
+            "title": "品牌文案替换并保留段落样式"
+          },
+          "parameterReference": "command-evidence.json#file.new",
+          "newDocumentOnly": true
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 0,
+            "rect": [
+              42,
+              70,
+              553,
+              430
+            ],
+            "content": "text",
+            "text": "ACME annual review\nACME supports teams with practical tools."
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "copy"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "copy.story"
+            },
+            "anchor": 0,
+            "focus": 60
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Serif 4",
+              "size": 16
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "创建本次标题段落样式",
+          "command": "style.paragraph.create",
+          "params": {
+            "name": "Review Title",
+            "chars": {
+              "fontFamily": "Source Sans 3",
+              "size": 28
+            }
+          },
+          "parameterReference": "command-evidence.json#style.paragraph.create"
+        },
+        {
+          "purpose": "只选首段文字的UTF-8字节范围",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "copy.story"
+            },
+            "anchor": 0,
+            "focus": 18
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "应用标题样式",
+          "command": "style.paragraph.apply",
+          "params": {
+            "name": "Review Title",
+            "clearOverrides": true
+          },
+          "parameterReference": "command-evidence.json#style.paragraph.apply"
+        },
+        {
+          "purpose": "只替换本次故事内的品牌名",
+          "command": "find.change",
+          "params": {
+            "find": "ACME",
+            "change": "Craft Studio",
+            "scope": "story",
+            "story": {
+              "$ref": "copy.story"
+            },
+            "caseSensitive": true
+          },
+          "parameterReference": "command-evidence.json#find.change",
+          "capture": "replacement"
+        },
+        {
+          "purpose": "检查当前文档结构与溢出",
+          "command": "document.inspect",
+          "params": {},
+          "parameterReference": "command-evidence.json#document.inspect",
+          "capture": "final_inspect"
+        },
+        {
+          "purpose": "检查实际使用字体",
+          "command": "font.list",
+          "params": {},
+          "parameterReference": "command-evidence.json#font.list",
+          "capture": "fonts"
+        },
+        {
+          "purpose": "执行输出前技术预检",
+          "command": "preflight.run",
+          "params": {},
+          "parameterReference": "command-evidence.json#preflight.run",
+          "capture": "preflight"
+        }
+      ],
+      "assertions": {
+        "frameCount": 1,
+        "texts": [
+          "Craft Studio annual review",
+          "Craft Studio supports"
+        ],
+        "absent": [
+          "ACME"
+        ],
+        "paragraphStyle": "Review Title",
+        "replacementCount": 2,
+        "pages": 1,
+        "size": [
+          595,
+          842
+        ]
+      },
+      "checks": [
+        "两次替换且旧词消失",
+        "标题仍绑定Review Title样式",
+        "其他故事不执行文档级替换"
+      ],
+      "limits": "已有项目先确认替换范围和名称冲突；本例样式创建仅新文档示例，不能覆盖既有同名样式。"
+    },
+    {
+      "id": "overset-repair",
+      "title": "文本溢出诊断与扩框修复",
+      "category": "page-layout",
+      "inputs": "初始36点高文本框故意溢出，扩至420点高；原字号不缩小。",
+      "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
+      "steps": [
+        {
+          "purpose": "仅新图建立指定页面，不用于已有文档",
+          "command": "file.new",
+          "params": {
+            "width": 595,
+            "height": 842,
+            "pages": 1,
+            "facingPages": false,
+            "margins": 36,
+            "bleed": 0,
+            "title": "文本溢出诊断与扩框修复"
+          },
+          "parameterReference": "command-evidence.json#file.new",
+          "newDocumentOnly": true
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 0,
+            "rect": [
+              42,
+              100,
+              553,
+              136
+            ],
+            "content": "text",
+            "text": "Keep the full message visible before delivery. Keep the full message visible before delivery. Keep the full message visible before delivery. Keep the full message visible before delivery. Keep the full message visible before delivery. Keep the full message visible before delivery. Keep the full message visible before delivery. Keep the full message visible before delivery. Keep the full message visible before delivery. Keep the full message visible before delivery. Keep the full message visible before delivery. Keep the full message visible before delivery. Keep the full message visible before delivery. Keep the full message visible before delivery."
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "copy"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "copy.story"
+            },
+            "anchor": 0,
+            "focus": 657
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Serif 4",
+              "size": 14
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "记录修复前的实际溢出",
+          "command": "document.inspect",
+          "params": {},
+          "parameterReference": "command-evidence.json#document.inspect",
+          "capture": "before_repair"
+        },
+        {
+          "purpose": "仅扩展本次文本框高度，不缩放文字",
+          "command": "transform.resize",
+          "params": {
+            "ids": [
+              {
+                "$ref": "copy.id"
+              }
+            ],
+            "to": [
+              42,
+              100,
+              553,
+              520
+            ],
+            "content": false,
+            "from": [
+              42,
+              100,
+              553,
+              136
+            ]
+          },
+          "parameterReference": "command-evidence.json#transform.resize"
+        },
+        {
+          "purpose": "检查当前文档结构与溢出",
+          "command": "document.inspect",
+          "params": {},
+          "parameterReference": "command-evidence.json#document.inspect",
+          "capture": "final_inspect"
+        },
+        {
+          "purpose": "检查实际使用字体",
+          "command": "font.list",
+          "params": {},
+          "parameterReference": "command-evidence.json#font.list",
+          "capture": "fonts"
+        },
+        {
+          "purpose": "执行输出前技术预检",
+          "command": "preflight.run",
+          "params": {},
+          "parameterReference": "command-evidence.json#preflight.run",
+          "capture": "preflight"
+        }
+      ],
+      "assertions": {
+        "frameCount": 1,
+        "texts": [
+          "Keep the full message visible"
+        ],
+        "oversetRepair": true,
+        "repairedBounds": [
+          42,
+          100,
+          553,
+          520
+        ],
+        "pages": 1,
+        "size": [
+          595,
+          842
+        ]
+      },
+      "checks": [
+        "修复前确有overset，修复后消失",
+        "文字内容与字号保持",
+        "不是隐藏或删除溢出内容"
+      ],
+      "limits": "真实版面不能无条件向下扩框，先检查与其他对象、页脚及安全边界是否冲突。"
+    },
+    {
+      "id": "bleed-review-pdf",
+      "title": "带出血的审阅PDF",
+      "category": "page-layout",
+      "inputs": "A4页面、四边9点出血；约3.175mm，真实印厂若要求3mm应换算8.504点。",
+      "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
+      "steps": [
+        {
+          "purpose": "仅新图建立指定页面，不用于已有文档",
+          "command": "file.new",
+          "params": {
+            "width": 595,
+            "height": 842,
+            "pages": 1,
+            "facingPages": false,
+            "margins": 36,
+            "bleed": 9,
+            "title": "带出血的审阅PDF"
+          },
+          "parameterReference": "command-evidence.json#file.new",
+          "newDocumentOnly": true
+        },
+        {
+          "purpose": "创建延伸到出血区的背景条",
+          "command": "frame.create",
+          "params": {
+            "rect": [
+              -9,
+              -9,
+              604,
+              150
+            ],
+            "content": "unassigned"
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "bar"
+        },
+        {
+          "purpose": "为本次背景设置颜色",
+          "command": "object.color",
+          "params": {
+            "ids": [
+              {
+                "$ref": "bar.id"
+              }
+            ],
+            "color": "#1d4ed8",
+            "target": "fill"
+          },
+          "parameterReference": "command-evidence.json#object.color"
+        },
+        {
+          "purpose": "背景条不保留默认黑色轮廓",
+          "command": "object.stroke",
+          "params": {
+            "ids": [
+              {
+                "$ref": "bar.id"
+              }
+            ],
+            "swatch": "[None]",
+            "weight": 0
+          },
+          "parameterReference": "command-evidence.json#object.stroke"
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 0,
+            "rect": [
+              42,
+              220,
+              553,
+              390
+            ],
+            "content": "text",
+            "text": "A print-ready conversation starts here"
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "title"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "title.story"
+            },
+            "anchor": 0,
+            "focus": 38
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Sans 3",
+              "size": 30
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 0,
+            "rect": [
+              42,
+              450,
+              553,
+              570
+            ],
+            "content": "text",
+            "text": "Confirm paper, colour profile, bleed and finishing with the printer."
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "note"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "note.story"
+            },
+            "anchor": 0,
+            "focus": 68
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Serif 4",
+              "size": 18
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "输出包含出血和裁切标记的审阅PDF",
+          "command": "file.exportPdf",
+          "params": {
+            "path": "bleed-review.pdf",
+            "bleed": true,
+            "marks": {
+              "crop": true,
+              "bleed": true,
+              "pageInfo": false
+            },
+            "standard": "none"
+          },
+          "parameterReference": "command-evidence.json#file.exportPdf",
+          "capture": "bleed_pdf"
+        },
+        {
+          "purpose": "检查当前文档结构与溢出",
+          "command": "document.inspect",
+          "params": {},
+          "parameterReference": "command-evidence.json#document.inspect",
+          "capture": "final_inspect"
+        },
+        {
+          "purpose": "检查实际使用字体",
+          "command": "font.list",
+          "params": {},
+          "parameterReference": "command-evidence.json#font.list",
+          "capture": "fonts"
+        },
+        {
+          "purpose": "执行输出前技术预检",
+          "command": "preflight.run",
+          "params": {},
+          "parameterReference": "command-evidence.json#preflight.run",
+          "capture": "preflight"
+        }
+      ],
+      "assertions": {
+        "frameCount": 3,
+        "texts": [
+          "A print-ready conversation",
+          "Confirm paper"
+        ],
+        "bleedPdf": "bleed-review.pdf",
+        "bleedBounds": [
+          -9,
+          -9,
+          604,
+          150
+        ],
+        "pages": 1,
+        "size": [
+          595,
+          842
+        ],
+        "bleedNoStroke": true
+      },
+      "checks": [
+        "背景越过裁切边缘",
+        "PDF包含出血审阅区域",
+        "没有把RGB审阅稿说成已通过印厂色彩验收"
+      ],
+      "limits": "这是技术审阅输出，不宣称PDF/X、CMYK、软打样或印厂已验收。固定输出名只用于新的空工作目录。"
+    },
+    {
+      "id": "interactive-guide-link",
+      "title": "交互PDF阅读链接",
+      "category": "page-layout",
+      "inputs": "一页阅读指南，URL是不可用占位值，正式交付前替换为已确认地址。",
+      "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
+      "steps": [
+        {
+          "purpose": "仅新图建立指定页面，不用于已有文档",
+          "command": "file.new",
+          "params": {
+            "width": 595,
+            "height": 842,
+            "pages": 1,
+            "facingPages": false,
+            "margins": 36,
+            "bleed": 0,
+            "title": "交互PDF阅读链接"
+          },
+          "parameterReference": "command-evidence.json#file.new",
+          "newDocumentOnly": true
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 0,
+            "rect": [
+              42,
+              70,
+              553,
+              140
+            ],
+            "content": "text",
+            "text": "Reader guide"
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "title"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "title.story"
+            },
+            "anchor": 0,
+            "focus": 12
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Sans 3",
+              "size": 30
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "创建独立可编辑文本框并记录返回值",
+          "command": "frame.create",
+          "params": {
+            "spread": 0,
+            "rect": [
+              42,
+              210,
+              553,
+              280
+            ],
+            "content": "text",
+            "text": "Open the online guide"
+          },
+          "parameterReference": "command-evidence.json#frame.create",
+          "capture": "link"
+        },
+        {
+          "purpose": "用UTF-8字节范围选择本次故事",
+          "command": "text.select",
+          "params": {
+            "story": {
+              "$ref": "link.story"
+            },
+            "anchor": 0,
+            "focus": 21
+          },
+          "parameterReference": "command-evidence.json#text.select"
+        },
+        {
+          "purpose": "设置已核实的字体和字号",
+          "command": "type.char",
+          "params": {
+            "attrs": {
+              "fontFamily": "Source Serif 4",
+              "size": 20
+            }
+          },
+          "parameterReference": "command-evidence.json#type.char"
+        },
+        {
+          "purpose": "为选中活文字建立链接",
+          "command": "hyperlink.create",
+          "params": {
+            "url": "https://example.invalid/guide",
+            "name": "Online guide"
+          },
+          "parameterReference": "command-evidence.json#hyperlink.create",
+          "capture": "link_result"
+        },
+        {
+          "purpose": "核对实际链接目的地",
+          "command": "hyperlink.list",
+          "params": {},
+          "parameterReference": "command-evidence.json#hyperlink.list",
+          "capture": "hyperlinks"
+        },
+        {
+          "purpose": "检查当前文档结构与溢出",
+          "command": "document.inspect",
+          "params": {},
+          "parameterReference": "command-evidence.json#document.inspect",
+          "capture": "final_inspect"
+        },
+        {
+          "purpose": "检查实际使用字体",
+          "command": "font.list",
+          "params": {},
+          "parameterReference": "command-evidence.json#font.list",
+          "capture": "fonts"
+        },
+        {
+          "purpose": "执行输出前技术预检",
+          "command": "preflight.run",
+          "params": {},
+          "parameterReference": "command-evidence.json#preflight.run",
+          "capture": "preflight"
+        }
+      ],
+      "assertions": {
+        "frameCount": 2,
+        "texts": [
+          "Reader guide",
+          "Open the online guide"
+        ],
+        "hyperlink": "https://example.invalid/guide",
+        "pages": 1,
+        "size": [
+          595,
+          842
+        ]
+      },
+      "checks": [
+        "链接记录绑定当前文字",
+        "PDF实际含链接注释",
+        "占位URL已按任务替换"
+      ],
+      "limits": "只生成链接注释，不访问外部地址；文件内有链接不代表网页可用或权限已验证。"
+    }
+  ]
+}

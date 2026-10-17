@@ -1,0 +1,52 @@
+{
+  "runtime": {
+    "version": "v0.8.0",
+    "url": "https://github.com/storytold/designcraft/releases/download/v0.8.0/designcraft-0.8.0-windows-x64-portable.zip",
+    "sha256": "522dea416d68e5de5ec03ceede46854022587e801c76ad7a3c48b1e5e57b953a",
+    "executable": "designcraft-cli.exe"
+  },
+  "ciRun": "https://github.com/partme-ai/full-aigc-plugins/actions/runs/38921194883",
+  "observedCommands": {
+    "frame.grid": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "frame.grid",
+      "label": "Gridify",
+      "menu": [],
+      "params": "{rect, cols, rows, gutter? (pt, 12), shape?, content?, spread?} — a grid of frames filling `rect` (frame tools: arrow keys while dragging)",
+      "shortcut": null
+    },
+    "frame.create": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "frame.create",
+      "label": "Create Frame",
+      "menu": [],
+      "params": "{spread?: index | {kind: doc|parent, index} (a parent spread: index into `parents` of document.inspect), rect: [x0,y0,x1,y1] (spread coords), shape?: rectangle|ellipse|polygon, content?: graphic|text|unassigned, sides?: 6, text?: string, caret?: bool, vertical?: bool (text: a new vertical story)}",
+      "shortcut": null
+    },
+    "style.paragraph.create": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "style.paragraph.create",
+      "label": "New Paragraph Style…",
+      "menu": [],
+      "params": "{name, basedOn?, nextStyle?, para?: {…}, chars?: {…}, fromSelection?: bool}",
+      "shortcut": null
+    },
+    "preflight.run": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "preflight.run",
+      "label": "Preflight Document",
+      "menu": [
+        "Window",
+        "Output",
+        "Preflight"
+      ],
+      "params": "{minPpi?: 150} → issues [{severity, kind, message, item?, page?}]",
+      "shortcut": null
+    }
+  },
+  "sceneAcceptance": "NOT_RUN"
+}

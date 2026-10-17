@@ -1,0 +1,13 @@
+{
+  "name": "designcraft",
+  "icon": "designcraft/icon.png",
+  "source": "https://raw.githubusercontent.com/storytold/designcraft/43a46c04bf8cd8c8a48a347f6deaa9613223aa54/assets/app-icon/designcraft.svg",
+  "homepage": "https://github.com/storytold/designcraft",
+  "matchedBy": "upstream-app-icon",
+  "mimeType": "image/png",
+  "license": "MIT",
+  "modifications": "Square full-bleed background; 256px PNG. Artwork preserved; corner rounding delegated to client.",
+  "sha256": "e65ae6801cab8f218d116b661e4012f7ebea15474824c0d3cb4cbd9ef0805b47",
+  "localFile": "./assets/official-logo.png",
+  "displayName": "DesignCraft Use"
+}

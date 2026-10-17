@@ -1,0 +1,47 @@
+{
+  "runtime": {
+    "version": "v0.8.0",
+    "url": "https://github.com/storytold/designcraft/releases/download/v0.8.0/designcraft-0.8.0-windows-x64-portable.zip",
+    "sha256": "522dea416d68e5de5ec03ceede46854022587e801c76ad7a3c48b1e5e57b953a",
+    "executable": "designcraft-cli.exe"
+  },
+  "ciRun": "https://github.com/partme-ai/full-aigc-plugins/actions/runs/38921194883",
+  "observedCommands": {
+    "preflight.run": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "preflight.run",
+      "label": "Preflight Document",
+      "menu": [
+        "Window",
+        "Output",
+        "Preflight"
+      ],
+      "params": "{minPpi?: 150} → issues [{severity, kind, message, item?, page?}]",
+      "shortcut": null
+    },
+    "file.exportPdf": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "file.exportPdf",
+      "label": "Export PDF…",
+      "menu": [
+        "File"
+      ],
+      "params": "{path?, pages?: \"1-3,5\" | [1,3] (1-based positions; default all), flatten?: high|medium|low|ppi (Transparency Flattener: spreads with transparency are rasterised), spreads?: bool, fullScreen?: bool, bookmarksPanel?: bool, pageLayout?: single|continuous|twoUp|twoUpCover|twoUpContinuous, view?: fitPage|fitWidth|actual, advanceSeconds?: number (interactive PDF), bleed?: bool (document bleed), marks?: bool | {crop?, bleed?, pageInfo?, weight?, offset?}, standard?: \"none\"|\"x4\"|\"a2b\", compressImages?: bool, tagged?: bool (structure tree: stories as paragraphs, figures with alt text), media?: bool (interactive: embed placed video and sound), title?, author?} → {path, bytes, pages, warnings} (no path: {base64, …})",
+      "shortcut": null
+    },
+    "file.package": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "file.package",
+      "label": "Package…",
+      "menu": [
+        "File"
+      ],
+      "params": "{dir: folder to create, idml?: true, pdf?: false, instructions?: text} — the document (its placed files relinked to Links/), Links/, the font files that draw its text in Document Fonts/ (fallback fonts included; unless their licence restricts it), an IDML copy, an optional PDF and a report → {dir, files, report}",
+      "shortcut": null
+    }
+  },
+  "sceneAcceptance": "NOT_RUN"
+}

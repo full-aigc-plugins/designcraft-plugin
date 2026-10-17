@@ -1,28 +1,10 @@
 {
   "name": "designcraft",
-  "displayName": "designcraft",
-  "displayName_i18n": {
-    "en": "designcraft",
-    "zh-CN": "designcraft"
-  },
-  "version": "0.1.0-dev.1",
+  "version": "0.1.0-dev.20261017.3",
   "description": "页面排版与出版；本地候选，完整首用与宿主验收未完成。",
-  "description_i18n": {
-    "en": "Page layout and publishing; local candidate, full first-use and host acceptance pending.",
-    "zh-CN": "页面排版与出版；本地候选，完整首用与宿主验收未完成。"
-  },
-  "author": {
-    "name": "Full AIGC Plugins",
-    "url": "https://github.com/full-aigc-plugins"
-  },
-  "homepage": "https://github.com/full-aigc-plugins/designcraft-plugin",
-  "repository": "https://github.com/full-aigc-plugins/designcraft-plugin",
   "license": "Apache-2.0",
-  "keywords": [
-    "designcraft",
-    "page-layout",
-    "publishing",
-    "development-release"
-  ],
-  "skills": "skills"
+  "skills": "./skills/",
+  "displayName": "DesignCraft Use",
+  "icon": "./assets/official-logo.png",
+  "mcpServers": "./.mcp.json"
 }

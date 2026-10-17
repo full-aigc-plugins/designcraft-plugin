@@ -10,8 +10,8 @@
   "ci": "PASS",
   "nativeInstallation": "NOT_RUN",
   "targetPlatformAcceptance": "NOT_RUN",
-  "hostDiscovery": "PASS",
-  "modelDispatch": "PASS",
+  "hostDiscovery": "NOT_RUN",
+  "modelDispatch": "NOT_RUN",
   "creativeAcceptance": "NOT_RUN",
   "published": false,
   "specificationChange": "openspec/changes/harden-designcraft-plugin-delivery",
@@ -19,5 +19,6 @@
   "ciTestedCommit": "e936c46ed933b4680faed7fde81414fe2b1eeb7f",
   "hostEvidence": "evidence/host/bundled-codex-discovery-show-fix-20261009.json",
   "modelDispatchEvidence": "evidence/host/bundled-codex-model-routing-show-fix-20261009.json",
-  "currentCandidateNote": "Current pinned install/discovery and installed read-only show passed. Nine documentation-only model routing observations reused with identical instructions/references; native/recovery/creative/release acceptance remains independent."
+  "currentCandidateNote": "Current pinned install/discovery and installed read-only show passed. Nine documentation-only model routing observations reused with identical instructions/references; native/recovery/creative/release acceptance remains independent.",
+  "editorCandidateNote": "2026-10-16: new MCP editor and local scene skills change package contents; previous host reports are retained but do not verify this candidate."
 }

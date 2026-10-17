@@ -1,0 +1,1153 @@
+{
+  "baselineCount": 459,
+  "mainCount": 519,
+  "added": [
+    "color.extractTheme",
+    "edit.cancelPreview",
+    "edit.commitPreview",
+    "edit.pasteSvg",
+    "edit.preview",
+    "file.clearRecent",
+    "file.deletePreset",
+    "file.exportPptx",
+    "file.openRecent",
+    "file.recentFiles",
+    "file.savePreset",
+    "flex.add",
+    "flex.convert",
+    "flex.remove",
+    "flex.reorder",
+    "flex.set",
+    "layout.chapterNumbering",
+    "layout.numberingOptions",
+    "layout.pageOptions",
+    "layout.parents.options",
+    "layout.selectPage",
+    "object.clippingPathOptions",
+    "object.effects",
+    "object.reorder",
+    "path.convertPoints",
+    "path.join",
+    "style.character.delete",
+    "style.character.redefine",
+    "style.load",
+    "style.load.list",
+    "style.object.clearOverrides",
+    "style.object.edit",
+    "style.paragraph.redefine",
+    "swatch.addColorTheme",
+    "swatch.new",
+    "swatch.options",
+    "table.convertRowsToBody",
+    "table.convertRowsToFooter",
+    "table.convertRowsToHeader",
+    "table.getCellStroke",
+    "table.resizeBorder",
+    "type.autoTateChuYoko",
+    "type.feature",
+    "type.gridSettings",
+    "type.kernPair",
+    "type.kernStep",
+    "type.openTypeFeatures",
+    "type.pickUpFormat",
+    "type.romanWordBreak",
+    "type.rotateRoman",
+    "type.shatai",
+    "type.tabs.add",
+    "type.tabs.change",
+    "type.tabs.clear",
+    "type.tabs.get",
+    "type.tabs.move",
+    "type.tabs.remove",
+    "type.tabs.repeat",
+    "view.lockZeroPoint",
+    "view.zeroPoint"
+  ],
+  "removed": [],
+  "contractsChanged": [
+    {
+      "id": "anchored.insert",
+      "baseline": {
+        "params": "{ids, story?, pos? (default: the text insertion point), position?: inline|aboveLine|custom, yOffset?, align?: left|center|right, spaceBefore?, spaceAfter?, xRelative?/yRelative?: anchor|textFrame|columnEdge|pageMargin|pageEdge, xOffset?, objectPoint?/refPoint?: 0..8, keepWithinColumn?} — moves the items into the text"
+      },
+      "main": {
+        "params": "{ids, story?, pos? (default: the text insertion point), position?: inline|aboveLine|custom, yOffset?, align?: left|center|right, spaceBefore?, spaceAfter?, xRelative? | yRelative?: anchor|textFrame|columnEdge|pageMargin|pageEdge, xOffset?, objectPoint? | refPoint?: 0..8, keepWithinColumn?} — moves the items into the text"
+      }
+    },
+    {
+      "id": "anchored.options",
+      "baseline": {
+        "params": "{story?, index? (default: the object at the insertion point), position?: inline|aboveLine|custom, yOffset?, align?: left|center|right, spaceBefore?, spaceAfter?, xRelative?/yRelative?: anchor|textFrame|columnEdge|pageMargin|pageEdge, xOffset?, objectPoint?/refPoint?: 0..8, keepWithinColumn?}"
+      },
+      "main": {
+        "params": "{story?, index? (default: the object at the insertion point), position?: inline|aboveLine|custom, yOffset?, align?: left|center|right, spaceBefore?, spaceAfter?, xRelative? | yRelative?: anchor|textFrame|columnEdge|pageMargin|pageEdge, xOffset?, objectPoint? | refPoint?: 0..8, keepWithinColumn?}"
+      }
+    },
+    {
+      "id": "book.paginate",
+      "baseline": {
+        "params": "{} — each document starts numbering where the previous one ended (files are saved)"
+      },
+      "main": {
+        "params": "{} — each document starts numbering where the previous one ended, and takes its chapter number (automatic: one more than the previous document's; same as previous; or its own start) (files are saved) → {pages, chapters}"
+      }
+    },
+    {
+      "id": "color.sample",
+      "baseline": {
+        "params": "{at: [x,y] (spread coords), spread?, target?: fill|stroke, ids?} → {color: \"#rrggbb\", swatch, from: image id} — the Eyedropper on a placed image: the image's colour at the point (an unnamed colour) fills the selected text, else the selected objects"
+      },
+      "main": {
+        "params": "{at: [x,y] (spread coords), spread?, target?: fill|stroke, ids?, matchFrom?: id} → {color: \"#rrggbb\", swatch, from: image id} — the Eyedropper on a placed image: the image's colour at the point (an unnamed colour) fills the selected text, else the selected objects. With no opaque image pixel there, `matchFrom` gives the object whose attributes apply instead (object.matchAttributes)"
+      }
+    },
+    {
+      "id": "data.fields",
+      "baseline": {
+        "params": "{csv? | rows? | path? | bytes?, name?} → [{name, kind, uses}]; no params reads the linked source and does not attach one"
+      },
+      "main": {
+        "params": "{csv? | rows? | path? | bytes? | base64?, name?, delimiter?, sheet?} → [{name, kind, uses}]; no params reads the linked source and does not attach one"
+      }
+    },
+    {
+      "id": "data.merge",
+      "baseline": {
+        "params": "{csv? | rows? | path? | bytes?, name?, records?, one?, range?, perPage?, arrange?, insets?, columnSpacing?, rowSpacing?, fitting?, center?, linkImages?, limit?} → {records, pages, missingImages, oversetStories, warnings}"
+      },
+      "main": {
+        "params": "{csv? | rows? | path? | bytes? | base64?, name?, delimiter?, sheet?, records?, one?, range?, perPage?, arrange?, insets?, columnSpacing?, rowSpacing?, fitting?, center?, linkImages?, limit?, spread?: removed (passing it is an error)} → {records, pages, missingImages, oversetStories, warnings}"
+      }
+    },
+    {
+      "id": "document.preferences",
+      "baseline": {
+        "params": "{horizontalUnits?, verticalUnits?: points|picas|inches|millimeters|…, keyboardIncrement? (pt), baselineGrid?: {start, increment, relativeTo, color, viewThreshold}, grid?: {horizontal, vertical, subdivisions, color, inBack}, pasteboard?: [h, v], marginColor?, columnColor?, bleedColor?, slugColor?: [r, g, b], advancedType?: {superscriptSize, superscriptPosition, subscriptSize, subscriptPosition} (%), overprintBlack?, glyphFallback? (draw characters the font lacks from fallback fonts; off: as the font's missing-glyph box)} → those settings"
+      },
+      "main": {
+        "params": "{horizontalUnits?, verticalUnits?: points|picas|inches|millimeters|…, keyboardIncrement? (pt), kerningIncrement? (1/1000 em: Alt+Left/Right in text), baselineGrid?: {start, increment, relativeTo, color, viewThreshold}, grid?: {horizontal, vertical, subdivisions, color, inBack}, pasteboard?: [h, v], marginColor?, columnColor?, bleedColor?, slugColor?: [r, g, b], advancedType?: {superscriptSize, superscriptPosition, subscriptSize, subscriptPosition} (%), overprintBlack?, glyphFallback? (draw characters the font lacks from fallback fonts; off: as the font's missing-glyph box), rulerOrigin?: spread|page|spine (what rulers and X/Y measure from, with the zero point)} → those settings"
+      }
+    },
+    {
+      "id": "edit.paste",
+      "baseline": {
+        "params": "{inPlace?: bool, text?: the system clipboard's text (pastes it unless it is what was copied here; with no insertion point it becomes a new text frame), spread?, at?: [x, y] (spread coords: the new text frame's centre)}"
+      },
+      "main": {
+        "params": "{inPlace?: bool, spread?: index (0), text?: the system clipboard's text (pastes it unless it is what was copied here; with no insertion point it becomes a new text frame), at?: [x, y] (spread coords: the new text frame's centre)}"
+      }
+    },
+    {
+      "id": "edit.pasteInPlace",
+      "baseline": {
+        "params": "{}"
+      },
+      "main": {
+        "params": "{spread?: index (0)}"
+      }
+    },
+    {
+      "id": "endnote.options",
+      "baseline": {
+        "params": "{style?: arabic|upperRoman|lowerRoman|upperLetters|lowerLetters, startAt?, prefix?, suffix?, heading?, headingStyle?, paraStyle?, separator?} → the options"
+      },
+      "main": {
+        "params": "{style?: arabic|upperRoman|lowerRoman|upperLetters|lowerLetters|kanji, startAt?, prefix?, suffix?, heading?, headingStyle?, paraStyle?, separator?} → the options"
+      }
+    },
+    {
+      "id": "file.exportEpub",
+      "baseline": {
+        "params": "{path?, title?, author?, language?: \"en\", cover?: bool (the first page as the cover image), fixedLayout?: bool (pre-paginated: each page as an image with its text)} → {path, bytes} (no path: {base64, bytes})"
+      },
+      "main": {
+        "params": "{path?, title?, author?, language?: \"en\", identifier?: str (dc:identifier; a stable urn:uuid by default), coverImage?: path (a PNG or JPEG as the cover), tocTitle?: str (the table of contents' title; from the language by default), cover?: bool (the first page as the cover image), embedFonts?: bool (package the stylesheet's fonts whose licence allows it, whole files), fixedLayout?: bool (pre-paginated: each page as an image with its text)} → {path, bytes, warnings} (no path: {base64, bytes, warnings}); warnings name images without alt text, exported as decorative, and fonts that could not be embedded"
+      }
+    },
+    {
+      "id": "file.exportHtml",
+      "baseline": {
+        "params": "{path?, title?, language?} — one self-contained page (styles inline, images embedded), stories and graphics in reading order → {path, bytes} (no path: {text, bytes})"
+      },
+      "main": {
+        "params": "{path?, title?, language?} — one self-contained page (styles inline, images embedded), stories and graphics in reading order → {path, bytes, warnings} (no path: {text, bytes, warnings})"
+      }
+    },
+    {
+      "id": "file.new",
+      "baseline": {
+        "params": "{preset?: \"Letter\"|\"A4\"|…, width?, height?, pages?, facingPages?, columns?, gutter?, margins?: number|{top,bottom,inside,outside}, bleed?, title?}"
+      },
+      "main": {
+        "params": "{preset?: \"Letter\"|\"A4\"|… or a saved preset (file.savePreset), intent?: print|web|mobile, units?: points|picas|millimeters|…, width?, height?, pages?, startPage?, facingPages?, columns?, gutter?, margins?: number|{top,bottom,inside,outside}, bleed?, slug?: n | [top, bottom, inside, outside], title?, primaryTextFrame?: bool}"
+      }
+    },
+    {
+      "id": "file.open",
+      "baseline": {
+        "params": "{path} — .designcraft or .idml; the fonts in a `Document Fonts` folder beside it load first → {index, documentFonts: faces loaded, warnings: font files skipped (and, for .idml, package parts missing)}"
+      },
+      "main": {
+        "params": "{path} — a DesignCraft or IDML file (recognised by its content, so the extension may be missing), or an InDesign .indd/.indt (recognised by its signature or extension, converted to IDML; its conversion warnings join `warnings`); the fonts in a `Document Fonts` folder beside it load first → {index, documentFonts: faces loaded, warnings: font files skipped, GREP styles whose pattern can't compile, Based on Parent links cleared and, for IDML and InDesign files, package parts missing}"
+      }
+    },
+    {
+      "id": "file.openBytes",
+      "baseline": {
+        "params": "{name, base64} — DesignCraft JSON or an IDML package"
+      },
+      "main": {
+        "params": "{name, base64} — DesignCraft JSON, an IDML package or an InDesign .indd/.indt → {index, warnings}"
+      }
+    },
+    {
+      "id": "file.openIdml",
+      "baseline": {
+        "params": "{path | base64, name?} — opens an IDML package as a new document (linked images are read next to the file or from its Links/ folder; the fonts in a `Document Fonts` folder beside it load first) → {index, documentFonts, warnings: package parts missing, font files skipped}"
+      },
+      "main": {
+        "params": "{path | base64, name?} — opens an IDML package, or an InDesign document or template (.indd, .indt: converted to IDML first; its conversion warnings join `warnings`), as a new document (linked images are read next to the file or from its Links/ folder; the fonts in a `Document Fonts` folder beside it load first) → {index, documentFonts, warnings: conversion warnings, package parts missing, font files skipped, GREP styles whose pattern can't compile}"
+      }
+    },
+    {
+      "id": "file.package",
+      "baseline": {
+        "params": "{dir: folder to create, idml?: true, pdf?: false, instructions?: text} — the document (its placed files relinked to Links/), Links/, the font files that draw its text in Document Fonts/ (fallback fonts included; unless their licence restricts it), an IDML copy, an optional PDF and a report → {dir, files, report}"
+      },
+      "main": {
+        "params": "{dir: folder to create, idml?: true, pdf?: false, instructions?: text} — the document (its placed files relinked to Links/), Links/, the font files that draw its text in Document Fonts/ (fallback fonts included; unless their licence restricts it), an IDML copy (linking the files in Links/, nothing embedded), an optional PDF and a report → {dir, files, report}"
+      }
+    },
+    {
+      "id": "file.place",
+      "baseline": {
+        "params": "{path?|base64?, name?, frame?: id (place into), spread?, x?, y?, width?, pdfPage?: n (1-based, Image Import Options), pdfCrop?: crop|trim|bleed|art|media, layoutPage?: n (IDML / .designcraft: that page's objects as a group)} — places an image (into the selected empty frame if any); text files (.txt, .docx, .rtf, .md) and Excel workbooks (.xlsx, as a table) go into the insertion point, the selected frame or a new frame on `page`/`rect` — {autoflow?: adds pages with threaded frames until the text fits, removeStyles?, styleMap?: {imported name: document style}, styleConflicts?: useExisting|redefine|autoRename}"
+      },
+      "main": {
+        "params": "{path?|base64?, name?, frame?: id (place into), spread?, x?, y?, width?: finite number > 0 (null: absent), height? (video/audio), pdfPage?: n (1-based, Image Import Options), pdfCrop?: crop|art|trim|bleed|media|contentVisible|contentAll (the box the graphic shows; `width` is the whole page's), loadCursor? (with no frame to fill and no x/y, an image loads into the place cursor, as File › Place), layoutPage?: n (IDML / .designcraft: that page's objects as a group), page?, rect?: [x0,y0,x1,y1] (text: a new frame there), autoflow? (threads one frame per page column from the first frame on, adding pages until the text fits), removeStyles?, styleMap?: {imported name: document style}, styleConflicts?: useExisting|redefine|autoRename, link? (keep the file linked in the Links panel; default: the linkTextFiles preference)} — places an image into `frame` when given; otherwise any explicit x/y/spread/width creates a new frame; otherwise uses the selected empty or graphic frame, or creates a new frame; text files (.txt, .docx, .rtf, .md) and Excel workbooks (.xlsx, as a table) go into the insertion point, the selected frame or a new frame on `page`/`rect`"
+      }
+    },
+    {
+      "id": "file.presets",
+      "baseline": {
+        "params": "{}"
+      },
+      "main": {
+        "params": "{} → the built-in presets [{name, intent, width, height, units}], then the saved ones (with `saved: true`)"
+      }
+    },
+    {
+      "id": "file.save",
+      "baseline": {
+        "params": "{path?}"
+      },
+      "main": {
+        "params": "{path?} — a `path` without the .designcraft extension gets it → {path: the file written, bytes}"
+      }
+    },
+    {
+      "id": "file.saveACopy",
+      "baseline": {
+        "params": "{path} — writes the document without changing which file it is or its unsaved state"
+      },
+      "main": {
+        "params": "{path} — writes the document without changing which file it is or its unsaved state; a path without the .designcraft extension gets it → {path: the file written, bytes}"
+      }
+    },
+    {
+      "id": "file.saveAs",
+      "baseline": {
+        "params": "{path}"
+      },
+      "main": {
+        "params": "{path} — a path without the .designcraft extension gets it → {path: the file written, bytes}"
+      }
+    },
+    {
+      "id": "find.changeObjects",
+      "baseline": {
+        "params": "{…find.objects criteria, change: {fill?, stroke?, strokeWeight?, opacity?}} → {changed}"
+      },
+      "main": {
+        "params": "{…the criteria of find.objects, change: {fill?, stroke?, strokeWeight?, opacity?}} → {changed}"
+      }
+    },
+    {
+      "id": "find.find",
+      "baseline": {
+        "params": "{find, grep?: bool, caseSensitive?: bool, wholeWord?: bool, scope?: document|story|selection, story?} → matches [{story, start, end, text}]"
+      },
+      "main": {
+        "params": "{find, grep?: bool, caseSensitive?: bool, wholeWord?: bool, scope?: document|story|selection, story?, change?|first?|attrs?: ignored (find.change takes them; one request serves all three Find/Change commands)} → matches [{story, start, end, text}]"
+      }
+    },
+    {
+      "id": "find.next",
+      "baseline": {
+        "params": "{find, grep?, …} — selects the next match after the caret"
+      },
+      "main": {
+        "params": "{find, grep?, caseSensitive?, wholeWord?, scope?: document|story|selection, story?, change?|first?|attrs?: ignored (find.change takes them; one request serves all three Find/Change commands)} — Selection starts at its original beginning; later calls advance within the scope"
+      }
+    },
+    {
+      "id": "font.list",
+      "baseline": {
+        "params": "{} → [{family, style, characters, missing, styleMissing, source: bundled|installed|document|added (null when missing)}] (missing first)"
+      },
+      "main": {
+        "params": "{} → [{family, style, characters, missing, styleMissing, source: bundled|installed|document|added (null when missing), matchStatus: exact|styleSubstitute|missing, resolvedFamily, resolvedStyle, replacementFamily, replacementStyle}] (missing first)"
+      }
+    },
+    {
+      "id": "footnote.options",
+      "baseline": {
+        "params": "{style?: arabic|upperRoman|lowerRoman|upperLetters|lowerLetters|symbols, startAt?, restart?: never|page|spread|section, prefix?, suffix?, affixIn?: none|reference|text|both, refPosition?: superscript|subscript|normal|otSuperscript, refCharStyle?, paraStyle?, separator?, spaceBefore?, spaceBetween?, firstBaseline?: ascent|capHeight|leading|xHeight|emboxHeight|fixed, firstBaselineMin?, spanColumns?, rule?: {on, weight, color, tint, width, offset, leftIndent}} → the options (no params: just read them)"
+      },
+      "main": {
+        "params": "{style?: arabic|upperRoman|lowerRoman|upperLetters|lowerLetters|symbols|kanji, startAt?, restart?: never|page|spread|section, prefix?, suffix?, affixIn?: none|reference|text|both, refPosition?: superscript|subscript|normal|otSuperscript, refCharStyle?, paraStyle?, separator?, spaceBefore?, spaceBetween?, firstBaseline?: ascent|capHeight|leading|xHeight|emboxHeight|fixed, firstBaselineMin?, spanColumns?, rule?: {on, weight, color, tint, width, offset, leftIndent}} → the options (no params: just read them)"
+      }
+    },
+    {
+      "id": "frame.create",
+      "baseline": {
+        "params": "{spread?: index | {kind: doc|parent, index} (a parent spread: index into `parents` of document.inspect), rect: [x0,y0,x1,y1] (spread coords), shape?: rectangle|ellipse|polygon, content?: graphic|text|unassigned, sides?: 6, text?: string, caret?: bool, vertical?: bool (text: a new vertical story)}"
+      },
+      "main": {
+        "params": "{spread?: index | {kind: doc|parent, index} (a parent spread: index into `parents` of document.inspect), rect: [x0,y0,x1,y1] (spread coords), shape?: rectangle|ellipse|polygon, content?: graphic|text|unassigned, sides?: 6, starInset?: 0–100 (%), text?: string, caret?: bool, vertical?: bool (text: a new vertical story)}"
+      }
+    },
+    {
+      "id": "gap.move",
+      "baseline": {
+        "params": "{at: [x, y] (spread), delta | dx/dy, spread?} — Gap tool: the gap at `at` between objects (or an object and the page edge) moves by `delta`; the objects on both sides resize → {axis, changed}"
+      },
+      "main": {
+        "params": "{at: [x, y] (spread), delta?: pt | dx? | dy?: a drag (the part along the gap's axis counts), spread?} — Gap tool: the gap at `at` between objects (or an object and the page edge) moves by `delta`; the objects on both sides resize → {axis, changed}"
+      }
+    },
+    {
+      "id": "guide.add",
+      "baseline": {
+        "params": "{orientation: horizontal|vertical, position (spread coordinate), spread?, page? (index in the spread; default: the page under `at` or the position), at? (the other coordinate), spreadGuide?: bool} → {page, index}"
+      },
+      "main": {
+        "params": "{orientation: horizontal|vertical, position (spread coordinate), spread?, page? (index in the spread; default: the page under `at` or the position), at? (the other coordinate), spreadGuide?: bool, liquid?: bool (a liquid guide, as the Page tool draws from the rulers)} or {orientation: both, point: [x, y], spread?, page?, spreadGuide?: bool, liquid?: bool} → {page, index}; `both` adds a horizontal guide through y and a vertical guide through x as one undo step → {guides: [{page, index}, {page, index}]}"
+      }
+    },
+    {
+      "id": "layer.set",
+      "baseline": {
+        "params": "{id, name?, visible?, locked?, printable?, color?: [r,g,b]}"
+      },
+      "main": {
+        "params": "{id, name?, color?: [r,g,b] | layer colour name (\"Light Blue\", \"Red\", …), visible?, locked?, printable?, showGuides?, suppressWrapWhenHidden?} — names are unique and not empty"
+      }
+    },
+    {
+      "id": "layout.documentSetup",
+      "baseline": {
+        "params": "{width?, height?, pages?: count, startPage?: n, facingPages?, binding?: leftToRight|rightToLeft, intent?: print|web|mobile, bleed?, slug?: n | [top, bottom, inside, outside], adjustLayout?: bool (objects follow the new page size)} → the document setup"
+      },
+      "main": {
+        "params": "{width?, height?, pages?: count, startPage?: n, facingPages?, binding?: leftToRight|rightToLeft, intent?: print|web|mobile, margins?: n | {top, bottom, inside, outside} (every page and parent page), bleed?, slug?: n | [top, bottom, inside, outside], adjustLayout?: bool (objects follow the new page size and margins)} → the document setup (margins: the first page's)"
+      }
+    },
+    {
+      "id": "layout.marginsAndColumns",
+      "baseline": {
+        "params": "{pages?: [index] (default all), margins?: number|{top,bottom,inside,outside}, columns?, gutter?, adjustLayout?: bool (objects follow the margins)}"
+      },
+      "main": {
+        "params": "{pages?: [index] (default all), margins?: number|{top,bottom,inside,outside}, columns?, gutter?, adjustLayout?: bool (objects follow the margins), parent? (a parent's prefix, label or index)} — document pages take these as their own margins; with `parent` the parent's pages change instead (`pages` then indexes them), and so do the document pages without their own"
+      }
+    },
+    {
+      "id": "layout.pageSize",
+      "baseline": {
+        "params": "{pages: [1-based page numbers], width?, height?, preset?: \"A4\"|\"Letter\"|…} — pages of their own size (Page tool); objects on the pages keep their place on them"
+      },
+      "main": {
+        "params": "{pages: [1-based page numbers], width?, height?, preset?: \"A4\"|\"Letter\"|…, anchor?: 0–8 (reference point that stays put, row-major from the top-left; default 0)} — pages of their own size (Page tool); objects keep their place relative to the anchor, or follow the page's liquid rule"
+      }
+    },
+    {
+      "id": "layout.pages.applyParent",
+      "baseline": {
+        "params": "{pages: [index], parent: \"A\"|null}"
+      },
+      "main": {
+        "params": "{pages: [index], parent: id|\"A-Parent\"|\"A\"|null (null or \"[None]\" clears)}"
+      }
+    },
+    {
+      "id": "layout.pages.duplicateSpread",
+      "baseline": {
+        "params": "{spread}"
+      },
+      "main": {
+        "params": "{spread, atEnd?: bool (Duplicate Spread at End of Document; the Pages panel's New Page button takes a dropped page there), to?: page index the copied pages move to in the same undo step (the Pages panel's Alt-drag)} → {page: the copy's first page (0-based)} — the spread's pages (size, margins, columns, guides, liquid rule) and items"
+      }
+    },
+    {
+      "id": "layout.pages.insert",
+      "baseline": {
+        "params": "{count?: 1, after?: page index (default: last), parent?: \"A\"|null}"
+      },
+      "main": {
+        "params": "{count?: 1, after?: page index (default: last), parent?: id|\"A-Parent\"|\"A\"|null}"
+      }
+    },
+    {
+      "id": "layout.parents.edit",
+      "baseline": {
+        "params": "{on: bool} — show parent spreads on the canvas"
+      },
+      "main": {
+        "params": "{on?: bool, parent?: id|\"A-Parent\"|\"A\"} — show parent spreads on the canvas; `parent` shows that parent (and implies on). Turning on without `parent` shows the first parent"
+      }
+    },
+    {
+      "id": "layout.section",
+      "baseline": {
+        "params": "{page (1-based; starts a section there), startNumber?: n|null (continue), style?: arabic|upperRoman|lowerRoman|upperLetters|lowerLetters, prefix?, includePrefix?, marker?, remove?: bool}"
+      },
+      "main": {
+        "params": "{page (1-based; starts a section there), startNumber?: n (1–99999)|null (continue), style?: arabic|upperRoman|lowerRoman|upperLetters|lowerLetters|arabicLeadingZero|arabicThreeDigits|arabicFourDigits|kanji, prefix? (up to 8 characters; no + or comma), includePrefix?, marker?, remove?: bool}"
+      }
+    },
+    {
+      "id": "links.embed",
+      "baseline": {
+        "params": "{asset} — keep only the copy in the document"
+      },
+      "main": {
+        "params": "{asset | story} — keep only the copy in the document (a text file: unlink the story)"
+      }
+    },
+    {
+      "id": "links.goTo",
+      "baseline": {
+        "params": "{asset} — selects the frames showing the graphic"
+      },
+      "main": {
+        "params": "{asset | story} — selects the frames showing the graphic or the linked text"
+      }
+    },
+    {
+      "id": "links.list",
+      "baseline": {
+        "params": "{} → [{asset, name, path, status: ok|modified|missing|embedded, pixels, uses: [{id, page, ppi}]}]"
+      },
+      "main": {
+        "params": "{} → [{asset, name, path, status: ok|modified|missing|embedded, pixels, pdfCrop (placed PDFs: the box shown), uses: [{id, page, ppi}]}], then linked text files: [{story, name, path, status (also tooLarge: unchanged size, too big to check), edited (the story was changed in the layout), uses: [{id, page}]}]"
+      }
+    },
+    {
+      "id": "links.relink",
+      "baseline": {
+        "params": "{asset, path} — use another file for every placement of the graphic"
+      },
+      "main": {
+        "params": "{asset | story, path} — use another file for every placement of the graphic (keeps the selected PDF page; error if missing), or import another text file into the linked story"
+      }
+    },
+    {
+      "id": "links.update",
+      "baseline": {
+        "params": "{asset?} — reload modified links from their files (all when no asset)"
+      },
+      "main": {
+        "params": "{asset? | story?} — reload modified links from their files (all when neither); a linked text file is imported again into its story with the import options it was placed with, replacing edits made in the layout → {updated, warnings}"
+      }
+    },
+    {
+      "id": "liquid.pageRule",
+      "baseline": {
+        "params": "{rule: off|scale|reCenter|guideBased|objectBased, pages?: [1-based] (default: all)}"
+      },
+      "main": {
+        "params": "{rule: off|scale|reCenter|guideBased|objectBased|controlledByParent (the parent page's rule), pages?: [1-based] (default: all)}"
+      }
+    },
+    {
+      "id": "math.insert",
+      "baseline": {
+        "params": "{latex, size?: points (12), x?, y?, spread?} — at the text insertion point (inline), else as a frame; or {id, latex} to edit one"
+      },
+      "main": {
+        "params": "{latex, size?: points (12), x?, y?, spread?} or {id, latex, size?} — at the text insertion point (inline), else as a frame; with `id`: edits that equation"
+      }
+    },
+    {
+      "id": "object.color",
+      "baseline": {
+        "params": "{color: \"#rrggbb\"|{c,m,y,k}(0..100)|[r,g,b](0..255), target?: fill|stroke, text?: bool, ids?} — an unnamed colour (not in the Swatches panel until Add to Swatches) on the selection; `text`: on the selected text, or the text of the selected frames (Formatting Affects Text)"
+      },
+      "main": {
+        "params": "{color: \"#rrggbb\"|{c,m,y,k}(0..100)|[r,g,b](0..255)|{model: rgb|cmyk|gray, r,g,b|c,m,y,k|k}(0..1), target?: fill|stroke, text?: bool, ids?} — an unnamed colour (not in the Swatches panel until Add to Swatches) on the selection (with nothing selected, the colour of new shapes); `text`: on the selected text, or the text of the selected frames (Formatting Affects Text)"
+      }
+    },
+    {
+      "id": "object.cornerOptions",
+      "baseline": {
+        "params": "{shape: none|rounded|inverseRounded|inset|bevel|fancy, size, ids?}"
+      },
+      "main": {
+        "params": "{shape: none|rounded|inverseRounded|inset|bevel|fancy, size, corners?: [{shape, size}] (4 entries in path order: top-left, top-right, bottom-right, bottom-left; replaces shape and size), ids?}"
+      }
+    },
+    {
+      "id": "object.defaultFillStroke",
+      "baseline": {
+        "params": "{ids?} — no fill and a black stroke; locked objects stay as they are"
+      },
+      "main": {
+        "params": "{ids?} — no fill and a black stroke; locked objects stay as they are. With nothing selected: for new shapes"
+      }
+    },
+    {
+      "id": "object.fill",
+      "baseline": {
+        "params": "{swatch (a swatch's name, e.g. [Paper]), tint?: 0..1, ids?}"
+      },
+      "main": {
+        "params": "{swatch? (a swatch's name, e.g. [Paper]), tint?: 0..1, ids?} — at least one; a tint alone keeps each object's own swatch (the Swatches panel's Tint field). With nothing selected: the fill of new shapes"
+      }
+    },
+    {
+      "id": "object.fit",
+      "baseline": {
+        "params": "{mode: fillProportionally|fitProportionally|fitContentToFrame|centerContent|fitFrameToContent, ids?}"
+      },
+      "main": {
+        "params": "{mode: fillProportionally (preserves aspect ratio, covers frame, clips overflow)|fitProportionally (preserves aspect ratio, shows whole image, may leave empty space)|fitContentToFrame (stretches content to frame)|centerContent (keeps current size, positions at fitting alignment)|fitFrameToContent (resizes frame to content), axis?: both|height|width (frame-local sides Fit Frame to Content moves; default both), ids?} — locked objects and objects on locked layers are left as they are"
+      }
+    },
+    {
+      "id": "object.gradient",
+      "baseline": {
+        "params": "{kind?: linear|radial, stops?: [{location: 0–100, color: \"#rrggbb\"|{c,m,y,k}|[r,g,b], opacity?: 0–100, midpoint?: 13–87}], reverse?: bool, angle?: degrees, from?: [x,y], to?: [x,y] (spread coords: the Gradient Swatch tool's drag), ids?} → {swatch, kind, stops} — edits the fill's gradient (an unnamed gradient unless it equals a gradient swatch)"
+      },
+      "main": {
+        "params": "{kind?: linear|radial, stops?: [{location: 0–100, color: \"#rrggbb\"|{c,m,y,k}(0..100)|[r,g,b](0..255)|{model: rgb|cmyk|gray, …}(0..1) | swatch: name (its colour, as dropped on the Gradient panel), opacity?: 0–100, midpoint?: 13–87}], reverse?: bool, angle?: degrees, from?: [x,y], to?: [x,y] (spread coords: the Gradient Swatch tool's drag), target?: fill|stroke, ids?} → {swatch, kind, stops} — edits the fill's (or the stroke's) gradient (an unnamed gradient unless it equals a gradient swatch)"
+      }
+    },
+    {
+      "id": "object.pathfinder",
+      "baseline": {
+        "params": "{op: add|subtract|intersect|exclude|minusBack, ids?} — combine the selected shapes into one (the backmost keeps its look; the frontmost for minusBack) → {id}"
+      },
+      "main": {
+        "params": "{op: add|subtract|intersect|exclude|minusBack, ids?} — combine the selected shapes into one, which keeps the frontmost object's look and content (a placed graphic stays in it); Subtract keeps the backmost → {id}"
+      }
+    },
+    {
+      "id": "object.rename",
+      "baseline": {
+        "params": "{id, name}"
+      },
+      "main": {
+        "params": "{id | ids?, name}"
+      }
+    },
+    {
+      "id": "object.setLayer",
+      "baseline": {
+        "params": "{layer, ids?}"
+      },
+      "main": {
+        "params": "{layer, ids?} — a group member moves its whole top-level group"
+      }
+    },
+    {
+      "id": "object.swapFillStroke",
+      "baseline": {
+        "params": "{ids?} — each object's fill and stroke colours (and tints) trade places; locked objects stay as they are"
+      },
+      "main": {
+        "params": "{ids?} — each object's fill and stroke colours (and tints) trade places; locked objects stay as they are. With nothing selected: those of new shapes"
+      }
+    },
+    {
+      "id": "object.textFrameOptions",
+      "baseline": {
+        "params": "{columns?, gutter?, inset?: number|[t,l,b,r] (null keeps that side), verticalJustification?: top|center|bottom|justify, firstBaseline?: ascent|capHeight|leading|xHeight|emboxHeight|fixed, autoSize?, ignoreWrap?, balanceColumns?, columnRule?: bool, columnRuleWeight? (pt), columnRuleColor? (swatch name), columnRuleTint? (0..1), columnRuleOffset? (pt, horizontal), columnRuleTopInset? (pt), columnRuleBottomInset? (pt), vertical?: bool (sets the story direction of the frames' stories, as Type ▸ Story Direction), ids?}"
+      },
+      "main": {
+        "params": "{columns?, gutter?, inset?: number|[t,l,b,r] (null keeps that side), verticalJustification?: top|center|bottom|justify, columnsKind?: fixedNumber|fixedWidth, columnWidth? (pt, Fixed Width), firstBaseline?: ascent|capHeight|leading|xHeight|emboxHeight|fixed, firstBaselineMin? (pt), autoSize?: off|heightOnly|widthOnly|heightAndWidth|heightAndWidthProportionally, autoSizeReference?: topLeft|topCenter|topRight|leftCenter|center|rightCenter|bottomLeft|bottomCenter|bottomRight (the point that stays put), useMinimumHeight?: bool, minimumHeight? (pt), useMinimumWidth?: bool, minimumWidth? (pt), noLineBreaks?: bool, ignoreWrap?, balanceColumns?, columnRule?: bool, columnRuleWeight? (pt), columnRuleColor? (swatch name), columnRuleTint? (0..1), columnRuleOffset? (pt, horizontal), columnRuleTopInset? (pt), columnRuleBottomInset? (pt), vertical?: bool (sets the story direction of the frames' stories, as Type ▸ Story Direction), ids?}"
+      }
+    },
+    {
+      "id": "object.textWrap",
+      "baseline": {
+        "params": "{mode: none|boundingBox|contour|jumpObject|jumpToNextColumn, offset?: number|[t,l,b,r], invert?: bool, ids?}"
+      },
+      "main": {
+        "params": "{mode?: none|boundingBox|contour|jumpObject|jumpToNextColumn (boundingBox when absent, unless side or contour is given: then unchanged), offset?: number|[t,l,b,r], invert?: bool, side?: bothSides|leftSide|rightSide|towardsSpine|awayFromSpine|largestArea, contour?: boundingBox|graphicFrame|sameAsClipping, content?: bool (the placed graphic instead of its frame; default: whether the selection is the frame's content), ids?}; offset or contour drops an imported custom wrap boundary"
+      }
+    },
+    {
+      "id": "path.appendAnchor",
+      "baseline": {
+        "params": "{id, anchor: {p, in?, out?} (spread coords), subpath?: index (default the last)} — after the subpath's last anchor"
+      },
+      "main": {
+        "params": "{id, anchor: {p, in?, out?} (spread coords), subpath?: index (default the last), at?: end|start (default end)} — after the subpath's last anchor, or before its first with `at: start`"
+      }
+    },
+    {
+      "id": "prefs.set",
+      "baseline": {
+        "params": "{showHiddenCharacters?, typographersQuotes?, polygonSides?, starInset?, scaleStrokes?, dimensionsIncludeStroke?, transformationsAreTotals?, absolutePageNumbers?, highlightHj?, highlightKeeps?, highlightCustomTracking?, highlightSubstitutedFonts?, richBlackOutput?, favoriteFonts?: [family], showFontNamesInEnglish?} → all application preferences"
+      },
+      "main": {
+        "params": "{showHiddenCharacters?, typographersQuotes?, polygonSides?, starInset?, scaleStrokes?, dimensionsIncludeStroke?, transformationsAreTotals?, absolutePageNumbers?, highlightHj?, highlightKeeps?, highlightCustomTracking?, highlightSubstitutedFonts?, richBlackOutput?, favoriteFonts?: [family], recentFonts?: [family], showFontNamesInEnglish?, smartTextReflow?, autocorrect?, autocorrectList?: [[word, correction]], showAddedText?, showNoteAnchors?, cjkFeatures?: bool|null (CJK-only menu items and dialogs shown; null follows the interface language), linkTextFiles? (Create Links When Placing Text Files), recoveryMinutes?, recentFilesMax?: 0–100} → all application preferences"
+      }
+    },
+    {
+      "id": "story.setDirection",
+      "baseline": {
+        "params": "{story?, direction: leftToRight|rightToLeft} — column progression, independent of paragraph direction"
+      },
+      "main": {
+        "params": "{story?, frame?: a text frame of the story, direction: leftToRight|rightToLeft} — column progression, independent of paragraph direction"
+      }
+    },
+    {
+      "id": "style.cell.apply",
+      "baseline": {
+        "params": "{name, story?, table?} — the target cells (the whole table when the cursor is in it)"
+      },
+      "main": {
+        "params": "{name, story?, table?, rows?: [a,b] | row?, cols?: [a,b] | col?} — the target cells (the whole table when the cursor is in it)"
+      }
+    },
+    {
+      "id": "style.cell.create",
+      "baseline": {
+        "params": "{name, fromSelection?: bool (the target cell's look), fill?, tint?, insets?: n|[t,l,b,r], vj?: top|center|bottom|justify, stroke?: {weight, color, tint?}, paragraphStyle?} → {name}"
+      },
+      "main": {
+        "params": "{name, fromSelection?: bool (the target cell's look), fill?, tint?, insets?: n|[t,l,b,r], vj?: top|center|bottom|justify, stroke?: {weight?, color?, tint?, type?, gapColor?, gapTint?} (all four edges; values as table.setCell's stroke), paragraphStyle?, basedOn?: cell style name, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} → {name}"
+      }
+    },
+    {
+      "id": "style.character.create",
+      "baseline": {
+        "params": "{name, basedOn?: style | \"[None]\", chars?: {…}, fromSelection?: bool (default false)} — if true, capture the first selected character's style/local overrides (caret: typing format), then overlay chars (null unsets); only explicit fill names are validated; paragraph formatting stays inherited; no text target: chars only → {name} (made unique)"
+      },
+      "main": {
+        "params": "{name, basedOn?: style | \"[None]\", chars?: {character attributes, as type.char names them: fontFamily, fontStyle, size, leading, tracking, fill, …}, fromSelection?: bool (default false)} — if true, capture the first selected character's style/local overrides (caret: typing format), then overlay chars (null unsets); only explicit fill names are validated; paragraph formatting stays inherited; no text target: chars only → {name} (made unique)"
+      }
+    },
+    {
+      "id": "style.character.edit",
+      "baseline": {
+        "params": "{name, rename?, basedOn?: style | \"[None]\" | null, chars?: {attr: value | null (no longer set)}} — renaming updates every use"
+      },
+      "main": {
+        "params": "{name, rename?, basedOn?: style | \"[None]\" | null, chars?: {character attribute (as type.char names them: fontFamily, fontStyle, size, …): value | null (no longer set)}} — renaming updates every use"
+      }
+    },
+    {
+      "id": "style.object.apply",
+      "baseline": {
+        "params": "{name, ids?}"
+      },
+      "main": {
+        "params": "{name, ids?} — sets the style's fill, stroke, effects and text frame options on the items"
+      }
+    },
+    {
+      "id": "style.object.create",
+      "baseline": {
+        "params": "{name, fromSelection?: true, fill?, paragraphStyle?}"
+      },
+      "main": {
+        "params": "{name, fromSelection?: true (fill, stroke, effects and text frame options of the first selected item), fill?, paragraphStyle?, effects?: {dropShadow?, feather?, innerShadow?, outerGlow?, innerGlow?, bevel?, satin?, gradientFeather?, directionalFeather?}, dropShadow?: {on?, color?, opacity? (0–1), angle?, globalLight?, distance?, size?, spread?}, feather?: width, innerShadow?, outerGlow?, innerGlow?, bevel?, satin?, gradientFeather?, directionalFeather?} → {name} (made unique)"
+      }
+    },
+    {
+      "id": "style.paragraph.create",
+      "baseline": {
+        "params": "{name, basedOn?, nextStyle?, para?: {…}, chars?: {…}, fromSelection?: bool}"
+      },
+      "main": {
+        "params": "{name, basedOn?, nextStyle?, para?: {paragraph attributes, as type.para names them: align, leftIndent, firstLineIndent, spaceBefore, spaceAfter, …; startAt?: null = continue numbering; grepStyles?: [{style, pattern}]: a pattern that can't compile is an error}, chars?: {character attributes, as type.char names them: fontFamily, fontStyle, size, leading, tracking, fill, …}, fromSelection?: bool}"
+      }
+    },
+    {
+      "id": "style.paragraph.edit",
+      "baseline": {
+        "params": "{name, rename?, basedOn?, nextStyle?, para?: {… ruleAbove?/ruleBelow?: only the named rule fields change}, chars?: {…}}"
+      },
+      "main": {
+        "params": "{name, rename?, basedOn?, nextStyle?, para?: {paragraph attributes, as type.para names them: align, leftIndent, spaceBefore, …; ruleAbove?/ruleBelow?: only the named rule fields change; startAt?: null = continue numbering; kinsoku?: set | null (default rules); a grepStyles pattern that can't compile is an error}, chars?: {character attributes, as type.char names them: fontFamily, fontStyle, size, leading, tracking, fill, …}}"
+      }
+    },
+    {
+      "id": "style.table.apply",
+      "baseline": {
+        "params": "{name, story?, table?}"
+      },
+      "main": {
+        "params": "{name, story?, table?, rows?: [a,b] | row?, cols?: [a,b] | col?}"
+      }
+    },
+    {
+      "id": "style.table.create",
+      "baseline": {
+        "params": "{name, header?, body?, footer?, leftColumn?, rightColumn?: cell style names, border?: {weight, color}, altRows?: {first, firstColor, next, nextColor}, spaceBefore?, spaceAfter?} → {name}"
+      },
+      "main": {
+        "params": "{name, basedOn?: table style name, header?, body?, footer?, leftColumn?, rightColumn?: cell style names, border?: {weight?, color?, tint?, type?, gapColor?, gapTint?}, altRows?: {first, firstColor, next, nextColor}, spaceBefore?, spaceAfter?} → {name}"
+      }
+    },
+    {
+      "id": "swatch.create",
+      "baseline": {
+        "params": "{name?, color: \"#rrggbb\"|{c,m,y,k}(0..100)|[r,g,b], spot?: bool}"
+      },
+      "main": {
+        "params": "{name?, color: \"#rrggbb\"|{c,m,y,k}(0..100)|[r,g,b](0..255)|{model: rgb|cmyk|gray, …}(0..1), spot?: bool} | {name? (\"New Gradient Swatch\"), gradient: {kind?: linear|radial, stops: [{location: 0–100, swatch?: a colour swatch's name | color?, opacity?: 0–100, midpoint?: 13–87}]}} → {name}"
+      }
+    },
+    {
+      "id": "swatch.load",
+      "baseline": {
+        "params": "{path?|base64?, replace?: bool} — colour swatches from a swatch exchange (.ase) file; names already in the document are kept unless `replace` → {added, replaced}"
+      },
+      "main": {
+        "params": "{path?|base64?, replace?: bool} — colour swatches from a swatch exchange (.ase) file; a name the file repeats gets a number (\"Red 2\") and an unnamed color is named by its value; names already in the document are kept unless `replace` → {added, replaced}"
+      }
+    },
+    {
+      "id": "table.convertFromText",
+      "baseline": {
+        "params": "{columnSeparator?: tab|comma} — selected paragraphs become rows"
+      },
+      "main": {
+        "params": "{columnSeparator?: tab|comma, width?: table width (default: the column)} — selected paragraphs become rows"
+      }
+    },
+    {
+      "id": "table.convertToText",
+      "baseline": {
+        "params": "{} — cells separated by tabs, rows by paragraphs"
+      },
+      "main": {
+        "params": "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — cells separated by tabs, rows by paragraphs"
+      }
+    },
+    {
+      "id": "table.delete",
+      "baseline": {
+        "params": "{}"
+      },
+      "main": {
+        "params": "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}"
+      }
+    },
+    {
+      "id": "table.deleteColumn",
+      "baseline": {
+        "params": "{} — the columns of the target cells"
+      },
+      "main": {
+        "params": "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — the columns of the target cells"
+      }
+    },
+    {
+      "id": "table.deleteRow",
+      "baseline": {
+        "params": "{} — the rows of the target cells"
+      },
+      "main": {
+        "params": "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — the rows of the target cells"
+      }
+    },
+    {
+      "id": "table.distributeColumns",
+      "baseline": {
+        "params": "{}"
+      },
+      "main": {
+        "params": "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}"
+      }
+    },
+    {
+      "id": "table.distributeRows",
+      "baseline": {
+        "params": "{story?, table?, rows?: [a,b]} — equal fixed heights preserving the selected rows' composed total height; may overset cell text; unmerge row-spanning cells first"
+      },
+      "main": {
+        "params": "{story?, table?, rows?: [a,b] | row?, cols?: [a,b] | col?} — equal fixed heights preserving the selected rows' composed total height; may overset cell text; unmerge row-spanning cells first"
+      }
+    },
+    {
+      "id": "table.get",
+      "baseline": {
+        "params": "{story?, table?} → rows, columns, cells (text, spans, fill), options"
+      },
+      "main": {
+        "params": "{story?, table?, rows?: [a,b] | row?, cols?: [a,b] | col?} → rows, columns, cells (text, spans, fill), options"
+      }
+    },
+    {
+      "id": "table.insert",
+      "baseline": {
+        "params": "{rows?: body rows (4), cols? (4), headerRows? (0), footerRows? (0), width?} — at the text insertion point"
+      },
+      "main": {
+        "params": "{rows?: body rows (4), cols? | columns? (4), headerRows? (0), footerRows? (0), width?} — at the text insertion point"
+      }
+    },
+    {
+      "id": "table.insertColumn",
+      "baseline": {
+        "params": "{where?: left|right, count? (1), width?}"
+      },
+      "main": {
+        "params": "{where?: left|right, count? (1), width?, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}"
+      }
+    },
+    {
+      "id": "table.insertColumnLeft",
+      "baseline": {
+        "params": "{count?}"
+      },
+      "main": {
+        "params": "{count?, width?, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}"
+      }
+    },
+    {
+      "id": "table.insertColumnRight",
+      "baseline": {
+        "params": "{count?}"
+      },
+      "main": {
+        "params": "{count?, width?, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}"
+      }
+    },
+    {
+      "id": "table.insertRow",
+      "baseline": {
+        "params": "{where?: above|below, count? (1)}"
+      },
+      "main": {
+        "params": "{where?: above|below, count? (1), story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}"
+      }
+    },
+    {
+      "id": "table.insertRowAbove",
+      "baseline": {
+        "params": "{count?}"
+      },
+      "main": {
+        "params": "{count?, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}"
+      }
+    },
+    {
+      "id": "table.insertRowBelow",
+      "baseline": {
+        "params": "{count?}"
+      },
+      "main": {
+        "params": "{count?, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}"
+      }
+    },
+    {
+      "id": "table.merge",
+      "baseline": {
+        "params": "{} — merge the target cell range"
+      },
+      "main": {
+        "params": "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — merge the target cell range"
+      }
+    },
+    {
+      "id": "table.moveColumn",
+      "baseline": {
+        "params": "{from?, to} (0-based; from defaults to the target column)"
+      },
+      "main": {
+        "params": "{from?, to, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} (0-based; from defaults to the target column)"
+      }
+    },
+    {
+      "id": "table.moveRow",
+      "baseline": {
+        "params": "{from?, to} (0-based; from defaults to the target row) — like dragging a row"
+      },
+      "main": {
+        "params": "{from?, to, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} (0-based; from defaults to the target row) — like dragging a row"
+      }
+    },
+    {
+      "id": "table.options",
+      "baseline": {
+        "params": "{direction?: leftToRight|rightToLeft, border?: {weight?, color?, tint?, type?}, spaceBefore?, spaceAfter?, headerRows?, footerRows?, repeatHeader?, repeatFooter?, altRows?: {first, firstColor, firstTint, next, nextColor, nextTint, skipFirst, skipLast} | null, altCols?: … | null}"
+      },
+      "main": {
+        "params": "{direction?: leftToRight|rightToLeft, border?: {weight?, color?, tint?, type?, gapColor?, gapTint?}, spaceBefore?, spaceAfter?, headerRows?, footerRows?, repeatHeader?, repeatFooter?, altRows?: {first, firstColor, firstTint, next, nextColor, nextTint, skipFirst, skipLast} | null, altCols?: … | null, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}"
+      }
+    },
+    {
+      "id": "table.placeGraphic",
+      "baseline": {
+        "params": "{path | base64+name, fit?: proportional|fill (default proportional)} — an image in the target cell (its text is kept but hidden)"
+      },
+      "main": {
+        "params": "{path? | base64?, name?: with base64, fit?: proportional|fill (default proportional), story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — an image in the target cell (its text is kept but hidden)"
+      }
+    },
+    {
+      "id": "table.select",
+      "baseline": {
+        "params": "{story?, table?, rows?: [a,b], cols?: [a,b], what?: cell|row|column|table}"
+      },
+      "main": {
+        "params": "{story?, table?, rows?: [a,b] | row?, cols?: [a,b] | col?, what?: cell|row|column|table}"
+      }
+    },
+    {
+      "id": "table.selectColumn",
+      "baseline": {
+        "params": "{}"
+      },
+      "main": {
+        "params": "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}"
+      }
+    },
+    {
+      "id": "table.selectRow",
+      "baseline": {
+        "params": "{}"
+      },
+      "main": {
+        "params": "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}"
+      }
+    },
+    {
+      "id": "table.selectTable",
+      "baseline": {
+        "params": "{}"
+      },
+      "main": {
+        "params": "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}"
+      }
+    },
+    {
+      "id": "table.setCell",
+      "baseline": {
+        "params": "{fill?: swatch, tint?, insets?: n | [t,l,b,r], vj?: top|center|bottom|justify, text?, stroke?: {weight?, color?, tint?, type?: solid|dashed|dotted, edges?: all|outer|inner|top|left|bottom|right}}"
+      },
+      "main": {
+        "params": "{fill?: swatch, tint?: 0..1, insets?: n | [t,l,b,r], vj? | verticalJustification?: top|center|bottom|justify, text?, stroke?: {weight?, color?: swatch, tint?: 0..1, type?: solid|dashed|dotted|thickThin|thinThick|thinThin|thickThick|thinThickThin|thickThinThick|wavy|hashed | {kind:…}, gapColor?: swatch, gapTint?: 0..1, edges?: name | [names] (all|outer|inner|top|left|bottom|right|innerHorizontal|innerVertical; default all)}, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — top/left/bottom/right are the target range's outer sides, innerHorizontal/innerVertical the lines between its rows/columns"
+      }
+    },
+    {
+      "id": "table.setColumnWidth",
+      "baseline": {
+        "params": "{width}"
+      },
+      "main": {
+        "params": "{width, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}"
+      }
+    },
+    {
+      "id": "table.setRowHeight",
+      "baseline": {
+        "params": "{height, mode?: atLeast|exactly}"
+      },
+      "main": {
+        "params": "{height, mode?: atLeast|exactly, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}"
+      }
+    },
+    {
+      "id": "table.sortRows",
+      "baseline": {
+        "params": "{column?: 0-based (default: the target cell's), descending?: bool} — body rows by that column's text (numbers numerically)"
+      },
+      "main": {
+        "params": "{column?: 0-based (default: the target cell's), descending?: bool, story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — body rows by that column's text (numbers numerically)"
+      }
+    },
+    {
+      "id": "table.splitHorizontally",
+      "baseline": {
+        "params": "{} — each target cell becomes two, one above the other"
+      },
+      "main": {
+        "params": "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — each target cell becomes two, one above the other"
+      }
+    },
+    {
+      "id": "table.splitVertically",
+      "baseline": {
+        "params": "{} — each target cell becomes two, side by side"
+      },
+      "main": {
+        "params": "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — each target cell becomes two, side by side"
+      }
+    },
+    {
+      "id": "table.textCell",
+      "baseline": {
+        "params": "{} — drop the target cells' graphics"
+      },
+      "main": {
+        "params": "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)} — drop the target cells' graphics"
+      }
+    },
+    {
+      "id": "table.unmerge",
+      "baseline": {
+        "params": "{}"
+      },
+      "main": {
+        "params": "{story?, table?, rows?: [a, b] | row?, cols?: [a, b] | col? (the target cells; default: the selection)}"
+      }
+    },
+    {
+      "id": "text.extendTo",
+      "baseline": {
+        "params": "{frame, point}"
+      },
+      "main": {
+        "params": "{frame, point, unit?: word|line|paragraph|story} — moves the selection's focus to the point; with `unit`, after a text.selectAt, the selection grows by whole units from the unit first selected (a drag after a double, triple or quadruple click)"
+      }
+    },
+    {
+      "id": "toc.generate",
+      "baseline": {
+        "params": "{entries: [{style, level?: 1}] | styles: [names], title?: \"Contents\", pageNumbers?: true, page?: 1-based page for a new frame (its margins), rect?: [x0,y0,x1,y1] (spread coords)} → {story, entries}"
+      },
+      "main": {
+        "params": "{entries: [{style, level?: 1 (1-9), entryStyle?: paragraph style of its entries (default \"TOC Level n\"), pageNumber?: \"after\"|\"before\"|\"none\", separator?: text between entry and number (default a tab), pageNumberStyle?: character style of the page number, separatorStyle?: character style of the separator, sort?: bool (Sort Entries in Alphabetical Order: among their siblings, each with the entries under it)}] | styles: [names] (levels 1, 2, …), title?: \"Contents\", titleStyle?: paragraph style of the title (default \"TOC Title\"), pageNumbers?: true, replace?: true (regenerate the existing table of contents in place; false makes a new frame), page?: 1-based page for a new frame (its margins), rect?: [x0,y0,x1,y1] (spread coords)} → {story, entries}"
+      }
+    },
+    {
+      "id": "transform.flip",
+      "baseline": {
+        "params": "{axis: horizontal|vertical, ids?}"
+      },
+      "main": {
+        "params": "{axis: horizontal|vertical, ref?: 0..8 (reference point of the selection bounds, default 4: centre), ids?}"
+      }
+    },
+    {
+      "id": "transform.move",
+      "baseline": {
+        "params": "{dx, dy, copy?: bool, ids?, toSpread?} → {moved, ids: the objects moved (with copy, the copies)}"
+      },
+      "main": {
+        "params": "{dx, dy, copy?: bool, ids?, toSpread?, content?: bool (move the placed graphic or pasted-in items inside each frame; the frame stays. Default: whether the selection is content, when neither ids nor copy is given)} → {moved, ids: the objects moved (with copy, the copies)}"
+      }
+    },
+    {
+      "id": "transform.rotate",
+      "baseline": {
+        "params": "{angle (degrees, CCW), ids?}"
+      },
+      "main": {
+        "params": "{angle (degrees, CCW), ref?: 0..8 (reference point of the selection bounds, default 4: centre), ids?}"
+      }
+    },
+    {
+      "id": "transform.set",
+      "baseline": {
+        "params": "{x?, y?, width?, height?, scaleX? (%), scaleY? (%), rotation? (°), shear? (°), ref?: 0..8, ids?} — reference-point based geometry; rotation and shear are absolute (Transformations are Totals decides whether nested objects measure them on the pasteboard)"
+      },
+      "main": {
+        "params": "{x?, y? (measured from the rulers' zero point, view.zeroPoint), width?, height?, scaleX? (%), scaleY? (%), rotation? (°), shear? (°), ref?: 0..8, ids?, content?: bool (the placed graphic inside each frame; the frame stays. Default: whether the selection is content, when no ids are given), bounds?: [x0, y0, x1, y1] (content: the graphic's new bounds on the spread, as its handles drag it)} — reference-point based geometry; rotation and shear are absolute (Transformations are Totals decides whether nested objects measure them on the pasteboard)"
+      }
+    },
+    {
+      "id": "transform.shear",
+      "baseline": {
+        "params": "{angle (degrees), ids?}"
+      },
+      "main": {
+        "params": "{angle (degrees), ref?: 0..8 (reference point of the selection bounds, default 4: centre), ids?}"
+      }
+    },
+    {
+      "id": "type.createOutlines",
+      "baseline": {
+        "params": "{ids?} — text frames become compound paths of their glyphs (one per text colour, grouped when several) → {ids}"
+      },
+      "main": {
+        "params": "{ids?} — text frames become compound paths of their glyphs (one per line and text colour, grouped when several, so Ungroup separates the lines) → {ids}"
+      }
+    },
+    {
+      "id": "type.fillWithPlaceholder",
+      "baseline": {
+        "params": "{frame?}"
+      },
+      "main": {
+        "params": "{frame?, story?}"
+      }
+    },
+    {
+      "id": "type.kenten",
+      "baseline": {
+        "params": "{on?: bool} — emphasis dots over the selected characters (toggles by default)"
+      },
+      "main": {
+        "params": "{on?: bool, kind?: sesameDot|whiteSesameDot|fisheye|blackCircle|smallBlackCircle|bullseye|blackTriangle|whiteTriangle|whiteCircle|smallWhiteCircle|custom, character?: text (custom kind), font?: family (custom kind), fontStyle?, size?: pt (null: half the text size), distance?: pt, position?: aboveRight|belowLeft, alignment?: center|start, xScale?: %, yScale?: %, fill?: swatch (\"\": the text's), fillTint?: %, stroke?: swatch, strokeTint?: %, strokeWeight?: pt, overprintFill?: auto|on|off, overprintStroke?: auto|on|off} — emphasis marks beside the selected characters (toggles by default; any setting turns them on)"
+      }
+    },
+    {
+      "id": "type.para",
+      "baseline": {
+        "params": "{attrs: {align?, leftIndent?, firstLineIndent?, spaceBefore?, spaceAfter?, dropCapLines?, dropCapChars?, dropCapStyle?, dropCapAlignLeft?, dropCapScaleDescenders?, hyphenate?, composer?, tabs?, ruleAbove?/ruleBelow?: {on?, weight?, color?, tint?, columnWidth?, offset?, leftIndent?, rightIndent?} (only the named rule fields change), …}}"
+      },
+      "main": {
+        "params": "{attrs: {align?, leftIndent?, firstLineIndent?, spaceBefore?, spaceAfter?, dropCapLines?, dropCapChars?, dropCapStyle?, dropCapAlignLeft?, dropCapScaleDescenders?, hyphenate?: bool (default true), composer?, tabs?, ruleAbove?/ruleBelow?: {on?, weight?, color?, tint?, columnWidth?, offset?, leftIndent?, rightIndent?} (only the named rule fields change), …}}"
+      }
+    },
+    {
+      "id": "type.ruby",
+      "baseline": {
+        "params": "{text} — the reading set over the selected text (one group); empty removes it"
+      },
+      "main": {
+        "params": "{text?, type?: group|perCharacter, alignment?: left|center|right|fullJustify|jis|equalAki|oneAki, position?: aboveRight|belowLeft, xOffset?, yOffset? (pt), font?, fontStyle? (\"\" = the text's), size? (pt; null = half the text size), xScale?, yScale? (%), openTypePro?: bool, autoTcyDigits?: 0-9, autoTcyIncludeRoman?: bool, autoTcyAutoScale?: bool, overhang?: none|oneRuby|halfRuby|oneChar|halfChar|noLimit, parentSpacing?: noAdjustment|bothSides|aki121|equalAki|fullJustify, autoAlign?: bool, autoScaling?: bool, scalingPercent? (%), fill?, stroke? (swatch; \"\" = the text's), fillTint?, strokeTint? (%; null = the text's), strokeWeight? (pt; null = the text's), overprintFill?, overprintStroke?: auto|on|off} — the reading set over the selected text and how it is placed; empty text removes it. Per-character ruby separates the readings with U+3000"
+      }
+    },
+    {
+      "id": "type.selectionAttrs",
+      "baseline": {
+        "params": "{} → resolved character/paragraph attributes at the text selection, and its start as `selectedText` (one line, up to 60 characters)"
+      },
+      "main": {
+        "params": "{mixed?: bool} → resolved character/paragraph attributes at the text selection; with mixed, paraMixed lists the paragraph attributes that differ across the selected paragraphs; the selection's start as `selectedText` (one line, up to 60 characters)"
+      }
+    },
+    {
+      "id": "xref.insert",
+      "baseline": {
+        "params": "{anchor? | paragraph?: text to find (first paragraph containing it) | story? + para? (0-based), format?: name (default Full Paragraph & Page Number)} — at the insertion point; the text updates itself as the destination moves"
+      },
+      "main": {
+        "params": "{anchor? | paragraph?: text to find (first paragraph containing it) | story?: with para? | para?: 0-based paragraph of `story`, format?: name (default Full Paragraph & Page Number)} — at the insertion point; the text updates itself as the destination moves"
+      }
+    }
+  ],
+  "upstreamCommit": "fc36957fe05f38a6976df4734d52b9250cd54a2c",
+  "observedNativeRun": 39006638202,
+  "baselineScope": "observed stable native CLI; not old embedded engine",
+  "runtimeValidation": "new mapped main checks PASS; other added commands and installed host sync not inferred",
+  "mainWorkflowRun": 39008681404,
+  "validatedSkillsCommit": "b847fc8fea5942cfd56239505d156303791853fd",
+  "mainCapabilities": {
+    "svgNativeImport": "PASS",
+    "editablePptxGeometryAndText": "PASS",
+    "nativeReopen": "PASS",
+    "externalPowerPointRendering": "NOT_TESTED",
+    "installedHostSync": "NOT_TESTED"
+  }
+}

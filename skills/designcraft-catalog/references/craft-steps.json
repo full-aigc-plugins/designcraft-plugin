@@ -1,0 +1,56 @@
+{
+  "schema": "craft-scenario-playbooks/v1",
+  "application": "designcraft",
+  "id": "catalog",
+  "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
+  "steps": [
+    {
+      "purpose": "以最长商品名验证网格",
+      "command": "frame.grid",
+      "params": {
+        "rect": [
+          36,
+          36,
+          559,
+          780
+        ],
+        "cols": 2,
+        "rows": 3,
+        "gutter": 12,
+        "content": "graphic"
+      }
+    },
+    {
+      "purpose": "另建可编辑商品文字框",
+      "command": "frame.create",
+      "params": {
+        "rect": [
+          36,
+          200,
+          280,
+          250
+        ],
+        "content": "text",
+        "text": "SKU-001 商品名称与规格"
+      }
+    },
+    {
+      "purpose": "建立商品正文样式",
+      "command": "style.paragraph.create",
+      "params": {
+        "name": "ProductBody"
+      }
+    },
+    {
+      "purpose": "逐商品检查素材",
+      "command": "preflight.run",
+      "params": {
+        "minPpi": 150
+      }
+    }
+  ],
+  "check": "逐项核对SKU、图片、价格，不允许图片与价格错配。",
+  "boundary": "对输入表逐条替换例子内容并对应返回框ID；网格不会自动绑定外部CSV。",
+  "templateOnly": true,
+  "argumentPolicy": "示例参数必须按当前输入、选择和实际返回ID替换；$变量先解析，数组变量整字段替换，不能将本文件直接当原生CLI脚本执行。"
+}

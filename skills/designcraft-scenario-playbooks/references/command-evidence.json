@@ -1,0 +1,216 @@
+{
+  "runtime": "designcraft-cli 0.8.0 Windows x64",
+  "catalogSource": "native Windows command catalog run 38921194883",
+  "sceneAcceptance": "NOT_RUN",
+  "observedCommands": {
+    "document.inspect": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "document.inspect",
+      "label": "Inspect Document",
+      "menu": [],
+      "params": "{} → pages, spreads, items, stories (with overset), styles, swatches, selection",
+      "shortcut": null
+    },
+    "file.exportPdf": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "file.exportPdf",
+      "label": "Export PDF…",
+      "menu": [
+        "File"
+      ],
+      "params": "{path?, pages?: \"1-3,5\" | [1,3] (1-based positions; default all), flatten?: high|medium|low|ppi (Transparency Flattener: spreads with transparency are rasterised), spreads?: bool, fullScreen?: bool, bookmarksPanel?: bool, pageLayout?: single|continuous|twoUp|twoUpCover|twoUpContinuous, view?: fitPage|fitWidth|actual, advanceSeconds?: number (interactive PDF), bleed?: bool (document bleed), marks?: bool | {crop?, bleed?, pageInfo?, weight?, offset?}, standard?: \"none\"|\"x4\"|\"a2b\", compressImages?: bool, tagged?: bool (structure tree: stories as paragraphs, figures with alt text), media?: bool (interactive: embed placed video and sound), title?, author?} → {path, bytes, pages, warnings} (no path: {base64, …})",
+      "shortcut": null
+    },
+    "file.new": {
+      "enabled": true,
+      "id": "file.new",
+      "label": "Document…",
+      "menu": [
+        "File",
+        "New"
+      ],
+      "params": "{preset?: \"Letter\"|\"A4\"|…, width?, height?, pages?, facingPages?, columns?, gutter?, margins?: number|{top,bottom,inside,outside}, bleed?, title?}",
+      "shortcut": "Cmd+N"
+    },
+    "find.change": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "find.change",
+      "label": "Change All",
+      "menu": [
+        "Edit",
+        "Find/Change"
+      ],
+      "params": "{find, change, grep?, caseSensitive?, wholeWord?, scope?, story?, first?: bool (change only the first match), attrs?: {character attributes applied to changed text}} → {count}",
+      "shortcut": null
+    },
+    "font.list": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "font.list",
+      "label": "Fonts in Document",
+      "menu": [],
+      "params": "{} → [{family, style, characters, missing, styleMissing, source: bundled|installed|document|added (null when missing)}] (missing first)",
+      "shortcut": null
+    },
+    "frame.create": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "frame.create",
+      "label": "Create Frame",
+      "menu": [],
+      "params": "{spread?: index | {kind: doc|parent, index} (a parent spread: index into `parents` of document.inspect), rect: [x0,y0,x1,y1] (spread coords), shape?: rectangle|ellipse|polygon, content?: graphic|text|unassigned, sides?: 6, text?: string, caret?: bool, vertical?: bool (text: a new vertical story)}",
+      "shortcut": null
+    },
+    "hyperlink.create": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "hyperlink.create",
+      "label": "New Hyperlink…",
+      "menu": [
+        "Type",
+        "Hyperlinks & Cross-References"
+      ],
+      "params": "{url? | email? | page? (1-based), name?, ids?} — from the selected text, or the selected frames",
+      "shortcut": null
+    },
+    "hyperlink.list": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "hyperlink.list",
+      "label": "Hyperlinks",
+      "menu": [],
+      "params": "{}",
+      "shortcut": null
+    },
+    "object.color": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "object.color",
+      "label": "Apply Color",
+      "menu": [],
+      "params": "{color: \"#rrggbb\"|{c,m,y,k}(0..100)|[r,g,b](0..255), target?: fill|stroke, text?: bool, ids?} — an unnamed colour (not in the Swatches panel until Add to Swatches) on the selection; `text`: on the selected text, or the text of the selected frames (Formatting Affects Text)",
+      "shortcut": null
+    },
+    "preflight.run": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "preflight.run",
+      "label": "Preflight Document",
+      "menu": [
+        "Window",
+        "Output",
+        "Preflight"
+      ],
+      "params": "{minPpi?: 150} → issues [{severity, kind, message, item?, page?}]",
+      "shortcut": null
+    },
+    "style.paragraph.apply": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "style.paragraph.apply",
+      "label": "Apply Paragraph Style",
+      "menu": [],
+      "params": "{name, clearOverrides?: bool}",
+      "shortcut": null
+    },
+    "style.paragraph.create": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "style.paragraph.create",
+      "label": "New Paragraph Style…",
+      "menu": [],
+      "params": "{name, basedOn?, nextStyle?, para?: {…}, chars?: {…}, fromSelection?: bool}",
+      "shortcut": null
+    },
+    "table.convertFromText": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "table.convertFromText",
+      "label": "Convert Text to Table",
+      "menu": [
+        "Table"
+      ],
+      "params": "{columnSeparator?: tab|comma} — selected paragraphs become rows",
+      "shortcut": null
+    },
+    "table.get": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "table.get",
+      "label": "Get Table",
+      "menu": [],
+      "params": "{story?, table?} → rows, columns, cells (text, spans, fill), options",
+      "shortcut": null
+    },
+    "table.options": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "table.options",
+      "label": "Table Options",
+      "menu": [],
+      "params": "{direction?: leftToRight|rightToLeft, border?: {weight?, color?, tint?, type?}, spaceBefore?, spaceAfter?, headerRows?, footerRows?, repeatHeader?, repeatFooter?, altRows?: {first, firstColor, firstTint, next, nextColor, nextTint, skipFirst, skipLast} | null, altCols?: … | null}",
+      "shortcut": null
+    },
+    "table.select": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "table.select",
+      "label": "Select Cells",
+      "menu": [],
+      "params": "{story?, table?, rows?: [a,b], cols?: [a,b], what?: cell|row|column|table}",
+      "shortcut": null
+    },
+    "text.select": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "text.select",
+      "label": "Select Text",
+      "menu": [],
+      "params": "{story, anchor, focus} (UTF-8 byte offsets into the story text, as find.find reports them: á or — counts 2 or 3)",
+      "shortcut": null
+    },
+    "text.thread": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "text.thread",
+      "label": "Thread Text Frames",
+      "menu": [],
+      "params": "{from?, to?, rect?: [x0,y0,x1,y1] (spread coords), spread?, autoflow?: bool} — threads frame `to` right after frame `from` (between `from` and the frame that followed it, if any). `to` is an empty frame or a text frame nothing threads into yet; its text joins the end of the story. Give `rect` in place of `from` or `to` to thread a new text frame made there on `spread`: `{from, rect}` adds it after `from`, `{rect, to}` in front of `to`. autoflow: then add pages with threaded frames until the story fits. Selects the frame that joined the thread. → {story, from, to, overset, pagesAdded}",
+      "shortcut": null
+    },
+    "transform.resize": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "transform.resize",
+      "label": "Resize",
+      "menu": [],
+      "params": "{from: rect, to: rect, content?: bool (scale content), distribute?: bool (Live Distribute: objects keep their size, their centres spread with the bounds), ids?}",
+      "shortcut": null
+    },
+    "type.char": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "type.char",
+      "label": "Character Formatting",
+      "menu": [],
+      "params": "{attrs: {fontFamily?, fontStyle?, size?, leading?: {kind:auto}|{kind:points,value}, tracking?, kerning?, hScale?, vScale?, baselineShift?, fill?, capitalization?, underline?, …}}",
+      "shortcut": null
+    },
+    "object.stroke": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "object.stroke",
+      "label": "Stroke",
+      "menu": [],
+      "params": "{swatch?, tint?, weight?, align?: center|inside|outside, type?: {kind:…}, cap?: butt|round|projecting, join?: miter|round|bevel, miterLimit?, start?, end?: none|simple|simpleWide|triangle|triangleWide|barbed|curved|circle|circleSolid|square|squareSolid|bar, gapSwatch?, gapTint?, gapOverprint?: bool, ids?}",
+      "shortcut": null
+    }
+  },
+  "referenceSyntax": {
+    "source": "https://github.com/storytold/designcraft/blob/v0.8.0/crates/engine/src/script.rs",
+    "observed": "Native CLI resolves $N.path from previous step results; per-call MCP execute requires actual resolved values"
+  }
+}
