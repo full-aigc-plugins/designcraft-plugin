@@ -11,7 +11,7 @@
 5. `text.select {"story":正文story,"anchor":0,"focus":稿件UTF8字节数}`，接着 `style.paragraph.apply {"name":"Newsletter Body","clearOverrides":true}`。后者清除所选正文的局部覆盖；已有混合格式稿件应保留有意的强调，改用合适范围与覆盖策略。字号不是仅创建样式就生效。
 6. `story.get {"frame":首框id}` 查看全文与 `overset`。正文更短时可能不用续页；正文更长时必须扩容，不强行压到不可读字号。
 7. 第二页用 `frame.create {"spread":1,"rect":[42,42,553,780],"content":"text","text":""}` 创建续框，按返回ID设置三栏、12点栏距、`balanceColumns:true`。调用 `text.thread {"from":首框id,"to":续框id}`，不能按视觉坐标猜阅读顺序。
-8. `story.get {"frame":首框id}` 核对故事包含两个框且顺序相同，全文逐字等于输入，末段存在，最终 `overset:false`。再运行 `document.inspect {}`、`preflight.run {"minPpi":150}`，处理错误并说明警告。
+8. `story.get {"frame":首框id}` 核对故事包含两个框且顺序相同，全文逐字等于输入，末段存在，最终 `overset:null`（当前CLI以null表示无溢出，有溢出时返回起始偏移；0也应视为溢出）。再运行 `document.inspect {}`、`preflight.run {"minPpi":150}`，处理错误并说明警告。
 9. 保存新路径的原生工程，输出PDF校样与IDML；重新打开原生文件检查全文和框链，解包IDML确认段落样式仍应用。逐页看标题、续页起始和末栏空白，PDF成功不代表排版美观或印刷认证。
 
 ## CLI 与 MCP
