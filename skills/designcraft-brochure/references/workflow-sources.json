@@ -34,6 +34,22 @@
         }
       ],
       "reuse": "workflow facts and original adaptation only; no upstream text, code or assets copied"
+    },
+    {
+      "repository": "MrBoyard7/indesign-brochure-automator",
+      "commit": "92b4e68adedcdc20f7629184e2e250e4a8d5169e",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "readFiles": [
+        {
+          "path": "docs/template_reference.md",
+          "url": "https://github.com/MrBoyard7/indesign-brochure-automator/blob/92b4e68adedcdc20f7629184e2e250e4a8d5169e/docs/template_reference.md",
+          "bytes": 3973,
+          "sha256": "b563548d89e38ec5cd2af39026a0f536a01a7d7d656e38a95f2d7f7bbabdcd3f"
+        }
+      ],
+      "reuse": "workflow facts only: explicit field/frame matching, proportional image fitting and final export; no upstream text, code or media copied; no claim to implement CSV merge or ExtendScript"
     }
   ]
 }

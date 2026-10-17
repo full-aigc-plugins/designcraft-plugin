@@ -3,45 +3,437 @@
   "application": "designcraft",
   "id": "poster-layout",
   "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
+  "templateOnly": true,
+  "argumentPolicy": "先替换确认的活动事实、URL及主题图；URL须在registration文字、hyperlink.create和object.qrCode三处一致；文字选择长度按UTF-8重算。$ref须编译或由MCP实际返回值绑定。",
+  "pageSizeMm": [
+    297,
+    420
+  ],
+  "approvedDestination": "https://example.org/workshop",
   "steps": [
     {
-      "purpose": "建立大标题框",
-      "command": "frame.create",
+      "purpose": "只为新稿设置已确认A3毫米尺寸，换算pt，不重设既有文档",
+      "command": "file.new",
       "params": {
-        "rect": [
-          36,
-          36,
-          559,
-          180
-        ],
-        "content": "text",
-        "text": "活动名称"
+        "width": 841.8897637795276,
+        "height": 1190.5511811023623,
+        "pages": 1,
+        "facingPages": false,
+        "margins": 60,
+        "bleed": 0,
+        "title": "Design Day / review poster"
+      },
+      "newDocumentOnly": true
+    },
+    {
+      "purpose": "为信息层级创建可编辑样式并关闭自动连字符",
+      "command": "style.paragraph.create",
+      "params": {
+        "name": "Poster Heading",
+        "chars": {
+          "fontFamily": "Source Sans 3",
+          "size": 54
+        },
+        "para": {
+          "hyphenate": false
+        }
       }
     },
     {
-      "purpose": "放置时间地点与行动信息",
-      "command": "frame.create",
+      "purpose": "为信息层级创建可编辑样式并关闭自动连字符",
+      "command": "style.paragraph.create",
       "params": {
-        "rect": [
-          36,
-          620,
-          559,
-          780
-        ],
-        "content": "text",
-        "text": "日期 / 地点 / 报名方式"
+        "name": "Poster Theme",
+        "chars": {
+          "fontFamily": "Source Sans 3",
+          "size": 26
+        },
+        "para": {
+          "hyphenate": false
+        }
       }
     },
     {
-      "purpose": "印前检查",
+      "purpose": "为信息层级创建可编辑样式并关闭自动连字符",
+      "command": "style.paragraph.create",
+      "params": {
+        "name": "Poster Details",
+        "chars": {
+          "fontFamily": "Source Sans 3",
+          "size": 18
+        },
+        "para": {
+          "hyphenate": false
+        }
+      }
+    },
+    {
+      "purpose": "为信息层级创建可编辑样式并关闭自动连字符",
+      "command": "style.paragraph.create",
+      "params": {
+        "name": "Poster Registration",
+        "chars": {
+          "fontFamily": "Source Sans 3",
+          "size": 16
+        },
+        "para": {
+          "hyphenate": false
+        }
+      }
+    },
+    {
+      "purpose": "为信息层级创建可编辑样式并关闭自动连字符",
+      "command": "style.paragraph.create",
+      "params": {
+        "name": "Poster Note",
+        "chars": {
+          "fontFamily": "Source Sans 3",
+          "size": 11
+        },
+        "para": {
+          "hyphenate": false
+        }
+      }
+    },
+    {
+      "purpose": "按远读标题、中距主题、近读时间地点和行动入口分层建立文字框",
+      "command": "frame.create",
+      "params": {
+        "spread": 0,
+        "rect": [
+          60,
+          60,
+          782,
+          150
+        ],
+        "content": "text",
+        "text": "DESIGN DAY"
+      },
+      "capture": "headline"
+    },
+    {
+      "purpose": "显式选择全文，替换文字后重新计算UTF-8字节数",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "headline.story"
+        },
+        "anchor": 0,
+        "focus": 10
+      }
+    },
+    {
+      "purpose": "应用实际段落样式，而非仅创建样式名称",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Poster Heading",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查完整文字和null溢出；0也算溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "headline.id"
+        }
+      },
+      "capture": "headline_story"
+    },
+    {
+      "purpose": "按远读标题、中距主题、近读时间地点和行动入口分层建立文字框",
+      "command": "frame.create",
+      "params": {
+        "spread": 0,
+        "rect": [
+          60,
+          168,
+          782,
+          255
+        ],
+        "content": "text",
+        "text": "Make useful things, together."
+      },
+      "capture": "theme"
+    },
+    {
+      "purpose": "显式选择全文，替换文字后重新计算UTF-8字节数",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "theme.story"
+        },
+        "anchor": 0,
+        "focus": 29
+      }
+    },
+    {
+      "purpose": "应用实际段落样式，而非仅创建样式名称",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Poster Theme",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查完整文字和null溢出；0也算溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "theme.id"
+        }
+      },
+      "capture": "theme_story"
+    },
+    {
+      "purpose": "按远读标题、中距主题、近读时间地点和行动入口分层建立文字框",
+      "command": "frame.create",
+      "params": {
+        "spread": 0,
+        "rect": [
+          60,
+          740,
+          782,
+          900
+        ],
+        "content": "text",
+        "text": "Saturday, 14 November 2026\n10:00-16:00 / Workshop Hall\nBring an idea. Leave with a small prototype."
+      },
+      "capture": "details"
+    },
+    {
+      "purpose": "显式选择全文，替换文字后重新计算UTF-8字节数",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "details.story"
+        },
+        "anchor": 0,
+        "focus": 99
+      }
+    },
+    {
+      "purpose": "应用实际段落样式，而非仅创建样式名称",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Poster Details",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查完整文字和null溢出；0也算溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "details.id"
+        }
+      },
+      "capture": "details_story"
+    },
+    {
+      "purpose": "按远读标题、中距主题、近读时间地点和行动入口分层建立文字框",
+      "command": "frame.create",
+      "params": {
+        "spread": 0,
+        "rect": [
+          60,
+          960,
+          585,
+          1060
+        ],
+        "content": "text",
+        "text": "Registration and event details\nhttps://example.org/workshop"
+      },
+      "capture": "registration"
+    },
+    {
+      "purpose": "显式选择全文，替换文字后重新计算UTF-8字节数",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "registration.story"
+        },
+        "anchor": 0,
+        "focus": 59
+      }
+    },
+    {
+      "purpose": "应用实际段落样式，而非仅创建样式名称",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Poster Registration",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查完整文字和null溢出；0也算溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "registration.id"
+        }
+      },
+      "capture": "registration_story"
+    },
+    {
+      "purpose": "将确认URL绑定到明确的报名信息框，避免复用其他选区",
+      "command": "hyperlink.create",
+      "params": {
+        "url": "https://example.org/workshop",
+        "ids": [
+          {
+            "$ref": "registration.id"
+          }
+        ],
+        "name": "Approved registration destination"
+      }
+    },
+    {
+      "purpose": "按远读标题、中距主题、近读时间地点和行动入口分层建立文字框",
+      "command": "frame.create",
+      "params": {
+        "spread": 0,
+        "rect": [
+          60,
+          1110,
+          782,
+          1160
+        ],
+        "content": "text",
+        "text": "REVIEW SAMPLE / Fictional event details and example URL.\nReplace with approved facts before publication."
+      },
+      "capture": "note"
+    },
+    {
+      "purpose": "显式选择全文，替换文字后重新计算UTF-8字节数",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "note.story"
+        },
+        "anchor": 0,
+        "focus": 104
+      }
+    },
+    {
+      "purpose": "应用实际段落样式，而非仅创建样式名称",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Poster Note",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查完整文字和null溢出；0也算溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "note.id"
+        }
+      },
+      "capture": "note_story"
+    },
+    {
+      "purpose": "创建主题图片框并记录其真实ID",
+      "command": "frame.create",
+      "params": {
+        "spread": 0,
+        "rect": [
+          60,
+          315,
+          782,
+          705
+        ],
+        "content": "graphic"
+      },
+      "capture": "hero"
+    },
+    {
+      "purpose": "置入已批准主题图，不能把样例色块当真实照片",
+      "command": "file.place",
+      "params": {
+        "path": "poster-input/hero.png",
+        "frame": {
+          "$ref": "hero.id"
+        },
+        "link": true
+      }
+    },
+    {
+      "purpose": "保留图片比例与完整画面；留白作为本样例明确的适配方式",
+      "command": "object.fit",
+      "params": {
+        "ids": [
+          {
+            "$ref": "hero.id"
+          }
+        ],
+        "mode": "fitProportionally"
+      }
+    },
+    {
+      "purpose": "原生编码已确认URL，四周白底净空不放文字；导出后必须真实解码",
+      "command": "object.qrCode",
+      "params": {
+        "type": "url",
+        "content": "https://example.org/workshop",
+        "color": "[Black]",
+        "rect": [
+          637,
+          949,
+          781,
+          1093
+        ],
+        "spread": 0
+      },
+      "capture": "qr"
+    },
+    {
+      "purpose": "核对主题图路径、使用框及有效PPI",
+      "command": "links.list",
+      "params": {},
+      "capture": "links"
+    },
+    {
+      "purpose": "核对保存的报名超链接目标",
+      "command": "hyperlink.list",
+      "params": {},
+      "capture": "hyperlinks"
+    },
+    {
+      "purpose": "检查最终尺寸、所有文字框和QR位置",
+      "command": "document.inspect",
+      "params": {},
+      "capture": "final_inspect"
+    },
+    {
+      "purpose": "阅读校样按150PPI检查；印刷按实际门槛提高，有问题先停止",
       "command": "preflight.run",
       "params": {
         "minPpi": 150
+      },
+      "capture": "preflight"
+    }
+  ],
+  "deliverySteps": [
+    {
+      "command": "file.package",
+      "params": {
+        "dir": "poster-package",
+        "idml": true,
+        "pdf": true
       }
     }
   ],
-  "check": "远看标题、中距卖点、近看细节，二维码必须来自真实输入并实际扫码。",
-  "boundary": "输入最终尺寸后重算框坐标；不把A4例子当所有海报规格。",
-  "templateOnly": true,
-  "argumentPolicy": "示例参数必须按当前输入、选择和实际返回ID替换；$变量先解析，数组变量整字段替换，不能将本文件直接当原生CLI脚本执行。"
+  "deliveryPolicy": "先检查stories、links、preflight及实际导出PDF/PNG的二维码解码结果，再单独打包；编译器默认只编译steps，未确认检查结果不得自动拼接deliverySteps。",
+  "assertions": {
+    "pages": 1,
+    "size": [
+      841.8897637795276,
+      1190.5511811023623
+    ],
+    "frameCount": 7
+  },
+  "check": "新进程重开后核对五个故事全文、样式层级、A3尺寸、英雄图长宽比和有效PPI、原生QR实际内容、PDF点击链接及导出图扫码内容；原图不变。",
+  "boundary": "单页A3活动海报：与A4纯文字event-poster不同，本场景包含原生二维码、可点击入口、实际置图及毫米输出尺寸。本例URL和活动事实均为虚构测试输入，不证明报名网站可用。不能仅凭QR模型content宣称导出图可扫描；实际印刷和阅读距离仍需用户目标下验收。"
 }

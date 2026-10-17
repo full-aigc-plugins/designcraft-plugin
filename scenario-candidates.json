@@ -8,27 +8,27 @@
     },
     {
       "name": "designcraft-brochure",
-      "sha256": "6e5f509d61f35069579865885fcc982553d19a99a90914ee77e7a707ed349a9d"
+      "sha256": "8a82d3b94d50765f17c7b04fa243d6017bf54b932fb931a801a9e58e7f38153d"
     },
     {
       "name": "designcraft-catalog",
-      "sha256": "9f5e8729c67da2de691dc146d35db4ee0213287494926c20633fc8a480647117"
+      "sha256": "48461d9cf24175ddefec0f78382a8afc5e2bc4341d58245d253e855accbab8d1"
     },
     {
       "name": "designcraft-newsletter",
-      "sha256": "2fc65295a78c01bba37686fbb71c3c94ca7183ee41b1516b3e30a767e3f42d32"
+      "sha256": "8c87e51eaf00c7609f19be26d06fbba0dc4547ea4f13a21f839ed7c134ae5ba4"
     },
     {
       "name": "designcraft-poster-layout",
-      "sha256": "a7f1575ad2f9403136d6c7ea76764a3fae1fec73c272b35580a66ebb726b2723"
+      "sha256": "82592e3f79be07d736959298f17442fd97a8051e45df9521e97d7a17db1900f0"
     },
     {
       "name": "designcraft-long-document",
-      "sha256": "bb5eefabc70c02c2c1216c045aa5e3ff3a7f47da65c57dee7942886f18a99c6d"
+      "sha256": "177fea87965459bc58ec4694c839b786ee2caf06b5a8bc9e4817e288ae8652df"
     },
     {
       "name": "designcraft-print-preflight",
-      "sha256": "69e8cdb569a2c3ec01605ca40fefbcd2a58e9f9db09ba44bbbea49a74a378031"
+      "sha256": "99c08fc7677e938dd6f27fffe4492cb57ff43db5b481f4c6a3dd24bdc51b1f09"
     },
     {
       "name": "designcraft-scenario-playbooks",
