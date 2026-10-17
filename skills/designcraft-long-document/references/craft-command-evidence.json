@@ -7,14 +7,16 @@
   },
   "ciRun": "https://github.com/partme-ai/full-aigc-plugins/actions/runs/38921194883",
   "observedCommands": {
-    "style.paragraph.create": {
-      "disabled_reason": "no document open",
-      "enabled": false,
-      "id": "style.paragraph.create",
-      "label": "New Paragraph Style…",
-      "menu": [],
-      "params": "{name, basedOn?, nextStyle?, para?: {…}, chars?: {…}, fromSelection?: bool}",
-      "shortcut": null
+    "file.new": {
+      "enabled": true,
+      "id": "file.new",
+      "label": "Document…",
+      "menu": [
+        "File",
+        "New"
+      ],
+      "params": "{preset?: \"Letter\"|\"A4\"|… or a saved preset (file.savePreset), intent?: print|web|mobile, units?: points|picas|millimeters|…, width?, height?, pages?, startPage?, facingPages?, columns?, gutter?, margins?: number|{top,bottom,inside,outside}, bleed?, slug?: n | [top, bottom, inside, outside], title?, primaryTextFrame?: bool}",
+      "shortcut": "Cmd+N"
     },
     "frame.create": {
       "disabled_reason": "no document open",
@@ -22,7 +24,27 @@
       "id": "frame.create",
       "label": "Create Frame",
       "menu": [],
-      "params": "{spread?: index | {kind: doc|parent, index} (a parent spread: index into `parents` of document.inspect), rect: [x0,y0,x1,y1] (spread coords), shape?: rectangle|ellipse|polygon, content?: graphic|text|unassigned, sides?: 6, text?: string, caret?: bool, vertical?: bool (text: a new vertical story)}",
+      "params": "{spread?: index | {kind: doc|parent, index} (a parent spread: index into `parents` of document.inspect), rect: [x0,y0,x1,y1] (spread coords), shape?: rectangle|ellipse|polygon, content?: graphic|text|unassigned, sides?: 6, starInset?: 0–100 (%), text?: string, caret?: bool, vertical?: bool (text: a new vertical story)}",
+      "shortcut": null
+    },
+    "file.package": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "file.package",
+      "label": "Package…",
+      "menu": [
+        "File"
+      ],
+      "params": "{dir: folder to create, idml?: true, pdf?: false, instructions?: text} — the document (its placed files relinked to Links/), Links/, the font files that draw its text in Document Fonts/ (fallback fonts included; unless their licence restricts it), an IDML copy (linking the files in Links/, nothing embedded), an optional PDF and a report → {dir, files, report}",
+      "shortcut": null
+    },
+    "text.select": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "text.select",
+      "label": "Select Text",
+      "menu": [],
+      "params": "{story, anchor, focus} (UTF-8 byte offsets into the story text, as find.find reports them: á or — counts 2 or 3)",
       "shortcut": null
     },
     "story.get": {
@@ -32,6 +54,127 @@
       "label": "Get Story",
       "menu": [],
       "params": "{story? | frame?} → text, frames, paragraphs, vertical, overset",
+      "shortcut": null
+    },
+    "text.thread": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "text.thread",
+      "label": "Thread Text Frames",
+      "menu": [],
+      "params": "{from?, to?, rect?: [x0,y0,x1,y1] (spread coords), spread?, autoflow?: bool} — threads frame `to` right after frame `from` (between `from` and the frame that followed it, if any). `to` is an empty frame or a text frame nothing threads into yet; its text joins the end of the story. Give `rect` in place of `from` or `to` to thread a new text frame made there on `spread`: `{from, rect}` adds it after `from`, `{rect, to}` in front of `to`. autoflow: then add pages with threaded frames until the story fits. Selects the frame that joined the thread. → {story, from, to, overset, pagesAdded}",
+      "shortcut": null
+    },
+    "style.paragraph.apply": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "style.paragraph.apply",
+      "label": "Apply Paragraph Style",
+      "menu": [],
+      "params": "{name, clearOverrides?: bool}",
+      "shortcut": null
+    },
+    "style.paragraph.create": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "style.paragraph.create",
+      "label": "New Paragraph Style…",
+      "menu": [],
+      "params": "{name, basedOn?, nextStyle?, para?: {paragraph attributes, as type.para names them: align, leftIndent, firstLineIndent, spaceBefore, spaceAfter, …; startAt?: null = continue numbering; grepStyles?: [{style, pattern}]: a pattern that can't compile is an error}, chars?: {character attributes, as type.char names them: fontFamily, fontStyle, size, leading, tracking, fill, …}, fromSelection?: bool}",
+      "shortcut": null
+    },
+    "layout.pages.insert": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "layout.pages.insert",
+      "label": "Insert Pages…",
+      "menu": [
+        "Layout",
+        "Pages"
+      ],
+      "params": "{count?: 1, after?: page index (default: last), parent?: id|\"A-Parent\"|\"A\"|null}",
+      "shortcut": "Cmd+Shift+P"
+    },
+    "document.inspect": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "document.inspect",
+      "label": "Inspect Document",
+      "menu": [],
+      "params": "{} → pages, spreads, items, stories (with overset), styles, swatches, selection",
+      "shortcut": null
+    },
+    "toc.generate": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "toc.generate",
+      "label": "Table of Contents…",
+      "menu": [
+        "Layout"
+      ],
+      "params": "{entries: [{style, level?: 1 (1-9), entryStyle?: paragraph style of its entries (default \"TOC Level n\"), pageNumber?: \"after\"|\"before\"|\"none\", separator?: text between entry and number (default a tab), pageNumberStyle?: character style of the page number, separatorStyle?: character style of the separator, sort?: bool (Sort Entries in Alphabetical Order: among their siblings, each with the entries under it)}] | styles: [names] (levels 1, 2, …), title?: \"Contents\", titleStyle?: paragraph style of the title (default \"TOC Title\"), pageNumbers?: true, replace?: true (regenerate the existing table of contents in place; false makes a new frame), page?: 1-based page for a new frame (its margins), rect?: [x0,y0,x1,y1] (spread coords)} → {story, entries}",
+      "shortcut": null
+    },
+    "toc.update": {
+      "disabled_reason": "the document has no table of contents",
+      "enabled": false,
+      "id": "toc.update",
+      "label": "Update Table of Contents",
+      "menu": [
+        "Layout"
+      ],
+      "params": "{} — regenerate the existing table of contents",
+      "shortcut": null
+    },
+    "toc.entries": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "toc.entries",
+      "label": "Table of Contents Entries",
+      "menu": [],
+      "params": "{entries | styles} → [{level, text, page}] without changing the document",
+      "shortcut": null
+    },
+    "footnote.insert": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "footnote.insert",
+      "label": "Insert Footnote",
+      "menu": [
+        "Type"
+      ],
+      "params": "{text?} — a footnote reference at the insertion point; the caret moves into the new footnote's text",
+      "shortcut": null
+    },
+    "footnote.options": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "footnote.options",
+      "label": "Document Footnote Options…",
+      "menu": [
+        "Type"
+      ],
+      "params": "{style?: arabic|upperRoman|lowerRoman|upperLetters|lowerLetters|symbols|kanji, startAt?, restart?: never|page|spread|section, prefix?, suffix?, affixIn?: none|reference|text|both, refPosition?: superscript|subscript|normal|otSuperscript, refCharStyle?, paraStyle?, separator?, spaceBefore?, spaceBetween?, firstBaseline?: ascent|capHeight|leading|xHeight|emboxHeight|fixed, firstBaselineMin?, spanColumns?, rule?: {on, weight, color, tint, width, offset, leftIndent}} → the options (no params: just read them)",
+      "shortcut": null
+    },
+    "footnote.list": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "footnote.list",
+      "label": "Footnotes",
+      "menu": [],
+      "params": "{story?} → [{story, id, index, anchor, text}] in story order",
+      "shortcut": null
+    },
+    "footnote.goToReference": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "footnote.goToReference",
+      "label": "Go to Footnote Reference",
+      "menu": [
+        "Type"
+      ],
+      "params": "{} — from footnote text, puts the caret after the footnote's reference",
       "shortcut": null
     },
     "preflight.run": {
@@ -46,18 +189,12 @@
       ],
       "params": "{minPpi?: 150} → issues [{severity, kind, message, item?, page?}]",
       "shortcut": null
-    },
-    "file.package": {
-      "disabled_reason": "no document open",
-      "enabled": false,
-      "id": "file.package",
-      "label": "Package…",
-      "menu": [
-        "File"
-      ],
-      "params": "{dir: folder to create, idml?: true, pdf?: false, instructions?: text} — the document (its placed files relinked to Links/), Links/, the font files that draw its text in Document Fonts/ (fallback fonts included; unless their licence restricts it), an IDML copy, an optional PDF and a report → {dir, files, report}",
-      "shortcut": null
     }
   },
-  "sceneAcceptance": "NOT_RUN"
+  "sceneAcceptance": "NOT_RUN",
+  "mainObservation": {
+    "commit": "fc36957fe05f38a6976df4734d52b9250cd54a2c",
+    "ciRun": "https://github.com/partme-ai/full-aigc-plugins/actions/runs/39007949879",
+    "status": "COMMAND_CATALOG_ONLY_NOT_BOOK_ACCEPTANCE"
+  }
 }

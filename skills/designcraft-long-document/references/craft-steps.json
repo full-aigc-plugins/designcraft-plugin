@@ -5,50 +5,456 @@
   "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
   "steps": [
     {
-      "purpose": "建立章节与正文样式",
+      "purpose": "仅新任务创建四页长文档；已有工程先检查",
+      "command": "file.new",
+      "params": {
+        "width": 595,
+        "height": 842,
+        "pages": 4,
+        "facingPages": false,
+        "margins": 36,
+        "bleed": 0,
+        "title": "Project review report"
+      },
+      "newDocumentOnly": true
+    },
+    {
+      "purpose": "建立新文档所需独立段落样式",
       "command": "style.paragraph.create",
       "params": {
-        "name": "Chapter"
+        "name": "Book Body",
+        "chars": {
+          "fontFamily": "Source Sans 3",
+          "size": 11
+        }
       }
     },
     {
-      "purpose": "创建连续文本的起始框",
+      "purpose": "建立新文档所需独立段落样式",
+      "command": "style.paragraph.create",
+      "params": {
+        "name": "Chapter Heading",
+        "chars": {
+          "fontFamily": "Source Sans 3",
+          "size": 20
+        }
+      }
+    },
+    {
+      "purpose": "建立新文档所需独立段落样式",
+      "command": "style.paragraph.create",
+      "params": {
+        "name": "Contents Title",
+        "chars": {
+          "fontFamily": "Source Sans 3",
+          "size": 20
+        }
+      }
+    },
+    {
+      "purpose": "建立新文档所需独立段落样式",
+      "command": "style.paragraph.create",
+      "params": {
+        "name": "Contents Entry",
+        "chars": {
+          "fontFamily": "Source Sans 3",
+          "size": 11
+        }
+      }
+    },
+    {
+      "purpose": "建立新文档所需独立段落样式",
+      "command": "style.paragraph.create",
+      "params": {
+        "name": "Book Note",
+        "chars": {
+          "fontFamily": "Source Sans 3",
+          "size": 10
+        }
+      }
+    },
+    {
+      "purpose": "建立chapter1完整正文故事",
       "command": "frame.create",
       "params": {
+        "spread": 1,
         "rect": [
-          36,
-          36,
-          559,
+          42,
+          42,
+          553,
+          140
+        ],
+        "content": "text",
+        "text": "Chapter 1 / Project evidence\nThe report separates observations from proposals. A workshop note is evidence that a discussion occurred, while an estimate is an input to a decision. Neither should be rewritten as an approved commitment. Each section records the source, the responsible reviewer and the date when the information was checked.\nCollect the input documents before laying out the chapter. Preserve the source wording and keep a short record of missing facts. If a statement has no supporting source, label it as a question for the owner. Do not invent dates, quantities or endorsements to make a page look complete. Review the longest paragraph before fixing the final type size.\nFlow the chapter through linked text frames rather than copying its body onto several pages. The first frame contains the complete original story. Empty continuation frames receive the remaining text in order. After a change, compare the entire saved story with the input so that a missing middle paragraph cannot pass merely because the heading and final line remain.\nPage breaks are layout decisions that affect the table of contents. The chapter title uses a distinct paragraph style; body paragraphs use the body style. A contents generator should select the heading style rather than matching words that happen to look like headings. Confirm the resulting page labels after all inserted pages and text reflow.\nBefore delivery, reopen the editable project and inspect both the story and its frames. Export an IDML copy for another layout system and a PDF proof for review. A successful export does not show that the typesetting, accessibility or print conditions have been accepted. Keep those checks visible in the handoff note."
+      },
+      "capture": "chapter1"
+    },
+    {
+      "purpose": "显式选择章节全文UTF-8字节范围",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "chapter1.story"
+        },
+        "anchor": 0,
+        "focus": 1723
+      }
+    },
+    {
+      "purpose": "实际应用正文样式",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Book Body",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "只选择章节首段，防止正文进入目录",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "chapter1.story"
+        },
+        "anchor": 0,
+        "focus": 28
+      }
+    },
+    {
+      "purpose": "实际应用目录识别的标题样式",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Chapter Heading",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "读取首框溢出，不以丢文消除溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "chapter1.id"
+        }
+      },
+      "capture": "before_continuation"
+    },
+    {
+      "purpose": "创建空续文框，不复制原文",
+      "command": "frame.create",
+      "params": {
+        "spread": 2,
+        "rect": [
+          42,
+          42,
+          553,
           780
         ],
         "content": "text",
-        "text": "第一章\n正文"
+        "text": ""
+      },
+      "capture": "chapter1_continuation"
+    },
+    {
+      "purpose": "用真实框ID建立跨页正文链",
+      "command": "text.thread",
+      "params": {
+        "from": {
+          "$ref": "chapter1.id"
+        },
+        "to": {
+          "$ref": "chapter1_continuation.id"
+        }
+      },
+      "capture": "thread"
+    },
+    {
+      "purpose": "建立chapter2完整正文故事",
+      "command": "frame.create",
+      "params": {
+        "spread": 3,
+        "rect": [
+          42,
+          42,
+          553,
+          740
+        ],
+        "content": "text",
+        "text": "Chapter 2 / Review and handoff\nReviewers check source statements, dates and responsibilities before approving the proof. Editorial corrections remain separate from layout changes. When an appendix is added, regenerate the contents from the current heading positions and inspect the actual printed labels. Do not maintain a second guessed list of page numbers.\nThe editable handoff includes the native project, IDML, a review PDF and any permitted linked assets. Record font restrictions and unresolved questions. Preserve a source note with its reference in the chapter, then reopen the saved project to verify that the note text and anchor survived. This sample is a workflow fixture, not an approved project report."
+      },
+      "capture": "chapter2"
+    },
+    {
+      "purpose": "显式选择章节全文UTF-8字节范围",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "chapter2.story"
+        },
+        "anchor": 0,
+        "focus": 717
       }
     },
     {
-      "purpose": "获取故事与溢出状态",
-      "command": "story.get",
+      "purpose": "实际应用正文样式",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Book Body",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "只选择章节首段，防止正文进入目录",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "chapter2.story"
+        },
+        "anchor": 0,
+        "focus": 30
+      }
+    },
+    {
+      "purpose": "实际应用目录识别的标题样式",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Chapter Heading",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "新文档统一脚注段落样式",
+      "command": "footnote.options",
+      "params": {
+        "paraStyle": "Book Note"
+      }
+    },
+    {
+      "purpose": "将插入点显式放在第二章结尾",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "chapter2.story"
+        },
+        "anchor": 717,
+        "focus": 717
+      }
+    },
+    {
+      "purpose": "插入保留独立文本和引用位置的原生脚注",
+      "command": "footnote.insert",
+      "params": {
+        "text": "Source note: sample review protocol, prepared for the workflow fixture."
+      },
+      "capture": "source_note"
+    },
+    {
+      "purpose": "离开脚注返回正文引用",
+      "command": "footnote.goToReference",
       "params": {}
     },
     {
-      "purpose": "检查分页与字体问题",
-      "command": "preflight.run",
+      "purpose": "根据实际标题样式在第一页生成原生目录",
+      "command": "toc.generate",
       "params": {
-        "minPpi": 150
+        "entries": [
+          {
+            "style": "Chapter Heading",
+            "level": 1,
+            "entryStyle": "Contents Entry",
+            "pageNumber": "after",
+            "separator": "\t"
+          }
+        ],
+        "title": "Contents",
+        "titleStyle": "Contents Title",
+        "page": 1,
+        "rect": [
+          42,
+          42,
+          553,
+          600
+        ]
+      },
+      "capture": "toc"
+    },
+    {
+      "purpose": "记录插页前目录及实际页码",
+      "command": "toc.entries",
+      "params": {
+        "entries": [
+          {
+            "style": "Chapter Heading",
+            "level": 1,
+            "entryStyle": "Contents Entry",
+            "pageNumber": "after",
+            "separator": "\t"
+          }
+        ]
+      },
+      "capture": "toc_before"
+    },
+    {
+      "purpose": "在第三页后插入证据附录页；after为0基页索引",
+      "command": "layout.pages.insert",
+      "params": {
+        "count": 1,
+        "after": 2
+      },
+      "capture": "inserted_page"
+    },
+    {
+      "purpose": "填入新附录页，第二章随之移到第五页",
+      "command": "frame.create",
+      "params": {
+        "spread": 3,
+        "rect": [
+          42,
+          42,
+          553,
+          740
+        ],
+        "content": "text",
+        "text": "Evidence appendix\nReserved for approved source extracts. No unverified material is included in this sample."
+      },
+      "capture": "appendix"
+    },
+    {
+      "purpose": "选择附录全文",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "appendix.story"
+        },
+        "anchor": 0,
+        "focus": 107
       }
     },
     {
-      "purpose": "收集可返工工程与链接素材",
+      "purpose": "附录不使用Chapter Heading，避免误入章节目录",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Book Body",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "分页改变后刷新现有目录，不再创建重复目录",
+      "command": "toc.update",
+      "params": {},
+      "capture": "toc_updated"
+    },
+    {
+      "purpose": "核对最终章节页码",
+      "command": "toc.entries",
+      "params": {
+        "entries": [
+          {
+            "style": "Chapter Heading",
+            "level": 1,
+            "entryStyle": "Contents Entry",
+            "pageNumber": "after",
+            "separator": "\t"
+          }
+        ]
+      },
+      "capture": "toc_final"
+    },
+    {
+      "purpose": "查询保存前章节全文及框链",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "chapter1.id"
+        }
+      },
+      "capture": "chapter1_final"
+    },
+    {
+      "purpose": "查询保存前章节全文及框链",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "chapter2.id"
+        }
+      },
+      "capture": "chapter2_final"
+    },
+    {
+      "purpose": "核对脚注文本、数量和所属故事",
+      "command": "footnote.list",
+      "params": {
+        "story": {
+          "$ref": "chapter2.story"
+        }
+      },
+      "capture": "notes_final"
+    },
+    {
+      "purpose": "核对最终五页及全文溢出",
+      "command": "document.inspect",
+      "params": {},
+      "capture": "final_inspect"
+    },
+    {
+      "purpose": "检查字体、正文及脚注的输出问题",
+      "command": "preflight.run",
+      "params": {
+        "minPpi": 150
+      },
+      "capture": "preflight"
+    },
+    {
+      "purpose": "交付可编辑工程和IDML/PDF校样，读取字体许可报告",
       "command": "file.package",
       "params": {
-        "dir": "output/book-package",
+        "dir": "book-package",
         "idml": true,
         "pdf": true
-      }
+      },
+      "capture": "package"
     }
   ],
-  "check": "目录页码、章节标题、脚注和空白页逐一核对。",
-  "boundary": "先取返回story/frame再自动续排；字体打包受到字体许可限制。",
+  "check": "标题/正文样式真实应用；第一章跨页全文不变；插页前目录2/4，更新后2/5；脚注文本、数量、引用位置保存重开保持；最终无正文/脚注溢出。",
+  "boundary": "这是单文档章节排版，不是INDB多文件书籍转换。目录页码来自当前布局；未实现页脚自动页码、索引与任意外部脚注导入。真实复杂长文需逐页审阅。",
   "templateOnly": true,
-  "argumentPolicy": "示例参数必须按当前输入、选择和实际返回ID替换；$变量先解析，数组变量整字段替换，不能将本文件直接当原生CLI脚本执行。"
+  "argumentPolicy": "示例参数必须按当前输入、选择和实际返回ID替换；$变量先解析，数组变量整字段替换，不能将本文件直接当原生CLI脚本执行。",
+  "chapters": [
+    {
+      "key": "chapter1",
+      "heading": "Chapter 1 / Project evidence",
+      "spread": 1,
+      "rect": [
+        42,
+        42,
+        553,
+        140
+      ],
+      "text": "Chapter 1 / Project evidence\nThe report separates observations from proposals. A workshop note is evidence that a discussion occurred, while an estimate is an input to a decision. Neither should be rewritten as an approved commitment. Each section records the source, the responsible reviewer and the date when the information was checked.\nCollect the input documents before laying out the chapter. Preserve the source wording and keep a short record of missing facts. If a statement has no supporting source, label it as a question for the owner. Do not invent dates, quantities or endorsements to make a page look complete. Review the longest paragraph before fixing the final type size.\nFlow the chapter through linked text frames rather than copying its body onto several pages. The first frame contains the complete original story. Empty continuation frames receive the remaining text in order. After a change, compare the entire saved story with the input so that a missing middle paragraph cannot pass merely because the heading and final line remain.\nPage breaks are layout decisions that affect the table of contents. The chapter title uses a distinct paragraph style; body paragraphs use the body style. A contents generator should select the heading style rather than matching words that happen to look like headings. Confirm the resulting page labels after all inserted pages and text reflow.\nBefore delivery, reopen the editable project and inspect both the story and its frames. Export an IDML copy for another layout system and a PDF proof for review. A successful export does not show that the typesetting, accessibility or print conditions have been accepted. Keep those checks visible in the handoff note."
+    },
+    {
+      "key": "chapter2",
+      "heading": "Chapter 2 / Review and handoff",
+      "spread": 3,
+      "rect": [
+        42,
+        42,
+        553,
+        740
+      ],
+      "text": "Chapter 2 / Review and handoff\nReviewers check source statements, dates and responsibilities before approving the proof. Editorial corrections remain separate from layout changes. When an appendix is added, regenerate the contents from the current heading positions and inspect the actual printed labels. Do not maintain a second guessed list of page numbers.\nThe editable handoff includes the native project, IDML, a review PDF and any permitted linked assets. Record font restrictions and unresolved questions. Preserve a source note with its reference in the chapter, then reopen the saved project to verify that the note text and anchor survived. This sample is a workflow fixture, not an approved project report."
+    }
+  ],
+  "note": "Source note: sample review protocol, prepared for the workflow fixture.",
+  "appendix": "Evidence appendix\nReserved for approved source extracts. No unverified material is included in this sample.",
+  "assertions": {
+    "pages": 5,
+    "size": [
+      595,
+      842
+    ],
+    "frameCount": 5,
+    "thread": [
+      "chapter1",
+      "chapter1_continuation"
+    ]
+  }
 }
