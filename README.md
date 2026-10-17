@@ -51,3 +51,7 @@ Plugin display name: **DesignCraft Use**. Official upstream icon provenance and 
 ### 候选启动修正
 
 本候选先完成轻量MCP握手及能力发现，在首次工具或资源调用时校验/获取固定编辑器资源。修复多个编辑器首次下载阻塞宿主握手的问题。Windows通过Git安装时须启用Git长路径支持（`git config --global core.longpaths true`）；完整ZIP不包含历史验收记录，可避免Git检出长路径的问题。运行资源沿用已核验的dev.20261017.2制品，不以入口版本号冒充上游升级。
+
+## 数据合并胸牌开发候选
+
+新增`designcraft-data-merge-badges`：真实字段模板、逐条预览、长姓名溢出处理、任务字体与缺字预检、完整字段重开检查。尚未发布新市场包，Windows和宿主同步状态另行记录。

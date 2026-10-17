@@ -1,0 +1,28 @@
+{
+  "sources": [
+    {
+      "repository": "berteh/ScribusGenerator",
+      "commit": "2b2f1ffd142de19a78686dffa2fe16a27d5d1982",
+      "license": "MIT",
+      "readFiles": [
+        {
+          "repository": "berteh/ScribusGenerator",
+          "commit": "2b2f1ffd142de19a78686dffa2fe16a27d5d1982",
+          "path": "README.md",
+          "url": "https://raw.githubusercontent.com/berteh/ScribusGenerator/2b2f1ffd142de19a78686dffa2fe16a27d5d1982/README.md",
+          "sha256": "903b200aa15342949ef08dd4f5cd7b09d05e0dc70aaeef37c8a1418e522be761",
+          "bytes": 30207
+        },
+        {
+          "repository": "berteh/ScribusGenerator",
+          "commit": "2b2f1ffd142de19a78686dffa2fe16a27d5d1982",
+          "path": "LICENSE",
+          "url": "https://raw.githubusercontent.com/berteh/ScribusGenerator/2b2f1ffd142de19a78686dffa2fe16a27d5d1982/LICENSE",
+          "sha256": "dc0466a34d4395c6600d61a077a53e616766cd515298421cf690254657b28204",
+          "bytes": 1150
+        }
+      ],
+      "adaptation": "借鉴字段模板、UTF-8 CSV、字段同名和逐记录生成事实；中文指导、DesignCraft参数及执行器原创，不复制Scribus源码/模板/数据。"
+    }
+  ]
+}
