@@ -34,6 +34,22 @@
         }
       ],
       "reuse": "workflow facts and original adaptation only; no upstream text, code or assets copied"
+    },
+    {
+      "repository": "pchiorean/Indentz",
+      "commit": "7ce1e0c3df4da1eddcb3ceabc2c97326359d718d",
+      "license": {
+        "spdx_id": "MIT"
+      },
+      "readFiles": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/pchiorean/Indentz/blob/7ce1e0c3df4da1eddcb3ceabc2c97326359d718d/README.md",
+          "bytes": 40894,
+          "sha256": "127e1c611b996903bca8c83aa1f3799484e3dadc1639a5c2d4a282e5e79307c4"
+        }
+      ],
+      "reuse": "Only workflow facts from page size/safety area, proportional image fit and QR sections; original Craft steps and test event. No upstream script, prose or media copied."
     }
   ]
 }

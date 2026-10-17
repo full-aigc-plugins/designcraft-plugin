@@ -1,24 +1,94 @@
 {
-  "runtime": {
-    "version": "v0.8.0",
-    "url": "https://github.com/storytold/designcraft/releases/download/v0.8.0/designcraft-0.8.0-windows-x64-portable.zip",
-    "sha256": "522dea416d68e5de5ec03ceede46854022587e801c76ad7a3c48b1e5e57b953a",
-    "executable": "designcraft-cli.exe"
-  },
-  "ciRun": "https://github.com/partme-ai/full-aigc-plugins/actions/runs/38921194883",
+  "runtime": "designcraft-cli 0.8.0 Windows x64",
+  "catalogSource": "native Windows command catalog run 38921194883",
+  "sceneAcceptance": "NOT_RUN",
   "observedCommands": {
+    "document.inspect": {
+      "id": "document.inspect",
+      "label": "Inspect Document",
+      "menu": [],
+      "params": "{} → pages, spreads, items, stories (with overset), styles, swatches, selection",
+      "shortcut": null
+    },
+    "file.new": {
+      "id": "file.new",
+      "label": "Document…",
+      "menu": [
+        "File",
+        "New"
+      ],
+      "params": "{preset?: \"Letter\"|\"A4\"|…, width?, height?, pages?, facingPages?, columns?, gutter?, margins?: number|{top,bottom,inside,outside}, bleed?, title?}",
+      "shortcut": "Cmd+N"
+    },
+    "file.package": {
+      "id": "file.package",
+      "label": "Package…",
+      "menu": [
+        "File"
+      ],
+      "params": "{dir: folder to create, idml?: true, pdf?: false, instructions?: text} — the document (its placed files relinked to Links/), Links/, the font files that draw its text in Document Fonts/ (fallback fonts included; unless their licence restricts it), an IDML copy, an optional PDF and a report → {dir, files, report}",
+      "shortcut": null
+    },
+    "file.place": {
+      "id": "file.place",
+      "label": "Place…",
+      "menu": [
+        "File"
+      ],
+      "params": "{path?|base64?, name?, frame?: id (place into), spread?, x?, y?, width?, pdfPage?: n (1-based, Image Import Options), pdfCrop?: crop|trim|bleed|art|media, layoutPage?: n (IDML / .designcraft: that page's objects as a group)} — places an image (into the selected empty frame if any); text files (.txt, .docx, .rtf, .md) and Excel workbooks (.xlsx, as a table) go into the insertion point, the selected frame or a new frame on `page`/`rect` — {autoflow?: adds pages with threaded frames until the text fits, removeStyles?, styleMap?: {imported name: document style}, styleConflicts?: useExisting|redefine|autoRename}",
+      "shortcut": "Cmd+D"
+    },
     "frame.create": {
-      "disabled_reason": "no document open",
-      "enabled": false,
       "id": "frame.create",
       "label": "Create Frame",
       "menu": [],
       "params": "{spread?: index | {kind: doc|parent, index} (a parent spread: index into `parents` of document.inspect), rect: [x0,y0,x1,y1] (spread coords), shape?: rectangle|ellipse|polygon, content?: graphic|text|unassigned, sides?: 6, text?: string, caret?: bool, vertical?: bool (text: a new vertical story)}",
       "shortcut": null
     },
+    "hyperlink.create": {
+      "id": "hyperlink.create",
+      "label": "New Hyperlink…",
+      "menu": [
+        "Type",
+        "Hyperlinks & Cross-References"
+      ],
+      "params": "{url? | email? | page? (1-based), name?, ids?} — from the selected text, or the selected frames",
+      "shortcut": null
+    },
+    "hyperlink.list": {
+      "id": "hyperlink.list",
+      "label": "Hyperlinks",
+      "menu": [],
+      "params": "{}",
+      "shortcut": null
+    },
+    "links.list": {
+      "id": "links.list",
+      "label": "Links",
+      "menu": [],
+      "params": "{} → [{asset, name, path, status: ok|modified|missing|embedded, pixels, uses: [{id, page, ppi}]}]",
+      "shortcut": null
+    },
+    "object.fit": {
+      "id": "object.fit",
+      "label": "Fitting",
+      "menu": [
+        "Object",
+        "Fitting"
+      ],
+      "params": "{mode: fillProportionally|fitProportionally|fitContentToFrame|centerContent|fitFrameToContent, ids?}",
+      "shortcut": null
+    },
+    "object.qrCode": {
+      "id": "object.qrCode",
+      "label": "Generate QR Code…",
+      "menu": [
+        "Object"
+      ],
+      "params": "{type?: url|text|sms|email|vcard (default url), content (url/text), number?, message?, to?, subject?, body?, name?, phone?, email?, org?, url?, color? (swatch, [Black]), rect? (new object; else into the selected frame, or re-encode a selected code), spread?} → {id, content}",
+      "shortcut": null
+    },
     "preflight.run": {
-      "disabled_reason": "no document open",
-      "enabled": false,
       "id": "preflight.run",
       "label": "Preflight Document",
       "menu": [
@@ -28,7 +98,63 @@
       ],
       "params": "{minPpi?: 150} → issues [{severity, kind, message, item?, page?}]",
       "shortcut": null
+    },
+    "story.get": {
+      "id": "story.get",
+      "label": "Get Story",
+      "menu": [],
+      "params": "{story? | frame?} → text, frames, paragraphs, vertical, overset",
+      "shortcut": null
+    },
+    "style.paragraph.apply": {
+      "id": "style.paragraph.apply",
+      "label": "Apply Paragraph Style",
+      "menu": [],
+      "params": "{name, clearOverrides?: bool}",
+      "shortcut": null
+    },
+    "style.paragraph.create": {
+      "id": "style.paragraph.create",
+      "label": "New Paragraph Style…",
+      "menu": [],
+      "params": "{name, basedOn?, nextStyle?, para?: {…}, chars?: {…}, fromSelection?: bool}",
+      "shortcut": null
+    },
+    "text.select": {
+      "id": "text.select",
+      "label": "Select Text",
+      "menu": [],
+      "params": "{story, anchor, focus} (UTF-8 byte offsets into the story text, as find.find reports them: á or — counts 2 or 3)",
+      "shortcut": null
     }
   },
-  "sceneAcceptance": "NOT_RUN"
+  "referenceSyntax": {
+    "source": "https://github.com/storytold/designcraft/blob/v0.8.0/crates/engine/src/script.rs",
+    "observed": "Native CLI resolves $N.path from previous step results; per-call MCP execute requires actual resolved values"
+  },
+  "additionalObservations": [
+    {
+      "platform": "darwin",
+      "version": "0.8.0",
+      "archiveSha256": "e663f967d9e1c439e0eb7759147be29121da198cdd71cedd4afb3ae0e0336243",
+      "method": "native describe COMMAND",
+      "commands": [
+        "document.inspect",
+        "file.new",
+        "file.package",
+        "file.place",
+        "frame.create",
+        "hyperlink.create",
+        "hyperlink.list",
+        "links.list",
+        "object.fit",
+        "object.qrCode",
+        "preflight.run",
+        "story.get",
+        "style.paragraph.apply",
+        "style.paragraph.create",
+        "text.select"
+      ]
+    }
+  ]
 }
