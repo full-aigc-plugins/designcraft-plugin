@@ -30,4 +30,4 @@ license: Apache-2.0
 
 交给 **designcraft-editor** 技能，独立安装：`npx skills add full-aigc-skills/designcraft-skills --skill designcraft-editor`。在同一会话读取execute/inspect_document/get_story等实际schema，逐步绑定真实返回值，再preview、stop、merge与保存；原生$N或手册$ref不能直接传给MCP。另开CLI修改文件不证明当前编辑器同步。原生字体加载也不自动证明Web运行时支持相同字体路径。当前内置Web运行时可用`LXGW WenKai`，经font.list和预检确认后，可在退出预览后用font.replace将示例字体替换为它，再逐条预览与合并；品牌指定字体不得静默替换。保存的Web工程若需CLI重开，按[Web字体记录](references/web-font-source.json)获取相同字体及许可证放入Document Fonts，不能以缺字或字体替代结果冒充一致。
 
-当前为未发布的新候选；CLI、Windows和目标宿主状态分别记录。胸牌是版式内容，不是门禁认证或身份凭证。
+本技能属于开发预发布场景；CLI、Windows和目标宿主的当前验证状态以配套记录为准。胸牌是版式内容，不是门禁认证或身份凭证。
