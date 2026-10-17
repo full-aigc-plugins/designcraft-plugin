@@ -20,7 +20,8 @@
         {
           "path": "image-export/README.md",
           "url": "https://github.com/le-tex/InDesignScripts/blob/b0fd4bbc49f33f860361736a702c1ed5c3e4ac95/image-export/README.md",
-          "bytes": 1411
+          "bytes": 1411,
+          "sha256": "47fbe9816854a4c35c250f10b23e86707c03216d72077401ab0c688e2c9dfc2e"
         },
         {
           "path": "insert-alt-text/README.md",
@@ -33,7 +34,8 @@
           "bytes": 680
         }
       ],
-      "reuse": "workflow facts and original adaptation only; no upstream text, code or assets copied"
+      "reuse": "workflow facts and original adaptation only; no upstream text, code or assets copied",
+      "adaptation": "借鉴链接图像实例、逐实例裁切/尺寸与独立名称的工作流事实，原创映射为明确SKU框ID置入、保持比例、链接使用框检查和可搬运打包。没有复制外部代码或商品素材。"
     }
   ]
 }
