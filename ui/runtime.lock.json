@@ -1,6 +1,6 @@
 {
   "name": "designcraft",
-  "version": "0.1.0-dev.20261017.2",
+  "version": "0.1.0-dev.20261017.3",
   "url": "https://github.com/full-aigc-plugins/designcraft-plugin/releases/download/v0.1.0-dev.20261017.2/designcraft-runtime.tgz",
   "sha256": "5e77a6a29dd9542fb49946d2576d3c495bcec15bbbdbd89e72c09a0f7423b234",
   "files": {
@@ -50,5 +50,6 @@
     "host.js": "552b2c63586161a34ab12b5674c7d384b20a79050a46893df0be20a4eb7f3ec9",
     "host.js.LEGAL.txt": "eda25878a01ef5903efe932a6e7c99e175023a47ce70b7d7f901ab2c07c06562"
   },
-  "scope": "Pinned editor artifact; bundled upstream/build provenance remains in editor/BUILD.json or config.json. This does not certify all upstream main capabilities."
+  "scope": "Pinned editor artifact; bundled upstream/build provenance remains in editor/BUILD.json or config.json. This does not certify all upstream main capabilities.",
+  "catalogSha256": "5b1f908f04ed8c275bed0d6cb5784226c2a57d6983bb2ae53b40bbe7f36fedd6"
 }
