@@ -59,6 +59,15 @@
         "chars": {
           "fontFamily": "Source Sans 3",
           "size": 11
+        },
+        "para": {
+          "tabs": [
+            {
+              "position": 480,
+              "align": "right",
+              "leader": "."
+            }
+          ]
         }
       }
     },
