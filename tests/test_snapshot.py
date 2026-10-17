@@ -73,6 +73,7 @@ class SnapshotContract(unittest.TestCase):
             p=fixture/'scripts/validate_package.py';spec=importlib.util.spec_from_file_location('candidate_validator',p)
             module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);module.ROOT=fixture
             manifest=json.loads((fixture/'plugin.json').read_text());manifest['version']='9.4.0';(fixture/'plugin.json').write_text(json.dumps(manifest))
+            status_path=fixture/'project-status.json';status=json.loads(status_path.read_text());status['version']='9.4.0';status_path.write_text(json.dumps(status))
             matrix=fixture/'support-matrix.json';data=json.loads(matrix.read_text());data['packageVersion']='9.4.0';matrix.write_text(json.dumps(data))
             host=fixture/'.codex-plugin/plugin.json';host_data=json.loads(host.read_text());host_data['version']='9.4.0';host.write_text(json.dumps(host_data))
             self.assertEqual(module.validate()['sourceRelease'],'UNPUBLISHED')
@@ -183,7 +184,7 @@ class SnapshotContract(unittest.TestCase):
             manifest['extensions']={'com.openai':{'interface':{'composerIcon':'./assets/composer.png'}}}
             manifest_path.write_text(json.dumps(manifest))
             host=fixture/'.codex-plugin/plugin.json';host.parent.mkdir(exist_ok=True)
-            host.write_text(json.dumps({'name':'designcraft','version':'0.1.0-dev.1','skills':'./skills/','interface':{'composerIcon':'./assets/composer.png'}}))
+            host.write_text(json.dumps({'name':'designcraft','version':manifest['version'],'skills':'./skills/','interface':{'composerIcon':'./assets/composer.png'}}))
             self.assertEqual(module.validate()['snapshot'],'PASS')
 
     def test_non_semver_plugin_version_is_rejected(self):
