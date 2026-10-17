@@ -6,6 +6,8 @@
 
 在原工程上调用 `document.inspect {}`、`preflight.run {"minPpi":300}`、`links.list {}`、`font.list {}`。记录所有issue的kind、severity、item和page，将图片使用框关联到实际asset ID；不要只看错误数量，更不能忽略lowResolution警告。300是本示例阈值，依据实际交付约定确定。
 
+稳定版0.8.0在缓存图片仍存在时，`preflight.run` 可能漏报磁盘缺链；必须同时核对 `links.list.status`，missing仍须修复，不能因预检未报而放行。当前main已能在预检中报告此缺链。
+
 当前后端能检查overset、missingLink、lowResolution以及字体/字形等问题；没有自动证明出血、专色、套印、ICC或透明度符合印厂要求。非目标对象、页数、原框边界、正文和字号先记录，供修复后比较。
 
 ## 有依据的修复
