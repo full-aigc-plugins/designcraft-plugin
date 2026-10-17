@@ -10,7 +10,7 @@ from urllib.parse import unquote
 
 ROOT=Path(__file__).resolve().parents[1]
 SEMVER=re.compile(r'(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?')
-INTERFACE_FIELDS={'displayName','shortDescription','longDescription','developerName','category','capabilities','websiteURL','privacyPolicyURL','termsOfServiceURL','defaultPrompt','brandColor','composerIcon','logo','logoDark','screenshots'}
+INTERFACE_FIELDS={'displayName','shortDescription','longDescription','developerName','category','capabilities','websiteURL','privacyPolicyURL','termsOfServiceURL','defaultPrompt','brandColor','composerIcon','composerIconDark','logo','logoDark','screenshots'}
 
 def validate_image_resource(value):
     if not isinstance(value,str) or not value.startswith('./assets/') or '\\' in value:
@@ -36,7 +36,7 @@ def validate_interface(interface):
             raise ValueError('plugin_interface_invalid')
     if 'brandColor' in interface and not re.fullmatch(r'#[0-9a-fA-F]{6}',interface['brandColor']):
         raise ValueError('plugin_interface_invalid')
-    for field in ('composerIcon','logo','logoDark'):
+    for field in ('composerIcon','composerIconDark','logo','logoDark'):
         if field in interface:
             validate_image_resource(interface[field])
     if 'screenshots' in interface:
@@ -152,7 +152,7 @@ def validate():
     host_manifest=validate_host_manifest(manifest)
     if not extensions and host_manifest and 'interface' in host_manifest:validate_interface(host_manifest['interface'])
     status=json.loads((ROOT/'project-status.json').read_text());matrix=json.loads((ROOT/'support-matrix.json').read_text())
-    if matrix.get('schemaVersion')!=1 or matrix.get('packageVersion')!=manifest.get('version') or not isinstance(matrix.get('offline'),dict) or matrix['offline'].get('status') not in ('PASS','FAIL','NOT_RUN') or not matrix['offline'].get('os') or not matrix['offline'].get('python') or not matrix['offline'].get('tests') or not matrix['offline'].get('packageValidation'):
+    if matrix.get('schemaVersion')!=1 or matrix.get('packageVersion')!=status.get('version') or not isinstance(matrix.get('offline'),dict) or matrix['offline'].get('status') not in ('PASS','FAIL','NOT_RUN') or not matrix['offline'].get('os') or not matrix['offline'].get('python') or not matrix['offline'].get('tests') or not matrix['offline'].get('packageValidation'):
         raise ValueError('support_matrix_invalid')
     if matrix.get('ci',{}).get('status') not in ('PASS','FAIL','NOT_RUN') or matrix.get('nativeRuntime',{}).get('status')!=status.get('nativeInstallation') or matrix.get('host',{}).get('discovery')!=status.get('hostDiscovery') or matrix.get('host',{}).get('modelDispatch')!=status.get('modelDispatch') or matrix.get('creativeAcceptance')!=status.get('creativeAcceptance') or (matrix.get('host',{}).get('discovery')=='NOT_RUN' and matrix.get('host',{}).get('testedPlatforms')!=[]) or matrix.get('release')!=('PUBLISHED' if status.get('published') else 'UNPUBLISHED'):
         raise ValueError('support_matrix_status_mismatch')
@@ -188,6 +188,6 @@ def validate():
         validate_local_skill_references(skill)
         validate_invocation_policy(skill,item['name'] in runpy.run_path(str(ROOT/'scripts/validate_editor_scenes.py'))['candidate_names'](ROOT))
     validate_host_platform_evidence(matrix)
-    return {'plugin':manifest['name'],'skills':len(actual),'externalSkills':len(external_names),'localSkills':len(local_names),'snapshot':'PASS','hostManifest':'PASS' if host_manifest else 'NOT_PRESENT','sourceRelease':'UNPUBLISHED','hostAcceptance':'NOT_RUN'}
+    return {'plugin':manifest['name'],'skills':len(actual),'externalSkills':len(external_names),'localSkills':len(local_names),'snapshot':'PASS','hostManifest':'PASS' if host_manifest else 'NOT_PRESENT','sourceRelease':'UNPUBLISHED','hostAcceptance':'NOT_RUN','supportMatrixVersion':matrix['packageVersion'],'supportMatrixAppliesToCurrentVersion':matrix['packageVersion']==manifest['version']}
 
 if __name__=='__main__':print(json.dumps(validate(),ensure_ascii=False))
