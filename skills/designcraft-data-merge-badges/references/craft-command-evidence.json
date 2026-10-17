@@ -147,6 +147,26 @@
       ],
       "params": "{path} — .designcraft or .idml; the fonts in a `Document Fonts` folder beside it load first → {index, documentFonts: faces loaded, warnings: font files skipped (and, for .idml, package parts missing)}",
       "shortcut": "Cmd+O"
+    },
+    "font.list": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "font.list",
+      "label": "Fonts in Document",
+      "menu": [],
+      "params": "{} → [{family, style, characters, missing, styleMissing, source: bundled|installed|document|added (null when missing)}] (missing first)",
+      "shortcut": null
+    },
+    "font.replace": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "font.replace",
+      "label": "Find/Replace Font…",
+      "menu": [
+        "Type"
+      ],
+      "params": "{family, style?, toFamily, toStyle?, redefineStyles?: true} — replaces the font in text and (by default) in paragraph and character styles",
+      "shortcut": null
     }
   }
 }

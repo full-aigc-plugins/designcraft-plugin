@@ -1,0 +1,19 @@
+{
+  "family": "LXGW WenKai",
+  "license": "OFL1.1",
+  "files": [
+    {
+      "file": "fonts/LXGWWenKai-Regular.ttf",
+      "url": "https://raw.githubusercontent.com/lxgw/LxgwWenKai/bce47e180d802eaca4b21741d4bc1fc5fa1b541a/fonts/TTF/LXGWWenKai-Regular.ttf",
+      "sha256": "39ad71264b588165b469e35e6afb162a378dacd1f95348160240ba9038ac3009",
+      "bytes": 25575676
+    },
+    {
+      "file": "fonts/OFL-LXGWWenKai.txt",
+      "url": "https://raw.githubusercontent.com/lxgw/LxgwWenKai/bce47e180d802eaca4b21741d4bc1fc5fa1b541a/OFL.txt",
+      "sha256": "1a25e35da1031c6c3436fde545bb9cb5aca954e9873afe510c834b8b79bd21a0",
+      "bytes": 5171
+    }
+  ],
+  "runtimeEvidence": "actual font.list after font.replace reports bundled, missing:false, source bundled; current immutable runtime only"
+}
