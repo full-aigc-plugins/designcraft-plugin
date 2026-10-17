@@ -1,6 +1,6 @@
 # DesignCraft main排版交付补充
 
-固定main `fc36957fe05f38a6976df4734d52b9250cd54a2c`的原生目录观察为519条，相对稳定版CLI459条新增60条、119处契约变化，完整参数见[main目录差异](main-command-delta.json)。这是相对稳定版CLI的差异，不表示旧增强内嵌引擎缺少全部60条；执行前以当前会话`list_commands`为准。新流程技术回归尚待完成，不计入原有8条手册通过数。
+固定main `fc36957fe05f38a6976df4734d52b9250cd54a2c`的原生目录观察为519条，相对稳定版CLI459条新增60条、119处契约变化，完整参数见[main目录差异](main-command-delta.json)。这是相对稳定版CLI的差异，不表示旧增强内嵌引擎缺少全部60条；执行前以当前会话`list_commands`为准。SVG→原生版式→可编辑PPTX已通过Windows main专项39008681404：几何、活文字、填色、保存重开与PDF输出检查通过；Flex流程仍待执行。不计入原有8条手册通过数。
 
 ## 品牌SVG进入版式并交付可编辑PPTX
 

@@ -1140,5 +1140,14 @@
   "upstreamCommit": "fc36957fe05f38a6976df4734d52b9250cd54a2c",
   "observedNativeRun": 39006638202,
   "baselineScope": "observed stable native CLI; not old embedded engine",
-  "runtimeValidation": "catalog observed and existing workflows passed; new SVG/PPTX check pending"
+  "runtimeValidation": "new mapped main checks PASS; other added commands and installed host sync not inferred",
+  "mainWorkflowRun": 39008681404,
+  "validatedSkillsCommit": "b847fc8fea5942cfd56239505d156303791853fd",
+  "mainCapabilities": {
+    "svgNativeImport": "PASS",
+    "editablePptxGeometryAndText": "PASS",
+    "nativeReopen": "PASS",
+    "externalPowerPointRendering": "NOT_TESTED",
+    "installedHostSync": "NOT_TESTED"
+  }
 }
