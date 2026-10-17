@@ -5,43 +5,217 @@
   "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
   "steps": [
     {
-      "purpose": "新建多栏文字框",
+      "purpose": "仅创建新刊物；已有文档跳过本步并核实页数尺寸",
+      "command": "file.new",
+      "params": {
+        "width": 595,
+        "height": 842,
+        "pages": 2,
+        "facingPages": false,
+        "margins": 36,
+        "bleed": 0,
+        "title": "Community newsletter"
+      },
+      "newDocumentOnly": true
+    },
+    {
+      "purpose": "建立通栏标题并记录实际框和故事ID",
       "command": "frame.create",
       "params": {
+        "spread": 0,
         "rect": [
-          36,
-          36,
-          559,
-          780
+          42,
+          40,
+          553,
+          100
         ],
         "content": "text",
-        "text": "本期简报正文"
+        "text": "Community newsletter"
+      },
+      "capture": "title"
+    },
+    {
+      "purpose": "显式选择标题故事的UTF-8字节范围",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "title.story"
+        },
+        "anchor": 0,
+        "focus": 20
       }
     },
     {
-      "purpose": "设定三栏与栏间距",
+      "purpose": "设置可用字体与标题字号",
+      "command": "type.char",
+      "params": {
+        "attrs": {
+          "fontFamily": "Source Sans 3",
+          "size": 28
+        }
+      }
+    },
+    {
+      "purpose": "正文只放入首框；续文框保持空白",
+      "command": "frame.create",
+      "params": {
+        "spread": 0,
+        "rect": [
+          42,
+          130,
+          553,
+          310
+        ],
+        "content": "text",
+        "text": "Community newsletter / Issue 04. This edition records the decisions from the neighbourhood workshop. The purpose is to explain what was agreed, who owns the next action, and where residents can send corrections. The editor checks every date against the meeting notes before the issue is sent for review.\nPublic garden. The team will retain the existing trees and test a small planting bed near the south entrance. Volunteers will survey sunlight during the morning and afternoon. No construction date is confirmed. A drawing and a maintenance estimate will be circulated before any permanent work is approved.\nLibrary programme. The reading group meets on the first Saturday of the month. The librarian will publish the final room booking and capacity on the noticeboard. Families can request an accessible copy of the programme. Names and photographs will be published only after the relevant permission has been confirmed.\nWalking route. Residents identified two crossings that need a clearer sight line. The transport working group will document the location, take photographs from a safe public position, and send a short evidence note to the council. This newsletter records the request; it does not describe it as approved road work.\nBudget update. The treasurer is comparing the lighting and printing estimates with the available balance. Proposed purchases remain separate from committed spending. The next update will give the approved amount, supplier and decision date. Readers should report a suspected error before the final proof deadline.\nVolunteer briefing. New participants should contact the coordinator before the event, explain any access needs, and choose a task appropriate to their availability. The coordinator will share the meeting point and emergency contact privately. Personal telephone numbers are excluded from the public edition.\nCorrections and follow-up. Send a correction with the section title, the disputed statement and a supporting source. The editor will record the change in the next issue. Questions without a confirmed answer will remain labelled as open items. The review copy is intended for factual checking before distribution.\nEditorial close. Review the headline, each section transition and the final paragraph after text reflows. A continued article must keep its original paragraph order across pages. The final PDF is a proof; the editable project and IDML are retained so that a later correction does not require rebuilding the layout."
+      },
+      "capture": "body"
+    },
+    {
+      "purpose": "只为首框设置三栏、栏距与固定尺寸",
       "command": "object.textFrameOptions",
       "params": {
+        "ids": [
+          {
+            "$ref": "body.id"
+          }
+        ],
         "columns": 3,
         "gutter": 12,
+        "inset": 0,
+        "autoSize": "off",
+        "balanceColumns": false
+      }
+    },
+    {
+      "purpose": "创建可复用的正文段落样式",
+      "command": "style.paragraph.create",
+      "params": {
+        "name": "Newsletter Body",
+        "chars": {
+          "fontFamily": "Source Sans 3",
+          "size": 11
+        }
+      }
+    },
+    {
+      "purpose": "显式选中完整正文；替换稿件后重新计算UTF-8字节数",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "body.story"
+        },
+        "anchor": 0,
+        "focus": 2489
+      }
+    },
+    {
+      "purpose": "将样式应用到已选择的正文而非仅创建样式",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Newsletter Body",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查首框溢出，决定是否需要续文",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "body.id"
+        }
+      },
+      "capture": "before_thread"
+    },
+    {
+      "purpose": "在第二页创建空续文框，不复制正文",
+      "command": "frame.create",
+      "params": {
+        "spread": 1,
+        "rect": [
+          42,
+          42,
+          553,
+          780
+        ],
+        "content": "text",
+        "text": ""
+      },
+      "capture": "continuation"
+    },
+    {
+      "purpose": "只设置续文框的三栏和栏距",
+      "command": "object.textFrameOptions",
+      "params": {
+        "ids": [
+          {
+            "$ref": "continuation.id"
+          }
+        ],
+        "columns": 3,
+        "gutter": 12,
+        "inset": 0,
+        "autoSize": "off",
         "balanceColumns": true
       }
     },
     {
-      "purpose": "查看当前故事溢出",
-      "command": "story.get",
-      "params": {}
+      "purpose": "以真实框ID明确先后顺序，将正文流入下一页",
+      "command": "text.thread",
+      "params": {
+        "from": {
+          "$ref": "body.id"
+        },
+        "to": {
+          "$ref": "continuation.id"
+        }
+      },
+      "capture": "thread"
     },
     {
-      "purpose": "检查交付问题",
+      "purpose": "查询同一故事全文、框顺序与最终溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "body.id"
+        }
+      },
+      "capture": "final_story"
+    },
+    {
+      "purpose": "核对页数及所有文本框的最终状态",
+      "command": "document.inspect",
+      "params": {},
+      "capture": "final_inspect"
+    },
+    {
+      "purpose": "检查字体缺失和其他技术问题",
       "command": "preflight.run",
       "params": {
         "minPpi": 150
-      }
+      },
+      "capture": "preflight"
     }
   ],
-  "check": "核对续文顺序、跨栏标题、末栏空白和文章完整性。",
-  "boundary": "长文通过 text.thread 串联真实框ID，不按视觉位置猜测阅读顺序。",
+  "check": "正文全文逐字一致；两页文本框共享故事且顺序正确；两框均三栏；正文样式真实应用；最终无溢出。",
+  "boundary": "示例是两页三栏续文，不提供真实图片环绕、自动页码、跨栏标题或脚注迁移的已验收保证。复杂注释须另查支持和数量。",
   "templateOnly": true,
-  "argumentPolicy": "示例参数必须按当前输入、选择和实际返回ID替换；$变量先解析，数组变量整字段替换，不能将本文件直接当原生CLI脚本执行。"
+  "argumentPolicy": "示例参数必须按当前输入、选择和实际返回ID替换；$变量先解析，数组变量整字段替换，不能将本文件直接当原生CLI脚本执行。",
+  "assertions": {
+    "pages": 2,
+    "size": [
+      595,
+      842
+    ],
+    "frameCount": 3,
+    "thread": [
+      "body",
+      "continuation"
+    ],
+    "paragraphStyle": "Newsletter Body",
+    "texts": [
+      "Community newsletter",
+      "Editorial close."
+    ]
+  }
 }
