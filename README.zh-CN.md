@@ -1,5 +1,10 @@
 # DesignCraft Use
 
+## Installable editor development candidate
+
+`0.1.0-dev.20261017.1` is distributed through the Full AIGC plugin marketplace as a development prerelease. Node.js 24 is required. Git installations use `ui/bootstrap.mjs` to download and verify the pinned editor archive on first start; complete release ZIPs also include that archive unpacked for offline startup. No Rust build or npm installation is required. Startup diagnostics use stderr; stdio remains MCP-only. The editor shares its session with Agent commands. Full creative quality and all-host embedded UI acceptance are still incomplete. Existing dated validation below describes its original version.
+
+
 # designcraft 插件本地开发项目
 
 包含独立 `designcraft-skills` 的六项自包含技能快照及逐文件摘要。来源未发布；宿主发现与九项真实只读模型路由在内置 Codex CLI 0.162.0-alpha.2 / gpt-6-astra / macOS arm64 通过；原生执行、完整领域流程与创作验收仍开放。
