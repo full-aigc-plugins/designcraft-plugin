@@ -3,46 +3,739 @@
   "application": "designcraft",
   "id": "brochure",
   "execution": "COMMAND_MAPPED_NOT_SCENE_ACCEPTED",
+  "templateOnly": true,
+  "argumentPolicy": "先替换确认的产品文字和图片，并重算text.select的UTF-8长度；$ref经同技能脚本编译或MCP逐步绑定真实ID。",
+  "pages": [
+    {
+      "key": "cover",
+      "heading": "Field kit",
+      "text": "A place for everyday work.\nTwo portable desk accessories for organising small tools and paper. This review copy uses fictional product records; confirm every claim and specification before publication."
+    },
+    {
+      "key": "organiser",
+      "heading": "Desk organiser",
+      "text": "SKU-101 / blue\n240 x 160 x 80 mm\nUSD 24.00\nA compact tray for loose stationery. Confirm material, finish and care instructions against the approved product sheet. Sample data only.",
+      "image": "brochure-input/organiser.png"
+    },
+    {
+      "key": "case",
+      "heading": "Document case",
+      "text": "SKU-205 / orange\n320 x 240 x 45 mm\nUSD 39.50\nA portable case for everyday papers. Confirm capacity, closure and warranty against the approved product sheet. Sample data only.",
+      "image": "brochure-input/case.png"
+    },
+    {
+      "key": "contact",
+      "heading": "Plan your selection",
+      "text": "Before ordering\nConfirm dimensions, colour, price and availability with the supplier.\nNext action\nInsert the approved contact or order destination here before publication. No live contact or QR code is supplied in this example."
+    }
+  ],
   "steps": [
     {
-      "purpose": "建立正文段落样式",
+      "purpose": "仅新建四页单页阅读顺序宣传册；既有工程不得直接清空",
+      "command": "file.new",
+      "params": {
+        "width": 420,
+        "height": 595,
+        "pages": 4,
+        "facingPages": false,
+        "margins": 36,
+        "bleed": 0,
+        "title": "Field kit / product brochure"
+      },
+      "newDocumentOnly": true
+    },
+    {
+      "purpose": "定义并随后实际应用可编辑段落样式",
       "command": "style.paragraph.create",
       "params": {
-        "name": "Body"
+        "name": "Brochure Heading",
+        "chars": {
+          "fontFamily": "Source Sans 3",
+          "size": 24
+        }
       }
     },
     {
-      "purpose": "创建标题与正文框，坐标为pt",
+      "purpose": "定义并随后实际应用可编辑段落样式",
+      "command": "style.paragraph.create",
+      "params": {
+        "name": "Brochure Body",
+        "chars": {
+          "fontFamily": "Source Sans 3",
+          "size": 12
+        }
+      }
+    },
+    {
+      "purpose": "定义并随后实际应用可编辑段落样式",
+      "command": "style.paragraph.create",
+      "params": {
+        "name": "Brochure Footer",
+        "chars": {
+          "fontFamily": "Source Sans 3",
+          "size": 9
+        }
+      }
+    },
+    {
+      "purpose": "按确认的页面内容分工建立独立文字框",
       "command": "frame.create",
       "params": {
+        "spread": 0,
         "rect": [
-          36,
-          36,
-          559,
-          180
+          42,
+          38,
+          378,
+          92
         ],
         "content": "text",
-        "text": "产品主张与事实依据"
-      }
+        "text": "Field kit"
+      },
+      "capture": "cover_heading"
     },
     {
-      "purpose": "按两栏设定文字容器",
-      "command": "object.textFrameOptions",
+      "purpose": "显式选中此故事全文；替换文案后重算UTF-8字节数",
+      "command": "text.select",
       "params": {
-        "columns": 2,
-        "gutter": 12
+        "story": {
+          "$ref": "cover_heading.story"
+        },
+        "anchor": 0,
+        "focus": 9
       }
     },
     {
-      "purpose": "检查溢出与图像质量",
+      "purpose": "实际应用相应层级样式，不依赖隐式当前选区",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Brochure Heading",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查此框全文和overset；非null含0均为溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "cover_heading.id"
+        }
+      },
+      "capture": "cover_heading_story"
+    },
+    {
+      "purpose": "按确认的页面内容分工建立独立文字框",
+      "command": "frame.create",
+      "params": {
+        "spread": 0,
+        "rect": [
+          42,
+          140,
+          378,
+          500
+        ],
+        "content": "text",
+        "text": "A place for everyday work.\nTwo portable desk accessories for organising small tools and paper. This review copy uses fictional product records; confirm every claim and specification before publication."
+      },
+      "capture": "cover_copy"
+    },
+    {
+      "purpose": "显式选中此故事全文；替换文案后重算UTF-8字节数",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "cover_copy.story"
+        },
+        "anchor": 0,
+        "focus": 201
+      }
+    },
+    {
+      "purpose": "实际应用相应层级样式，不依赖隐式当前选区",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Brochure Body",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查此框全文和overset；非null含0均为溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "cover_copy.id"
+        }
+      },
+      "capture": "cover_copy_story"
+    },
+    {
+      "purpose": "按确认的页面内容分工建立独立文字框",
+      "command": "frame.create",
+      "params": {
+        "spread": 0,
+        "rect": [
+          42,
+          547,
+          378,
+          572
+        ],
+        "content": "text",
+        "text": "1 / 4  |  Review copy"
+      },
+      "capture": "cover_footer"
+    },
+    {
+      "purpose": "显式选中此故事全文；替换文案后重算UTF-8字节数",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "cover_footer.story"
+        },
+        "anchor": 0,
+        "focus": 21
+      }
+    },
+    {
+      "purpose": "实际应用相应层级样式，不依赖隐式当前选区",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Brochure Footer",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查此框全文和overset；非null含0均为溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "cover_footer.id"
+        }
+      },
+      "capture": "cover_footer_story"
+    },
+    {
+      "purpose": "按确认的页面内容分工建立独立文字框",
+      "command": "frame.create",
+      "params": {
+        "spread": 1,
+        "rect": [
+          42,
+          38,
+          378,
+          92
+        ],
+        "content": "text",
+        "text": "Desk organiser"
+      },
+      "capture": "organiser_heading"
+    },
+    {
+      "purpose": "显式选中此故事全文；替换文案后重算UTF-8字节数",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "organiser_heading.story"
+        },
+        "anchor": 0,
+        "focus": 14
+      }
+    },
+    {
+      "purpose": "实际应用相应层级样式，不依赖隐式当前选区",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Brochure Heading",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查此框全文和overset；非null含0均为溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "organiser_heading.id"
+        }
+      },
+      "capture": "organiser_heading_story"
+    },
+    {
+      "purpose": "按确认的页面内容分工建立独立文字框",
+      "command": "frame.create",
+      "params": {
+        "spread": 1,
+        "rect": [
+          42,
+          320,
+          378,
+          500
+        ],
+        "content": "text",
+        "text": "SKU-101 / blue\n240 x 160 x 80 mm\nUSD 24.00\nA compact tray for loose stationery. Confirm material, finish and care instructions against the approved product sheet. Sample data only."
+      },
+      "capture": "organiser_copy"
+    },
+    {
+      "purpose": "显式选中此故事全文；替换文案后重算UTF-8字节数",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "organiser_copy.story"
+        },
+        "anchor": 0,
+        "focus": 180
+      }
+    },
+    {
+      "purpose": "实际应用相应层级样式，不依赖隐式当前选区",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Brochure Body",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查此框全文和overset；非null含0均为溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "organiser_copy.id"
+        }
+      },
+      "capture": "organiser_copy_story"
+    },
+    {
+      "purpose": "按确认的页面内容分工建立独立文字框",
+      "command": "frame.create",
+      "params": {
+        "spread": 1,
+        "rect": [
+          42,
+          547,
+          378,
+          572
+        ],
+        "content": "text",
+        "text": "2 / 4  |  Review copy"
+      },
+      "capture": "organiser_footer"
+    },
+    {
+      "purpose": "显式选中此故事全文；替换文案后重算UTF-8字节数",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "organiser_footer.story"
+        },
+        "anchor": 0,
+        "focus": 21
+      }
+    },
+    {
+      "purpose": "实际应用相应层级样式，不依赖隐式当前选区",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Brochure Footer",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查此框全文和overset；非null含0均为溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "organiser_footer.id"
+        }
+      },
+      "capture": "organiser_footer_story"
+    },
+    {
+      "purpose": "为本页商品建立明确的图片框",
+      "command": "frame.create",
+      "params": {
+        "spread": 1,
+        "rect": [
+          42,
+          105,
+          322,
+          292
+        ],
+        "content": "graphic"
+      },
+      "capture": "organiser_image"
+    },
+    {
+      "purpose": "根据已确认SKU对应表放入图片，禁止按文件排序猜配",
+      "command": "file.place",
+      "params": {
+        "path": "brochure-input/organiser.png",
+        "frame": {
+          "$ref": "organiser_image.id"
+        },
+        "link": true
+      }
+    },
+    {
+      "purpose": "保持长宽比完整显示产品，允许留白而不拉伸",
+      "command": "object.fit",
+      "params": {
+        "ids": [
+          {
+            "$ref": "organiser_image.id"
+          }
+        ],
+        "mode": "fitProportionally"
+      }
+    },
+    {
+      "purpose": "按确认的页面内容分工建立独立文字框",
+      "command": "frame.create",
+      "params": {
+        "spread": 2,
+        "rect": [
+          42,
+          38,
+          378,
+          92
+        ],
+        "content": "text",
+        "text": "Document case"
+      },
+      "capture": "case_heading"
+    },
+    {
+      "purpose": "显式选中此故事全文；替换文案后重算UTF-8字节数",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "case_heading.story"
+        },
+        "anchor": 0,
+        "focus": 13
+      }
+    },
+    {
+      "purpose": "实际应用相应层级样式，不依赖隐式当前选区",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Brochure Heading",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查此框全文和overset；非null含0均为溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "case_heading.id"
+        }
+      },
+      "capture": "case_heading_story"
+    },
+    {
+      "purpose": "按确认的页面内容分工建立独立文字框",
+      "command": "frame.create",
+      "params": {
+        "spread": 2,
+        "rect": [
+          42,
+          320,
+          378,
+          500
+        ],
+        "content": "text",
+        "text": "SKU-205 / orange\n320 x 240 x 45 mm\nUSD 39.50\nA portable case for everyday papers. Confirm capacity, closure and warranty against the approved product sheet. Sample data only."
+      },
+      "capture": "case_copy"
+    },
+    {
+      "purpose": "显式选中此故事全文；替换文案后重算UTF-8字节数",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "case_copy.story"
+        },
+        "anchor": 0,
+        "focus": 174
+      }
+    },
+    {
+      "purpose": "实际应用相应层级样式，不依赖隐式当前选区",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Brochure Body",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查此框全文和overset；非null含0均为溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "case_copy.id"
+        }
+      },
+      "capture": "case_copy_story"
+    },
+    {
+      "purpose": "按确认的页面内容分工建立独立文字框",
+      "command": "frame.create",
+      "params": {
+        "spread": 2,
+        "rect": [
+          42,
+          547,
+          378,
+          572
+        ],
+        "content": "text",
+        "text": "3 / 4  |  Review copy"
+      },
+      "capture": "case_footer"
+    },
+    {
+      "purpose": "显式选中此故事全文；替换文案后重算UTF-8字节数",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "case_footer.story"
+        },
+        "anchor": 0,
+        "focus": 21
+      }
+    },
+    {
+      "purpose": "实际应用相应层级样式，不依赖隐式当前选区",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Brochure Footer",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查此框全文和overset；非null含0均为溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "case_footer.id"
+        }
+      },
+      "capture": "case_footer_story"
+    },
+    {
+      "purpose": "为本页商品建立明确的图片框",
+      "command": "frame.create",
+      "params": {
+        "spread": 2,
+        "rect": [
+          42,
+          105,
+          322,
+          292
+        ],
+        "content": "graphic"
+      },
+      "capture": "case_image"
+    },
+    {
+      "purpose": "根据已确认SKU对应表放入图片，禁止按文件排序猜配",
+      "command": "file.place",
+      "params": {
+        "path": "brochure-input/case.png",
+        "frame": {
+          "$ref": "case_image.id"
+        },
+        "link": true
+      }
+    },
+    {
+      "purpose": "保持长宽比完整显示产品，允许留白而不拉伸",
+      "command": "object.fit",
+      "params": {
+        "ids": [
+          {
+            "$ref": "case_image.id"
+          }
+        ],
+        "mode": "fitProportionally"
+      }
+    },
+    {
+      "purpose": "按确认的页面内容分工建立独立文字框",
+      "command": "frame.create",
+      "params": {
+        "spread": 3,
+        "rect": [
+          42,
+          38,
+          378,
+          92
+        ],
+        "content": "text",
+        "text": "Plan your selection"
+      },
+      "capture": "contact_heading"
+    },
+    {
+      "purpose": "显式选中此故事全文；替换文案后重算UTF-8字节数",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "contact_heading.story"
+        },
+        "anchor": 0,
+        "focus": 19
+      }
+    },
+    {
+      "purpose": "实际应用相应层级样式，不依赖隐式当前选区",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Brochure Heading",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查此框全文和overset；非null含0均为溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "contact_heading.id"
+        }
+      },
+      "capture": "contact_heading_story"
+    },
+    {
+      "purpose": "按确认的页面内容分工建立独立文字框",
+      "command": "frame.create",
+      "params": {
+        "spread": 3,
+        "rect": [
+          42,
+          140,
+          378,
+          500
+        ],
+        "content": "text",
+        "text": "Before ordering\nConfirm dimensions, colour, price and availability with the supplier.\nNext action\nInsert the approved contact or order destination here before publication. No live contact or QR code is supplied in this example."
+      },
+      "capture": "contact_copy"
+    },
+    {
+      "purpose": "显式选中此故事全文；替换文案后重算UTF-8字节数",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "contact_copy.story"
+        },
+        "anchor": 0,
+        "focus": 227
+      }
+    },
+    {
+      "purpose": "实际应用相应层级样式，不依赖隐式当前选区",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Brochure Body",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查此框全文和overset；非null含0均为溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "contact_copy.id"
+        }
+      },
+      "capture": "contact_copy_story"
+    },
+    {
+      "purpose": "按确认的页面内容分工建立独立文字框",
+      "command": "frame.create",
+      "params": {
+        "spread": 3,
+        "rect": [
+          42,
+          547,
+          378,
+          572
+        ],
+        "content": "text",
+        "text": "4 / 4  |  Review copy"
+      },
+      "capture": "contact_footer"
+    },
+    {
+      "purpose": "显式选中此故事全文；替换文案后重算UTF-8字节数",
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "contact_footer.story"
+        },
+        "anchor": 0,
+        "focus": 21
+      }
+    },
+    {
+      "purpose": "实际应用相应层级样式，不依赖隐式当前选区",
+      "command": "style.paragraph.apply",
+      "params": {
+        "name": "Brochure Footer",
+        "clearOverrides": true
+      }
+    },
+    {
+      "purpose": "检查此框全文和overset；非null含0均为溢出",
+      "command": "story.get",
+      "params": {
+        "frame": {
+          "$ref": "contact_footer.id"
+        }
+      },
+      "capture": "contact_footer_story"
+    },
+    {
+      "purpose": "核对两图实际使用框、路径状态和有效PPI",
+      "command": "links.list",
+      "params": {},
+      "capture": "links"
+    },
+    {
+      "purpose": "核对四页及每页框/故事",
+      "command": "document.inspect",
+      "params": {},
+      "capture": "final_inspect"
+    },
+    {
+      "purpose": "检查150PPI阅读校样阈值；有缺链、溢出或低PPI则停止交付",
       "command": "preflight.run",
       "params": {
         "minPpi": 150
-      }
+      },
+      "capture": "preflight"
     }
   ],
-  "check": "逐页检查标题层级、文字溢出、图像有效分辨率，并导出源工程与PDF。",
-  "boundary": "故事ID与框ID从创建返回值读取；不能在未选中文字时假定样式已经应用。",
-  "templateOnly": true,
-  "argumentPolicy": "示例参数必须按当前输入、选择和实际返回ID替换；$变量先解析，数组变量整字段替换，不能将本文件直接当原生CLI脚本执行。"
+  "assertions": {
+    "pages": 4,
+    "size": [
+      420,
+      595
+    ],
+    "frameCount": 14
+  },
+  "check": "保存后新进程按框ID核对12份全文与空溢出，确认两SKU图片框和有效PPI，检查PDF四页顺序及文本；打包后检查Links。",
+  "boundary": "四页A5近似尺寸阅读顺序样本，不是印厂拼版或对折补偿模板；印刷分辨率、出血、色彩与装订按实际要求另设。已有工程先inspect并调整页面/坐标，不把新建配方原样追加。",
+  "deliverySteps": [
+    {
+      "purpose": "仅检查通过后打包可编辑源、链接、IDML与PDF；不是拼版",
+      "command": "file.package",
+      "params": {
+        "dir": "brochure-package",
+        "idml": true,
+        "pdf": true,
+        "instructions": "Review copy in reading order. Confirm product facts and final print requirements before publication."
+      },
+      "capture": "package"
+    }
+  ],
+  "deliveryPolicy": "先编译和执行steps，读取全部story.get、links.list和preflight结果；有任何缺链、overset非null或低PPI必须修复复检。通过并查看PDF后，才另行执行deliverySteps，不能拼在同一未检查批次。"
 }
