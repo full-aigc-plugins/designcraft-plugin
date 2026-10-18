@@ -13,7 +13,7 @@ This plugin belongs to **AIGC content creation**.
 
 > Lay out brochures, catalogs, newsletters, posters and long documents as editable `.designcraft` projects, then export PDF, IDML, EPUB or images after a print preflight.
 
-[![Version](https://img.shields.io/badge/release-0.1.0--dev.20261018.4-1A73E8)](.codex-plugin/plugin.json)
+[![Version](https://img.shields.io/badge/release-0.1.0--dev.20261019.1-1A73E8)](.codex-plugin/plugin.json)
 [![Skills](https://img.shields.io/badge/skills-16-00A67E)](#skills)
 [![MCP server](https://img.shields.io/badge/MCP%20server-1-00A67E)](#mcp-tools)
 [![License](https://img.shields.io/badge/license-Apache--2.0-green)](LICENSE)
@@ -32,7 +32,7 @@ It is a development candidate: static package checks and CI pass, while native i
 
 ## Status and version
 
-`0.1.0-dev.20261018.4` · development preview · `docs/verification/release-candidate.json` → `releaseStatus: BLOCKED`, `installableDevelopmentCandidate: true`.
+`0.1.0-dev.20261019.1` · development preview · `docs/verification/release-candidate.json` → `releaseStatus: BLOCKED`, `installableDevelopmentCandidate: true`.
 
 ## Installation
 

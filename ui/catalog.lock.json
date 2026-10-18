@@ -1208,9 +1208,6 @@
       "_meta": {
         "ui": {
           "prefersBorder": false
-        },
-        "zcode/csp": {
-          "wasmUnsafeEval": true
         }
       }
     },
