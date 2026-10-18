@@ -1,6 +1,6 @@
 {
-  "name": "@partme-dsh/designcraft",
-  "version": "0.1.0-dev.20261018.1",
+  "name": "designcraft",
+  "version": "0.1.0-dev.20261019.1",
   "description": "页面排版与出版；本地候选，完整首用与宿主验收未完成。",
   "type": "module",
   "main": "lib/index.js",
@@ -8,14 +8,16 @@
   "exports": {
     ".": "./lib/index.js",
     "./package.json": "./package.json",
-    "./cordis.patch.yml": "./cordis.patch.yml"
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*": "./locale/*"
   },
   "files": [
     "cordis.patch.yml",
     "lib/index.js",
     "icon.svg",
     "icon.png",
-    "README.md"
+    "README.md",
+    "locale"
   ],
   "license": "Apache-2.0",
   "keywords": [],
@@ -23,5 +25,6 @@
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
-  }
+  },
+  "private": true
 }

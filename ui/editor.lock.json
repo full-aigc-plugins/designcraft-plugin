@@ -1,6 +1,6 @@
 {
   "name": "designcraft",
-  "version": "0.1.0-dev.1",
+  "version": "0.1.0-dev.20261019.1",
   "buildKind": "full-aigc-enhanced",
   "upstream": {
     "repository": "https://github.com/full-aigc-plugins/designcraft",
@@ -8,7 +8,7 @@
     "version": "0.8.0"
   },
   "files": {
-    "BUILD.json": "1465c5be6b927b3f3a34be0476a77ccfee2d37f1adf49710b2cb7d63a8ad4780",
+    "BUILD.json": "efd1d9abb99000a8a5d0c20885c589e1a8e74cc375e18a668c5012873bee94a5",
     "assets/0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594.gz": "5f25851ed04830cdd8268f5c219bb5e1c80f2cb19692508b2e65b597e59f178a",
     "assets/1484c37b549525ae71c6dc9811c8550b0b784868b4035b89b9a41e218b699959.gz": "4da4acb2646299c49d8a9924c6964b0a783bc8502518ec4a17202a7a28af8881",
     "assets/19765c0a070567dbac9bef6cf0d6505c6b2f00b3f24e68049f1f5a5dbf0e690e.gz": "5c9e50f78a93be9a3e8b0092e1291bf105b341259877635ef64e9c64e3fef074",
@@ -29,7 +29,7 @@
     "assets/d543d31e3120c64b70abc77cfadcbdc2249c78de1c8efa2e3d62540bb79de816.gz": "a2e55c96690849d9f08f260e10578041a9b1d5a34d5d81e5b846dfa5802a3685",
     "assets/e753d7155d53c747d037a445e584c8ecfca6dd79846db610417e282a736b28bc.gz": "1ff571e9c640d66497cea03a69424e7337e7889748376fc57483cd0aacd4763e",
     "assets/eb3f3cfc6437fd370e31ca8449c7312314c191d15347bd70934d9ce2df5331bd.gz": "063b571c96b9d3272fb60370cd6e2e8768662923667e9ee98185f0fbcaee1d1c",
-    "assets.json": "7a6d40245f09aefcd1651cebf77527b0feba01c31151731e607f9779961271c1",
+    "assets.json": "9f993dfe07396c88127e4d36da56c0a13ba273616f8eb47c15468def692f7de6",
     "licenses/FONT-PROVENANCE.json": "19765c0a070567dbac9bef6cf0d6505c6b2f00b3f24e68049f1f5a5dbf0e690e",
     "licenses/JAVASCRIPT-NOTICES.txt": "768f574458916a5b95dec21c680ef1b07034e808d076bc2b5521f398b201dbf4",
     "licenses/LICENSE-APACHE": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
@@ -47,8 +47,8 @@
     "licenses/assets/fonts/OFL-SourceSans3.txt": "56af9b9c6715597e458284a474dc118a50a4150e9d547c70f7b4a33c3e6a9328",
     "licenses/assets/fonts/OFL-SourceSerif4.txt": "c21d7293d87b6d7ab1d0229a2f55b77f33a7613a6a4e66f6693d68d7d8d09464",
     "licenses/docs/brand/LICENSE-brand.txt": "68fb0e786130f8ead0350a352f66d7027d0f8a8ebebcf30d51de9146405f670e",
-    "panel.html": "e27ff5ee2ba2c7589ab3e20f189d52b3713d8703a31389ec1edf498f61b6582c",
-    "server.mjs": "ba98206218d21434dec7294ac4ea3d47e09219082301c96093a8ec65e03fe09c",
+    "panel.html": "2d686d43a6450a9eb4f687d8eb3f7fb8665dcb2a5bb822bb921f165a269857c0",
+    "server.mjs": "d8fd47391adde648b18dc2ff8f42a39cafe6d429b569980cde073d14d39be94c",
     "tools.json": "af270083991096663b1aaa269b3de0ff7e1f16ef423f43faa742bfa3af89d3ed"
   }
 }

@@ -9,21 +9,21 @@
       "source": {
         "source": "url",
         "url": "https://github.com/full-aigc-plugins/designcraft-plugin.git",
-        "ref": "v0.1.0-dev.20261018.3"
+        "ref": "v0.1.0-dev.20261019.1"
       },
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_USE"
       },
       "category": "Creativity",
-      "version": "0.1.0-dev.20261018.3",
+      "version": "0.1.0-dev.20261019.1",
       "description": "页面排版与出版；本地候选，完整首用与宿主验收未完成。",
       "interface": {
         "displayName": "DesignCraft Use",
         "shortDescription": "Page layout and publishing",
-        "logo": "https://cdn.jsdelivr.net/gh/full-aigc-plugins/designcraft-plugin@v0.1.0-dev.20261018.3/assets/official-logo.png"
+        "logo": "https://cdn.jsdelivr.net/gh/full-aigc-plugins/designcraft-plugin@v0.1.0-dev.20261018.4/assets/official-logo.png"
       },
-      "icon": "https://cdn.jsdelivr.net/gh/full-aigc-plugins/designcraft-plugin@v0.1.0-dev.20261018.3/assets/official-logo.png"
+      "icon": "https://cdn.jsdelivr.net/gh/full-aigc-plugins/designcraft-plugin@v0.1.0-dev.20261019.1/assets/official-logo.png"
     }
   ]
 }

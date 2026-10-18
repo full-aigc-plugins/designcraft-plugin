@@ -1,0 +1,13 @@
+{
+  "name": "designcraft-plugin",
+  "version": "0.1.0-dev.20261019.1",
+  "private": true,
+  "type": "module",
+  "main": "./dsh/lib/index.js",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "icon": "./dsh/icon.png"
+}
