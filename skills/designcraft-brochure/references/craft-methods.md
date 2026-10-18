@@ -47,3 +47,27 @@ designcraft-cli script delivery.json --in review.designcraft
 四页阅读顺序和尺寸符合确认的计划；两SKU图片及文字逐项匹配；十二个故事完整、无溢出、段落样式实际应用；源图不变，打包Links内容保持；可编辑工程重开和PDF页序独立核对通过。逐页查看实际照片裁切、文字层级、断行和留白；合成色块只能证明技术链，不证明商业设计质量。
 
 借鉴GitHub工作流事实，来源固定提交和哈希见[workflow-sources.json](workflow-sources.json)。命名框与字段匹配的经验改为Craft返回ID绑定；未移植InDesign JSX，也没有声称实现CSV模板合并。此宣传册与单页商品目录场景在页序、内容计划与阅读路径上分别执行。
+
+## 已有宣传册的局部返工
+
+在同一宿主会话用open_document打开既有工程，inspect_document回读页面、故事和框ID，再用get_story读取目标全文；不能复用样例中的ID。对于已经确认可以整段替换的独立标题，查询list_commands后调用 `execute {"command":"story.setText","params":{"story":实际故事ID,"text":"已确认的新标题"}}`。该方法会替换整个故事；包含多段正文、局部混排或连接框时，先确认替换范围，不能套用整段替换。
+
+原生Codex中已验证四页样例封面标题由Field kit改为Field kit / revised，原页面同步显示，save_document另存后由独立CLI重开。十二个故事只改目标标题，其余正文及框绑定不变，无溢出，两张嵌入图片字节保持；工程内容只有目标故事文本、字符范围长度与修订号三处变化，PDF四页标题顺序及两张图核对通过。这只证明该样例的封面返工，不代表商业排版、所有字体或其他宿主验收。
+
+## 产品数据入口
+
+按 [product-input.json](../assets/product-input.json) 填写封面、两项产品和下一步文案。dimensions是三个正整数毫米值；price使用十进制字符串，currency为三位大写代码，不进行汇率或税额计算。图片路径相对实际工作区，允许中文与空格，但拒绝绝对路径和上级目录跳转；图片存在性、链接和有效PPI由引擎检查。
+
+先运行 `python <本技能目录>/scripts/brochure_input.py --input products.json --output filled-recipe.json`，再用本技能write_script.py将filled-recipe.json编译为layout.json，后续沿用原生script命令。适配器自动替换四页文字、产品图与页脚，并按UTF-8字节重算选择范围；不会改变原模板或图片，不执行排版，已有输出拒绝覆盖。样例产品和金额均是虚构数据，不作为真实产品声明。
+
+该布局固定四页、两项产品和A5阅读尺寸，不是任意页数自动排版。短字段限制不能保证不溢出；必须检查每个故事的overset、逐页PDF及字体外观。当前输入适配器属于新候选，不能把旧版宿主返工验收用于证明所有新输入可用。
+
+### 中文与文档字体
+
+可选fontFamily填写已核实的字体族名，适配器会统一更新三类段落样式。未填写时沿用Source Sans 3；该字体在本次原生0.8.0中文PDF中出现缺字，font.list的missing=false也不能证明每个汉字均有字形。
+
+实际验证的方法是把许可允许交付的字体文件放在工程旁Document Fonts目录；先保存带目标字体族的草稿，再由原生CLI --in显式重开，让引擎加载文档字体。MCP编辑器的字体来源须另查font.list；本次Web验证返回bundled，不据此宣称Web扫描了Document Fonts。读取font.list确认目标族来源为document且styleMissing=false，再检查preflight与PDF实际字形后交付。已用锁定的LXGW WenKai字体和OFL声明验证此流程；不要求全局安装字体，也不把任意字体下载地址当作可信来源。已有工程需要换字体时，先核实实际族名再使用font.replace的family/toFamily，保存新副本。
+
+仅核验文本值、font.list或进程成功都不足以证明中文外观；缺少可交付字体时报告字体问题，不替换成拼音，不把方框PDF算成通过。
+
+安装候选验收补充：已从隔离Codex安装路径调用产品输入脚本及编译器，由原生CLI生成中文四页工程，再用同一MCP会话显式打开，回读目标故事ID并局部返工。中文封面在同页面由校样改为复核，保存后独立CLI核对十二故事与框绑定、无溢出、两张图片字节保持；文档内容仅目标文本与修订号变化。此流程不表示独立CLI会自动同步一个已打开的Web文档。
