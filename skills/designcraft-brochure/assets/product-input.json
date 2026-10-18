@@ -1,0 +1,41 @@
+{
+  "cover": {
+    "heading": "Field kit",
+    "text": "A place for everyday work.\nTwo products for review. Fictional sample data; confirm facts before publication."
+  },
+  "products": [
+    {
+      "heading": "Desk organiser",
+      "sku": "SKU-101",
+      "variant": "blue",
+      "dimensions": [
+        240,
+        160,
+        80
+      ],
+      "price": "24.00",
+      "currency": "USD",
+      "description": "A compact tray for loose stationery. Sample data only.",
+      "image": "brochure-input/organiser.png"
+    },
+    {
+      "heading": "Document case",
+      "sku": "SKU-205",
+      "variant": "orange",
+      "dimensions": [
+        320,
+        240,
+        45
+      ],
+      "price": "39.50",
+      "currency": "USD",
+      "description": "A portable case for papers. Sample data only.",
+      "image": "brochure-input/case.png"
+    }
+  ],
+  "contact": {
+    "heading": "Plan your selection",
+    "text": "Confirm dimensions, price and availability before ordering.\nReplace this sample with the approved next action."
+  },
+  "footer": "Review copy"
+}
