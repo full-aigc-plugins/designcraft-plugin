@@ -1,61 +1,178 @@
 # DesignCraft Use
 
-开发预发布：`0.1.0-dev.20261018.3`。宣传册技能新增两产品数据入口、UTF-8选择范围与字体选择；macOS/Windows原生PDF及隔离Codex中文返工已验证。运行资源保持原固定版本；商业设计质量与所有宿主仍未验收。
+## 插件市场导航
 
-当前开发候选：`0.1.0-dev.20261017.6`。包含重建的四页宣传册与A3海报技能；Codex市场使用完整薄包快照以在安装前读取官方图标。运行资源沿用已核验的dev.20261017.2，不代表引擎升级或全部创作验收通过。
+本插件所属分类：**AIGC 内容创作**。
 
-## Installable editor development candidate
+| 分类 | 插件市场入口 | 用途 |
+| --- | --- | --- |
+| 全栈开发 | [Full Stack Plugins](https://github.com/partme-ai/full-stack-plugins) | 架构与 UI 设计、代码理解、质量检查、代码审查、流程治理与服务器运维 |
+| AIGC 内容创作 | [Full AIGC Plugins](https://github.com/partme-ai/full-aigc-plugins) | 图像、视频、音频、音乐、3D 与多模态内容创作 |
 
-`0.1.0-dev.20261017.3` is distributed through the Full AIGC plugin marketplace as a development prerelease. Node.js 24 is required. Git installations use `ui/bootstrap.mjs` to download and verify the pinned editor archive on first start; complete release ZIPs also include that archive unpacked for offline startup. No Rust build or npm installation is required. Startup diagnostics use stderr; stdio remains MCP-only. The editor shares its session with Agent commands. Full creative quality and all-host embedded UI acceptance are still incomplete. Existing dated validation below describes its original version.
+![DesignCraft Use——页面排版与出版](assets/official-logo.png)
 
+> 把宣传册、目录、简报、海报与长文档排成可编辑的 `.designcraft` 工程，经过印前检查后再导出 PDF、IDML、EPUB 或图片。
 
-## Previous development candidate
+[![版本](https://img.shields.io/badge/release-0.1.0--dev.20261018.4-1A73E8)](.codex-plugin/plugin.json)
+[![技能数](https://img.shields.io/badge/skills-16-00A67E)](#技能)
+[![MCP server](https://img.shields.io/badge/MCP%20server-1-00A67E)](#mcp-工具)
+[![许可证](https://img.shields.io/badge/license-Apache--2.0-green)](LICENSE)
 
-`0.1.0-dev.20261017.1` is distributed through the Full AIGC plugin marketplace as a development prerelease. Node.js 24 is required. Git installations use `ui/bootstrap.mjs` to download and verify the pinned editor archive on first start; complete release ZIPs also include that archive unpacked for offline startup. No Rust build or npm installation is required. Startup diagnostics use stderr; stdio remains MCP-only. The editor shares its session with Agent commands. Full creative quality and all-host embedded UI acceptance are still incomplete. Existing dated validation below describes its original version.
+[English](README.md) | [简体中文](README.zh-CN.md) · [安装](#安装) · [快速开始](#快速开始) · [可完成的工作](#可完成的工作) · [技能](#技能) · [故障排查](#故障排查)
 
+## 项目定位
 
-# designcraft 插件本地开发项目
+DesignCraft Use 把内容与素材排成可编辑的版式工程，而不是压平的示意图。它规划页面、通过一个小型命令目录驱动固定的原生排版 CLI，让文字框、图像框与链接素材保持可寻址，并且只有在工程保存、在新会话中重新打开并逐页审阅之后，才把交付视为完成。
 
-包含独立 `designcraft-skills` 的六项自包含技能快照及逐文件摘要。来源未发布；宿主发现与九项真实只读模型路由在内置 Codex CLI 0.162.0-alpha.2 / gpt-6-astra / macOS arm64 通过；原生执行、完整领域流程与创作验收仍开放。
+它仍是开发候选：静态包校验与 CI 通过，而 `support-matrix.json` 与 `project-status.json` 中的原生安装、目标平台验收、当前宿主发现与创作验收都仍是 `NOT_RUN`。
 
-校验：`python3 -I -B scripts/validate_package.py`；测试：`python3 -I -B -m unittest discover -s tests`。
+| 16 个技能 | 1 个编辑器服务 | 4 种导出格式 | macOS arm64 |
+|:---:|:---:|:---:|:---:|
+| 6 个原子技能 + 10 个本地技能 | `designcraft-editor` | PDF、IDML、EPUB、图片 | 唯一已验证平台 |
 
-运行 `python3 -I -B scripts/record_offline_evidence.py` 会执行离线测试和包校验，生成绑定 runId、环境、插件/来源/运行时摘要以及输入/报告摘要的 `evidence-manifest.json`。运行 `python3 -I -B scripts/evidence_freshness.py evidence-manifest.json` 检查证据是否仍绑定当前文件，并核对层状态与 `project-status.json`、`support-matrix.json`；身份变化会将相关记录报告为 `STALE`。原生、CI、宿主、平台、模型、创作和发行层分别记录实际状态，不用宿主只读通过代替原生或创作验收。
+## 状态与版本
 
-详见[架构](docs/architecture.zh-CN.md)、[支持矩阵](docs/support-matrix.zh-CN.md)、[快照维护](docs/snapshot-maintenance.zh-CN.md)及 project-status.json。[OpenSpec 优化规范与任务](openspec/changes/harden-designcraft-plugin-delivery/proposal.md)已建立并通过严格校验，Harness 与候选校验已实施；宿主发现与只读路由通过；原生、创作与发行验收待完成。开发候选源码已推送至[公开 GitHub 仓库](https://github.com/full-aigc-plugins/designcraft-plugin)的 `main` 分支；尚无版本标签、GitHub Release 或插件市场发行。
+`0.1.0-dev.20261018.4` · 开发预览 · `docs/verification/release-candidate.json` → `releaseStatus: BLOCKED`、`installableDevelopmentCandidate: true`。
 
-## 场景技能开发候选
+## 安装
 
-已增加 6 个领域场景技能及 1 个内嵌编辑器入口。详见 [场景目录](docs/scene-skills.md)。本地未发布候选，不代表全部场景的创作质量已验收。
+### 前置条件
 
-## 内嵌编辑器候选
+- 原生执行需要 macOS arm64，且 `PATH` 上有 Python 3.11 或更新版本。
+- 需要内嵌编辑器 MCP 服务时，需要 Node.js 24 或更新版本。
+- 市场安装是自包含的。Git 检出没有 `ui/dist/`，需先用 `node build.mjs` 与 `python3 build-source.py` 构建（要求 Rust `wasm32` target 与匹配的 `wasm-bindgen`；构建脚本不会自动安装工具）。
+- 原生 CLI 在首次获得授权的使用时下载到用户数据目录；不需要 `sudo`，不修改 `PATH`。
 
-新增 MCP Apps 与宿主浏览器接入，详见 [配置与构建](docs/editor-integration.md)。`ui/dist/` 为本地生成物；首次分发须带齐生成物。
+### 安装插件
 
-插件展示使用上游官方图标；名称为 **DesignCraft Use**。图标来源与许可证保存在 `assets/official-icon-source.json` 和相邻 LICENSE 文件中。
+```bash
+codex plugin marketplace add full-aigc-plugins/designcraft-plugin
+codex plugin add designcraft@full-aigc-plugins-designcraft
+```
 
-源码增强候选采用 `ui/source.lock.json` 与 `ui/build-source.py`；兼容更新查询本插件自有 GitHub Releases，失败回退内置，原版 Web 不替换增强自动化运行时。当前会话保留；宿主安装验收另行记录。
+`docs/verification/release-candidate.json` 同时记录 `installableDevelopmentCandidate: true` 与 `releaseStatus: BLOCKED`；生产晋级与所有宿主内嵌 UI 验收均不作承诺。
 
-## 排版场景操作手册
+仓库带有 Codex（`.codex-plugin/`）、Claude Code（`.claude-plugin/`）、ZCode（`.zcode-plugin/`）与 Kimi（`kimi.plugin.json`）清单，但本候选的宿主发现仍记录为 `NOT_RUN`。
 
-新增8条带具体方法、参数与结果检查的排版流程，见 [designcraft-scenario-playbooks](skills/designcraft-scenario-playbooks/SKILL.md)。包含原生脚本返回引用、活表格、溢出与PDF交付；技术运行与真实宿主/创作验收分别记录。
+## 快速开始
 
-## main开发候选补充
+```bash
+: "${SKILL_DIR:?请设为已加载 designcraft-use 的 SKILL.md 所在目录}"
+python3 -I -B "$SKILL_DIR/scripts/cli.py" -- commands
+```
 
-新增[main工作流与参数](skills/designcraft-scenario-playbooks/references/main-workflows.md)：SVG导入并交付可编辑PPTX、Flex模块布局、60个新增方法与119处参数变化的索引。来源为固定main实际目录；SVG/PPTX已通过Windows main专项39008681404；Flex仍待执行，不等于稳定版支持或宿主验收通过。
+直接描述你要的成品，例如“用这些图片排一份两页产品宣传册并导出可印刷 PDF”。入口技能会先澄清页数、尺寸、素材、输出位置与可修改范围，再开始规划。
 
-### 候选启动修正
+```mermaid
+flowchart LR
+    A[目标、提纲、素材] --> B[designcraft-use 澄清范围]
+    B --> C[读取真实命令目录]
+    C --> D[在工作副本上生成版式计划]
+    D --> E[保存并重开 .designcraft]
+    E --> F[逐页审阅、导出、记录格式损失]
+```
 
-本候选先完成轻量MCP握手及能力发现，在首次工具或资源调用时校验/获取固定编辑器资源。修复多个编辑器首次下载阻塞宿主握手的问题。Windows通过Git安装时须启用Git长路径支持（`git config --global core.longpaths true`）；完整ZIP不包含历史验收记录，可避免Git检出长路径的问题。运行资源沿用已核验的dev.20261017.2制品，不以入口版本号冒充上游升级。
+仓库自检（不需要原生运行时）：
 
-### Windows 启动兼容修正
+```bash
+python3 -I -B scripts/validate_package.py
+python3 -I -B -m unittest discover -s tests
+```
 
-规范化入口真实路径，能力清单校验统一使用 LF 换行，兼容 Windows Git CRLF 检出。
+## 可完成的工作
 
-### 候选启动修正
+| 工作流 | 内置路径 | 可验证输出 |
+|:---|:---|:---|
+| 多页宣传册 | `designcraft-brochure` → `designcraft-cli-layout` | 重开后核对页数、文字与链接图片的工程 |
+| 版式统一的商品目录 | `designcraft-catalog` | 商品框与字体一致的目录工程 |
+| 简报或多栏刊物 | `designcraft-newsletter` | 重开后核对分栏流向的多栏文档 |
+| 信息层级清晰的海报 | `designcraft-poster-layout` | 大幅面工程与已审阅的导出 |
+| 含目录与页码的长文档 | `designcraft-long-document` | 重开后可核对章节、目录与页码 |
+| 印前检查 | `designcraft-print-preflight` | 交付前记录的字体、图像、出血与导出检查 |
+| 从 CSV 批量生成胸牌 | `designcraft-data-merge-badges` | 逐条预览，以及字段完整的重开工程 |
+| 在内嵌编辑器中修改 | `designcraft-editor` MCP 工具 | 保存后在新会话重开并检查的工程 |
 
-本候选先完成轻量MCP握手及能力发现，在首次工具或资源调用时校验/获取固定编辑器资源。修复多个编辑器首次下载阻塞宿主握手的问题。Windows通过Git安装时须启用Git长路径支持（`git config --global core.longpaths true`）；完整ZIP不包含历史验收记录，可避免Git检出长路径的问题。运行资源沿用已核验的dev.20261017.2制品，不以入口版本号冒充上游升级。
+## 技能
 
-## 数据合并胸牌开发候选
+| 技能 | 作用 |
+|:---|:---|
+| `designcraft-use` | 新建文档与页面设计的默认入口；输入缺失时先澄清 |
+| `designcraft-cli` | 用真实参数查询并执行 designcraft 原生命令 |
+| `designcraft-cli-setup` | 首次安装、摘要校验、版本检查与失败诊断 |
+| `designcraft-cli-document` | 对已有工程执行单个生命周期动作：打开、保存、另存、重开 |
+| `designcraft-cli-layout` | 查询并驱动文字框、图像框与页面布局 |
+| `designcraft-cli-export` | 把工程导出为 PDF、图片、IDML 或 EPUB |
+| `designcraft-brochure` | 从素材诊断到可编辑交付的多页宣传册 |
+| `designcraft-catalog` | 大量商品记录下保持版式统一的目录 |
+| `designcraft-newsletter` | 多栏简报与通讯 |
+| `designcraft-poster-layout` | 活动海报的信息层级与大幅输出 |
+| `designcraft-long-document` | 章节、目录、页码与统一样式 |
+| `designcraft-print-preflight` | 印刷前的字体、图像、出血与导出检查 |
+| `designcraft-data-merge-badges` | CSV 驱动的胸牌与姓名卡，逐条预览 |
+| `designcraft-scenario-playbooks` | 覆盖 8 个排版场景的逐步手册，含真实参数 |
+| `designcraft-editor` | 在宿主中打开真实编辑界面，一次会话内完成全部编辑 |
+| `designcraft-harness` | 跨会话任务状态、UNKNOWN 核对与交付证据 |
 
-新增`designcraft-data-merge-badges`：真实字段模板、逐条预览、长姓名溢出处理、任务字体与缺字预检、完整字段重开检查。原生Windows及真实Codex/IAB的合成胸牌流程已验证；原生Noto与Web LXGW字体不同，其他宿主和商业印刷仍未验收。
+## MCP 工具
+
+`mcp.json` 只声明一个 stdio server：`designcraft-editor`，从插件根目录以 `node ui/bootstrap.mjs` 启动。它在宿主中打开内置引擎并代理编辑器工具集。
+
+| 工具 | 用途 |
+|:---|:---|
+| `open_editor` | 为绝对路径 `workspace` 打开编辑器 |
+| `open_browser_editor` | 返回可交给宿主内置浏览器的 `editorUrl` |
+| `editor_status` | 报告页面是否已连接到当前 MCP 会话 |
+| `open_document` | 打开已有工程文件 |
+| `new_document` | 新建文档 |
+| `inspect_document` | 读取文档与框结构 |
+| `get_story` | 读取文字内容流 |
+| `execute` | 执行编辑器命令 |
+| `save_document` | 保存原生工程 |
+| `render_page` | 渲染页面用于视觉检查 |
+
+工具名取自 `designcraft-editor` 技能合同。`_editor_attach`、`_editor_poll` 等页面内部桥接调用属于面板自身，Agent 不应直接调用。
+
+## 配置
+
+| 变量 | 用途 |
+|:---|:---|
+| `CRAFT_WORKSPACE_ROOT` | 工具未注册时，用于 `node ui/dist/adapter.mjs --serve` 的工作区根目录 |
+| `CRAFT_EDITOR_CACHE_DIR` | 已核验编辑器下载的绝对目录（默认 `~/.cache/full-aigc/editors`） |
+| `CRAFT_EDITOR_UPDATE=off` | 固定使用内置编辑器，跳过更新检查 |
+
+元数据请求 5 秒超时，归档下载 45 秒超时。下载失败、缺少摘要、摘要不符、归档异常、工具 schema 变化或缓存损坏都会回退到内置编辑器；`editor_status` 会返回 `source`、`version` 与回退 `reason`。
+
+## 架构与安全
+
+- stdio 承载 Agent 与插件之间的通信；仅监听回环地址（`127.0.0.1`）的 HTTP 桥接承载编辑器页面与同会话编辑通道，不提供远程 MCP 端点。
+- 浏览器桥接使用随机令牌并校验 Host 与 Origin；工作区之外的路径被拒绝。浏览器手动导出写到工作区的 `craft-exports/` 并使用新文件名。
+- 原生 CLI、技能快照、宿主发现、模型路由、原生命令、工程重开与视觉审阅是彼此独立的门禁。退出码为零只证明进程结束。
+- 素材摘要只能发现漂移，不构成沙箱、回滚或权限边界。参见[架构](docs/architecture.md)、[编辑器接入](docs/editor-integration.md)与[场景技能](docs/scene-skills.md)。
+
+## 故障排查
+
+| 现象 | 处理方式 |
+|:---|:---|
+| 缺少 `ui/dist/adapter.mjs` | 先构建编辑器资源，或安装带 `dist/` 的发布包 |
+| 编辑页始终未就绪 | 调用 `editor_status`；先处理页面错误再编辑。仅有文字结果不等于界面已打开 |
+| 首次启动卡住或失败 | 首次运行需要网络或已核验缓存；离线使用时保留固定归档 |
+| Windows 长路径报错 | 执行 `git config --global core.longpaths true`，或改用发布 ZIP |
+| 宿主没有 MCP Apps 或内置浏览器 | 在外部打开返回的 `editorUrl`，并明确这不是宿主内嵌验收 |
+| 保存结果未知 | 先读回执与既有工程；不要重放可能已落盘的写入 |
+
+## 升级
+
+```bash
+codex plugin marketplace upgrade full-aigc-plugins-designcraft
+codex plugin add designcraft@full-aigc-plugins-designcraft
+```
+
+升级插件不会改写 `ui/dist/editor` 或既有锁文件；内置编辑器版本始终作为回退保留。
+
+## 贡献与支持
+
+行为变更从 [OpenSpec](openspec/changes/harden-designcraft-plugin-delivery/proposal.md) 开始。运行上文的包校验与单元测试，保持中英文文档同步，且没有真实交付证据不得勾选任务。问题反馈：<https://github.com/full-aigc-plugins/designcraft-plugin/issues>。
+
+## 许可证
+
+本仓库原创内容采用 [Apache-2.0](LICENSE)。上游图标的来源与许可证记录在 `assets/official-icon-source.json` 及相邻 LICENSE 文件中；内置编辑器保留其自身的上游许可证与 NOTICE。
