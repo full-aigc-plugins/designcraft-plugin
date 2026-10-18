@@ -13,7 +13,7 @@
 
 > 把宣传册、目录、简报、海报与长文档排成可编辑的 `.designcraft` 工程，经过印前检查后再导出 PDF、IDML、EPUB 或图片。
 
-[![版本](https://img.shields.io/badge/release-0.1.0--dev.20261018.4-1A73E8)](.codex-plugin/plugin.json)
+[![版本](https://img.shields.io/badge/release-0.1.0--dev.20261019.1-1A73E8)](.codex-plugin/plugin.json)
 [![技能数](https://img.shields.io/badge/skills-16-00A67E)](#技能)
 [![MCP server](https://img.shields.io/badge/MCP%20server-1-00A67E)](#mcp-工具)
 [![许可证](https://img.shields.io/badge/license-Apache--2.0-green)](LICENSE)
@@ -32,7 +32,7 @@ DesignCraft Use 把内容与素材排成可编辑的版式工程，而不是压�
 
 ## 状态与版本
 
-`0.1.0-dev.20261018.4` · 开发预览 · `docs/verification/release-candidate.json` → `releaseStatus: BLOCKED`、`installableDevelopmentCandidate: true`。
+`0.1.0-dev.20261019.1` · 开发预览 · `docs/verification/release-candidate.json` → `releaseStatus: BLOCKED`、`installableDevelopmentCandidate: true`。
 
 ## 安装
 
