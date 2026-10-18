@@ -157,7 +157,7 @@ Metadata requests time out after 5 seconds and archive downloads after 45 second
 | Editor page never becomes ready | Call `editor_status`; fix page errors before editing. A text result alone does not mean the UI opened |
 | First launch hangs or fails | The first run needs network or a verified cache; keep the pinned archive available for offline use |
 | Long paths fail on Windows | `git config --global core.longpaths true`, or use the release ZIP |
-| Host has no MCP Apps or browser panel | Open the returned `editorUrl` externally and record that this is not embedded-UI acceptance |
+| Host has no MCP Apps or browser panel | Open the returned `editorUrl` in the host's built-in browser (Codex built-in browser, DSH right Sidebar Browser, Kimi browser panel); only when the host has none, open it externally and record that this is not embedded-UI acceptance |
 | Saved result is unknown | Read the receipt and the existing project first; never replay a write that may have landed |
 
 ## Upgrade

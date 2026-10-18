@@ -8,7 +8,7 @@
 
     - id: mcp-designcraft-designcraft-editor
       name: '@deepseek-ai/dsh-mcp-client'
-      disabled: !!js "!process.env.DSH_MCP_DESIGNCRAFT"
+      disabled: !!js "process.env.DSH_MCP_DESIGNCRAFT === '0'"
       config:
         serverName: "designcraft-editor"
         toolCallTimeoutMs: 60000

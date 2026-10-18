@@ -157,7 +157,7 @@ python3 -I -B -m unittest discover -s tests
 | 编辑页始终未就绪 | 调用 `editor_status`；先处理页面错误再编辑。仅有文字结果不等于界面已打开 |
 | 首次启动卡住或失败 | 首次运行需要网络或已核验缓存；离线使用时保留固定归档 |
 | Windows 长路径报错 | 执行 `git config --global core.longpaths true`，或改用发布 ZIP |
-| 宿主没有 MCP Apps 或内置浏览器 | 在外部打开返回的 `editorUrl`，并明确这不是宿主内嵌验收 |
+| 宿主没有 MCP Apps 或内置浏览器 | 在宿主内置浏览器打开返回的 `editorUrl`（Codex 内置浏览器、DSH 右侧 Sidebar Browser、Kimi 浏览器面板）；只有宿主确实没有内置浏览器时才在外部打开，并明确这不是宿主内嵌验收 |
 | 保存结果未知 | 先读回执与既有工程；不要重放可能已落盘的写入 |
 
 ## 升级
