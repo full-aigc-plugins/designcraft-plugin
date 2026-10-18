@@ -47,3 +47,9 @@ designcraft-cli script delivery.json --in review.designcraft
 四页阅读顺序和尺寸符合确认的计划；两SKU图片及文字逐项匹配；十二个故事完整、无溢出、段落样式实际应用；源图不变，打包Links内容保持；可编辑工程重开和PDF页序独立核对通过。逐页查看实际照片裁切、文字层级、断行和留白；合成色块只能证明技术链，不证明商业设计质量。
 
 借鉴GitHub工作流事实，来源固定提交和哈希见[workflow-sources.json](workflow-sources.json)。命名框与字段匹配的经验改为Craft返回ID绑定；未移植InDesign JSX，也没有声称实现CSV模板合并。此宣传册与单页商品目录场景在页序、内容计划与阅读路径上分别执行。
+
+## 已有宣传册的局部返工
+
+在同一宿主会话用open_document打开既有工程，inspect_document回读页面、故事和框ID，再用get_story读取目标全文；不能复用样例中的ID。对于已经确认可以整段替换的独立标题，查询list_commands后调用 `execute {"command":"story.setText","params":{"story":实际故事ID,"text":"已确认的新标题"}}`。该方法会替换整个故事；包含多段正文、局部混排或连接框时，先确认替换范围，不能套用整段替换。
+
+原生Codex中已验证四页样例封面标题由Field kit改为Field kit / revised，原页面同步显示，save_document另存后由独立CLI重开。十二个故事只改目标标题，其余正文及框绑定不变，无溢出，两张嵌入图片字节保持；工程内容只有目标故事文本、字符范围长度与修订号三处变化，PDF四页标题顺序及两张图核对通过。这只证明该样例的封面返工，不代表商业排版、所有字体或其他宿主验收。
