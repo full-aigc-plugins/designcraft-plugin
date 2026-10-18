@@ -1,0 +1,172 @@
+{
+  "runtime": "official designcraft-cli0.8.0 macOS universal",
+  "scope": "actual native describe/commands; Web schema must be discovered separately",
+  "observedCommands": {
+    "file.new": {
+      "enabled": true,
+      "id": "file.new",
+      "label": "Document…",
+      "menu": [
+        "File",
+        "New"
+      ],
+      "params": "{preset?: \"Letter\"|\"A4\"|…, width?, height?, pages?, facingPages?, columns?, gutter?, margins?: number|{top,bottom,inside,outside}, bleed?, title?}",
+      "shortcut": "Cmd+N"
+    },
+    "file.saveAs": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "file.saveAs",
+      "label": "Save As…",
+      "menu": [
+        "File"
+      ],
+      "params": "{path}",
+      "shortcut": "Cmd+Shift+S"
+    },
+    "file.exportPdf": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "file.exportPdf",
+      "label": "Export PDF…",
+      "menu": [
+        "File"
+      ],
+      "params": "{path?, pages?: \"1-3,5\" | [1,3] (1-based positions; default all), flatten?: high|medium|low|ppi (Transparency Flattener: spreads with transparency are rasterised), spreads?: bool, fullScreen?: bool, bookmarksPanel?: bool, pageLayout?: single|continuous|twoUp|twoUpCover|twoUpContinuous, view?: fitPage|fitWidth|actual, advanceSeconds?: number (interactive PDF), bleed?: bool (document bleed), marks?: bool | {crop?, bleed?, pageInfo?, weight?, offset?}, standard?: \"none\"|\"x4\"|\"a2b\", compressImages?: bool, tagged?: bool (structure tree: stories as paragraphs, figures with alt text), media?: bool (interactive: embed placed video and sound), title?, author?} → {path, bytes, pages, warnings} (no path: {base64, …})",
+      "shortcut": null
+    },
+    "frame.create": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "frame.create",
+      "label": "Create Frame",
+      "menu": [],
+      "params": "{spread?: index | {kind: doc|parent, index} (a parent spread: index into `parents` of document.inspect), rect: [x0,y0,x1,y1] (spread coords), shape?: rectangle|ellipse|polygon, content?: graphic|text|unassigned, sides?: 6, text?: string, caret?: bool, vertical?: bool (text: a new vertical story)}",
+      "shortcut": null
+    },
+    "text.select": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "text.select",
+      "label": "Select Text",
+      "menu": [],
+      "params": "{story, anchor, focus} (UTF-8 byte offsets into the story text, as find.find reports them: á or — counts 2 or 3)",
+      "shortcut": null
+    },
+    "story.get": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "story.get",
+      "label": "Get Story",
+      "menu": [],
+      "params": "{story? | frame?} → text, frames, paragraphs, vertical, overset",
+      "shortcut": null
+    },
+    "type.char": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "type.char",
+      "label": "Character Formatting",
+      "menu": [],
+      "params": "{attrs: {fontFamily?, fontStyle?, size?, leading?: {kind:auto}|{kind:points,value}, tracking?, kerning?, hScale?, vScale?, baselineShift?, fill?, capitalization?, underline?, …}}",
+      "shortcut": null
+    },
+    "document.inspect": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "document.inspect",
+      "label": "Inspect Document",
+      "menu": [],
+      "params": "{} → pages, spreads, items, stories (with overset), styles, swatches, selection",
+      "shortcut": null
+    },
+    "data.source.select": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "data.source.select",
+      "label": "Select Data Source…",
+      "menu": [],
+      "params": "{path | bytes|base64, name, delimiter?: comma|tab|semicolon, sheet?} → {fields, records, warnings}",
+      "shortcut": null
+    },
+    "data.placeholder.add": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "data.placeholder.add",
+      "label": "Insert Field",
+      "menu": [],
+      "params": "{field, role?: text|image|qr|hyperlink, story?, at?, end?, item?} → {id}",
+      "shortcut": null
+    },
+    "data.preview": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "data.preview",
+      "label": "Preview Record",
+      "menu": [],
+      "params": "{record?: n} → fill the template with that record (session only)",
+      "shortcut": null
+    },
+    "data.preview.stop": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "data.preview.stop",
+      "label": "Stop Preview",
+      "menu": [],
+      "params": "{} → restore the unfilled template",
+      "shortcut": null
+    },
+    "data.merge": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "data.merge",
+      "label": "Create Merged Document…",
+      "menu": [],
+      "params": "{csv? | rows? | path? | bytes?, name?, records?, one?, range?, perPage?, arrange?, insets?, columnSpacing?, rowSpacing?, fitting?, center?, linkImages?, limit?} → {records, pages, missingImages, oversetStories, warnings}",
+      "shortcut": null
+    },
+    "preflight.run": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "preflight.run",
+      "label": "Preflight Document",
+      "menu": [
+        "Window",
+        "Output",
+        "Preflight"
+      ],
+      "params": "{minPpi?: 150} → issues [{severity, kind, message, item?, page?}]",
+      "shortcut": null
+    },
+    "file.open": {
+      "enabled": true,
+      "id": "file.open",
+      "label": "Open…",
+      "menu": [
+        "File"
+      ],
+      "params": "{path} — .designcraft or .idml; the fonts in a `Document Fonts` folder beside it load first → {index, documentFonts: faces loaded, warnings: font files skipped (and, for .idml, package parts missing)}",
+      "shortcut": "Cmd+O"
+    },
+    "font.list": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "font.list",
+      "label": "Fonts in Document",
+      "menu": [],
+      "params": "{} → [{family, style, characters, missing, styleMissing, source: bundled|installed|document|added (null when missing)}] (missing first)",
+      "shortcut": null
+    },
+    "font.replace": {
+      "disabled_reason": "no document open",
+      "enabled": false,
+      "id": "font.replace",
+      "label": "Find/Replace Font…",
+      "menu": [
+        "Type"
+      ],
+      "params": "{family, style?, toFamily, toStyle?, redefineStyles?: true} — replaces the font in text and (by default) in paragraph and character styles",
+      "shortcut": null
+    }
+  }
+}

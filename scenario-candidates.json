@@ -33,6 +33,10 @@
     {
       "name": "designcraft-scenario-playbooks",
       "sha256": "91150e81c83e90771c2b88bb39c073cfbf7b1b4222afdcb09cb9390732671574"
+    },
+    {
+      "name": "designcraft-data-merge-badges",
+      "sha256": "99bc34a725382cc80442348ac90e7bfc63e3726cddbf84fcf836e2df35f92b59"
     }
   ]
 }

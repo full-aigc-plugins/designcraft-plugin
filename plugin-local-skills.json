@@ -54,6 +54,12 @@
       "path": "skills/designcraft-scenario-playbooks",
       "owner": "designcraft-plugin",
       "kind": "plugin-local"
+    },
+    {
+      "name": "designcraft-data-merge-badges",
+      "path": "skills/designcraft-data-merge-badges",
+      "owner": "designcraft-plugin",
+      "kind": "plugin-local"
     }
   ]
 }

@@ -1,0 +1,315 @@
+{
+  "schema": "craft-scenario-playbooks/v1",
+  "application": "designcraft",
+  "id": "data-merge-badges",
+  "steps": [
+    {
+      "command": "file.new",
+      "params": {
+        "width": 255.1181102362205,
+        "height": 153.0708661417323,
+        "pages": 1,
+        "facingPages": false,
+        "margins": 12,
+        "bleed": 0,
+        "title": "Editable badge template"
+      },
+      "purpose": "仅新建90×54毫米胸牌模板，原生单位为点"
+    },
+    {
+      "command": "data.source.select",
+      "params": {
+        "name": "badges.csv",
+        "base64": "TmFtZSxSb2xlDQpHdWVzdCBBLFNwZWFrZXINCiJHdWVzdCwgQiIsVmlzaXRvcg0K6K6/5a6i5LiZLOa8lOiusuiAhQ0K",
+        "delimiter": "comma"
+      },
+      "purpose": "选择实际UTF-8数据源，不用data.fields冒充",
+      "capture": "source"
+    },
+    {
+      "command": "frame.create",
+      "params": {
+        "spread": 0,
+        "rect": [
+          18,
+          16,
+          237,
+          36
+        ],
+        "content": "text",
+        "text": "CRAFT LAB / OPEN DAY"
+      },
+      "purpose": "创建独立可编辑文本框",
+      "capture": "header"
+    },
+    {
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "header.story"
+        },
+        "anchor": 0,
+        "focus": 20
+      },
+      "purpose": "选择完整UTF-8字节范围"
+    },
+    {
+      "command": "type.char",
+      "params": {
+        "attrs": {
+          "fontFamily": "Noto Sans CJK SC",
+          "size": 9
+        }
+      },
+      "purpose": "设置实际可编辑文字样式"
+    },
+    {
+      "command": "frame.create",
+      "params": {
+        "spread": 0,
+        "rect": [
+          18,
+          44,
+          237,
+          90
+        ],
+        "content": "text",
+        "text": ""
+      },
+      "purpose": "创建独立可编辑文本框",
+      "capture": "name"
+    },
+    {
+      "command": "data.placeholder.add",
+      "params": {
+        "field": "Name",
+        "role": "text",
+        "story": {
+          "$ref": "name.story"
+        },
+        "at": 0
+      },
+      "purpose": "在空故事中插入字段，不残留NAME示例字"
+    },
+    {
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "name.story"
+        },
+        "anchor": 0,
+        "focus": 8
+      },
+      "purpose": "选择完整UTF-8字节范围"
+    },
+    {
+      "command": "type.char",
+      "params": {
+        "attrs": {
+          "fontFamily": "Noto Sans CJK SC",
+          "size": 22
+        }
+      },
+      "purpose": "设置实际可编辑文字样式"
+    },
+    {
+      "command": "frame.create",
+      "params": {
+        "spread": 0,
+        "rect": [
+          18,
+          98,
+          237,
+          128
+        ],
+        "content": "text",
+        "text": ""
+      },
+      "purpose": "创建独立可编辑文本框",
+      "capture": "role"
+    },
+    {
+      "command": "data.placeholder.add",
+      "params": {
+        "field": "Role",
+        "role": "text",
+        "story": {
+          "$ref": "role.story"
+        },
+        "at": 0
+      },
+      "purpose": "在空故事中插入字段，不残留NAME示例字"
+    },
+    {
+      "command": "text.select",
+      "params": {
+        "story": {
+          "$ref": "role.story"
+        },
+        "anchor": 0,
+        "focus": 8
+      },
+      "purpose": "选择完整UTF-8字节范围"
+    },
+    {
+      "command": "type.char",
+      "params": {
+        "attrs": {
+          "fontFamily": "Noto Sans CJK SC",
+          "size": 11
+        }
+      },
+      "purpose": "设置实际可编辑文字样式"
+    },
+    {
+      "command": "data.preview",
+      "params": {
+        "record": 1
+      },
+      "purpose": "预览实际第1条；record从1开始"
+    },
+    {
+      "command": "document.inspect",
+      "params": {},
+      "purpose": "检查本条所有故事的溢出",
+      "capture": "preview1"
+    },
+    {
+      "command": "preflight.run",
+      "params": {},
+      "purpose": "检查真实缺字和排版错误",
+      "capture": "check1"
+    },
+    {
+      "command": "story.get",
+      "params": {
+        "story": {
+          "$ref": "name.story"
+        }
+      },
+      "purpose": "核对完整字段，不用preview片段",
+      "capture": "preview1_name"
+    },
+    {
+      "command": "story.get",
+      "params": {
+        "story": {
+          "$ref": "role.story"
+        }
+      },
+      "purpose": "核对完整字段，不用preview片段",
+      "capture": "preview1_role"
+    },
+    {
+      "command": "data.preview",
+      "params": {
+        "record": 2
+      },
+      "purpose": "预览实际第2条；record从1开始"
+    },
+    {
+      "command": "document.inspect",
+      "params": {},
+      "purpose": "检查本条所有故事的溢出",
+      "capture": "preview2"
+    },
+    {
+      "command": "preflight.run",
+      "params": {},
+      "purpose": "检查真实缺字和排版错误",
+      "capture": "check2"
+    },
+    {
+      "command": "story.get",
+      "params": {
+        "story": {
+          "$ref": "name.story"
+        }
+      },
+      "purpose": "核对完整字段，不用preview片段",
+      "capture": "preview2_name"
+    },
+    {
+      "command": "story.get",
+      "params": {
+        "story": {
+          "$ref": "role.story"
+        }
+      },
+      "purpose": "核对完整字段，不用preview片段",
+      "capture": "preview2_role"
+    },
+    {
+      "command": "data.preview",
+      "params": {
+        "record": 3
+      },
+      "purpose": "预览实际第3条；record从1开始"
+    },
+    {
+      "command": "document.inspect",
+      "params": {},
+      "purpose": "检查本条所有故事的溢出",
+      "capture": "preview3"
+    },
+    {
+      "command": "preflight.run",
+      "params": {},
+      "purpose": "检查真实缺字和排版错误",
+      "capture": "check3"
+    },
+    {
+      "command": "story.get",
+      "params": {
+        "story": {
+          "$ref": "name.story"
+        }
+      },
+      "purpose": "核对完整字段，不用preview片段",
+      "capture": "preview3_name"
+    },
+    {
+      "command": "story.get",
+      "params": {
+        "story": {
+          "$ref": "role.story"
+        }
+      },
+      "purpose": "核对完整字段，不用preview片段",
+      "capture": "preview3_role"
+    },
+    {
+      "command": "data.preview.stop",
+      "params": {},
+      "purpose": "退出预览恢复字段模板后再保存"
+    },
+    {
+      "command": "document.inspect",
+      "params": {},
+      "purpose": "确认模板恢复可编辑占位符",
+      "capture": "template"
+    },
+    {
+      "command": "story.get",
+      "params": {
+        "story": {
+          "$ref": "name.story"
+        }
+      },
+      "purpose": "核对退出预览后完整占位符",
+      "capture": "template_name"
+    },
+    {
+      "command": "story.get",
+      "params": {
+        "story": {
+          "$ref": "role.story"
+        }
+      },
+      "purpose": "核对退出预览后完整占位符",
+      "capture": "template_role"
+    }
+  ],
+  "check": "逐条完整文字、记录/页数、溢出、模板恢复、保存重开与实际PDF/PNG；长姓名先减字号但不低于14，仍溢出则停止。",
+  "boundary": "新图模板；不是Scribus模板导入、多合一拼版或门禁凭证。既有工程须副本操作，不执行本脚本file.new覆盖用户文档。"
+}

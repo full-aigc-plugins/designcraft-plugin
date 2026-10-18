@@ -1,6 +1,6 @@
 # DesignCraft Use
 
-当前开发候选：`0.1.0-dev.20261017.6`。包含重建的四页宣传册与A3海报技能；Codex市场使用完整薄包快照以在安装前读取官方图标。运行资源沿用已核验的dev.20261017.2，不代表引擎升级或全部创作验收通过。
+开发预发布：`0.1.0-dev.20261018.3`。宣传册技能新增两产品数据入口、UTF-8选择范围与字体选择；macOS/Windows原生PDF及隔离Codex中文返工已验证。运行资源保持原固定版本；商业设计质量与所有宿主仍未验收。
 
 ## Installable editor development candidate
 
@@ -51,3 +51,7 @@ Plugin display name: **DesignCraft Use**. Official upstream icon provenance and 
 ### 候选启动修正
 
 本候选先完成轻量MCP握手及能力发现，在首次工具或资源调用时校验/获取固定编辑器资源。修复多个编辑器首次下载阻塞宿主握手的问题。Windows通过Git安装时须启用Git长路径支持（`git config --global core.longpaths true`）；完整ZIP不包含历史验收记录，可避免Git检出长路径的问题。运行资源沿用已核验的dev.20261017.2制品，不以入口版本号冒充上游升级。
+
+## 数据合并胸牌开发候选
+
+新增`designcraft-data-merge-badges`：真实字段模板、逐条预览、长姓名溢出处理、任务字体与缺字预检、完整字段重开检查。原生Windows及真实Codex/IAB的合成胸牌流程已验证；原生Noto与Web LXGW字体不同，其他宿主和商业印刷仍未验收。
