@@ -66,6 +66,8 @@ designcraft-cli script delivery.json --in review.designcraft
 
 可选fontFamily填写已核实的字体族名，适配器会统一更新三类段落样式。未填写时沿用Source Sans 3；该字体在本次原生0.8.0中文PDF中出现缺字，font.list的missing=false也不能证明每个汉字均有字形。
 
-实际验证的方法是把许可允许交付的字体文件放在工程旁Document Fonts目录；先保存带目标字体族的草稿，再由CLI --in或MCP open_document显式重开，让引擎加载文档字体。读取font.list确认目标族来源为document且styleMissing=false，再检查preflight与PDF实际字形后交付。已用锁定的LXGW WenKai字体和OFL声明验证此流程；不要求全局安装字体，也不把任意字体下载地址当作可信来源。已有工程需要换字体时，先核实实际族名再使用font.replace的family/toFamily，保存新副本。
+实际验证的方法是把许可允许交付的字体文件放在工程旁Document Fonts目录；先保存带目标字体族的草稿，再由原生CLI --in显式重开，让引擎加载文档字体。MCP编辑器的字体来源须另查font.list；本次Web验证返回bundled，不据此宣称Web扫描了Document Fonts。读取font.list确认目标族来源为document且styleMissing=false，再检查preflight与PDF实际字形后交付。已用锁定的LXGW WenKai字体和OFL声明验证此流程；不要求全局安装字体，也不把任意字体下载地址当作可信来源。已有工程需要换字体时，先核实实际族名再使用font.replace的family/toFamily，保存新副本。
 
 仅核验文本值、font.list或进程成功都不足以证明中文外观；缺少可交付字体时报告字体问题，不替换成拼音，不把方框PDF算成通过。
+
+安装候选验收补充：已从隔离Codex安装路径调用产品输入脚本及编译器，由原生CLI生成中文四页工程，再用同一MCP会话显式打开，回读目标故事ID并局部返工。中文封面在同页面由校样改为复核，保存后独立CLI核对十二故事与框绑定、无溢出、两张图片字节保持；文档内容仅目标文本与修订号变化。此流程不表示独立CLI会自动同步一个已打开的Web文档。
