@@ -1,178 +1,164 @@
-# DesignCraft Use
+# DesignCraft（页面排版）
 
-## Plugin marketplaces
+> 海报、长文档、刊物与目录，可导出 PDF/IDML/EPUB
 
-This plugin belongs to **AIGC content creation**.
+**版本**：0.1.0-dev.20261019.1 · **许可证**：Apache-2.0 · **技能**：16 个 · **MCP 服务**：1 个
 
-| Category | Marketplace | Purpose |
-| --- | --- | --- |
-| Full-stack development | [Full Stack Plugins](https://github.com/partme-ai/full-stack-plugins) | Architecture and UI design, code understanding, quality checks, code review, workflow governance, and server operations |
-| AIGC content creation | [Full AIGC Plugins](https://github.com/partme-ai/full-aigc-plugins) | Image, video, audio, music, 3D, and multimodal content creation |
+[English](README.en.md) · [安装](#安装) · [快速开始](#快速开始) · [项目结构](#项目结构)
 
-![DesignCraft Use — page layout and publishing](assets/official-logo.png)
+## 项目定位
 
-> Lay out brochures, catalogs, newsletters, posters and long documents as editable `.designcraft` projects, then export PDF, IDML, EPUB or images after a print preflight.
+海报、长文档、多栏刊物、商品目录与印前检查；母版、页码与出血在同一流程处理，可导出 PDF、IDML 或 EPUB。
 
-[![Version](https://img.shields.io/badge/release-0.1.0--dev.20261019.1-1A73E8)](.codex-plugin/plugin.json)
-[![Skills](https://img.shields.io/badge/skills-16-00A67E)](#skills)
-[![MCP server](https://img.shields.io/badge/MCP%20server-1-00A67E)](#mcp-tools)
-[![License](https://img.shields.io/badge/license-Apache--2.0-green)](LICENSE)
+本插件属于内容创作线，面向需要直接得到可编辑成果、而不是一段脚本或图片的用户。
 
-[English](README.md) | [简体中文](README.zh-CN.md) · [Install](#installation) · [Quick start](#quick-start) · [What you can build](#what-you-can-build) · [Skills](#skills) · [Troubleshooting](#troubleshooting)
+## 一眼看懂
 
-## Positioning
+```text
+素材 / 需求 / 旧稿
+        │
+        ▼
+DesignCraft（页面排版） 技能（检查 → 计划 → 执行 → 回读）
+        │
+        ├── 原生 CLI / MCP 工具
+        └── MCP 编辑器（浏览器内查看与局部调整）
+        │
+        ▼
+可编辑工程 + 导出文件 + 复核结果
+```
 
-DesignCraft Use turns content and assets into an editable page-layout project instead of a flattened mockup. It plans pages, runs the pinned native layout CLI through a small command catalogue, keeps text frames, image frames and linked assets addressable, and only calls a delivery done after the project has been saved, reopened in a new session and reviewed page by page.
+## 能力与边界
 
-It is a development candidate: static package checks and CI pass, while native installation, target-platform acceptance, current host discovery and creative acceptance are all still `NOT_RUN` across `support-matrix.json` and `project-status.json`.
+| 能力 | 说明 | 边界 |
+|---|---|---|
+| 检查 | 读取现有工程与素材状态 | 不修改未授权文件 |
+| 创建 | 按目标生成可编辑结构 | 事实与素材需来自输入 |
+| 编辑 | 局部修改并保留未涉及内容 | 修改后必须重新打开 |
+| 导出 | 输出目标格式并核对 | 导出成功不等于版面正确 |
+| 评审 | 按明确标准检查结果 | 不替代最终人工验收 |
 
-| 16 skills | 1 editor server | 4 export formats | macOS arm64 |
-|:---:|:---:|:---:|:---:|
-| 6 atomic + 10 local | `designcraft-editor` | PDF, IDML, EPUB, images | Only verified platform |
+## 架构与核心流程
 
-## Status and version
+```text
+宿主 / Agent
+   │  调用技能
+   ▼
+skills/designcraft-*  ──►  MCP 编辑器 / 原生 CLI
+                              │
+                              ▼
+                     可编辑工程 + 导出
+                              │
+                              ▼
+                     回读、检查、交付
+```
 
-`0.1.0-dev.20261019.1` · development preview · `docs/verification/release-candidate.json` → `releaseStatus: BLOCKED`, `installableDevelopmentCandidate: true`.
+原则：
 
-## Installation
+1. 先只读检查，再计划，再执行。
+2. 每次写入保留原件或可回退版本。
+3. 导出后重新打开核对。
+4. 不确定的结果标记为待核对，不自动重放。
 
-### Prerequisites
+## 兼容性
 
-- macOS arm64 for native execution, with Python 3.11 or newer on `PATH`.
-- Node.js 24 or newer when you want the embedded editor MCP server.
-- A marketplace install is self-contained. A Git checkout has no `ui/dist/`; build it first with `node build.mjs` and `python3 build-source.py` (Rust `wasm32` target and a matching `wasm-bindgen` are required; the build script installs nothing).
-- The native CLI is downloaded into the user data directory on first authorized use; no `sudo` and no `PATH` changes.
+| 项目 | 状态 |
+|---|---|
+| 宿主 | 支持 MCP Apps 或内置浏览器的宿主 |
+| Node.js | 24+（编辑器） |
+| 平台 | 以实际安装包与发行说明为准 |
 
-### Install the plugin
+## 安装
 
 ```bash
-codex plugin marketplace add full-aigc-plugins/designcraft-plugin
-codex plugin add designcraft@full-aigc-plugins-designcraft
+codex plugin marketplace add partme-ai/full-aigc-plugins
+codex plugin add designcraft@full-aigc-plugins
 ```
 
-`docs/verification/release-candidate.json` records `installableDevelopmentCandidate: true` together with `releaseStatus: BLOCKED`; production promotion and all-host UI acceptance are not claimed.
+安装后重启宿主，先做只读检查。
 
-Manifests for Codex (`.codex-plugin/`), Claude Code (`.claude-plugin/`), ZCode (`.zcode-plugin/`) and Kimi (`kimi.plugin.json`) are present, but host discovery for this candidate is recorded as `NOT_RUN`.
+## 快速开始
 
-## Quick start
+1. 确认目标、输入素材和交付格式。
+2. 先检查现有工程，列出缺失项。
+3. 执行一次有界修改。
+4. 重新打开输出，核对结构与关键内容。
+5. 完成视觉或内容复核后交付。
+
+## 配置
+
+| 变量 | 用途 | 默认 |
+|---|---|---|
+| `CRAFT_WORKSPACE_ROOT` | 编辑器绑定的工作区 | 当前项目 |
+| `CRAFT_EDITOR_UPDATE` | 设为 `off` 跳过增强包下载 | 开启 |
+
+不要在工程或配置中写入密钥、令牌和私有路径。
+
+## 扩展契约
+
+新增技能时应使用 `designcraft-` 前缀，声明触发条件和边界，通过 MCP 或固定 CLI 操作真实工程，修改后重新打开核验。
+
+## 重试、幂等与恢复
+
+- 失败后先检查当前工程状态。
+- 不自动重复已产生副作用的操作。
+- 重试使用新输出路径并保留旧回执。
+
+## 数据与状态
+
+- 输入素材只读。
+- 输出工程、导出文件和临时目录分开。
+- 交付前确认文件可打开、内容完整。
+
+## 安全
+
+- 不把未授权素材上传到第三方服务。
+- 敏感内容脱敏后再交付。
+- 发现泄露先轮换凭据，再清理文件。
+
+## 可观测性与运行
+
+记录命令、输出文件、关键结构和复核结果；交付前至少检查一次真实输出。
+
+## 开发与验证
 
 ```bash
-: "${SKILL_DIR:?Set to the directory holding the loaded designcraft-use SKILL.md}"
-python3 -I -B "$SKILL_DIR/scripts/cli.py" -- commands
+node --test
+python3 -m pytest
 ```
 
-Ask for the work you actually want, for example *“Lay out a two-page product brochure from these images and export a print-ready PDF”*. The entry skill clarifies pages, size, assets, output path and revision scope before it plans anything.
+## 打包与发布
 
-```mermaid
-flowchart LR
-    A[Goal, outline, assets] --> B[designcraft-use clarifies scope]
-    B --> C[Read the real command catalogue]
-    C --> D[Native layout plan on a working copy]
-    D --> E[Save and reopen .designcraft]
-    E --> F[Page-by-page review, export, format-loss notes]
+版本与清单、市场、tag 一致；ZIP 根目录为 `designcraft-plugin`。
+
+## 升级与迁移
+
+升级前备份工程；旧版本文件保持可打开；迁移后重新检查结构和导出。
+
+## 故障排查
+
+| 现象 | 检查 |
+|---|---|
+| 打不开工程 | 文件完整性、版本兼容 |
+| 编辑器空白 | Node.js 版本与工作区权限 |
+| 导出异常 | 字体、素材、输出路径 |
+| 结果不一致 | 重新打开并核对 |
+
+## 项目结构
+
+```text
+designcraft-plugin/
+├── .zcode-plugin/      # ZCode 清单与 UI surface
+├── skills/             # 16 个技能
+├── ui/                 # MCP Apps 编辑器
+├── commands/open.md    # 打开编辑器命令
+├── docs/               # 架构与验证记录
+└── assets/             # 图标与模板
 ```
 
-Repository self-checks (no native runtime needed):
+## 贡献与支持
 
-```bash
-python3 -I -B scripts/validate_package.py
-python3 -I -B -m unittest discover -s tests
-```
+提交问题时附上插件版本、宿主、输入类型、命令、输出文件和预期结果。不要附敏感素材。
 
-## What you can build
+## 许可证
 
-| Workflow | Built-in path | Verifiable output |
-|:---|:---|:---|
-| Multi-page brochure | `designcraft-brochure` → `designcraft-cli-layout` | Reopened project whose page count, text and linked images are checked |
-| Catalog with uniform product layout | `designcraft-catalog` | Reopened catalog with consistent product frames and typography |
-| Newsletter or multi-column publication | `designcraft-newsletter` | Reopened multi-column document with verified column flow |
-| Poster with a clear information hierarchy | `designcraft-poster-layout` | Large-format project and reviewed export |
-| Long document with TOC and page numbers | `designcraft-long-document` | Reopened document with sections, TOC and page numbering |
-| Print preflight | `designcraft-print-preflight` | Fonts, images, bleed and export checks recorded before delivery |
-| Badges from CSV records | `designcraft-data-merge-badges` | Per-record previews and a reopened project with complete fields |
-| Edit in the embedded editor | `designcraft-editor` MCP tools | Saved project reopened and inspected in a new session |
-
-## Skills
-
-| Skill | What it does |
-|:---|:---|
-| `designcraft-use` | Default entry for new documents and page design; clarifies missing input first |
-| `designcraft-cli` | Query and run native designcraft commands with real parameters |
-| `designcraft-cli-setup` | First install, digest verification, version checks and failure triage |
-| `designcraft-cli-document` | One lifecycle action on an existing project: open, save, save-as, reopen |
-| `designcraft-cli-layout` | Query and drive text frames, image frames and page layout |
-| `designcraft-cli-export` | Export a project to PDF, images, IDML or EPUB |
-| `designcraft-brochure` | Multi-page product brochure from asset review to editable delivery |
-| `designcraft-catalog` | Product catalog with uniform layout across many records |
-| `designcraft-newsletter` | Multi-column newsletters and briefings |
-| `designcraft-poster-layout` | Event poster hierarchy and large-format output |
-| `designcraft-long-document` | Chapters, table of contents, page numbers and shared styles |
-| `designcraft-print-preflight` | Font, image, bleed and export checks before print |
-| `designcraft-data-merge-badges` | CSV-driven badges and name cards with per-record previews |
-| `designcraft-scenario-playbooks` | Step-by-step playbooks with real parameters for eight layout scenarios |
-| `designcraft-editor` | Open the real editor UI in the host and keep one session for all edits |
-| `designcraft-harness` | Cross-session task state, UNKNOWN reconciliation and delivery evidence |
-
-## MCP tools
-
-`mcp.json` declares one stdio server, `designcraft-editor`, started as `node ui/bootstrap.mjs` from the plugin root. It opens the bundled engine in the host and proxies the editor tool set.
-
-| Tool | Purpose |
-|:---|:---|
-| `open_editor` | Open the editor for an absolute `workspace` path |
-| `open_browser_editor` | Return an `editorUrl` for a host built-in browser |
-| `editor_status` | Report whether the page has attached to this MCP session |
-| `open_document` | Open an existing project file |
-| `new_document` | Create a document |
-| `inspect_document` | Read the document and frame structure |
-| `get_story` | Read the text story |
-| `execute` | Run an editor command |
-| `save_document` | Save the native project |
-| `render_page` | Render a page for visual inspection |
-
-Names come from the `designcraft-editor` skill contract. Page-internal bridge calls such as `_editor_attach` and `_editor_poll` are for the panel itself and must not be called by an agent.
-
-## Configuration
-
-| Variable | Purpose |
-|:---|:---|
-| `CRAFT_WORKSPACE_ROOT` | Workspace root for `node ui/dist/adapter.mjs --serve` when tools are not registered |
-| `CRAFT_EDITOR_CACHE_DIR` | Absolute directory for verified editor downloads (default `~/.cache/full-aigc/editors`) |
-| `CRAFT_EDITOR_UPDATE=off` | Stay on the bundled editor and skip the update check |
-
-Metadata requests time out after 5 seconds and archive downloads after 45 seconds. A failed download, missing digest, digest mismatch, malformed archive, changed tool schema or corrupt cache falls back to the bundled editor; `editor_status` reports `source`, `version` and the fallback `reason`.
-
-## Architecture and security
-
-- stdio carries agent-to-plugin traffic; a loopback-only HTTP bridge (`127.0.0.1`) carries the editor page and the same-session edit channel. There is no remote MCP endpoint.
-- The browser bridge uses a random token plus Host and Origin checks; paths outside the workspace are refused. Manual browser exports land in `craft-exports/` under the workspace with new file names.
-- The native CLI, the skill snapshot, host discovery, model routing, native commands, project reopen and visual review are separate gates. A zero exit code proves only that a process finished.
-- Asset digests detect drift only; they are not a sandbox, a rollback or a permission boundary. Read [architecture](docs/architecture.md), [editor integration](docs/editor-integration.md) and [scene skills](docs/scene-skills.md).
-
-## Troubleshooting
-
-| Symptom | Action |
-|:---|:---|
-| `ui/dist/adapter.mjs` missing | Build the editor resources, or install the release bundle that ships `dist/` |
-| Editor page never becomes ready | Call `editor_status`; fix page errors before editing. A text result alone does not mean the UI opened |
-| First launch hangs or fails | The first run needs network or a verified cache; keep the pinned archive available for offline use |
-| Long paths fail on Windows | `git config --global core.longpaths true`, or use the release ZIP |
-| Host has no MCP Apps or browser panel | Open the returned `editorUrl` in the host's built-in browser (Codex built-in browser, DSH right Sidebar Browser, Kimi browser panel); only when the host has none, open it externally and record that this is not embedded-UI acceptance |
-| Saved result is unknown | Read the receipt and the existing project first; never replay a write that may have landed |
-
-## Upgrade
-
-```bash
-codex plugin marketplace upgrade full-aigc-plugins-designcraft
-codex plugin add designcraft@full-aigc-plugins-designcraft
-```
-
-Updating the plugin does not rewrite `ui/dist/editor` or the existing lock files; the bundled editor version is always kept as a fallback.
-
-## Contributing and support
-
-Behaviour changes start in [OpenSpec](openspec/changes/harden-designcraft-plugin-delivery/proposal.md). Run the package and unit checks above, keep the English and Chinese documents in step, and do not check a task off without real delivery evidence. Issues: <https://github.com/full-aigc-plugins/designcraft-plugin/issues>.
-
-## License
-
-Original repository content is [Apache-2.0](LICENSE). Upstream icon provenance and licenses are recorded in `assets/official-icon-source.json` and the adjacent LICENSE files; the bundled editor keeps its own upstream license and NOTICE.
+Apache-2.0，见 [LICENSE](LICENSE)。
