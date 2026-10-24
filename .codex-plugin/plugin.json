@@ -1,14 +1,15 @@
 {
   "name": "designcraft",
   "version": "0.1.0-dev.20261019.1",
-  "description": "页面排版与出版；本地候选，完整首用与宿主验收未完成。",
+  "description": "Posters, long documents, newsletters, catalogs and print preflight. Masters, page numbers and bleed are handled in one flow, exporting PDF, IDML or EPUB.",
   "skills": "./skills/",
   "mcpServers": "./.codex-plugin/mcp.json",
   "interface": {
-    "displayName": "DesignCraft Use",
+    "displayName": "DesignCraft · Page Layout",
     "logo": "./assets/official-logo.png",
     "logoDark": "./assets/official-logo.png",
     "composerIcon": "./assets/official-logo.png",
-    "composerIconDark": "./assets/official-logo.png"
+    "composerIconDark": "./assets/official-logo.png",
+    "shortDescription": "Posters, long documents, newsletters and catalogs; export PDF/IDML/EPUB"
   }
 }
