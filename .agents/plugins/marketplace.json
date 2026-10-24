@@ -1,7 +1,7 @@
 {
   "name": "full-aigc-plugins-designcraft",
   "interface": {
-    "displayName": "DesignCraft · Page Layout"
+    "displayName": "DesignCraft（页面排版）"
   },
   "plugins": [
     {
@@ -17,10 +17,10 @@
       },
       "category": "Creativity",
       "version": "0.1.0-dev.20261019.1",
-      "description": "Posters, long documents, newsletters, catalogs and print preflight. Masters, page numbers and bleed are handled in one flow, exporting PDF, IDML or EPUB.",
+      "description": "海报、长文档、多栏刊物、商品目录与印前检查；母版、页码与出血在同一流程处理，可导出 PDF、IDML 或 EPUB。",
       "interface": {
-        "displayName": "DesignCraft · Page Layout",
-        "shortDescription": "Posters, long documents, newsletters and catalogs; export PDF/IDML/EPUB",
+        "displayName": "DesignCraft（页面排版）",
+        "shortDescription": "海报、长文档、刊物与目录，可导出 PDF/IDML/EPUB",
         "logo": "https://cdn.jsdelivr.net/gh/full-aigc-plugins/designcraft-plugin@v0.1.0-dev.20261018.4/assets/official-logo.png"
       },
       "icon": "https://cdn.jsdelivr.net/gh/full-aigc-plugins/designcraft-plugin@v0.1.0-dev.20261019.1/assets/official-logo.png",

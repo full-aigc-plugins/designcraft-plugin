@@ -1,7 +1,7 @@
 {
   "name": "designcraft",
   "version": "0.1.0-dev.20261019.1",
-  "description": "Posters, long documents, newsletters, catalogs and print preflight. Masters, page numbers and bleed are handled in one flow, exporting PDF, IDML or EPUB.",
+  "description": "海报、长文档、多栏刊物、商品目录与印前检查；母版、页码与出血在同一流程处理，可导出 PDF、IDML 或 EPUB。",
   "license": "Apache-2.0",
   "skills": "./skills/",
   "author": {

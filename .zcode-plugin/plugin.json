@@ -1,10 +1,10 @@
 {
   "name": "designcraft",
   "version": "0.1.0-dev.20261019.1",
-  "description": "Posters, long documents, newsletters, catalogs and print preflight. Masters, page numbers and bleed are handled in one flow, exporting PDF, IDML or EPUB.",
+  "description": "海报、长文档、多栏刊物、商品目录与印前检查；母版、页码与出血在同一流程处理，可导出 PDF、IDML 或 EPUB。",
   "license": "Apache-2.0",
   "skills": "./skills/",
-  "displayName": "DesignCraft · Page Layout",
+  "displayName": "DesignCraft（页面排版）",
   "icon": "./assets/official-logo.png",
   "mcpServers": {
     "designcraft-editor": {
@@ -21,15 +21,15 @@
     }
   },
   "displayName_i18n": {
-    "en": "DesignCraft · Page Layout"
+    "zh-CN": "DesignCraft（页面排版）"
   },
   "ui": {
     "surfaces": [
       {
         "id": "editor",
         "title": {
-          "en-US": "DesignCraft · Page Layout",
-          "zh-CN": "DesignCraft · 页面排版"
+          "en-US": "DesignCraft (Page Layout)",
+          "zh-CN": "DesignCraft（页面排版）"
         },
         "icon": "layout",
         "server": "designcraft-editor",
