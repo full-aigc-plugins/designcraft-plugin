@@ -23,7 +23,11 @@
         "shortDescription": "Posters, long documents, newsletters and catalogs; export PDF/IDML/EPUB",
         "logo": "https://cdn.jsdelivr.net/gh/full-aigc-plugins/designcraft-plugin@v0.1.0-dev.20261018.4/assets/official-logo.png"
       },
-      "icon": "https://cdn.jsdelivr.net/gh/full-aigc-plugins/designcraft-plugin@v0.1.0-dev.20261019.1/assets/official-logo.png"
+      "icon": "https://cdn.jsdelivr.net/gh/full-aigc-plugins/designcraft-plugin@v0.1.0-dev.20261019.1/assets/official-logo.png",
+      "line": "full-aigc",
+      "componentTypes": [
+        "ui"
+      ]
     }
   ]
 }
