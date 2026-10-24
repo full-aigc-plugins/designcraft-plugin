@@ -31,7 +31,7 @@
           "en-US": "DesignCraft · Page Layout",
           "zh-CN": "DesignCraft · 页面排版"
         },
-        "icon": "layout-template",
+        "icon": "layout",
         "server": "designcraft-editor",
         "resourceUri": "ui://designcraft/panel.html",
         "availability": "session"
