@@ -1,7 +1,7 @@
 {
   "name": "full-aigc-plugins-designcraft",
   "interface": {
-    "displayName": "DesignCraft Use"
+    "displayName": "DesignCraft · Page Layout"
   },
   "plugins": [
     {
@@ -17,10 +17,10 @@
       },
       "category": "Creativity",
       "version": "0.1.0-dev.20261019.1",
-      "description": "页面排版与出版；本地候选，完整首用与宿主验收未完成。",
+      "description": "Posters, long documents, newsletters, catalogs and print preflight. Masters, page numbers and bleed are handled in one flow, exporting PDF, IDML or EPUB.",
       "interface": {
-        "displayName": "DesignCraft Use",
-        "shortDescription": "Page layout and publishing",
+        "displayName": "DesignCraft · Page Layout",
+        "shortDescription": "Posters, long documents, newsletters and catalogs; export PDF/IDML/EPUB",
         "logo": "https://cdn.jsdelivr.net/gh/full-aigc-plugins/designcraft-plugin@v0.1.0-dev.20261018.4/assets/official-logo.png"
       },
       "icon": "https://cdn.jsdelivr.net/gh/full-aigc-plugins/designcraft-plugin@v0.1.0-dev.20261019.1/assets/official-logo.png"

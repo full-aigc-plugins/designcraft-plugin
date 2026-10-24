@@ -1,7 +1,7 @@
 {
   "name": "designcraft",
   "version": "0.1.0-dev.20261019.1",
-  "description": "页面排版与出版；本地候选，完整首用与宿主验收未完成。",
+  "description": "Posters, long documents, newsletters, catalogs and print preflight. Masters, page numbers and bleed are handled in one flow, exporting PDF, IDML or EPUB.",
   "license": "Apache-2.0",
   "skills": "./skills/",
   "author": {
