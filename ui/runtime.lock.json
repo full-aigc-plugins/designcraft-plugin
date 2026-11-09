@@ -1,6 +1,6 @@
 {
   "name": "designcraft",
-  "version": "0.1.0-dev.20261109.2",
+  "version": "0.1.0-dev.20261109.3",
   "url": "https://github.com/full-aigc-plugins/designcraft-plugin/releases/download/v0.1.0-dev.20261019.1/designcraft-runtime.tgz",
   "sha256": "f034644493d04f79ef9a253f245aa6d3ea0294153cc00055e3989f12d9100a39",
   "files": {
