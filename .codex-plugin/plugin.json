@@ -1,11 +1,11 @@
 {
   "name": "designcraft",
-  "version": "0.1.0-dev.20261109.4",
+  "version": "0.1.0-dev.20261109.5",
   "description": "海报、长文档、刊物和画册一次排好：母版、页码与出血统一处理，导出 PDF、IDML 或 EPUB。",
   "skills": "./skills/",
   "mcpServers": "./.codex-plugin/mcp.json",
   "interface": {
-    "displayName": "DesignCraft",
+    "displayName": "DesignCraft（页面排版）",
     "logo": "./assets/official-logo.png",
     "logoDark": "./assets/official-logo.png",
     "composerIcon": "./assets/official-logo.png",
