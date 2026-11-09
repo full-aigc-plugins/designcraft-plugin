@@ -1,10 +1,10 @@
 {
   "name": "designcraft",
-  "version": "0.1.0-dev.20261109.4",
+  "version": "0.1.0-dev.20261109.5",
   "description": "海报、长文档、刊物和画册一次排好：母版、页码与出血统一处理，导出 PDF、IDML 或 EPUB。",
   "license": "Apache-2.0",
   "skills": "./skills/",
-  "displayName": "DesignCraft",
+  "displayName": "DesignCraft（页面排版）",
   "icon": "./assets/official-logo.png",
   "mcpServers": {
     "designcraft-editor": {
@@ -22,7 +22,7 @@
   },
   "displayName_i18n": {
     "en": "DesignCraft",
-    "zh-CN": "DesignCraft"
+    "zh-CN": "DesignCraft（页面排版）"
   },
   "ui": {
     "surfaces": [
@@ -30,7 +30,7 @@
         "id": "editor",
         "title": {
           "en-US": "DesignCraft",
-          "zh-CN": "DesignCraft"
+          "zh-CN": "DesignCraft（页面排版）"
         },
         "icon": "layout",
         "server": "designcraft-editor",

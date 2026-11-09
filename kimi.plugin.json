@@ -1,6 +1,6 @@
 {
   "name": "designcraft",
-  "version": "0.1.0-dev.20261109.4",
+  "version": "0.1.0-dev.20261109.5",
   "description": "海报、长文档、刊物和画册一次排好：母版、页码与出血统一处理，导出 PDF、IDML 或 EPUB。",
   "author": {
     "name": "Full AIGC Plugins"
@@ -14,7 +14,7 @@
     "development-release"
   ],
   "interface": {
-    "displayName": "DesignCraft",
+    "displayName": "DesignCraft（页面排版）",
     "shortDescription": "海报、长文档、刊物和画册一次排好：母版、页码与出血统一处理，导出 PDF、IDML 或 EPUB。",
     "longDescription": "designcraft 页面排版与出版：包含来自 designcraft-skills 的六项自包含技能快照及逐文件摘要；宿主发现与只读模型路由已验证，原生执行、完整领域流程与创作验收仍开放。",
     "developerName": "Full AIGC Plugins",
