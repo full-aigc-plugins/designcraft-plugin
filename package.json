@@ -1,13 +1,14 @@
 {
-  "name": "designcraft-plugin",
-  "version": "0.1.0-dev.20261109.5",
+  "name": "designcraft",
+  "version": "0.1.0-dev.20261111.1",
   "private": true,
   "type": "module",
   "main": "./dsh/lib/index.js",
   "dsh": {
     "bundle": {
-      "patch": "./cordis.patch.yml"
+      "patch": "./dsh/cordis.patch.yml"
     }
   },
-  "icon": "./dsh/icon.png"
+  "icon": "./dsh/icon.png",
+  "description": "页面排版与出版；本地候选，完整首用与宿主验收未完成。"
 }
