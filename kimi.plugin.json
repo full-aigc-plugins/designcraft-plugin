@@ -1,6 +1,6 @@
 {
   "name": "designcraft",
-  "version": "0.1.0-dev.20261109.5",
+  "version": "0.1.0-dev.20261111.1",
   "description": "海报、长文档、刊物和画册一次排好：母版、页码与出血统一处理，导出 PDF、IDML 或 EPUB。",
   "author": {
     "name": "Full AIGC Plugins"
